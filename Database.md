@@ -5,10 +5,10 @@ permalink: /database/
 comments: true
 ---
 
-<table style="width: 100%;">
+<table style="width: 200%;">
   <thead>
     <tr>
-      <th style="text-align:center; width:25%;">작성일</th>
+      <th style="text-align:center; width:50%;">작성일</th>
       <th style="text-align:center;">제목</th>
     </tr>
   </thead>
