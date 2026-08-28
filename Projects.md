@@ -2,7 +2,6 @@
 title: "Projects"
 layout: single
 permalink: /projects/
-comments: true
 ---
 
 <table style="width: 100%;">
