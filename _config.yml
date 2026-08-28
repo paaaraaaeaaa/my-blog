@@ -34,3 +34,6 @@ defaults:
     values:
       layout: "single"
       author_profile: true
+
+# 게시글 주소(URL) 규칙 변경 (날짜 폴더 숨기기)
+permalink: /:categories/:title/
