@@ -2,8 +2,7 @@ layout: single
 ---
 layout: single
 title: "어제 배운 Git 정리"
-categories:
-    -Cloud
+categories: Cloud
 date: 2026-08-28
 comments: true
 ---
