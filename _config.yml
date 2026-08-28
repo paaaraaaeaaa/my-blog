@@ -1,6 +1,5 @@
 title: paraea 님의 학습 노트
 remote_theme: "mmistakes/minimal-mistakes"
-url: "https://paaaraaaeaaa.github.io"
 url: "[https://paaaraaaeaaa.github.io](https://paaaraaaeaaa.github.io)"
 baseurl: "/my-blog"
 plugins:
@@ -20,6 +19,8 @@ author:
       url: "https://github.com/paaaraaaeaaa"
 
 # 💬 댓글 기능 켜기 (GitHub 계정 연동)
+repository: "paaaraaaeaaa/my-blog"
+
 comments:
   provider: "utterances"
   utterances:
