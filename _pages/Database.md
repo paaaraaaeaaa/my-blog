@@ -1,6 +1,6 @@
 ---
 title: "Database"
 layout: category
-permalink: /database/
+permalink: /my-blog/database/
 taxonomy: Database
 ---

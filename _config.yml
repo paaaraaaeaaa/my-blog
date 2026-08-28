@@ -24,7 +24,7 @@ repository: "paaaraaaeaaa/my-blog"
 comments:
   provider: "utterances"
   utterances:
-    theme: "github-light"
+    theme: "github-dark"
     issue_term: "pathname"
 
 defaults:
