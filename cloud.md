@@ -1,6 +1,6 @@
 ---
 title: "Cloud"
 layout: category
-permalink: /my-blog/cloud/
+permalink: /cloud/
 taxonomy: Cloud
 ---

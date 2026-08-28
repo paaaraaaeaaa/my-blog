@@ -1,6 +1,6 @@
 ---
 title: "Projects"
 layout: category
-permalink: /my-blog/projects/
+permalink: /projects/
 taxonomy: Projects
 ---
