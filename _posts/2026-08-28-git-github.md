@@ -1,4 +1,3 @@
-layout: single
 ---
 layout: single
 title: "어제 배운 Git 정리"
