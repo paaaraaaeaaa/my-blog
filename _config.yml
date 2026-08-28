@@ -15,7 +15,7 @@ author:
   avatar: "/assets/images/profile.png"
   links:
     - label: "GitHub"
-      icon: "fab fa-fw fa-github"a
+      icon: "fab fa-fw fa-github"
       url: "https://github.com/paaaraaaeaaa"
 
 # 💬 댓글 기능 켜기 (GitHub 계정 연동)
