@@ -1,6 +1,9 @@
 ---
 title: "Projects"
-layout: category
+layout: archive
 permalink: /projects/
-taxonomy: Projects
 ---
+
+{% for post in site.categories.Projects %}
+  {% include archive-single.html %}
+{% endfor %}

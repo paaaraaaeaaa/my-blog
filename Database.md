@@ -1,6 +1,9 @@
 ---
 title: "Database"
-layout: category
+layout: archive
 permalink: /database/
-taxonomy: Database
 ---
+
+{% for post in site.categories.Database %}
+  {% include archive-single.html %}
+{% endfor %}

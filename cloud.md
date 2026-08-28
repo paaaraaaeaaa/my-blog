@@ -1,6 +1,9 @@
 ---
 title: "Cloud"
-layout: category
+layout: archive
 permalink: /cloud/
-taxonomy: Cloud
 ---
+
+{% for post in site.categories.Cloud %}
+  {% include archive-single.html %}
+{% endfor %}
