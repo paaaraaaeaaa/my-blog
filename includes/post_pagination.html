@@ -1,0 +1,45 @@
+{% assign locale = include.locale | default: site.locale %}
+
+{% comment %}
+  같은 카테고리 안에서만 이전글/다음글을 찾습니다.
+  (전체 사이트 기준이 아니라 Cloud면 Cloud끼리, Database면 Database끼리 이동)
+{% endcomment %}
+{% assign nav_posts = site.categories[page.categories[0]] | sort: 'date' %}
+{% assign nav_total = nav_posts.size %}
+{% for post in nav_posts %}
+  {% if post.url == page.url %}
+    {% assign nav_index = forloop.index0 %}
+  {% endif %}
+{% endfor %}
+{% if nav_index > 0 %}
+  {% assign nav_previous = nav_posts[nav_index | minus: 1] %}
+{% endif %}
+{% assign nav_next_index = nav_index | plus: 1 %}
+{% if nav_next_index < nav_total %}
+  {% assign nav_next = nav_posts[nav_next_index] %}
+{% endif %}
+
+{% if nav_previous or nav_next %}
+  <nav class="pagination" aria-label="Post pagination">
+    {% if nav_previous %}
+      <a href="{{ nav_previous.url | relative_url }}" class="pagination--pager" title="{{ nav_previous.title | markdownify | strip_html | strip }}">← {{ nav_previous.title }}</a>
+    {% else %}
+      <a href="#" class="pagination--pager disabled">← 이전 글</a>
+    {% endif %}
+    {% if nav_next %}
+      <a href="{{ nav_next.url | relative_url }}" class="pagination--pager" title="{{ nav_next.title | markdownify | strip_html | strip }}">{{ nav_next.title }} →</a>
+    {% else %}
+      <a href="#" class="pagination--pager disabled">다음 글 →</a>
+    {% endif %}
+  </nav>
+{% endif %}
+
+{% if page.categories %}
+  {% assign cat_slug = page.categories[0] | downcase %}
+  {% assign cat_url = "/" | append: cat_slug | append: "/" | relative_url %}
+  {% assign home_url = "/" | relative_url %}
+  <nav class="pagination" aria-label="Back navigation" style="margin-top: 0.5em;">
+    <a href="{{ cat_url }}" class="pagination--pager">📂 {{ page.categories[0] }} 목록으로</a>
+    <a href="{{ home_url }}" class="pagination--pager">🏠 메인으로</a>
+  </nav>
+{% endif %}
