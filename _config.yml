@@ -23,3 +23,10 @@ comments:
   utterances:
     theme: "github-light"
     issue_term: "pathname"
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      author_profile: true
