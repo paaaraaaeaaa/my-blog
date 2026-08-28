@@ -1,0 +1,9 @@
+main:
+  - title: "Home"
+    url: /
+  - title: "Database"
+    url: /categories/database/
+  - title: "Cloud"
+    url: /categories/cloud/
+  - title: "Projects"
+    url: /categories/projects/
