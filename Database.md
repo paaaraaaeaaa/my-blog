@@ -2,6 +2,7 @@
 title: "Database"
 layout: single
 permalink: /database/
+comments: true
 ---
 
 <table style="width: 100%;">

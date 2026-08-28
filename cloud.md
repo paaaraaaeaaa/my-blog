@@ -2,6 +2,7 @@
 title: "Cloud"
 layout: single
 permalink: /cloud/
+comments: true
 ---
 
 <table style="width: 100%;">
