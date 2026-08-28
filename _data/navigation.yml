@@ -4,6 +4,6 @@ main:
   - title: "Database"
     url: "#"
   - title: "Cloud"
-    url: "#"
+    url: /my-blog/cloud/
   - title: "Projects"
     url: "#"

@@ -3,6 +3,8 @@ title: "어제 배운 Git 정리"
 categories: Cloud
 date: 2026-08-28
 comments: true
+toc: true
+toc_sticky: true
 ---
 
 ## 오늘 배운 것
