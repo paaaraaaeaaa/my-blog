@@ -1,9 +1,9 @@
 main:
   - title: "Home"
-    url: /my-blog/
+    url: /
   - title: "Database"
-    url: /my-blog/database/
+    url: /database/
   - title: "Cloud"
-    url: /my-blog/cloud/
+    url: /cloud/
   - title: "Projects"
-    url: /my-blog/projects/
+    url: /projects/

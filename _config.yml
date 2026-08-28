@@ -20,7 +20,7 @@ author:
 
 # 💬 댓글 기능 켜기 (GitHub 계정 연동)
 repository: "paaaraaaeaaa/my-blog"
-
+breadcrumbs: true
 comments:
   provider: "utterances"
   utterances:
