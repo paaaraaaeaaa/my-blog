@@ -41,8 +41,10 @@ permalink: /cloud/
 }
 </style>
 
+{% assign empty_array = "" | split: "," %}
 <div class="post-list">
-  {% assign cat_posts = site.categories.Cloud | sort: 'date' | reverse %}
+  {% assign cat_posts = site.categories.Cloud | default: empty_array %}
+  {% assign cat_posts = cat_posts | sort: 'date' | reverse %}
   {% for post in cat_posts %}
   <a class="post-list__card" href="{{ post.url | relative_url }}">
     <div class="post-list__date">{{ post.date | date: "%Y-%m-%d" }}</div>

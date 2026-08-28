@@ -4,7 +4,9 @@
   같은 카테고리 안에서만 이전글/다음글을 찾습니다.
   (전체 사이트 기준이 아니라 Cloud면 Cloud끼리, Database면 Database끼리 이동)
 {% endcomment %}
-{% assign nav_posts = site.categories[page.categories[0]] | sort: 'date' %}
+{% assign empty_array = "" | split: "," %}
+{% assign nav_posts = site.categories[page.categories[0]] | default: empty_array %}
+{% assign nav_posts = nav_posts | sort: 'date' %}
 {% assign nav_total = nav_posts.size %}
 {% for post in nav_posts %}
   {% if post.url == page.url %}
