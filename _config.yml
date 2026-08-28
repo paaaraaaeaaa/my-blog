@@ -1,5 +1,10 @@
 title: paraea 님의 학습 노트
 remote_theme: "mmistakes/minimal-mistakes"
+url: "https://paaaraaaeaaa.github.io"
+baseurl: "/my-blog"
+
+title: paraea 님의 학습 노트
+remote_theme: "mmistakes/minimal-mistakes"
 baseurl: "/my-blog"
 plugins:
   - jekyll-include-cache

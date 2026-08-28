@@ -1,3 +1,9 @@
+---
+layout: single
+title: "마크다운 테스트"
+categories: Cloud
+---
+
 # 마크다운 문법
 
 ## 제목은 # 개수로 단계를 만들 수 있다.
