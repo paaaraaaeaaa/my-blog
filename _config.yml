@@ -6,7 +6,7 @@ plugins:
   - jekyll-include-cache
 
 # 🎨 테마 스킨 변경 (dark, air, mint 중 택 1)
-minimal_mistakes_skin: "dark"
+minimal_mistakes_skin: "mint"
 
 # 👤 좌측 프로필 설정
 author:
@@ -24,7 +24,7 @@ breadcrumbs: true
 comments:
   provider: "utterances"
   utterances:
-    theme: "github-dark"
+    theme: "github-mint"
     issue_term: "pathname"
 
 defaults:
