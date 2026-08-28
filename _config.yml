@@ -1,6 +1,6 @@
 title: paraea 님의 학습 노트
 remote_theme: "mmistakes/minimal-mistakes"
-url: "[https://paaaraaaeaaa.github.io](https://paaaraaaeaaa.github.io)"
+url: "https://paaaraaaeaaa.github.io"
 baseurl: "/my-blog"
 plugins:
   - jekyll-include-cache
