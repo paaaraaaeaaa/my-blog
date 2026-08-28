@@ -1,6 +1,6 @@
 ---
 title: "Projects"
-layout: archive
+layout: single
 permalink: /projects/
 ---
 
@@ -12,10 +12,10 @@ permalink: /projects/
     </tr>
   </thead>
   <tbody>
-    {% for post in site.categories.Cloud %}
+    {% for post in site.categories.Projects %}
     <tr>
       <td style="text-align:center;">{{ post.date | date: "%Y-%m-%d" }}</td>
-      <td><a href="{{ post.url }}">{{ post.title }}</a></td>
+      <td><a href="{{ post.url | relative_url }}">{{ post.title }}</a></td>
     </tr>
     {% endfor %}
   </tbody>

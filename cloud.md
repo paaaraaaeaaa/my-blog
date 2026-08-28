@@ -15,7 +15,7 @@ permalink: /cloud/
     {% for post in site.categories.Cloud %}
     <tr>
       <td style="text-align:center;">{{ post.date | date: "%Y-%m-%d" }}</td>
-      <td><a href="{{ post.url }}">{{ post.title }}</a></td>
+      <td><a href="{{ post.url | relative_url }}">{{ post.title }}</a></td>
     </tr>
     {% endfor %}
   </tbody>
