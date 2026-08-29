@@ -1,5 +1,5 @@
 <style>
-/* 상단 메뉴바(배너) 고정 - fixed 방식으로 확실하게 */
+/* 상단 메뉴바(배너) 고정 - fixed 방식 + 불투명 배경으로 겹침 방지 */
 .masthead {
   position: fixed !important;
   top: 0 !important;
@@ -7,7 +7,8 @@
   right: 0 !important;
   width: 100% !important;
   z-index: 999 !important;
-  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  background-color: #fff !important;
+  box-shadow: 0 1px 6px rgba(0,0,0,.12);
 }
 
 /* 코드 블록 복사 버튼 (항상 보이게) */

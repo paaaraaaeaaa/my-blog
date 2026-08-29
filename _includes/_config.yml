@@ -15,6 +15,10 @@ future: true
 search: true
 search_full_content: true
 
+# 하단 Feed 링크 숨기기
+atom_feed:
+  hide: true
+
 # 👤 좌측 프로필 설정
 author:
   name: "김예린"
