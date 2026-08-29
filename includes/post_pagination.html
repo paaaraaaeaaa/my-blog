@@ -36,6 +36,12 @@
   </nav>
 {% endif %}
 
+{% if page.toc %}
+  <nav class="pagination" aria-label="Back to top navigation" style="margin-top: 0.5em;">
+    <a href="#page-title" class="pagination--pager">⬆️ 맨 위로 (목차 보기)</a>
+  </nav>
+{% endif %}
+
 {% if page.categories %}
   {% assign cat_slug = page.categories[0] | downcase %}
   {% assign cat_url = "/" | append: cat_slug | append: "/" | relative_url %}
