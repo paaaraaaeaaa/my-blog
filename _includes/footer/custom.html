@@ -32,8 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
     pre.appendChild(btn);
   });
 
-  // 2. 상단바 + 글 경로(breadcrumb) 높이를 합쳐서,
-  //    본문 여백과 프로필/목차 sticky 시작 위치를 자동으로 맞춤
+  // 2. 상단바 + 글 경로(breadcrumb) 높이를 합쳐서 여백/sticky 위치 자동 보정
   function adjustFixedOffsets() {
     var masthead = document.querySelector('.masthead');
     var breadcrumbs = document.querySelector('.breadcrumbs');
@@ -50,5 +49,63 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   adjustFixedOffsets();
   window.addEventListener('resize', adjustFixedOffsets);
+
+  // 3. 색깔 콜아웃 박스 자동 적용 (💡 🔴 🟢 ⚠️ 🚨 로 시작하는 문단/목록)
+  var markers = [
+    { emoji: '💡', cls: 'callout-summary' },
+    { emoji: '🔴', cls: 'callout-error' },
+    { emoji: '🟢', cls: 'callout-solution' },
+    { emoji: '⚠️', cls: 'callout-warning' },
+    { emoji: '🚨', cls: 'callout-warning' }
+  ];
+  document.querySelectorAll('.page__content > p, .page__content li').forEach(function (el) {
+    var text = el.textContent.trim();
+    for (var i = 0; i < markers.length; i++) {
+      if (text.indexOf(markers[i].emoji) === 0) {
+        el.classList.add('callout', markers[i].cls);
+        break;
+      }
+    }
+  });
+
+  // 4. 긴 코드 블록(15줄 초과) 접기/펼치기로 감싸기
+  document.querySelectorAll('.page__content pre').forEach(function (pre) {
+    var lineCount = (pre.textContent.match(/\n/g) || []).length;
+    if (lineCount <= 15) return;
+
+    var target = pre.closest('div.highlighter-rouge, figure.highlight') || pre;
+    if (target.closest('details.code-collapse')) return;
+
+    var details = document.createElement('details');
+    details.className = 'code-collapse';
+    var summary = document.createElement('summary');
+    summary.textContent = '코드 보기/접기 (' + (lineCount + 1) + '줄)';
+
+    target.parentNode.insertBefore(details, target);
+    details.appendChild(summary);
+    details.appendChild(target);
+  });
+
+  // 5. 링크 복사 버튼 (홈 화면 방문자 박스 안)
+  var copyBtn = document.getElementById('copy-link-btn');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', function () {
+      var url = window.location.href;
+      var done = function (ok) {
+        copyBtn.textContent = ok ? '복사됨!' : '실패';
+        setTimeout(function () { copyBtn.textContent = '🔗 이 페이지 링크 복사'; }, 1500);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function () { done(true); }).catch(function () { done(false); });
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = url;
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); done(true); } catch (e) { done(false); }
+        document.body.removeChild(ta);
+      }
+    });
+  }
 });
 </script>

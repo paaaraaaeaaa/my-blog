@@ -28,17 +28,21 @@
   padding-bottom: .5em;
 }
 
-/* 왼쪽 프로필 사이드바 / 오른쪽 목차 sticky 시작 위치를,
-   상단바+경로 높이만큼 아래로 밀어서 안 가리게 함 */
+/* 왼쪽 프로필 / 오른쪽 목차 sticky 시작 위치를 상단바+경로 높이만큼 밀어냄 */
 .sidebar.sticky,
 .sidebar__right.sticky {
   top: calc(var(--fixed-offset) + 1em) !important;
   max-height: calc(100vh - var(--fixed-offset) - 2em) !important;
 }
 
-/* 게시글 본문 글씨 크기 살짝 축소 */
+/* 게시글 본문 가독성: 글씨 살짝 축소 + 줄간격/여백 넉넉하게 */
 .page__content {
   font-size: 0.9em;
+  line-height: 1.85;
+}
+.page__content p,
+.page__content li {
+  margin-bottom: 0.65em;
 }
 
 /* 코드 블록 복사 버튼 (항상 보이게) */
@@ -76,5 +80,73 @@ pre {
 }
 .sidebar__right.sticky::-webkit-scrollbar-track {
   background: rgba(0,0,0,.05);
+}
+
+/* 색깔 콜아웃 박스 (💡 요약 / 🔴 에러 / 🟢 해결 / ⚠️🚨 주의) */
+.callout {
+  padding: .65em 1em;
+  border-radius: 8px;
+  margin: .8em 0;
+}
+.callout-summary {
+  background: rgba(66,133,244,.08);
+  border-left: 4px solid #4285f4;
+}
+.callout-error {
+  background: rgba(234,67,53,.07);
+  border-left: 4px solid #ea4335;
+}
+.callout-solution {
+  background: rgba(52,168,83,.08);
+  border-left: 4px solid #34a853;
+}
+.callout-warning {
+  background: rgba(251,188,4,.12);
+  border-left: 4px solid #f9ab00;
+}
+
+/* 긴 코드 섹션 접기/펼치기 */
+details.code-collapse {
+  margin: 1em 0;
+}
+details.code-collapse > summary {
+  cursor: pointer;
+  padding: .5em .9em;
+  background: rgba(0,0,0,.04);
+  border-radius: 8px;
+  font-size: .85em;
+  color: #555;
+  list-style: none;
+  user-select: none;
+}
+details.code-collapse > summary::-webkit-details-marker {
+  display: none;
+}
+details.code-collapse > summary::before {
+  content: '▶ ';
+}
+details.code-collapse[open] > summary::before {
+  content: '▼ ';
+}
+details.code-collapse[open] > summary {
+  margin-bottom: .5em;
+}
+
+/* 홈 화면 방문자 박스 */
+.visitor-box img {
+  max-width: 100%;
+}
+.copy-link-btn {
+  margin-top: 1em;
+  width: 100%;
+  padding: .6em;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,.15);
+  background: #f7f7f7;
+  cursor: pointer;
+  font-size: .85em;
+}
+.copy-link-btn:hover {
+  background: #eee;
 }
 </style>

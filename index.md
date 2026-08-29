@@ -59,6 +59,16 @@ author_profile: true
 }
 </style>
 
+<aside class="sidebar__right sticky">
+<nav class="toc">
+<header><h4 class="nav__title"><i class="fas fa-chart-line"></i> 방문자 정보</h4></header>
+<div class="toc__menu visitor-box" style="padding: 1em;">
+<img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fpaaaraaaeaaa.github.io%2Fmy-blog%2F&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=visitors&edge_flat=false" alt="방문자 수" />
+<button type="button" id="copy-link-btn" class="copy-link-btn">🔗 이 페이지 링크 복사</button>
+</div>
+</nav>
+</aside>
+
 안녕하세요. 개발을 배우면서 그날그날 정리한 것을 여기에 쌓습니다.
 
 {% assign latest_post = site.posts.first %}
