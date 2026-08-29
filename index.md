@@ -61,29 +61,29 @@ author_profile: true
 
 안녕하세요. 개발을 배우면서 그날그날 정리한 것을 여기에 쌓습니다.
 
-{%- assign latest_post = site.posts.first -%}
-{%- assign start_ts = "2026-08-26" | date: "%s" -%}
+{% assign latest_post = site.posts.first %}
+{% assign start_ts = "2026-08-26" | date: "%s" %}
+{% if latest_post %}
+{% assign latest_ts = latest_post.date | date: "%s" %}
+{% assign day_number = latest_ts | minus: start_ts | divided_by: 86400 | plus: 1 %}
+{% endif %}
 
 - 배운 것: Git, GitHub, 마크다운
-{%- if latest_post -%}
-{%- assign latest_ts = latest_post.date | date: "%s" -%}
-{%- assign day_number = latest_ts | minus: start_ts | divided_by: 86400 | plus: 1 -%}
 - 지금 하는 것: 부트캠프 {{ day_number }}일차
-{%- endif %}
     - 기간: 2026.08.26-2027.02.16
 
 ## {{ page.list_title }}
 
-{%- if latest_post -%}
+{% if latest_post %}
 <div class="post-list">
 <a class="post-list__card" href="{{ latest_post.url | relative_url }}">
 <div class="post-list__date">{{ latest_post.date | date: "%Y-%m-%d" }}</div>
 <div class="post-list__title">{{ latest_post.title }}</div>
 </a>
 </div>
-{%- else -%}
+{% else %}
 <p class="post-list__empty">아직 작성된 글이 없습니다.</p>
-{%- endif -%}
+{% endif %}
 
 ## GitHub 활동
 
