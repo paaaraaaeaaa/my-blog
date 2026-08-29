@@ -18,18 +18,3 @@
   title: "문제 링크"
   url: "https://claude.ai/code/artifact/70fb9b0b-1c2e-4503-97a7-e31dd4c365f9"
   description: "문제 링크를 클릭하면 문제를 확인할 수 있습니다."
-
-- category: "Git & GitHub"
-  title: "Git 기본 명령어 정리 (수업 자료)"
-  url: "https://example.com/git-basics"
-  description: "add, commit, push, branch 등 기본 명령어 요약"
-
-- category: "Git & GitHub"
-  title: "GitHub 협업 워크플로우 슬라이드"
-  file: "/assets/files/github-workflow.pdf"
-  description: "PR, 이슈, 브랜치 전략 (수업 PPT 첨부)"
-
-- category: "SQL"
-  title: "SQL 기초 문법 자료"
-  url: "https://example.com/sql-basics"
-  description: "SELECT, JOIN, GROUP BY 정리"

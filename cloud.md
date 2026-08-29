@@ -111,7 +111,7 @@ permalink: /cloud/
 {% if mod_name %}📦 {{ mod_name }} <span class="module-num">(모듈{{ mod.name }})</span>{% else %}📦 모듈 {{ mod.name }}{% endif %}
 </h3>
 <div class="post-list">
-{% assign mod_posts = mod.items | sort: 'date' | reverse %}
+{% assign mod_posts = mod.items | sort: 'date' %}
 {% for post in mod_posts %}
 <a class="post-list__card" href="{{ post.url | relative_url }}">
 <div class="post-list__date">{{ post.date | date: "%Y-%m-%d" }}</div>
@@ -131,15 +131,24 @@ permalink: /cloud/
 {% if practice_posts.size == 0 %}
 <p class="post-list__empty">아직 작성된 글이 없습니다.</p>
 {% else %}
+{% assign practice_modules = practice_posts | group_by: 'module' | sort: 'name' %}
+{% for mod in practice_modules %}
+<div class="module-section">
+{% assign mod_name = site.data.modules[mod.name] %}
+<h3>
+{% if mod_name %}📦 {{ mod_name }} <span class="module-num">(모듈{{ mod.name }})</span>{% elsif mod.name %}📦 모듈 {{ mod.name }}{% else %}📦 미분류{% endif %}
+</h3>
 <div class="post-list">
-{% assign practice_sorted = practice_posts | sort: 'date' | reverse %}
-{% for post in practice_sorted %}
+{% assign mod_posts = mod.items | sort: 'date' %}
+{% for post in mod_posts %}
 <a class="post-list__card" href="{{ post.url | relative_url }}">
 <div class="post-list__date">{{ post.date | date: "%Y-%m-%d" }}</div>
 <div class="post-list__title">{{ post.title }}</div>
 </a>
 {% endfor %}
 </div>
+</div>
+{% endfor %}
 {% endif %}
 </div>
 </details>
