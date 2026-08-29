@@ -1,0 +1,66 @@
+<style>
+div.highlighter-rouge,
+figure.highlight,
+.highlight {
+  position: relative;
+}
+.code-copy-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  z-index: 5;
+  padding: 3px 10px;
+  font-size: .72rem;
+  line-height: 1.4;
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 6px;
+  background: rgba(255,255,255,.12);
+  color: inherit;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity .15s ease, background .15s ease;
+}
+div.highlighter-rouge:hover .code-copy-btn,
+figure.highlight:hover .code-copy-btn,
+.highlight:hover .code-copy-btn {
+  opacity: 1;
+}
+.code-copy-btn:hover {
+  background: rgba(255,255,255,.25);
+}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var blocks = document.querySelectorAll('div.highlighter-rouge, figure.highlight, .highlight');
+  blocks.forEach(function (block) {
+    if (block.querySelector('.code-copy-btn')) return;
+    var codeEl = block.querySelector('pre.highlight code') || block.querySelector('pre code') || block.querySelector('pre');
+    if (!codeEl) return;
+
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'code-copy-btn';
+    btn.textContent = '복사';
+    btn.addEventListener('click', function () {
+      var text = codeEl.innerText;
+      var done = function (ok) {
+        btn.textContent = ok ? '복사됨!' : '실패';
+        setTimeout(function () { btn.textContent = '복사'; }, 1500);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { done(true); }).catch(function () { done(false); });
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); done(true); } catch (e) { done(false); }
+        document.body.removeChild(ta);
+      }
+    });
+
+    block.style.position = 'relative';
+    block.appendChild(btn);
+  });
+});
+</script>

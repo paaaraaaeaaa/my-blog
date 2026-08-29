@@ -41,17 +41,17 @@ permalink: /projects/
 }
 </style>
 
-{% assign empty_array = "" | split: "," %}
+{%- assign empty_array = "" | split: "," -%}
+{%- assign cat_posts = site.categories.Projects | default: empty_array -%}
+{%- assign cat_posts = cat_posts | sort: 'date' | reverse -%}
 <div class="post-list">
-  {% assign cat_posts = site.categories.Projects | default: empty_array %}
-  {% assign cat_posts = cat_posts | sort: 'date' | reverse %}
-  {% for post in cat_posts %}
-  <a class="post-list__card" href="{{ post.url | relative_url }}">
-    <div class="post-list__date">{{ post.date | date: "%Y-%m-%d" }}</div>
-    <div class="post-list__title">{{ post.title }}</div>
-  </a>
-  {% endfor %}
-  {% if cat_posts.size == 0 %}
-    <p class="post-list__empty">아직 작성된 글이 없습니다.</p>
-  {% endif %}
+{%- for post in cat_posts -%}
+<a class="post-list__card" href="{{ post.url | relative_url }}">
+<div class="post-list__date">{{ post.date | date: "%Y-%m-%d" }}</div>
+<div class="post-list__title">{{ post.title }}</div>
+</a>
+{%- endfor -%}
 </div>
+{%- if cat_posts.size == 0 -%}
+<p class="post-list__empty">아직 작성된 글이 없습니다.</p>
+{%- endif -%}
