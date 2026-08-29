@@ -56,7 +56,7 @@ permalink: /cloud/
 {%- assign modules = cat_posts | group_by: 'module' | sort: 'name' -%}
 {%- for mod in modules -%}
 <div class="module-section">
-<h3>📦 서비스 기획과 바이브 코딩 {{ mod.name }}</h3>
+<h3>📦 서비스 기획과 바이브 코딩 - {{ mod.name }}</h3>
 <div class="post-list">
 {%- assign mod_posts = mod.items | sort: 'date' | reverse -%}
 {%- for post in mod_posts -%}

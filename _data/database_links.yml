@@ -1,11 +1,23 @@
 # _data/database_links.yml
-# 여기에 수업 자료 링크를 추가하면 Database 페이지에 자동으로 카드가 생깁니다.
-# category: 카드를 묶을 그룹 이름 (같은 이름끼리 한 섹션으로 모임)
-# title: 카드에 보일 제목
-# url: 클릭하면 바로 이동할 주소
-# description: (선택) 한 줄 설명, 없으면 지워도 됨
+# Database 페이지에 카드 형식으로 자동 렌더링되는 자료 목록입니다.
+# category별로 섹션이 나뉘고, 그 안에 카드들이 그리드로 배치됩니다.
+# 이 파일에 항목만 추가/수정하면 되고, Database.md는 다시 안 건드려도 됩니다.
 #
-# 아래 3개는 예시입니다. 실제 자료 링크로 바꾸거나 이어서 추가하세요.
+# 각 항목 필드 설명
+# - title       : 카드 제목 (필수)
+# - category    : 섹션 제목으로 쓰일 분류 (예: Git, SQL, Linux, 예시 등)
+# - url         : 외부 링크 주소 (선택) — "🔗 바로가기" 버튼이 새 탭으로 열림
+# - file        : 레포에 직접 올린 첨부파일 경로 (선택) — 예: /assets/files/git-cheatsheet.pdf
+#                 url과 file 둘 다 적으면 버튼이 두 개 다 나옴. 최소 하나는 있어야 함.
+# - description : 카드 안 설명 문구 (선택)
+#
+# 첨부파일(file)을 쓰려면: 레포 루트에 assets/files 폴더를 만들고 그 안에 파일을 올린 뒤
+# file: /assets/files/파일이름.pdf 처럼 경로를 적으면 됩니다.
+
+- category: "문제"
+  title: "문제 링크"
+  url: "https://claude.ai/code/artifact/70fb9b0b-1c2e-4503-97a7-e31dd4c365f9"
+  description: "문제 링크를 클릭하면 문제를 확인할 수 있습니다."
 
 - category: "Git & GitHub"
   title: "Git 기본 명령어 정리 (수업 자료)"
@@ -13,9 +25,9 @@
   description: "add, commit, push, branch 등 기본 명령어 요약"
 
 - category: "Git & GitHub"
-  title: "GitHub 협업 워크플로우"
-  url: "https://example.com/github-workflow"
-  description: "PR, 이슈, 브랜치 전략"
+  title: "GitHub 협업 워크플로우 슬라이드"
+  file: "/assets/files/github-workflow.pdf"
+  description: "PR, 이슈, 브랜치 전략 (수업 PPT 첨부)"
 
 - category: "SQL"
   title: "SQL 기초 문법 자료"

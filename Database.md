@@ -19,12 +19,11 @@ permalink: /database/
   gap: 1rem;
 }
 .db-link-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
   padding: 1rem 1.2rem;
   border: 1px solid rgba(0,0,0,.1);
   border-radius: 12px;
-  text-decoration: none;
-  color: inherit;
   background: #fff;
   transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
 }
@@ -42,13 +41,36 @@ permalink: /database/
 .db-link-desc {
   font-size: .85rem;
   color: #777;
-  margin-bottom: .6rem;
+  margin-bottom: .8rem;
   line-height: 1.5;
+  flex-grow: 1;
 }
-.db-link-arrow {
-  font-size: .8rem;
-  color: #4285f4;
-  font-weight: 500;
+.db-link-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+}
+.db-link-btn {
+  display: inline-block;
+  padding: .3em .8em;
+  border-radius: 6px;
+  font-size: .8em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.db-link-btn.url {
+  background: rgba(66,133,244,.1);
+  color: #1a56d6;
+}
+.db-link-btn.url:hover {
+  background: rgba(66,133,244,.2);
+}
+.db-link-btn.file {
+  background: rgba(52,168,83,.1);
+  color: #1e7e34;
+}
+.db-link-btn.file:hover {
+  background: rgba(52,168,83,.2);
 }
 .db-empty {
   color: #888;
@@ -64,11 +86,14 @@ permalink: /database/
 <h3>📁 {{ group.name }}</h3>
 <div class="db-link-grid">
 {% for item in group.items %}
-<a class="db-link-card" href="{{ item.url }}" target="_blank" rel="noopener noreferrer">
+<div class="db-link-card">
 <div class="db-link-title">{{ item.title }}</div>
 {% if item.description %}<div class="db-link-desc">{{ item.description }}</div>{% endif %}
-<div class="db-link-arrow">바로가기 →</div>
-</a>
+<div class="db-link-actions">
+{% if item.url %}<a class="db-link-btn url" href="{{ item.url }}" target="_blank" rel="noopener noreferrer">🔗 바로가기</a>{% endif %}
+{% if item.file %}<a class="db-link-btn file" href="{{ item.file | relative_url }}" target="_blank" rel="noopener noreferrer">📎 첨부파일</a>{% endif %}
+</div>
+</div>
 {% endfor %}
 </div>
 </div>
