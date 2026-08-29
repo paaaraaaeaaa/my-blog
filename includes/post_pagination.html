@@ -1,24 +1,30 @@
 {% assign locale = include.locale | default: site.locale %}
 
 {% comment %}
-  같은 카테고리 안에서만 이전글/다음글을 찾습니다.
-  (전체 사이트 기준이 아니라 Cloud면 Cloud끼리, Database면 Database끼리 이동)
+  같은 카테고리 안에서 날짜순(오래된 글 -> 최신 글)으로 정렬한 뒤,
+  이전 글 = 더 오래된 글, 다음 글 = 더 최신 글 로 연결합니다.
+  URL 대신 post.id로 비교해서 baseurl/슬래시 차이로 매칭이 어긋나는 것을 방지합니다.
 {% endcomment %}
 {% assign empty_array = "" | split: "," %}
 {% assign nav_posts = site.categories[page.categories[0]] | default: empty_array %}
 {% assign nav_posts = nav_posts | sort: 'date' %}
 {% assign nav_total = nav_posts.size %}
+{% assign nav_index = -1 %}
 {% for post in nav_posts %}
-  {% if post.url == page.url %}
+  {% if post.id == page.id %}
     {% assign nav_index = forloop.index0 %}
+    {% break %}
   {% endif %}
 {% endfor %}
+
 {% if nav_index > 0 %}
   {% assign nav_previous = nav_posts[nav_index | minus: 1] %}
 {% endif %}
-{% assign nav_next_index = nav_index | plus: 1 %}
-{% if nav_next_index < nav_total %}
-  {% assign nav_next = nav_posts[nav_next_index] %}
+{% if nav_index > -1 %}
+  {% assign nav_next_index = nav_index | plus: 1 %}
+  {% if nav_next_index < nav_total %}
+    {% assign nav_next = nav_posts[nav_next_index] %}
+  {% endif %}
 {% endif %}
 
 {% if nav_previous or nav_next %}

@@ -1,7 +1,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+  // 1. 코드 복사 버튼
   document.querySelectorAll('pre').forEach(function (pre) {
-    if (pre.closest('.code-copy-btn')) return;
     if (pre.parentElement && pre.parentElement.querySelector(':scope > .code-copy-btn')) return;
 
     var codeEl = pre.querySelector('code') || pre;
@@ -31,5 +31,15 @@ document.addEventListener('DOMContentLoaded', function () {
     pre.style.position = 'relative';
     pre.appendChild(btn);
   });
+
+  // 2. 상단바를 fixed로 바꾼 만큼, 본문이 가려지지 않도록 여백 자동 보정
+  function adjustMastheadOffset() {
+    var masthead = document.querySelector('.masthead');
+    if (masthead) {
+      document.body.style.paddingTop = masthead.offsetHeight + 'px';
+    }
+  }
+  adjustMastheadOffset();
+  window.addEventListener('resize', adjustMastheadOffset);
 });
 </script>
