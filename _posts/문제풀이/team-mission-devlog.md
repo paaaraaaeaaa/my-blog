@@ -1,11 +1,10 @@
 ---
 title: "Git & GitHub 팀 미션 devlog — 미션 A~E 전부 풀어보기"
-date: 2026-08-29
+date: 2026-08-28
 tags: [git, github, devlog, 부트캠프, 팀미션]
 layout: single
 categories: Cloud
 module : 1
-date: 2026-08-27
 comments: true
 toc: true
 toc_sticky: true
