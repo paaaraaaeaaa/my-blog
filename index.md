@@ -117,12 +117,29 @@ author_profile: true
   font-size: 1.6rem;
   margin-bottom: .3rem;
 }
+.visitor-aside {
+  min-width: 245px;
+}
+.visitor-box {
+  padding: 1.35em !important;
+}
+.visitor-box .visitor-label {
+  font-size: .85em;
+}
+.visitor-box img {
+  transform: scale(1.06);
+  transform-origin: left center;
+}
+.visitor-box .copy-link-btn {
+  padding: .75em;
+  font-size: .92em;
+}
 </style>
 
-<aside class="sidebar__right sticky">
+<aside class="sidebar__right sticky visitor-aside">
 <nav class="toc">
 <header><h4 class="nav__title"><i class="fas fa-chart-line"></i> 방문자 정보</h4></header>
-<div class="toc__menu visitor-box" style="padding: 1em;">
+<div class="toc__menu visitor-box">
 <div class="visitor-row">
 <span class="visitor-label">오늘 방문자</span>
 <img id="visitor-today-badge" alt="오늘 방문자 수" />
@@ -136,7 +153,7 @@ author_profile: true
 </nav>
 </aside>
 
-안녕하세요. 개발을 배우면서 그날그날 정리한 것을 여기에 쌓습니다.
+안녕하세요! 개발을 처음 배우는 부트캠프 학습자입니다. 매일 배운 내용과 겪은 시행착오를 여기에 기록하면서, 몇 달 뒤에 다시 읽었을 때 "그때보다 늘었다"를 확인할 수 있는 블로그로 만들어가고 있습니다.
 
 {% assign start_ts = "2026-08-26" | date: "%s" %}
 {% assign end_ts = "2027-02-16" | date: "%s" %}
@@ -150,6 +167,7 @@ author_profile: true
 - 배운 것: Git, GitHub, 마크다운
 - 지금 하는 것: 부트캠프 {{ day_number }}일차
     - 기간: 2026.08.26-2027.02.16
+- 목표: 하루도 빠짐없이 기록하고, 막혔던 부분은 반드시 다시 정리하기
 
 <div class="progress-wrap">
 <div class="progress-label">전체 진행률: {{ day_number }}일차 / {{ total_days }}일 ({{ percent }}%)</div>
@@ -187,3 +205,5 @@ author_profile: true
 <div class="gh-chart-wrap">
 <img src="https://ghchart.rshah.org/2E8B57/paaaraaaeaaa" alt="GitHub Contribution Chart" loading="lazy" />
 </div>
+
+> 꾸준함이 실력이 된다고 믿습니다. 오늘도 한 줄 더 기록합니다. 🚀

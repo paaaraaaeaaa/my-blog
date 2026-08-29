@@ -5,8 +5,20 @@ permalink: /cloud/
 ---
 
 <style>
-.cloud-top-section {
+.cloud-top-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  align-items: start;
   margin-bottom: 1.5rem;
+}
+@media (max-width: 700px) {
+  .cloud-top-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.cloud-top-section {
+  margin-bottom: 0;
   border: 1px solid rgba(0,0,0,.1);
   border-radius: 14px;
   overflow: hidden;
@@ -97,6 +109,7 @@ permalink: /cloud/
 {% assign daily_posts = cat_posts | where_exp: "post", "post.type != 'practice'" %}
 {% assign practice_posts = cat_posts | where_exp: "post", "post.type == 'practice'" %}
 
+<div class="cloud-top-grid">
 <details class="cloud-top-section" open>
 <summary>📅 일차별 학습노트</summary>
 <div class="cloud-top-body">
@@ -125,7 +138,7 @@ permalink: /cloud/
 </div>
 </details>
 
-<details class="cloud-top-section">
+<details class="cloud-top-section" open>
 <summary>🧩 문제풀이</summary>
 <div class="cloud-top-body">
 {% if practice_posts.size == 0 %}
@@ -152,5 +165,6 @@ permalink: /cloud/
 {% endif %}
 </div>
 </details>
+</div>
 
 {% endif %}
