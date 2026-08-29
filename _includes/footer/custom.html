@@ -99,7 +99,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // 6. 링크 복사 버튼 (홈 화면 방문자 박스 안)
+  // 6. 오늘 방문자 뱃지: 날짜별로 다른 page_id를 써서 그날그날 새로 세도록 함
+  var todayBadge = document.getElementById('visitor-today-badge');
+  if (todayBadge) {
+    var todayStr = new Date().toISOString().slice(0, 10);
+    todayBadge.src = 'https://visitor-badge.laobi.icu/badge?page_id=paaaraaaeaaa.my-blog-daily-' + todayStr + '&left_color=555555&right_color=4285f4';
+  }
+
+  // 7. 링크 복사 버튼 (홈 화면 방문자 박스 안)
   var copyBtn = document.getElementById('copy-link-btn');
   if (copyBtn) {
     copyBtn.addEventListener('click', function () {

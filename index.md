@@ -57,13 +57,80 @@ author_profile: true
 .gh-chart-wrap img {
   max-width: 100%;
 }
+.visitor-row {
+  margin-bottom: .8em;
+}
+.visitor-row:last-of-type {
+  margin-bottom: 0;
+}
+.visitor-label {
+  display: block;
+  font-size: .78em;
+  color: #888;
+  margin-bottom: .3em;
+}
+.progress-wrap {
+  margin: 1rem 0 1.5rem;
+}
+.progress-label {
+  font-size: .88rem;
+  color: #555;
+  margin-bottom: .4rem;
+}
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.08);
+  overflow: hidden;
+}
+.progress-bar__fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #4285f4, #34a853);
+}
+.quicknav-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 1.5rem;
+}
+.quicknav-card {
+  display: block;
+  text-align: center;
+  padding: 1.1rem .8rem;
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+.quicknav-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.08);
+  border-color: rgba(66,133,244,.4);
+}
+.quicknav-card__icon {
+  display: block;
+  font-size: 1.6rem;
+  margin-bottom: .3rem;
+}
 </style>
 
 <aside class="sidebar__right sticky">
 <nav class="toc">
 <header><h4 class="nav__title"><i class="fas fa-chart-line"></i> 방문자 정보</h4></header>
 <div class="toc__menu visitor-box" style="padding: 1em;">
-<img src="https://visitor-badge.laobi.icu/badge?page_id=paaaraaaeaaa.my-blog&left_color=555555&right_color=79C83D" alt="방문자 수" />
+<div class="visitor-row">
+<span class="visitor-label">오늘 방문자</span>
+<img id="visitor-today-badge" alt="오늘 방문자 수" />
+</div>
+<div class="visitor-row">
+<span class="visitor-label">누적 방문자</span>
+<img src="https://visitor-badge.laobi.icu/badge?page_id=paaaraaaeaaa.my-blog&left_color=555555&right_color=79C83D" alt="누적 방문자 수" />
+</div>
 <button type="button" id="copy-link-btn" class="copy-link-btn">🔗 이 페이지 링크 복사</button>
 </div>
 </nav>
@@ -72,12 +139,28 @@ author_profile: true
 안녕하세요. 개발을 배우면서 그날그날 정리한 것을 여기에 쌓습니다.
 
 {% assign start_ts = "2026-08-26" | date: "%s" %}
+{% assign end_ts = "2027-02-16" | date: "%s" %}
 {% assign today_ts = site.time | date: "%s" %}
 {% assign day_number = today_ts | minus: start_ts | divided_by: 86400 | plus: 1 %}
+{% assign total_days = end_ts | minus: start_ts | divided_by: 86400 %}
+{% assign percent = day_number | times: 100 | divided_by: total_days %}
+{% if percent > 100 %}{% assign percent = 100 %}{% endif %}
+{% if percent < 0 %}{% assign percent = 0 %}{% endif %}
 
 - 배운 것: Git, GitHub, 마크다운
 - 지금 하는 것: 부트캠프 {{ day_number }}일차
     - 기간: 2026.08.26-2027.02.16
+
+<div class="progress-wrap">
+<div class="progress-label">전체 진행률: {{ day_number }}일차 / {{ total_days }}일 ({{ percent }}%)</div>
+<div class="progress-bar"><div class="progress-bar__fill" style="width: {{ percent }}%;"></div></div>
+</div>
+
+<div class="quicknav-grid">
+<a class="quicknav-card" href="{{ '/cloud/' | relative_url }}"><span class="quicknav-card__icon">☁️</span>Cloud</a>
+<a class="quicknav-card" href="{{ '/database/' | relative_url }}"><span class="quicknav-card__icon">🗄️</span>Database</a>
+<a class="quicknav-card" href="{{ '/projects/' | relative_url }}"><span class="quicknav-card__icon">🚀</span>Projects</a>
+</div>
 
 ## {{ page.list_title }}
 
