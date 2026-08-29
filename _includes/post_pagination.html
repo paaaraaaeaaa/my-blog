@@ -3,7 +3,6 @@
 {% comment %}
   같은 카테고리 안에서 날짜순(오래된 글 -> 최신 글)으로 정렬한 뒤,
   이전 글 = 더 오래된 글, 다음 글 = 더 최신 글 로 연결합니다.
-  URL 대신 post.id로 비교해서 baseurl/슬래시 차이로 매칭이 어긋나는 것을 방지합니다.
 {% endcomment %}
 {% assign empty_array = "" | split: "," %}
 {% assign nav_posts = site.categories[page.categories[0]] | default: empty_array %}
@@ -39,21 +38,5 @@
     {% else %}
       <a href="#" class="pagination--pager disabled">다음 글 →</a>
     {% endif %}
-  </nav>
-{% endif %}
-
-{% if page.toc %}
-  <nav class="pagination" aria-label="Back to top navigation" style="margin-top: 0.5em;">
-    <a href="#page-title" class="pagination--pager">⬆️ 맨 위로 (목차 보기)</a>
-  </nav>
-{% endif %}
-
-{% if page.categories %}
-  {% assign cat_slug = page.categories[0] | downcase %}
-  {% assign cat_url = "/" | append: cat_slug | append: "/" | relative_url %}
-  {% assign home_url = "/" | relative_url %}
-  <nav class="pagination" aria-label="Back navigation" style="margin-top: 0.5em;">
-    <a href="{{ cat_url }}" class="pagination--pager">📂 {{ page.categories[0] }} 목록으로</a>
-    <a href="{{ home_url }}" class="pagination--pager">🏠 메인으로</a>
   </nav>
 {% endif %}
