@@ -63,7 +63,7 @@ author_profile: true
 <nav class="toc">
 <header><h4 class="nav__title"><i class="fas fa-chart-line"></i> 방문자 정보</h4></header>
 <div class="toc__menu visitor-box" style="padding: 1em;">
-<img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fpaaaraaaeaaa.github.io%2Fmy-blog%2F&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=visitors&edge_flat=false" alt="방문자 수" />
+<img src="https://visitor-badge.laobi.icu/badge?page_id=paaaraaaeaaa.my-blog&left_color=555555&right_color=79C83D" alt="방문자 수" />
 <button type="button" id="copy-link-btn" class="copy-link-btn">🔗 이 페이지 링크 복사</button>
 </div>
 </nav>
@@ -71,12 +71,9 @@ author_profile: true
 
 안녕하세요. 개발을 배우면서 그날그날 정리한 것을 여기에 쌓습니다.
 
-{% assign latest_post = site.posts.first %}
 {% assign start_ts = "2026-08-26" | date: "%s" %}
-{% if latest_post %}
-{% assign latest_ts = latest_post.date | date: "%s" %}
-{% assign day_number = latest_ts | minus: start_ts | divided_by: 86400 | plus: 1 %}
-{% endif %}
+{% assign today_ts = site.time | date: "%s" %}
+{% assign day_number = today_ts | minus: start_ts | divided_by: 86400 | plus: 1 %}
 
 - 배운 것: Git, GitHub, 마크다운
 - 지금 하는 것: 부트캠프 {{ day_number }}일차

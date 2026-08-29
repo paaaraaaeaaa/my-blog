@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('resize', adjustFixedOffsets);
 
   // 3. 색깔 콜아웃 박스 자동 적용 (💡 🔴 🟢 ⚠️ 🚨 로 시작하는 문단/목록)
+  //    목차(sidebar__right) 안의 항목은 제외
   var markers = [
     { emoji: '💡', cls: 'callout-summary' },
     { emoji: '🔴', cls: 'callout-error' },
@@ -59,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
     { emoji: '🚨', cls: 'callout-warning' }
   ];
   document.querySelectorAll('.page__content > p, .page__content li').forEach(function (el) {
+    if (el.closest('.sidebar__right')) return;
     var text = el.textContent.trim();
     for (var i = 0; i < markers.length; i++) {
       if (text.indexOf(markers[i].emoji) === 0) {
@@ -70,6 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // 4. 긴 코드 블록(15줄 초과) 접기/펼치기로 감싸기
   document.querySelectorAll('.page__content pre').forEach(function (pre) {
+    if (pre.closest('.sidebar__right')) return;
     var lineCount = (pre.textContent.match(/\n/g) || []).length;
     if (lineCount <= 15) return;
 
@@ -86,8 +89,9 @@ document.addEventListener('DOMContentLoaded', function () {
     details.appendChild(target);
   });
 
-  // 5. "- **용어**" + 하위 설명 목록 패턴을 개념 카드처럼 구분
+  // 5. "- **용어**" + 하위 설명 목록 패턴을 개념 카드처럼 구분 (목차 제외)
   document.querySelectorAll('.page__content li').forEach(function (li) {
+    if (li.closest('.sidebar__right')) return;
     var strongChild = li.querySelector(':scope > strong');
     var nestedList = li.querySelector(':scope > ul, :scope > ol');
     if (strongChild && nestedList) {
