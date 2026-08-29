@@ -5,12 +5,20 @@ permalink: /cloud/
 ---
 
 <style>
+/* 이 페이지는 오른쪽 목차가 없으니, 목차용으로 비워두던 여백까지 본문 폭으로 다 쓰게 함 */
+.page {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding-right: 0 !important;
+  float: none !important;
+}
 .cloud-top-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.2rem;
   align-items: start;
   margin-bottom: 1.5rem;
+  width: 100%;
 }
 @media (max-width: 700px) {
   .cloud-top-grid {

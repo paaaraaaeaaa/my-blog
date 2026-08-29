@@ -129,3 +129,22 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 </script>
+
+{% if page.date %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // 8. 게시글 조회수 뱃지: 경로(breadcrumb) 줄 오른쪽 끝에 붙임 (게시글에서만, date가 있는 글에만)
+  var bc = document.querySelector('.breadcrumbs');
+  if (bc) {
+    var key = 'paaaraaaeaaa.my-blog-view' + window.location.pathname.replace(/\//g, '-');
+    var badge = document.createElement('span');
+    badge.className = 'page-view-badge';
+    var img = document.createElement('img');
+    img.src = 'https://visitor-badge.laobi.icu/badge?page_id=' + encodeURIComponent(key) + '&left_color=555555&right_color=4285f4&left_text=views';
+    img.alt = '조회수';
+    badge.appendChild(img);
+    bc.appendChild(badge);
+  }
+});
+</script>
+{% endif %}
