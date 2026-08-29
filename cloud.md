@@ -5,10 +5,44 @@ permalink: /cloud/
 ---
 
 <style>
+.cloud-top-section {
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.cloud-top-section > summary {
+  cursor: pointer;
+  padding: .9rem 1.3rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  background: rgba(0,0,0,.03);
+  list-style: none;
+  user-select: none;
+}
+.cloud-top-section > summary::-webkit-details-marker {
+  display: none;
+}
+.cloud-top-section > summary::before {
+  content: '▶ ';
+  color: #888;
+}
+.cloud-top-section[open] > summary::before {
+  content: '▼ ';
+}
+.cloud-top-section > summary:hover {
+  background: rgba(0,0,0,.06);
+}
+.cloud-top-body {
+  padding: .2rem 1.3rem 1rem;
+}
 .module-section {
-  margin: 2rem 0;
+  margin: 1.5rem 0;
+  padding-left: .9rem;
+  border-left: 3px solid rgba(66,133,244,.25);
 }
 .module-section h3 {
+  margin-top: 0;
   border-bottom: 2px solid rgba(0,0,0,.1);
   padding-bottom: .4rem;
 }
@@ -48,24 +82,58 @@ permalink: /cloud/
 }
 </style>
 
-{%- assign empty_array = "" | split: "," -%}
-{%- assign cat_posts = site.categories.Cloud | default: empty_array -%}
-{%- if cat_posts.size == 0 -%}
+{% assign empty_array = "" | split: "," %}
+{% assign cat_posts = site.categories.Cloud | default: empty_array %}
+
+{% if cat_posts.size == 0 %}
 <p class="post-list__empty">아직 작성된 글이 없습니다.</p>
-{%- else -%}
-{%- assign modules = cat_posts | group_by: 'module' | sort: 'name' -%}
-{%- for mod in modules -%}
+{% else %}
+
+{% assign daily_posts = cat_posts | where_exp: "post", "post.type != 'practice'" %}
+{% assign practice_posts = cat_posts | where_exp: "post", "post.type == 'practice'" %}
+
+<details class="cloud-top-section" open>
+<summary>📅 일차별 학습노트</summary>
+<div class="cloud-top-body">
+{% if daily_posts.size == 0 %}
+<p class="post-list__empty">아직 작성된 글이 없습니다.</p>
+{% else %}
+{% assign modules = daily_posts | group_by: 'module' | sort: 'name' %}
+{% for mod in modules %}
 <div class="module-section">
-<h3>📦 서비스 기획과 바이브 코딩 - {{ mod.name }}</h3>
+<h3>📦 모듈 {{ mod.name }}</h3>
 <div class="post-list">
-{%- assign mod_posts = mod.items | sort: 'date' | reverse -%}
-{%- for post in mod_posts -%}
+{% assign mod_posts = mod.items | sort: 'date' | reverse %}
+{% for post in mod_posts %}
 <a class="post-list__card" href="{{ post.url | relative_url }}">
 <div class="post-list__date">{{ post.date | date: "%Y-%m-%d" }}</div>
 <div class="post-list__title">{{ post.title }}</div>
 </a>
-{%- endfor -%}
+{% endfor %}
 </div>
 </div>
-{%- endfor -%}
-{%- endif -%}
+{% endfor %}
+{% endif %}
+</div>
+</details>
+
+<details class="cloud-top-section">
+<summary>🧩 문제풀이</summary>
+<div class="cloud-top-body">
+{% if practice_posts.size == 0 %}
+<p class="post-list__empty">아직 작성된 글이 없습니다.</p>
+{% else %}
+<div class="post-list">
+{% assign practice_sorted = practice_posts | sort: 'date' | reverse %}
+{% for post in practice_sorted %}
+<a class="post-list__card" href="{{ post.url | relative_url }}">
+<div class="post-list__date">{{ post.date | date: "%Y-%m-%d" }}</div>
+<div class="post-list__title">{{ post.title }}</div>
+</a>
+{% endfor %}
+</div>
+{% endif %}
+</div>
+</details>
+
+{% endif %}
