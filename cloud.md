@@ -46,6 +46,11 @@ permalink: /cloud/
   border-bottom: 2px solid rgba(0,0,0,.1);
   padding-bottom: .4rem;
 }
+.module-num {
+  font-size: .7em;
+  font-weight: 500;
+  color: #888;
+}
 .post-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -101,7 +106,10 @@ permalink: /cloud/
 {% assign modules = daily_posts | group_by: 'module' | sort: 'name' %}
 {% for mod in modules %}
 <div class="module-section">
-<h3>📦 모듈 {{ mod.name }}</h3>
+{% assign mod_name = site.data.modules[mod.name] %}
+<h3>
+{% if mod_name %}📦 {{ mod_name }} <span class="module-num">(모듈{{ mod.name }})</span>{% else %}📦 모듈 {{ mod.name }}{% endif %}
+</h3>
 <div class="post-list">
 {% assign mod_posts = mod.items | sort: 'date' | reverse %}
 {% for post in mod_posts %}
