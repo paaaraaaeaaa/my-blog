@@ -206,4 +206,4 @@ author_profile: true
 <img src="https://ghchart.rshah.org/2E8B57/paaaraaaeaaa" alt="GitHub Contribution Chart" loading="lazy" />
 </div>
 
-> 꾸준함이 실력이 된다고 믿습니다. 오늘도 한 줄 더 기록합니다. 🚀
+> 꾸준함이 실력이 된다고 믿습니다.  한 줄 더 기록합니다.
