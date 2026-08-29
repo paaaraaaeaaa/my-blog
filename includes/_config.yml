@@ -11,6 +11,10 @@ minimal_mistakes_skin: "mint"
 # 미래 날짜로 작성해도 바로 게시되도록 허용
 future: true
 
+# 🔍 사이트 전체 검색 기능 (상단 돋보기 아이콘) - 절대 지우지 마세요!
+search: true
+search_full_content: true
+
 # 👤 좌측 프로필 설정
 author:
   name: "김예린"

@@ -1,0 +1,56 @@
+<style>
+/* 상단 메뉴바(배너) 고정 */
+.masthead {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+}
+
+/* 코드 블록 복사 버튼 */
+div.highlighter-rouge,
+figure.highlight,
+.highlight {
+  position: relative;
+}
+.code-copy-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  z-index: 5;
+  padding: 3px 10px;
+  font-size: .72rem;
+  line-height: 1.4;
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 6px;
+  background: rgba(255,255,255,.12);
+  color: inherit;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity .15s ease, background .15s ease;
+}
+div.highlighter-rouge:hover .code-copy-btn,
+figure.highlight:hover .code-copy-btn,
+.highlight:hover .code-copy-btn {
+  opacity: 1;
+}
+.code-copy-btn:hover {
+  background: rgba(255,255,255,.25);
+}
+
+/* 목차(TOC) sticky 박스: 화면 높이에 맞춰 늘리고, 스크롤바를 눈에 보이게 */
+.sidebar__right.sticky {
+  max-height: calc(100vh - 2em) !important;
+  overflow-y: auto !important;
+}
+.sidebar__right.sticky::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar__right.sticky::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,.3);
+  border-radius: 3px;
+}
+.sidebar__right.sticky::-webkit-scrollbar-track {
+  background: transparent;
+}
+</style>
