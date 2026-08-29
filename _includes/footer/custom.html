@@ -86,7 +86,16 @@ document.addEventListener('DOMContentLoaded', function () {
     details.appendChild(target);
   });
 
-  // 5. 링크 복사 버튼 (홈 화면 방문자 박스 안)
+  // 5. "- **용어**" + 하위 설명 목록 패턴을 개념 카드처럼 구분
+  document.querySelectorAll('.page__content li').forEach(function (li) {
+    var strongChild = li.querySelector(':scope > strong');
+    var nestedList = li.querySelector(':scope > ul, :scope > ol');
+    if (strongChild && nestedList) {
+      li.classList.add('concept-term');
+    }
+  });
+
+  // 6. 링크 복사 버튼 (홈 화면 방문자 박스 안)
   var copyBtn = document.getElementById('copy-link-btn');
   if (copyBtn) {
     copyBtn.addEventListener('click', function () {
