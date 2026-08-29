@@ -1,4 +1,8 @@
 <style>
+:root {
+  --fixed-offset: 110px; /* JS가 계산하기 전 기본값 */
+}
+
 /* 상단 메뉴바(배너) 고정 */
 .masthead {
   position: fixed !important;
@@ -22,6 +26,14 @@
   border-bottom: 1px solid rgba(0,0,0,.08);
   padding-top: .5em;
   padding-bottom: .5em;
+}
+
+/* 왼쪽 프로필 사이드바 / 오른쪽 목차 sticky 시작 위치를,
+   상단바+경로 높이만큼 아래로 밀어서 안 가리게 함 */
+.sidebar.sticky,
+.sidebar__right.sticky {
+  top: calc(var(--fixed-offset) + 1em) !important;
+  max-height: calc(100vh - var(--fixed-offset) - 2em) !important;
 }
 
 /* 게시글 본문 글씨 크기 살짝 축소 */
@@ -54,14 +66,7 @@ pre {
   background: rgba(0,0,0,.55);
 }
 
-/* 목차(TOC) sticky 박스: 화면 높이에 맞춰 늘리고, 스크롤바를 눈에 보이게 */
-.sidebar__right.sticky,
-aside.sidebar__right.sticky,
-.page__content aside.sticky {
-  max-height: calc(100vh - 2em) !important;
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
-}
+/* 목차(TOC) 스크롤바를 눈에 보이게 */
 .sidebar__right.sticky::-webkit-scrollbar {
   width: 8px;
 }

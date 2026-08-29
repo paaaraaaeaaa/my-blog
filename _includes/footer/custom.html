@@ -32,7 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
     pre.appendChild(btn);
   });
 
-  // 2. 상단바 + 글 경로(breadcrumb)를 둘 다 고정한 만큼, 본문이 가려지지 않도록 여백 자동 보정
+  // 2. 상단바 + 글 경로(breadcrumb) 높이를 합쳐서,
+  //    본문 여백과 프로필/목차 sticky 시작 위치를 자동으로 맞춤
   function adjustFixedOffsets() {
     var masthead = document.querySelector('.masthead');
     var breadcrumbs = document.querySelector('.breadcrumbs');
@@ -42,8 +43,10 @@ document.addEventListener('DOMContentLoaded', function () {
       breadcrumbs.style.top = mHeight + 'px';
     }
     var bHeight = breadcrumbs ? breadcrumbs.offsetHeight : 0;
+    var totalOffset = mHeight + bHeight;
 
-    document.body.style.paddingTop = (mHeight + bHeight) + 'px';
+    document.body.style.paddingTop = totalOffset + 'px';
+    document.documentElement.style.setProperty('--fixed-offset', totalOffset + 'px');
   }
   adjustFixedOffsets();
   window.addEventListener('resize', adjustFixedOffsets);
