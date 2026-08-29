@@ -9,11 +9,11 @@ document.addEventListener('DOMContentLoaded', function () {
     var btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'code-copy-btn';
-    btn.textContent = 'copy';
+    btn.textContent = '복사';
     btn.addEventListener('click', function () {
       var text = codeEl.innerText;
       var done = function (ok) {
-        btn.textContent = ok ? 'copyed' : 'failed';
+        btn.textContent = ok ? '복사됨!' : '실패';
         setTimeout(function () { btn.textContent = '복사'; }, 1500);
       };
       if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -32,14 +32,20 @@ document.addEventListener('DOMContentLoaded', function () {
     pre.appendChild(btn);
   });
 
-  // 2. 상단바를 fixed로 바꾼 만큼, 본문이 가려지지 않도록 여백 자동 보정
-  function adjustMastheadOffset() {
+  // 2. 상단바 + 글 경로(breadcrumb)를 둘 다 고정한 만큼, 본문이 가려지지 않도록 여백 자동 보정
+  function adjustFixedOffsets() {
     var masthead = document.querySelector('.masthead');
-    if (masthead) {
-      document.body.style.paddingTop = masthead.offsetHeight + 'px';
+    var breadcrumbs = document.querySelector('.breadcrumbs');
+    var mHeight = masthead ? masthead.offsetHeight : 0;
+
+    if (breadcrumbs) {
+      breadcrumbs.style.top = mHeight + 'px';
     }
+    var bHeight = breadcrumbs ? breadcrumbs.offsetHeight : 0;
+
+    document.body.style.paddingTop = (mHeight + bHeight) + 'px';
   }
-  adjustMastheadOffset();
-  window.addEventListener('resize', adjustMastheadOffset);
+  adjustFixedOffsets();
+  window.addEventListener('resize', adjustFixedOffsets);
 });
 </script>
