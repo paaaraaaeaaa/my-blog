@@ -1,0 +1,23 @@
+# _data/database_links.yml
+# 여기에 수업 자료 링크를 추가하면 Database 페이지에 자동으로 카드가 생깁니다.
+# category: 카드를 묶을 그룹 이름 (같은 이름끼리 한 섹션으로 모임)
+# title: 카드에 보일 제목
+# url: 클릭하면 바로 이동할 주소
+# description: (선택) 한 줄 설명, 없으면 지워도 됨
+#
+# 아래 3개는 예시입니다. 실제 자료 링크로 바꾸거나 이어서 추가하세요.
+
+- category: "Git & GitHub"
+  title: "Git 기본 명령어 정리 (수업 자료)"
+  url: "https://example.com/git-basics"
+  description: "add, commit, push, branch 등 기본 명령어 요약"
+
+- category: "Git & GitHub"
+  title: "GitHub 협업 워크플로우"
+  url: "https://example.com/github-workflow"
+  description: "PR, 이슈, 브랜치 전략"
+
+- category: "SQL"
+  title: "SQL 기초 문법 자료"
+  url: "https://example.com/sql-basics"
+  description: "SELECT, JOIN, GROUP BY 정리"

@@ -105,6 +105,21 @@ pre {
   border-left: 4px solid #f9ab00;
 }
 
+/* 목차(TOC)는 본문(page__content) 안에 같이 들어있는 구조라서,
+   혹시라도 위 콜아웃 클래스가 목차 항목에 붙는 경우를 대비해
+   목차 안에서는 색칠이 강제로 무효화되도록 이중 안전장치를 둠 */
+.sidebar__right .callout,
+.sidebar__right.callout,
+nav.toc .callout,
+nav.toc.callout,
+.sidebar__right .concept-term {
+  background: none !important;
+  border-left: none !important;
+  border-top: none !important;
+  padding: inherit !important;
+  margin: 0 !important;
+}
+
 /* 긴 코드 섹션 접기/펼치기 */
 details.code-collapse {
   margin: 1em 0;
