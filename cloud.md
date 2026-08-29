@@ -5,11 +5,18 @@ permalink: /cloud/
 ---
 
 <style>
+.module-section {
+  margin: 2rem 0;
+}
+.module-section h3 {
+  border-bottom: 2px solid rgba(0,0,0,.1);
+  padding-bottom: .4rem;
+}
 .post-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 1rem;
-  margin: 1.5rem 0;
+  margin: 1rem 0 1.5rem;
 }
 .post-list__card {
   display: block;
@@ -42,16 +49,24 @@ permalink: /cloud/
 </style>
 
 {% assign empty_array = "" | split: "," %}
-<div class="post-list">
-  {% assign cat_posts = site.categories.Cloud | default: empty_array %}
-  {% assign cat_posts = cat_posts | sort: 'date' | reverse %}
-  {% for post in cat_posts %}
-  <a class="post-list__card" href="{{ post.url | relative_url }}">
-    <div class="post-list__date">{{ post.date | date: "%Y-%m-%d" }}</div>
-    <div class="post-list__title">{{ post.title }}</div>
-  </a>
+{% assign cat_posts = site.categories.Cloud | default: empty_array %}
+
+{% if cat_posts.size == 0 %}
+  <p class="post-list__empty">아직 작성된 글이 없습니다.</p>
+{% else %}
+  {% assign modules = cat_posts | group_by: 'module' | sort: 'name' %}
+  {% for mod in modules %}
+    <div class="module-section">
+      <h3>📦 모듈 {{ mod.name }}</h3>
+      <div class="post-list">
+        {% assign mod_posts = mod.items | sort: 'date' | reverse %}
+        {% for post in mod_posts %}
+        <a class="post-list__card" href="{{ post.url | relative_url }}">
+          <div class="post-list__date">{{ post.date | date: "%Y-%m-%d" }}</div>
+          <div class="post-list__title">{{ post.title }}</div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
   {% endfor %}
-  {% if cat_posts.size == 0 %}
-    <p class="post-list__empty">아직 작성된 글이 없습니다.</p>
-  {% endif %}
-</div>
+{% endif %}

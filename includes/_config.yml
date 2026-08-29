@@ -1,0 +1,42 @@
+title: paraea 님의 학습 노트
+remote_theme: "mmistakes/minimal-mistakes"
+url: "https://paaaraaaeaaa.github.io"
+baseurl: "/my-blog"
+plugins:
+  - jekyll-include-cache
+
+# 🎨 테마 스킨 변경 (dark, air, mint 중 택 1)
+minimal_mistakes_skin: "mint"
+
+# 미래 날짜로 작성해도 바로 게시되도록 허용
+future: true
+
+# 👤 좌측 프로필 설정
+author:
+  name: "김예린"
+  bio: "데이터 분석과 클라우드 아키텍처에 관심이 많은 대학생입니다."
+  avatar: "/assets/images/profile.png"
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/paaaraaaeaaa"
+
+# 💬 댓글 기능 켜기 (GitHub 계정 연동)
+repository: "paaaraaaeaaa/my-blog"
+breadcrumbs: true
+comments:
+  provider: "utterances"
+  utterances:
+    theme: "github-light"
+    issue_term: "pathname"
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "single"
+      author_profile: true
+
+# 게시글 주소(URL) 규칙 변경 (날짜 폴더 숨기기)
+permalink: /:categories/:title/
