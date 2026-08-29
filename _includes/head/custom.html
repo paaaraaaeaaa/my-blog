@@ -33,6 +33,13 @@
 .sidebar__right.sticky {
   top: calc(var(--fixed-offset) + 1em) !important;
   max-height: calc(100vh - var(--fixed-offset) - 2em) !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch;
+}
+.sidebar__right.sticky .toc__menu {
+  max-height: none !important;
+  overflow: visible !important;
 }
 
 /* 게시글 본문 가독성: 글씨 살짝 축소 + 줄간격/여백 넉넉하게 */
