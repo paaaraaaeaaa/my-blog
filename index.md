@@ -74,12 +74,15 @@ author_profile: true
 
 ## {{ page.list_title }}
 
-{% if latest_post %}
+{% assign recent_posts = site.posts | slice: 0, 2 %}
+{% if recent_posts.size > 0 %}
 <div class="post-list">
-<a class="post-list__card" href="{{ latest_post.url | relative_url }}">
-<div class="post-list__date">{{ latest_post.date | date: "%Y-%m-%d" }}</div>
-<div class="post-list__title">{{ latest_post.title }}</div>
+{% for post in recent_posts %}
+<a class="post-list__card" href="{{ post.url | relative_url }}">
+<div class="post-list__date">{{ post.date | date: "%Y-%m-%d" }}</div>
+<div class="post-list__title">{{ post.title }}</div>
 </a>
+{% endfor %}
 </div>
 {% else %}
 <p class="post-list__empty">아직 작성된 글이 없습니다.</p>
@@ -88,7 +91,6 @@ author_profile: true
 ## GitHub 활동
 
 <div class="gh-stats-grid">
-<img src="https://github-readme-stats.vercel.app/api?username=paaaraaaeaaa&show_icons=true&theme=transparent&hide_border=true&hide_title=false" alt="GitHub Stats" loading="lazy" />
 <img src="https://streak-stats.demolab.com?user=paaaraaaeaaa&theme=transparent&hide_border=true" alt="GitHub Streak Stats" loading="lazy" />
 </div>
 

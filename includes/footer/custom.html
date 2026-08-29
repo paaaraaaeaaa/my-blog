@@ -1,10 +1,10 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  var blocks = document.querySelectorAll('div.highlighter-rouge, figure.highlight, .highlight');
-  blocks.forEach(function (block) {
-    if (block.querySelector('.code-copy-btn')) return;
-    var codeEl = block.querySelector('pre.highlight code') || block.querySelector('pre code') || block.querySelector('pre');
-    if (!codeEl) return;
+  document.querySelectorAll('pre').forEach(function (pre) {
+    if (pre.closest('.code-copy-btn')) return;
+    if (pre.parentElement && pre.parentElement.querySelector(':scope > .code-copy-btn')) return;
+
+    var codeEl = pre.querySelector('code') || pre;
 
     var btn = document.createElement('button');
     btn.type = 'button';
@@ -28,8 +28,8 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
 
-    block.style.position = 'relative';
-    block.appendChild(btn);
+    pre.style.position = 'relative';
+    pre.appendChild(btn);
   });
 });
 </script>
