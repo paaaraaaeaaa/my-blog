@@ -101,6 +101,12 @@ permalink: /cloud/
   font-size: 1.05rem;
   line-height: 1.4;
 }
+.post-list__subtitle {
+  font-size: .85rem;
+  color: #666;
+  margin-top: .3rem;
+  line-height: 1.4;
+}
 .post-list__empty {
   color: #888;
   padding: 1rem 0;
@@ -162,6 +168,7 @@ permalink: /cloud/
 <a class="post-list__card" href="{{ post.url | relative_url }}">
 <div class="post-list__date">{{ post.date | date: "%Y-%m-%d" }}</div>
 <div class="post-list__title">{{ post.title }}</div>
+<div class="post-list__subtitle">{{ post.subtitle }}</div>
 </a>
 {% endfor %}
 </div>
