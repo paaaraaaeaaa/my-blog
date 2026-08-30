@@ -2,6 +2,14 @@
 title: "Git & GitHub 개인 미션 devlog — 자율 실습 15문제"
 date: 2026-08-29
 tags: [git, github, devlog, 부트캠프, 개인미션]
+layout: single
+categories: Cloud
+module: 1
+type: practice
+topic: "Git과 GitHub 실습"
+comments: true
+toc: true
+toc_sticky: true
 ---
 
 > 이 글은 오늘 수업의 **자율 실습 15문제**(개인 미션)를 기록한 devlog입니다.
