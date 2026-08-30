@@ -7,6 +7,10 @@ categories: Cloud
 type: practice
 topic: "Git & GitHub"
 tags: [git, github, devlog, 부트캠프, 개인미션]
+layout: single
+comments: true
+toc: true
+toc_sticky: true
 ---
 
 > 이 글은 오늘 수업의 **자율 실습 15문제**(개인 미션)를 기록한 devlog입니다.
