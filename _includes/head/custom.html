@@ -94,27 +94,14 @@ pre {
   background: rgba(0,0,0,.55);
 }
 
-/* 목차(TOC) 스크롤바: 평소엔 숨겨두고, 목차 위에 마우스를 올렸을 때만 얇게 보이게
-   (페이지 스크롤바랑 같이 항상 보이면 스크롤바가 두 개로 보여서 지저분함) */
+/* 목차(TOC) 스크롤바: 마우스를 올려도 항상 안 보이게 함.
+   스크롤 기능(휠/트랙패드)은 그대로 살아있고, 스크롤바 막대만 안 보임 */
 .sidebar__right.sticky {
   scrollbar-width: none;      /* Firefox */
   -ms-overflow-style: none;   /* 구형 Edge/IE */
 }
 .sidebar__right.sticky::-webkit-scrollbar {
   width: 0;
-  background: transparent;
-}
-.sidebar__right.sticky:hover {
-  scrollbar-width: thin;
-}
-.sidebar__right.sticky:hover::-webkit-scrollbar {
-  width: 6px;
-}
-.sidebar__right.sticky:hover::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,.3);
-  border-radius: 4px;
-}
-.sidebar__right.sticky:hover::-webkit-scrollbar-track {
   background: transparent;
 }
 
