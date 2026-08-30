@@ -13,7 +13,6 @@ toc: true
 toc_sticky: true
 ---
 <style>
-/* 이 글만 전체 글씨 크기를 살짝 줄임 (사이트 기본 0.9em -> 0.85em) */
 .page__content { font-size: 0.8em; }
 </style>
 
