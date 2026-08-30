@@ -1,5 +1,5 @@
 ---
-title: "Git & GitHub"
+title: "Git & GitHub - Personal"
 subtitle: "개인 미션 devlog — 자율 실습 15문제"
 excerpt: "개인 미션 devlog — 자율 실습 15문제"
 date: 2026-08-27
@@ -12,6 +12,10 @@ comments: true
 toc: true
 toc_sticky: true
 ---
+<style>
+/* 이 글만 전체 글씨 크기를 살짝 줄임 (사이트 기본 0.9em -> 0.85em) */
+.page__content { font-size: 0.8em; }
+</style>
 
 > 이 글은 오늘 수업의 **자율 실습 15문제**(개인 미션)를 기록한 devlog입니다.
 > 문제마다 `문제 상황 → 시도한 방법 → 막혔던 점 → 해결 과정 → 배운 점` 순서로 정리했습니다.
