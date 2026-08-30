@@ -1,0 +1,46 @@
+{% comment %}
+같은 카테고리 + 같은 type(일차별 학습노트 / 문제풀이) 안에서만
+날짜순(오래된 글 -> 최신 글)으로 정렬한 뒤, 이전 글 = 더 오래된 글, 다음 글 = 더 최신 글로 연결합니다.
+Cloud뿐 아니라 Database, Projects 등 다른 카테고리에서도 같은 방식으로 동작합니다.
+{% endcomment %}
+{% assign page_type = page.type | default: "daily" %}
+{% assign page_cat = page.categories | first %}
+{% assign empty_array = "" | split: "," %}
+{% assign cat_posts = site.categories[page_cat] | default: empty_array %}
+
+{% if page_type == "practice" %}
+{% assign scoped_posts = cat_posts | where_exp: "post", "post.type == 'practice'" %}
+{% else %}
+{% assign scoped_posts = cat_posts | where_exp: "post", "post.type != 'practice'" %}
+{% endif %}
+{% assign scoped_posts = scoped_posts | sort: 'date' %}
+
+{% assign nav_previous = nil %}
+{% assign nav_next = nil %}
+{% assign matched = false %}
+{% for post in scoped_posts %}
+  {% if matched %}
+    {% assign nav_next = post %}
+    {% break %}
+  {% endif %}
+  {% if post.url == page.url %}
+    {% assign matched = true %}
+  {% else %}
+    {% assign nav_previous = post %}
+  {% endif %}
+{% endfor %}
+
+{% if nav_previous or nav_next %}
+  <nav class="pagination" aria-label="Post pagination">
+    {% if nav_previous %}
+      <a href="{{ nav_previous.url | relative_url }}" class="pagination--pager" title="{{ nav_previous.title | markdownify | strip_html | strip }}">← {{ nav_previous.title }}</a>
+    {% else %}
+      <a href="#" class="pagination--pager disabled">← 이전 글</a>
+    {% endif %}
+    {% if nav_next %}
+      <a href="{{ nav_next.url | relative_url }}" class="pagination--pager" title="{{ nav_next.title | markdownify | strip_html | strip }}">{{ nav_next.title }} →</a>
+    {% else %}
+      <a href="#" class="pagination--pager disabled">다음 글 →</a>
+    {% endif %}
+  </nav>
+{% endif %}
