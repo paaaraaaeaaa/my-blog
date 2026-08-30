@@ -1,7 +1,7 @@
 main:
-  - title: "Database"
-    url: /database/
   - title: "Cloud"
     url: /cloud/
+  - title: "Database"
+    url: /database/
   - title: "Projects"
     url: /projects/

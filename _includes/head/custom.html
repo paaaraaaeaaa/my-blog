@@ -94,16 +94,28 @@ pre {
   background: rgba(0,0,0,.55);
 }
 
-/* 목차(TOC) 스크롤바를 눈에 보이게 */
-.sidebar__right.sticky::-webkit-scrollbar {
-  width: 8px;
+/* 목차(TOC) 스크롤바: 평소엔 숨겨두고, 목차 위에 마우스를 올렸을 때만 얇게 보이게
+   (페이지 스크롤바랑 같이 항상 보이면 스크롤바가 두 개로 보여서 지저분함) */
+.sidebar__right.sticky {
+  scrollbar-width: none;      /* Firefox */
+  -ms-overflow-style: none;   /* 구형 Edge/IE */
 }
-.sidebar__right.sticky::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,.35);
+.sidebar__right.sticky::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+.sidebar__right.sticky:hover {
+  scrollbar-width: thin;
+}
+.sidebar__right.sticky:hover::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar__right.sticky:hover::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,.3);
   border-radius: 4px;
 }
-.sidebar__right.sticky::-webkit-scrollbar-track {
-  background: rgba(0,0,0,.05);
+.sidebar__right.sticky:hover::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 /* 색깔 콜아웃 박스 (💡 요약 / 🔴 에러 / 🟢 해결 / ⚠️🚨 주의) */
