@@ -34,10 +34,25 @@
   top: calc(var(--fixed-offset) + 1em) !important;
   max-height: calc(100vh - var(--fixed-offset) - 2em) !important;
 }
-/* 목차(오른쪽 사이드바)만 내부 스크롤 가능하게 함 — 왼쪽 프로필은 손대지 않음 */
+/* 목차(오른쪽 사이드바): position:sticky와 overflow:auto를 같은 요소에 같이 주면
+   sticky 위치 계산과 내부 스크롤이 서로 충돌해서 "끝까지 안 내려가고 본문을 스크롤해야
+   보이는" 현상이 생김. 그래서 바깥(sticky 담당)과 안쪽(스크롤 담당)을 분리함. */
 .sidebar__right.sticky {
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
+  overflow: visible !important;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar__right.sticky nav.toc {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  max-height: 100%;
+}
+.sidebar__right.sticky .toc__menu {
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1 1 auto;
+  min-height: 0;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -94,15 +109,34 @@ pre {
   background: rgba(0,0,0,.55);
 }
 
-/* 목차(TOC) 스크롤바: 마우스를 올려도 항상 안 보이게 함.
-   스크롤 기능(휠/트랙패드)은 그대로 살아있고, 스크롤바 막대만 안 보임 */
-.sidebar__right.sticky {
-  scrollbar-width: none;      /* Firefox */
-  -ms-overflow-style: none;   /* 구형 Edge/IE */
+/* 목차(TOC) 안쪽 목록(.toc__menu)에만 얇은 스크롤바를 둠 */
+.sidebar__right.sticky .toc__menu {
+  scrollbar-width: thin;             /* Firefox */
+  scrollbar-color: rgba(0,0,0,.25) transparent;
 }
-.sidebar__right.sticky::-webkit-scrollbar {
-  width: 0;
+.sidebar__right.sticky .toc__menu::-webkit-scrollbar {
+  width: 4px;
   background: transparent;
+}
+.sidebar__right.sticky .toc__menu::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,.25);
+  border-radius: 4px;
+}
+.sidebar__right.sticky .toc__menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+/* 스크롤 여지가 더 있다는 걸 알려주는 아래쪽 흐림 효과 */
+.sidebar__right.sticky .toc__menu::after {
+  content: '';
+  display: block;
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  margin-top: -20px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,.95));
+  pointer-events: none;
 }
 
 /* 색깔 콜아웃 박스 (💡 요약 / 🔴 에러 / 🟢 해결 / ⚠️🚨 주의) */
