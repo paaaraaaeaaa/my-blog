@@ -33,7 +33,6 @@ toc_sticky: true
 
 - [ ] 팀 미션 B(기획서 검수 기준 마련 및 PR 반려 실습) 회고 작성 및 다른 팀과 결과 공유하기 — *팀 미션 devlog에서 다룸*
 - [x] 자율 실습: 내 개인 GitHub 계정에 블로그 기획 저장소 만들고 글 초안 3편 커밋 완료하기 (1-1)
-- [ ] (선택) IntelliJ IDEA의 Version Control 탭을 연동해보고 GUI 환경에서의 `add`와 `commit` UI 익혀두기
 
 > 문제 원문: [Claude Artifact — Git과 GitHub 실습 문제](https://claude.ai/code/artifact/70fb9b0b-1c2e-4503-97a7-e31dd4c365f9)
 
