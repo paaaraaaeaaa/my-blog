@@ -1,6 +1,6 @@
 ---
-title: "Git & GitHub"
-subtitle: "팀 미션 devlog — 미션 A~E 전부 풀어보기"
+title: "팀 미션 devlog"
+subtitle: "미션 A~E 전부 풀어보기"
 date: 2026-08-28
 tags: [git, github, devlog, 부트캠프, 팀미션]
 layout: single

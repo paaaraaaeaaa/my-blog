@@ -1,6 +1,6 @@
 ---
-title: "Git & GitHub"
-subtitle: "개인 미션 devlog — 자율 실습 15문제"
+title: "개인 미션 devlog"
+subtitle: "자율 실습 15문제"
 date: 2026-08-27
 tags: [git, github, devlog, 부트캠프, 개인미션]
 layout: single
