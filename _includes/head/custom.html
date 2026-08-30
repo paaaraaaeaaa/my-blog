@@ -3,6 +3,12 @@
   --fixed-offset: 110px; /* JS가 계산하기 전 기본값 */
 }
 
+/* 목차·앵커 링크 클릭 시, 고정된 상단바+경로줄에 제목이 가려지지 않도록
+   이동 위치에 미리 여백을 둠 (아래 --fixed-offset은 JS가 실시간으로 갱신함) */
+html {
+  scroll-padding-top: calc(var(--fixed-offset) + 20px);
+}
+
 /* 상단 메뉴바(배너) 고정 */
 .masthead {
   position: fixed !important;
