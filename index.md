@@ -215,9 +215,9 @@ author_profile: true
 "N일차"는 주말 + 한국 공휴일(_data/holidays.yml)을 제외한 평일만 세서 계산.
 반면 "총 일수"와 진행률(%)은 전체 기간의 달력 날짜 그대로(오늘까지 지난 날짜 비율)로 계산.
 {% endcomment %}
-{% assign start_ts = "2026-08-26" | date: "%s" %}
-{% assign end_ts = "2027-02-16" | date: "%s" %}
-{% assign today_ts = site.time | date: "%s" %}
+{% assign start_ts = "2026-08-26" | date: "%s" | plus: 0 %}
+{% assign end_ts = "2027-02-16" | date: "%s" | plus: 0 %}
+{% assign today_ts = site.time | date: "%s" | plus: 0 %}
 {% assign total_calendar_days = end_ts | minus: start_ts | divided_by: 86400 %}
 
 {% assign day_number = 0 %}
