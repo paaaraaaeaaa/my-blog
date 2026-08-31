@@ -463,13 +463,6 @@ author_profile: true
 </div>
 </div>
 
-<div class="gh-widget">
-<div class="gh-widget__label">🏆 업적 트로피</div>
-<div class="gh-chart-wrap">
-<img src="https://github-profile-trophy.vercel.app/?username=paaaraaaeaaa&theme=flat&no-frame=true&column=4" alt="GitHub 업적 트로피" loading="lazy" />
-</div>
-</div>
-
 > 꾸준함이 실력이 된다고 믿습니다. 오늘도 한 줄 더 기록합니다. 🚀
 
 ---
