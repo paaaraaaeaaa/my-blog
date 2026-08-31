@@ -1,7 +1,7 @@
 ---
 title: "되돌릴 수 있어야 시킨다"
-subtitle: "자율 실습 devlog — AI가 내 파일을 직접 고치는 12문제, 되돌리는 법부터 배운다"
-excerpt: "자율 실습 devlog — AI가 내 파일을 직접 고치는 12문제, 되돌리는 법부터 배운다"
+subtitle: "자율 실습 devlog"
+excerpt: "AI가 내 파일을 직접 고치는 12문제, 되돌리는 법부터 배운다"
 date: 2026-08-31
 categories: [Cloud]
 type: practice
