@@ -525,14 +525,14 @@ author_profile: true
 ## GitHub 활동
 
 <div class="gh-widget">
-<div class="gh-widget__label">📈 스트릭 (연속 기록)</div>
+<div class="gh-widget__label">📈 Strick</div>
 <div class="gh-stats-grid">
 <img src="https://streak-stats.demolab.com?user=paaaraaaeaaa&theme=transparent&hide_border=true" alt="GitHub Streak Stats" loading="lazy" />
 </div>
 </div>
 
 <div class="gh-widget">
-<div class="gh-widget__label">🟩 컨트리뷰션 캘린더</div>
+<div class="gh-widget__label">🟩 Contribution Calender </div>
 <div class="gh-chart-wrap">
 <img src="https://ghchart.rshah.org/2E8B57/paaaraaaeaaa" alt="GitHub Contribution Chart" loading="lazy" />
 </div>
