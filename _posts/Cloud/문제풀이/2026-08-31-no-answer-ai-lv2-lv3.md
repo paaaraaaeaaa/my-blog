@@ -1,7 +1,7 @@
 ---
 title: "Lv2+Lv3 · 심화 실습"
-subtitle: "규칙 하나로 답이 달라진다"
-excerpt: "Lv2+Lv3-자율 실습 devlog"
+subtitle: "경계 규칙 검증부터 한 줄 지시로 매번 같은 결과 내기까지 다룬 devlog"
+excerpt: "경계 규칙 검증부터 한 줄 지시로 매번 같은 결과 내기까지 다룬 devlog"
 date: 2026-08-31
 categories: [Cloud]
 type: practice

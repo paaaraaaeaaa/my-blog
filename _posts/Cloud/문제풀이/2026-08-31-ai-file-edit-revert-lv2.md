@@ -1,7 +1,7 @@
 ---
-title: "AI가 내 파일을 직접 고친다"
-subtitle: "Lv2+Lv3-자율 실습 devlog"
-excerpt: "Lv2+Lv3-자율 실습 devlog"
+title: "Lv2+Lv3 · 심화 실습"
+subtitle: "애매한 지시·브랜치+PR·AI 환각 검증까지 다뤄본 응용·도전 devlog"
+excerpt: "애매한 지시·브랜치+PR·AI 환각 검증까지 다뤄본 응용·도전 devlog"
 date: 2026-08-31
 categories: [Cloud]
 type: practice

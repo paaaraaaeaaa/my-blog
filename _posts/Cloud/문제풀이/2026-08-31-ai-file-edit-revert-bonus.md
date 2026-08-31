@@ -1,7 +1,7 @@
 ---
 title: "Bonus · 보너스 문제"
-subtitle: "AI가 내 파일을 직접 고친다"
-excerpt: "Bonus-자율 실습 devlog"
+subtitle: "실험 커밋 되돌리기와 CLAUDE.md 최소화까지 파본 보너스 devlog"
+excerpt: "실험 커밋 되돌리기와 CLAUDE.md 최소화까지 파본 보너스 devlog"
 date: 2026-08-31
 categories: [Cloud]
 type: practice

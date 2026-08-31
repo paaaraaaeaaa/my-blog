@@ -1,7 +1,7 @@
 ---
 title: "Lv1 · 기본 실습"
-subtitle: "AI가 내 파일을 직접 고친다"
-excerpt: "Lv1-자율 실습 devlog"
+subtitle: "AI가 파일을 고쳤을 때 되돌리는 법부터 익히는 기본 변형 devlog"
+excerpt: "AI가 파일을 고쳤을 때 되돌리는 법부터 익히는 기본 변형 devlog"
 date: 2026-08-31
 categories: [Cloud]
 type: practice

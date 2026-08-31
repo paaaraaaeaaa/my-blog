@@ -1,7 +1,7 @@
 ---
 title: "Lv1 · 기본 실습"
-subtitle: "규칙 하나로 답이 달라진다"
-excerpt: "Lv1-자율 실습 devlog"
+subtitle: "역할과 규칙 칸을 나눠보며 /learn·/note를 처음 흔들어본 devlog"
+excerpt: "역할과 규칙 칸을 나눠보며 /learn·/note를 처음 흔들어본 devlog"
 date: 2026-08-31
 categories: [Cloud]
 type: practice

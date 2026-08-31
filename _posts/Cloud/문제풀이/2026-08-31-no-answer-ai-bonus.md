@@ -1,7 +1,7 @@
 ---
 title: "Bonus · 보너스 문제"
-subtitle: "규칙 하나로 답이 달라진다"
-excerpt: "Bonus-자율 실습 devlog"
+subtitle: "며칠간 사용 기록을 점검하고 스킬을 절반으로 줄여본 보너스 devlog"
+excerpt: "며칠간 사용 기록을 점검하고 스킬을 절반으로 줄여본 보너스 devlog"
 date: 2026-08-31
 categories: [Cloud]
 type: practice
