@@ -20,11 +20,11 @@
   description: "문제 링크를 클릭하면 문제를 확인할 수 있습니다."
 
 - category: "문제"
-  title: "되돌릴 수 있어야 시킨다"
+  title: "AI가 내 파일을 직접 고친다"
   url: "https://claude.ai/code/artifact/96689c97-96f9-42d5-be46-3666a79cac73"
   description: "문제 링크를 클릭하면 문제를 확인할 수 있습니다."
 
 - category: "문제"
-  title: "답을 주지 않는 AI"
+  title: "규칙 하나로 답이 달라진다"
   url: "https://claude.ai/code/artifact/e3c61ac6-1063-46d8-bdf5-4d09fa2c21e4"
   description: "문제 링크를 클릭하면 문제를 확인할 수 있습니다."
