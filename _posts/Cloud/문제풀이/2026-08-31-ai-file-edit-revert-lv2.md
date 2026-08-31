@@ -1,11 +1,11 @@
 ---
 title: "AI가 내 파일을 직접 고친다"
-subtitle: "자율 실습 devlog"
-excerpt: "Lv2"
+subtitle: "Lv2+Lv3-자율 실습 devlog"
+excerpt: "Lv2+Lv3-자율 실습 devlog"
 date: 2026-08-31
 categories: [Cloud]
 type: practice
-topic: "되돌릴 수 있어야 시킨다"
+topic: "AI가 내 파일을 직접 고친다"
 tags: [git, github, claude-code, claude-md, devlog, 부트캠프, 자율실습]
 layout: single
 comments: true

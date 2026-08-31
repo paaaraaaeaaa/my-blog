@@ -1,11 +1,11 @@
 ---
-title: "답을 주지 않는 AI"
-subtitle: "규칙 하나로 답이 달라진다"
-excerpt: "자율 실습 devlog — Lv1"
+title: "규칙 하나로 답이 달라진다"
+subtitle: "Lv1-자율 실습 devlog"
+excerpt: "Lv1-자율 실습 devlog"
 date: 2026-08-31
 categories: [Cloud]
 type: practice
-topic: "답을 주지 않는 AI"
+topic: "규칙 하나로 답이 달라진다"
 tags: [claude-code, skill, claude-md, prompt-engineering, devlog, 부트캠프, 자율실습]
 comments: true
 toc: true
