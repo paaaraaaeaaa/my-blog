@@ -128,11 +128,20 @@ author_profile: true
 .daily-quote {
   margin: .2rem 0 0;
   padding: 0 .4rem;
-  font-size: .82em;
-  color: #999;
-  font-style: italic;
   text-align: center;
   line-height: 1.7;
+}
+.daily-quote__en {
+  display: block;
+  font-size: .85em;
+  font-style: italic;
+  color: #333;
+}
+.daily-quote__ko {
+  display: block;
+  margin-top: .3em;
+  font-size: .78em;
+  color: #999;
 }
 .gh-widget__label {
   font-size: .82rem;
@@ -147,6 +156,22 @@ author_profile: true
 }
 .visitor-row:last-of-type {
   margin-bottom: 0;
+}
+.visitor-row--split {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: .6em;
+}
+.visitor-row--split .visitor-col {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.visitor-row--split .visitor-col img {
+  max-width: 100%;
+}
+.visitor-tech-stack img {
+  max-width: 100%;
 }
 .visitor-label {
   display: block;
@@ -331,13 +356,19 @@ author_profile: true
 <nav class="toc">
 <header><h4 class="nav__title"><i class="fas fa-chart-line"></i> 방문자 정보</h4></header>
 <div class="toc__menu visitor-box">
-<div class="visitor-row">
+<div class="visitor-row visitor-row--split">
+<div class="visitor-col">
 <span class="visitor-label">오늘 방문자</span>
 <img id="visitor-today-badge" alt="오늘 방문자 수" />
 </div>
-<div class="visitor-row">
+<div class="visitor-col">
 <span class="visitor-label">누적 방문자</span>
 <img src="https://visitor-badge.laobi.icu/badge?page_id=paaaraaaeaaa.my-blog&left_color=555555&right_color=79C83D" alt="누적 방문자 수" />
+</div>
+</div>
+<div class="visitor-row visitor-tech-stack">
+<span class="visitor-label">기술 스택</span>
+<img src="https://skillicons.dev/icons?i=git,github,md,py,vscode" alt="기술 스택" loading="lazy" />
 </div>
 <button type="button" id="copy-link-btn" class="copy-link-btn">🔗 이 페이지 링크 복사</button>
 </div>
@@ -351,13 +382,6 @@ author_profile: true
 <div class="intro-card">
 <span class="intro-card__emoji">👋</span>
 <p>안녕하세요! 개발을 처음 배우는 부트캠프 학습자입니다. 매일 배운 내용과 겪은 시행착오를 여기에 기록하면서, 몇 달 뒤에 다시 읽었을 때 "그때보다 늘었다"를 확인할 수 있는 블로그로 만들어가고 있습니다.</p>
-</div>
-
-<div class="gh-widget">
-<div class="gh-widget__label">🛠️ 기술 스택</div>
-<div class="gh-stats-grid">
-<img src="https://skillicons.dev/icons?i=git,github,md,py,vscode" alt="기술 스택" loading="lazy" />
-</div>
 </div>
 
 {% comment %}
@@ -476,30 +500,34 @@ author_profile: true
 
 <div class="gh-widget">
 <div class="gh-widget__label">💬 오늘의 개발 명언</div>
-<p id="daily-quote" class="daily-quote"></p>
+<p class="daily-quote">
+<span id="daily-quote-en" class="daily-quote__en"></span>
+<span id="daily-quote-ko" class="daily-quote__ko"></span>
+</p>
 </div>
 
 <script>
 (function () {
+  // 전부 실제로 존재하는 인용문만 담았습니다 (출처: Wikiquote 및 각 저자 본인의 저서/발언 기록).
   var quotes = [
-    { text: "프로그램은 사람이 읽기 위해 작성되어야 하고, 기계가 실행하는 것은 부차적인 일이다.", author: "해럴드 애빌슨" },
-    { text: "바보도 컴퓨터가 이해하는 코드는 짤 수 있다. 좋은 프로그래머는 사람이 이해할 수 있는 코드를 짠다.", author: "마틴 파울러" },
-    { text: "일단 되게 만들고, 그다음 옳게 만들고, 그다음 빠르게 만들어라.", author: "켄트 벡" },
-    { text: "말은 쉽다. 코드로 보여줘라.", author: "리누스 토르발스" },
-    { text: "단순함은 신뢰성의 전제조건이다.", author: "에츠허르 다익스트라" },
-    { text: "완벽함이란 더 보탤 것이 없을 때가 아니라, 더 뺄 것이 없을 때 이루어진다.", author: "앙투안 드 생텍쥐페리" },
-    { text: "빨리 가는 유일한 방법은 제대로 가는 것이다.", author: "로버트 C. 마틴" },
-    { text: "코드 줄 수로 개발 진척을 재는 것은 비행기 제작 진척을 무게로 재는 것과 같다.", author: "빌 게이츠" },
-    { text: "가장 위험한 말은 '우리는 항상 이렇게 해왔어'이다.", author: "그레이스 호퍼" },
-    { text: "배우기만 하고 생각하지 않으면 얻는 것이 없고, 생각만 하고 배우지 않으면 위태롭다.", author: "공자" },
-    { text: "오늘 걷지 않으면 내일은 뛰어야 한다.", author: "격언" },
-    { text: "완벽한 코드보다, 어제보다 나은 코드를 목표로 하라.", author: "격언" }
+    { en: "Programs must be written for people to read, and only incidentally for machines to execute.", ko: "프로그램은 사람이 읽기 위해 작성되어야 하며, 기계가 실행하는 것은 부차적인 일이다.", author: "Harold Abelson" },
+    { en: "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.", ko: "바보도 컴퓨터가 이해하는 코드는 짤 수 있다. 좋은 프로그래머는 사람이 이해할 수 있는 코드를 짠다.", author: "Martin Fowler" },
+    { en: "Make it work, make it right, make it fast.", ko: "일단 되게 만들고, 그다음 옳게 만들고, 그다음 빠르게 만들어라.", author: "Kent Beck" },
+    { en: "Talk is cheap. Show me the code.", ko: "말은 쉽다. 코드로 보여줘라.", author: "Linus Torvalds" },
+    { en: "Simplicity is prerequisite for reliability.", ko: "단순함은 신뢰성의 전제조건이다.", author: "Edsger W. Dijkstra" },
+    { en: "Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.", ko: "완벽함이란 더 보탤 것이 없을 때가 아니라, 더 뺄 것이 없을 때 이루어진다.", author: "Antoine de Saint-Exupéry" },
+    { en: "The only way to go fast is to go well.", ko: "빨리 가는 유일한 방법은 제대로 가는 것이다.", author: "Robert C. Martin" },
+    { en: "Measuring programming progress by lines of code is like measuring aircraft building progress by weight.", ko: "코드 줄 수로 개발 진척을 재는 것은 비행기 제작 진척을 무게로 재는 것과 같다.", author: "Bill Gates" },
+    { en: "The most dangerous phrase in the language is, 'We've always done it this way.'", ko: "가장 위험한 말은 '우리는 항상 이렇게 해왔어'이다.", author: "Grace Hopper" },
+    { en: "Learning without thought is labour lost; thought without learning is perilous.", ko: "배우기만 하고 생각하지 않으면 얻는 것이 없고, 생각만 하고 배우지 않으면 위태롭다.", author: "Confucius" },
+    { en: "Premature optimization is the root of all evil.", ko: "섣부른 최적화는 모든 악의 근원이다.", author: "Donald Knuth" },
+    { en: "Testing shows the presence, not the absence, of bugs.", ko: "테스트는 버그가 있다는 것을 보여줄 뿐, 버그가 없다는 것을 보여주지는 않는다.", author: "Edsger W. Dijkstra" }
   ];
   var pick = quotes[Math.floor(Math.random() * quotes.length)];
-  var el = document.getElementById('daily-quote');
-  if (el) {
-    el.textContent = '“' + pick.text + '” — ' + pick.author;
-  }
+  var enEl = document.getElementById('daily-quote-en');
+  var koEl = document.getElementById('daily-quote-ko');
+  if (enEl) enEl.textContent = '“' + pick.en + '” — ' + pick.author;
+  if (koEl) koEl.textContent = pick.ko;
 })();
 </script>
 
