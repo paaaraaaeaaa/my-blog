@@ -113,6 +113,26 @@ author_profile: true
 .gh-chart-wrap img {
   max-width: 100%;
 }
+.gh-widget {
+  margin: 0 0 1.3rem;
+  padding: 1rem 1.2rem 1.2rem;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,.04);
+}
+.gh-widget .gh-stats-grid,
+.gh-widget .gh-chart-wrap {
+  margin: 0;
+}
+.gh-widget__label {
+  font-size: .82rem;
+  font-weight: 700;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  margin-bottom: .7rem;
+}
 .visitor-row {
   margin-bottom: .8em;
 }
@@ -353,7 +373,7 @@ author_profile: true
 <div class="info-tile">
 <div class="info-tile__icon">📅</div>
 <div class="info-tile__label">진행 상황</div>
-<div class="info-tile__value">{{ day_number }}일차 <span class="info-tile__sub"> </span></div>
+<div class="info-tile__value">{{ day_number }}일차 <span class="info-tile__sub">(평일 기준)</span></div>
 <div class="progress-bar progress-bar--mini"><div class="progress-bar__fill" style="width: {{ percent }}%;"></div></div>
 <div class="info-tile__sub">총 {{ total_calendar_days }}일 · {{ percent }}% · 2026.08.26~2027.02.16</div>
 </div>
@@ -361,7 +381,7 @@ author_profile: true
 <div class="info-tile info-tile--goal">
 <div class="info-tile__icon">🎯</div>
 <div class="info-tile__label">목표</div>
-<p class="goal-quote">빠짐없이 기록하고,<br>막혔던 부분은 반드시 다시 정리하기</p>
+<p class="goal-quote">하루도 빠짐없이 기록하고,<br>막혔던 부분은 반드시 다시 정리하기</p>
 </div>
 </div>
 
@@ -408,12 +428,48 @@ author_profile: true
 
 ## GitHub 활동
 
+<div class="gh-widget">
+<div class="gh-widget__label">📈 스트릭 (연속 기록)</div>
 <div class="gh-stats-grid">
 <img src="https://streak-stats.demolab.com?user=paaaraaaeaaa&theme=transparent&hide_border=true" alt="GitHub Streak Stats" loading="lazy" />
 </div>
+</div>
 
+<div class="gh-widget">
+<div class="gh-widget__label">🟩 컨트리뷰션 캘린더</div>
 <div class="gh-chart-wrap">
 <img src="https://ghchart.rshah.org/2E8B57/paaaraaaeaaa" alt="GitHub Contribution Chart" loading="lazy" />
 </div>
+</div>
+
+<div class="gh-widget">
+<div class="gh-widget__label">📊 전체 통계</div>
+<div class="gh-stats-grid">
+<img src="https://github-readme-stats.vercel.app/api?username=paaaraaaeaaa&show_icons=true&theme=transparent&hide_border=true" alt="GitHub 전체 통계" loading="lazy" />
+</div>
+</div>
+
+<div class="gh-widget">
+<div class="gh-widget__label">🧠 자주 쓰는 언어</div>
+<div class="gh-stats-grid">
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=paaaraaaeaaa&layout=compact&theme=transparent&hide_border=true" alt="자주 쓰는 언어" loading="lazy" />
+</div>
+</div>
+
+<div class="gh-widget">
+<div class="gh-widget__label">📉 컨트리뷰션 활동 그래프</div>
+<div class="gh-chart-wrap">
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=paaaraaaeaaa&theme=minimal&hide_border=true" alt="컨트리뷰션 활동 그래프" loading="lazy" />
+</div>
+</div>
+
+<div class="gh-widget">
+<div class="gh-widget__label">🏆 업적 트로피</div>
+<div class="gh-chart-wrap">
+<img src="https://github-profile-trophy.vercel.app/?username=paaaraaaeaaa&theme=flat&no-frame=true&column=4" alt="GitHub 업적 트로피" loading="lazy" />
+</div>
+</div>
 
 > 꾸준함이 실력이 된다고 믿습니다. 오늘도 한 줄 더 기록합니다. 🚀
+
+---
