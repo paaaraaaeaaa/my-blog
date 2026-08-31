@@ -1,6 +1,6 @@
 ---
-title: "규칙 하나로 답이 달라진다"
-subtitle: "Bonus-자율 실습 devlog"
+title: "Bonus · 보너스 문제"
+subtitle: "규칙 하나로 답이 달라진다"
 excerpt: "Bonus-자율 실습 devlog"
 date: 2026-08-31
 categories: [Cloud]
