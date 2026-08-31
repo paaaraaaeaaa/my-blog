@@ -173,6 +173,13 @@ author_profile: true
 .visitor-tech-stack img {
   max-width: 100%;
 }
+.visitor-contrib {
+  overflow-x: auto;
+}
+.visitor-contrib img {
+  max-width: none;
+  height: 90px;
+}
 .visitor-label {
   display: block;
   font-size: .78em;
@@ -354,7 +361,7 @@ author_profile: true
 
 <aside class="sidebar__right sticky visitor-aside">
 <nav class="toc">
-<header><h4 class="nav__title"><i class="fas fa-chart-line"></i> 방문자 정보</h4></header>
+<header><h4 class="nav__title"><i class="fas fa-id-card"></i> 한눈에 보기</h4></header>
 <div class="toc__menu visitor-box">
 <div class="visitor-row visitor-row--split">
 <div class="visitor-col">
@@ -369,6 +376,10 @@ author_profile: true
 <div class="visitor-row visitor-tech-stack">
 <span class="visitor-label">기술 스택</span>
 <img src="https://skillicons.dev/icons?i=git,github,md,py,vscode" alt="기술 스택" loading="lazy" />
+</div>
+<div class="visitor-row visitor-contrib">
+<span class="visitor-label">컨트리뷰션 캘린더</span>
+<img src="https://ghchart.rshah.org/2E8B57/paaaraaaeaaa" alt="GitHub Contribution Chart" loading="lazy" />
 </div>
 <button type="button" id="copy-link-btn" class="copy-link-btn">🔗 이 페이지 링크 복사</button>
 </div>
@@ -486,13 +497,6 @@ author_profile: true
 <div class="gh-widget__label">📈 스트릭 (연속 기록)</div>
 <div class="gh-stats-grid">
 <img src="https://streak-stats.demolab.com?user=paaaraaaeaaa&theme=transparent&hide_border=true" alt="GitHub Streak Stats" loading="lazy" />
-</div>
-</div>
-
-<div class="gh-widget">
-<div class="gh-widget__label">🟩 컨트리뷰션 캘린더</div>
-<div class="gh-chart-wrap">
-<img src="https://ghchart.rshah.org/2E8B57/paaaraaaeaaa" alt="GitHub Contribution Chart" loading="lazy" />
 </div>
 </div>
 
