@@ -125,6 +125,15 @@ author_profile: true
 .gh-widget .gh-chart-wrap {
   margin: 0;
 }
+.daily-quote {
+  margin: .2rem 0 0;
+  padding: 0 .4rem;
+  font-size: .82em;
+  color: #999;
+  font-style: italic;
+  text-align: center;
+  line-height: 1.7;
+}
 .gh-widget__label {
   font-size: .82rem;
   font-weight: 700;
@@ -463,42 +472,36 @@ author_profile: true
 </div>
 </div>
 
-<div class="gh-widget">
-<div class="gh-widget__label">📊 전체 통계</div>
-<div class="gh-stats-grid">
-<img src="https://github-readme-stats.vercel.app/api?username=paaaraaaeaaa&show_icons=true&theme=transparent&hide_border=true" alt="GitHub 전체 통계" loading="lazy" />
-</div>
-</div>
-
-<div class="gh-widget">
-<div class="gh-widget__label">🧠 자주 쓰는 언어</div>
-<div class="gh-stats-grid">
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=paaaraaaeaaa&layout=compact&theme=transparent&hide_border=true" alt="자주 쓰는 언어" loading="lazy" />
-</div>
-</div>
-
-<div class="gh-widget">
-<div class="gh-widget__label">📉 컨트리뷰션 활동 그래프</div>
-<div class="gh-chart-wrap">
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=paaaraaaeaaa&theme=minimal&hide_border=true" alt="컨트리뷰션 활동 그래프" loading="lazy" />
-</div>
-</div>
-
-<div class="gh-widget">
-<div class="gh-widget__label">🏆 업적 트로피</div>
-<div class="gh-chart-wrap">
-<img src="https://github-profile-trophy.vercel.app/?username=paaaraaaeaaa&theme=flat&no-frame=true&column=4" alt="GitHub 업적 트로피" loading="lazy" />
-</div>
-</div>
-
 ## 오늘의 한마디
 
 <div class="gh-widget">
 <div class="gh-widget__label">💬 오늘의 개발 명언</div>
-<div class="gh-chart-wrap">
-<img src="https://quotes-github-readme.vercel.app/api?theme=default" alt="오늘의 개발 명언" loading="lazy" />
+<p id="daily-quote" class="daily-quote"></p>
 </div>
-</div>
+
+<script>
+(function () {
+  var quotes = [
+    { text: "프로그램은 사람이 읽기 위해 작성되어야 하고, 기계가 실행하는 것은 부차적인 일이다.", author: "해럴드 애빌슨" },
+    { text: "바보도 컴퓨터가 이해하는 코드는 짤 수 있다. 좋은 프로그래머는 사람이 이해할 수 있는 코드를 짠다.", author: "마틴 파울러" },
+    { text: "일단 되게 만들고, 그다음 옳게 만들고, 그다음 빠르게 만들어라.", author: "켄트 벡" },
+    { text: "말은 쉽다. 코드로 보여줘라.", author: "리누스 토르발스" },
+    { text: "단순함은 신뢰성의 전제조건이다.", author: "에츠허르 다익스트라" },
+    { text: "완벽함이란 더 보탤 것이 없을 때가 아니라, 더 뺄 것이 없을 때 이루어진다.", author: "앙투안 드 생텍쥐페리" },
+    { text: "빨리 가는 유일한 방법은 제대로 가는 것이다.", author: "로버트 C. 마틴" },
+    { text: "코드 줄 수로 개발 진척을 재는 것은 비행기 제작 진척을 무게로 재는 것과 같다.", author: "빌 게이츠" },
+    { text: "가장 위험한 말은 '우리는 항상 이렇게 해왔어'이다.", author: "그레이스 호퍼" },
+    { text: "배우기만 하고 생각하지 않으면 얻는 것이 없고, 생각만 하고 배우지 않으면 위태롭다.", author: "공자" },
+    { text: "오늘 걷지 않으면 내일은 뛰어야 한다.", author: "격언" },
+    { text: "완벽한 코드보다, 어제보다 나은 코드를 목표로 하라.", author: "격언" }
+  ];
+  var pick = quotes[Math.floor(Math.random() * quotes.length)];
+  var el = document.getElementById('daily-quote');
+  if (el) {
+    el.textContent = '“' + pick.text + '” — ' + pick.author;
+  }
+})();
+</script>
 
 > 꾸준함이 실력이 된다고 믿습니다. 오늘도 한 줄 더 기록합니다. 🚀
 
