@@ -212,8 +212,8 @@ author_profile: true
 안녕하세요! 개발을 처음 배우는 부트캠프 학습자입니다. 매일 배운 내용과 겪은 시행착오를 여기에 기록하면서, 몇 달 뒤에 다시 읽었을 때 "그때보다 늘었다"를 확인할 수 있는 블로그로 만들어가고 있습니다.
 
 {% comment %}
-부트캠프 "N일차"를 주말 + 한국 공휴일(_data/holidays.yml)을 제외한 평일 기준으로 계산.
-전체 기간(2026-08-26~2027-02-16)을 하루씩 훑으면서, 평일이면서 공휴일이 아닌 날만 센다.
+"N일차"는 주말 + 한국 공휴일(_data/holidays.yml)을 제외한 평일만 세서 계산.
+반면 "총 일수"와 진행률(%)은 전체 기간의 달력 날짜 그대로(오늘까지 지난 날짜 비율)로 계산.
 {% endcomment %}
 {% assign start_ts = "2026-08-26" | date: "%s" %}
 {% assign end_ts = "2027-02-16" | date: "%s" %}
@@ -221,24 +221,22 @@ author_profile: true
 {% assign total_calendar_days = end_ts | minus: start_ts | divided_by: 86400 %}
 
 {% assign day_number = 0 %}
-{% assign total_days = 0 %}
 {% for i in (0..total_calendar_days) %}
   {% assign offset_sec = i | times: 86400 %}
   {% assign cur_ts = start_ts | plus: offset_sec %}
+  {% if cur_ts > today_ts %}{% break %}{% endif %}
   {% assign cur_wday = cur_ts | date: "%w" %}
   {% assign cur_date_str = cur_ts | date: "%Y-%m-%d" %}
   {% assign is_workday = true %}
   {% if cur_wday == "0" or cur_wday == "6" %}{% assign is_workday = false %}{% endif %}
   {% if site.data.holidays contains cur_date_str %}{% assign is_workday = false %}{% endif %}
   {% if is_workday %}
-    {% assign total_days = total_days | plus: 1 %}
-    {% if cur_ts <= today_ts %}
-      {% assign day_number = day_number | plus: 1 %}
-    {% endif %}
+    {% assign day_number = day_number | plus: 1 %}
   {% endif %}
 {% endfor %}
 
-{% assign percent = day_number | times: 100 | divided_by: total_days %}
+{% assign calendar_elapsed = today_ts | minus: start_ts | divided_by: 86400 | plus: 1 %}
+{% assign percent = calendar_elapsed | times: 100 | divided_by: total_calendar_days %}
 {% if percent > 100 %}{% assign percent = 100 %}{% endif %}
 {% if percent < 0 %}{% assign percent = 0 %}{% endif %}
 
@@ -248,7 +246,7 @@ author_profile: true
 - 목표: 하루도 빠짐없이 기록하고, 막혔던 부분은 반드시 다시 정리하기
 
 <div class="progress-wrap">
-<div class="progress-label">전체 진행률: {{ day_number }}일차 / 총 {{ total_days }}일(평일 기준) ({{ percent }}%)</div>
+<div class="progress-label">전체 진행률: {{ day_number }}일차 / 총 {{ total_calendar_days }}일 ({{ percent }}%)</div>
 <div class="progress-bar"><div class="progress-bar__fill" style="width: {{ percent }}%;"></div></div>
 </div>
 
