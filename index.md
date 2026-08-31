@@ -353,7 +353,7 @@ author_profile: true
 <div class="info-tile">
 <div class="info-tile__icon">📅</div>
 <div class="info-tile__label">진행 상황</div>
-<div class="info-tile__value">{{ day_number }}일차 <span class="info-tile__sub">(평일 기준)</span></div>
+<div class="info-tile__value">{{ day_number }}일차 <span class="info-tile__sub"> </span></div>
 <div class="progress-bar progress-bar--mini"><div class="progress-bar__fill" style="width: {{ percent }}%;"></div></div>
 <div class="info-tile__sub">총 {{ total_calendar_days }}일 · {{ percent }}% · 2026.08.26~2027.02.16</div>
 </div>
@@ -361,7 +361,7 @@ author_profile: true
 <div class="info-tile info-tile--goal">
 <div class="info-tile__icon">🎯</div>
 <div class="info-tile__label">목표</div>
-<p class="goal-quote">하루도 빠짐없이 기록하고,<br>막혔던 부분은 반드시 다시 정리하기</p>
+<p class="goal-quote">하루마다 기록하고,<br>막혔던 부분은 반드시 다시 정리하기</p>
 </div>
 </div>
 
