@@ -1,5 +1,5 @@
 ---
-name: question
+name: practice
 description: 링크로 준 문제(자율 실습/팀 미션 등)를 읽고 회고형 devlog로 정리해서 블로그에 올린다. /practice <링크> 라고 하면 실행한다.
 ---
 
@@ -24,7 +24,7 @@ description: 링크로 준 문제(자율 실습/팀 미션 등)를 읽고 회고
 
 `type: practice`인 글(문제풀이·자율 실습·팀 미션 devlog 등)에는 아래를 추가로 지킨다.
 
-- **파일 위치**: `_posts/` 바로 아래에 둔다 (`_posts/Cloud/...`처럼 카테고리 이름의 하위 폴더를 만들지 않는다). 카테고리는 폴더가 아니라 front matter의 `categories: Cloud`로 정한다.
+- **파일 위치**: `_posts/Cloud/문제풀이` 바로 아래에 둔다 (`_posts/Cloud/...`처럼 카테고리 이름의 하위 폴더를 만들지 않는다). 카테고리는 폴더가 아니라 front matter의 `categories: Cloud`로 정한다.
 - **`layout`은 쓰지 않는다**: `_config.yml`의 defaults가 모든 글에 `layout: single`을 자동으로 넣는다. 직접 `layout: post`를 쓰면 목차·사이드바·콜아웃 기능이 깨진다.
 - **`date`는 하이픈 표기**: `date: YYYY-MM-DD` (예: `2026-08-29`). 점 표기(`2026.08.29`)는 cloud.md의 날짜 필터가 오작동할 수 있다.
 - **`topic` 필드 추가**: `topic: "<문제 제목>"`을 채운다. `/cloud/` 페이지의 "🧩 문제풀이" 섹션이 이 값으로 글을 묶어서 보여준다.
