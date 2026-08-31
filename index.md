@@ -241,7 +241,7 @@ author_profile: true
 {% if percent < 0 %}{% assign percent = 0 %}{% endif %}
 
 - 배운 것: Git, GitHub, 마크다운
-- 지금 하는 것: 부트캠프 {{ day_number }}일차 (주말·공휴일 제외 평일 기준)
+- 지금 하는 것: 부트캠프 {{ day_number }}일차
     - 기간: 2026.08.26-2027.02.16
 - 목표: 하루도 빠짐없이 기록하고, 막혔던 부분은 반드시 다시 정리하기
 
