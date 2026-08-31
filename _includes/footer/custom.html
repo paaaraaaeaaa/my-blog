@@ -131,6 +131,38 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   }
+
+  // 7-1. 왼쪽 프로필의 GitHub 링크 목록 밑에 "이메일 복사" 항목을 추가
+  var authorLinks = document.querySelector('.author__urls');
+  if (authorLinks) {
+    var emailAddress = 'yerin067@gmail.com';
+    var li = document.createElement('li');
+    var emailBtn = document.createElement('button');
+    emailBtn.type = 'button';
+    emailBtn.id = 'copy-email-btn';
+    emailBtn.className = 'author-email-btn';
+    emailBtn.innerHTML = '<i class="fas fa-fw fa-envelope" aria-hidden="true"></i> <span>' + emailAddress + '</span>';
+    li.appendChild(emailBtn);
+    authorLinks.appendChild(li);
+
+    emailBtn.addEventListener('click', function () {
+      var labelSpan = emailBtn.querySelector('span');
+      var done = function (ok) {
+        labelSpan.textContent = ok ? '복사됨!' : '실패';
+        setTimeout(function () { labelSpan.textContent = emailAddress; }, 1500);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(emailAddress).then(function () { done(true); }).catch(function () { done(false); });
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = emailAddress;
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); done(true); } catch (e) { done(false); }
+        document.body.removeChild(ta);
+      }
+    });
+  }
 });
 </script>
 

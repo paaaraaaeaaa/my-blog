@@ -3,7 +3,7 @@ title: "Git & GitHub - Team"
 subtitle: "팀 미션 devlog — 미션 A~E 전부 풀어보기"
 excerpt: "팀 미션 devlog — 미션 A~E 전부 풀어보기"
 date: 2026-08-28
-categories: Cloud
+categories: [Cloud]
 type: practice
 topic: "Git & GitHub"
 tags: [git, github, devlog, 부트캠프, 팀미션]
@@ -426,3 +426,16 @@ push한 뒤 PR 화면이 어떻게 바뀌는지 보고 병합했다.
 - 미션마다 같은 브랜치 → PR → 리뷰 → 병합 흐름을 쓰지만, **무엇을 관찰하게 만드는지**가 다 달랐다. (A: 충돌을 줄이는 방법 / B: 판정 가능한 리뷰 기준 / C: 커밋 단위가 남기는 정보량 / D: 팀 저장소에서 안전하게 되돌리기 / E: 브랜치를 딴 시점의 중요성)
 - 다섯 미션을 통틀어 가장 인상 깊었던 것: 미션 D에서 `reset --hard` 대신 `revert`를 써야 하는 이유를 직접 겪어본 게 가장 인상 깊었다. 팀 저장소에서 기록을 지우는 것과 되돌리는 것이 왜 다른지 몸으로 이해했다.
 - 만약 우리 팀이 다른 미션을 배정받았다면 가장 헤맸을 것 같은 미션: 미션 E일 것 같다. 브랜치를 딴 시점이 어긋나서 나는 충돌은 우리가 미션 B에서 겪은 것보다 더 헷갈릴 것 같았고, 팀 전체가 같은 지점에서 시작하는 습관이 안 잡혀 있었다면 더 오래 걸렸을 것 같다.
+
+## 더 학습하면 좋은 개념
+- **브랜치 보호 규칙 (Branch Protection Rules)** — 미션 D에서 겪은 "대충 승인되고 병합된 PR" 사고를 애초에 막는 GitHub 설정이다. 리뷰 승인 없이는 병합을 막도록 강제할 수 있다.
+- **CODEOWNERS 파일** — 미션 B의 리뷰 기준처럼 "누가 무엇을 리뷰해야 하는가"를 파일/폴더 단위로 자동 지정하는 설정이다. 팀 규모가 커질수록 필요해지는 개념이다.
+- **Squash 병합** — 미션 C에서 비교한 "잘게 쪼갠 커밋 vs 한 번에 몰아넣은 커밋"을 병합 시점에 하나로 합치는 옵션이다. PR 안에서는 잘게 커밋하고, `main`에는 깔끔하게 한 커밋으로 남기고 싶을 때 쓴다.
+- **git rerere** — 미션 A/E에서처럼 같은 충돌이 반복해서 날 때, 한 번 해결한 충돌 해결 방식을 Git이 기억해뒀다가 다음에 자동으로 재사용하게 해주는 기능이다.
+
+## 참고 자료
+- [Git 공식 문서 - git revert](https://git-scm.com/docs/git-revert)
+- [Git 공식 문서 - git reset](https://git-scm.com/docs/git-reset)
+- [Git 공식 문서 - git merge](https://git-scm.com/docs/git-merge)
+- [GitHub 공식 문서 - About protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches)
+- [GitHub 공식 문서 - About pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests)

@@ -3,7 +3,7 @@ title: "Git & GitHub - Personal"
 subtitle: "개인 미션 devlog — 자율 실습 15문제"
 excerpt: "개인 미션 devlog — 자율 실습 15문제"
 date: 2026-08-27
-categories: Cloud
+categories: [Cloud]
 type: practice
 topic: "Git & GitHub"
 tags: [git, github, devlog, 부트캠프, 개인미션]
@@ -478,3 +478,17 @@ git log --oneline (오늘 커밋 목록) → 기준별로 점수 매기기
 - 오늘 배운 개념: 커밋 · 커밋 히스토리 · 브랜치 · Pull Request · push와 pull · 저장소 · 원격 저장소 · 조직 · .gitignore · 충돌 해결 · reset/reflog/stash
 - 15문제를 통틀어 가장 오래 막혔던 지점: 1-5에서 "커밋 안 한 변경은 브랜치를 옮겨도 그대로 따라온다"는 걸 이해하는 데 가장 오래 걸렸다. 커밋과 브랜치가 서로 다른 단위라는 걸 헷갈려서 같은 실습을 몇 번 다시 해봐야 했다.
 - 내일 다시 보면 좋을 것: 충돌 해결(3-2)이랑 `reset`의 세 가지 옵션(`--soft`/`--mixed`/`--hard`) 차이는 표로 한 번 더 정리해서 복습하고 싶다.
+
+## 더 학습하면 좋은 개념
+- **git rebase** — merge와 달리 커밋 히스토리를 한 줄로 재정렬하는 방법이다. 1-6에서 다룬 `--graph` 모양이 rebase를 쓰면 어떻게 달라지는지 비교해보면 merge와의 차이가 명확해진다.
+- **git cherry-pick** — 특정 브랜치의 커밋 하나만 골라서 다른 브랜치에 옮기는 명령이다. B-1에서 "커밋을 어떻게 쪼갰어야 했는지" 고민했던 것과 이어지는 개념으로, 잘게 쪼갠 커밋이라야 원하는 것만 골라 옮길 수 있다.
+- **Conventional Commits** — B-2에서 스스로 정한 "좋은 커밋 메시지" 기준을 표준화한 규칙이다. `feat:`, `fix:` 같은 타입을 앞에 붙여 커밋 목적을 통일하는 방법을 알아두면 좋다.
+- **git bisect** — 여러 커밋 중 어느 시점부터 문제가 생겼는지 이진 탐색으로 찾아주는 명령이다. 오늘 커밋을 잘게 쪼개는 습관을 들였다면, 문제가 생겼을 때 원인 커밋을 빠르게 찾는 다음 단계로 배워두면 좋다.
+
+## 참고 자료
+- [Git 공식 문서 - git reset](https://git-scm.com/docs/git-reset)
+- [Git 공식 문서 - git reflog](https://git-scm.com/docs/git-reflog)
+- [Git 공식 문서 - git stash](https://git-scm.com/docs/git-stash)
+- [Git 공식 문서 - git revert](https://git-scm.com/docs/git-revert)
+- [Git 공식 문서 - gitignore](https://git-scm.com/docs/gitignore)
+- [GitHub 공식 문서 - About pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests)
