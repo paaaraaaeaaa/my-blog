@@ -211,6 +211,16 @@ author_profile: true
   font-size: .92em;
 }
 
+/* 타이핑 애니메이션 인트로 배너 */
+.typing-banner {
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem 0 1.2rem;
+}
+.typing-banner img {
+  max-width: 100%;
+}
+
 /* 인사말 카드 */
 .intro-card {
   display: flex;
@@ -325,9 +335,20 @@ author_profile: true
 </nav>
 </aside>
 
+<div class="typing-banner">
+<img src="https://readme-typing-svg.demolab.com/?font=Noto+Sans+KR&size=22&pause=1200&color=2E8B57&center=true&vCenter=true&width=560&lines=%EC%95%88%EB%85%95%ED%95%98%EC%84%B8%EC%9A%94%2C%20%EA%B0%9C%EB%B0%9C%20%EA%B3%B5%EB%B6%80%20%EC%A4%91%EC%9E%85%EB%8B%88%EB%8B%A4%20%F0%9F%91%8B;Git%20%C2%B7%20GitHub%20%EC%8B%A4%EC%8A%B5%20%EA%B8%B0%EB%A1%9D%20%EC%A4%91;%EA%BE%B8%EC%A4%80%ED%9E%88%20%EC%84%B1%EC%9E%A5%ED%95%98%EB%8A%94%20%EA%B0%9C%EB%B0%9C%EC%9E%90%EA%B0%80%20%EB%90%98%EA%B3%A0%20%EC%8B%B6%EC%96%B4%EC%9A%94" alt="타이핑 인트로 배너" loading="lazy" />
+</div>
+
 <div class="intro-card">
 <span class="intro-card__emoji">👋</span>
 <p>안녕하세요! 개발을 처음 배우는 부트캠프 학습자입니다. 매일 배운 내용과 겪은 시행착오를 여기에 기록하면서, 몇 달 뒤에 다시 읽었을 때 "그때보다 늘었다"를 확인할 수 있는 블로그로 만들어가고 있습니다.</p>
+</div>
+
+<div class="gh-widget">
+<div class="gh-widget__label">🛠️ 기술 스택</div>
+<div class="gh-stats-grid">
+<img src="https://skillicons.dev/icons?i=git,github,md,py,vscode" alt="기술 스택" loading="lazy" />
+</div>
 </div>
 
 {% comment %}
@@ -460,6 +481,22 @@ author_profile: true
 <div class="gh-widget__label">📉 컨트리뷰션 활동 그래프</div>
 <div class="gh-chart-wrap">
 <img src="https://github-readme-activity-graph.vercel.app/graph?username=paaaraaaeaaa&theme=minimal&hide_border=true" alt="컨트리뷰션 활동 그래프" loading="lazy" />
+</div>
+</div>
+
+<div class="gh-widget">
+<div class="gh-widget__label">🏆 업적 트로피</div>
+<div class="gh-chart-wrap">
+<img src="https://github-profile-trophy.vercel.app/?username=paaaraaaeaaa&theme=flat&no-frame=true&column=4" alt="GitHub 업적 트로피" loading="lazy" />
+</div>
+</div>
+
+## 오늘의 한마디
+
+<div class="gh-widget">
+<div class="gh-widget__label">💬 오늘의 개발 명언</div>
+<div class="gh-chart-wrap">
+<img src="https://quotes-github-readme.vercel.app/api?theme=default" alt="오늘의 개발 명언" loading="lazy" />
 </div>
 </div>
 
