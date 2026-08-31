@@ -361,7 +361,7 @@ author_profile: true
 <div class="info-tile info-tile--goal">
 <div class="info-tile__icon">🎯</div>
 <div class="info-tile__label">목표</div>
-<p class="goal-quote">하루마다 기록하고,<br>막혔던 부분은 반드시 다시 정리하기</p>
+<p class="goal-quote">빠짐없이 기록하고,<br>막혔던 부분은 반드시 다시 정리하기</p>
 </div>
 </div>
 
