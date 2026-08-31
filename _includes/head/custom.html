@@ -242,8 +242,11 @@ details.code-collapse[open] > summary {
 }
 
 /* 왼쪽 프로필의 이메일 복사 버튼: 다른 소셜 링크(GitHub 등)와 같은 줄 스타일로 맞춤 */
-.author-email-btn {
-  display: inline-flex;
+/* 주의: 테마 CSS에 ".author__urls-wrapper button { display: none; }" (데스크탑 화면에서
+   모바일용 "Follow" 토글 버튼을 숨기는 규칙)가 있는데, 이 규칙이 우리 버튼도 같이 숨겨버림.
+   그래서 선택자를 더 구체적으로 쓰고 !important로 확실히 이겨야 함. */
+.author__urls-wrapper .author-email-btn {
+  display: inline-flex !important;
   align-items: center;
   gap: .3em;
   background: none;

@@ -373,7 +373,7 @@ author_profile: true
 
 ## 📚 {{ page.list_title }}
 
-{% assign recent_posts = site.posts | slice: 0, 4 %}
+{% assign recent_posts = site.posts | slice: 0, 2 %}
 {% if recent_posts.size > 0 %}
 <div class="post-list">
 {% for post in recent_posts %}
