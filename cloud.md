@@ -83,9 +83,24 @@ permalink: /cloud/
 }
 .post-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
   margin: 1rem 0 1.5rem;
+}
+@media (max-width: 1100px) {
+  .post-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 800px) {
+  .post-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 500px) {
+  .post-list {
+    grid-template-columns: 1fr;
+  }
 }
 .post-list__card {
   display: block;

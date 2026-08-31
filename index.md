@@ -286,15 +286,33 @@ author_profile: true
   line-height: 1.7;
 }
 
-/* 배운 것 / 진행 상황 / 목표 3분할 카드 */
+/* 배운 것(왼쪽, 세로로 길게) / 진행 상황·목표(오른쪽, 위아래로) 2분할 카드 */
 .info-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 1fr;
   gap: 1rem;
   margin: 0 0 1.5rem;
 }
+.info-grid > .info-tile:nth-child(1) {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+}
+.info-grid > .info-tile:nth-child(2) {
+  grid-column: 2;
+  grid-row: 1;
+}
+.info-grid > .info-tile:nth-child(3) {
+  grid-column: 2;
+  grid-row: 2;
+}
 @media (max-width: 700px) {
   .info-grid { grid-template-columns: 1fr; }
+  .info-grid > .info-tile:nth-child(1),
+  .info-grid > .info-tile:nth-child(2),
+  .info-grid > .info-tile:nth-child(3) {
+    grid-column: auto;
+    grid-row: auto;
+  }
 }
 .info-tile {
   padding: 1.1rem 1.2rem;
@@ -525,14 +543,14 @@ author_profile: true
 ## GitHub 활동
 
 <div class="gh-widget">
-<div class="gh-widget__label">📈 Strick</div>
+<div class="gh-widget__label">📈 Streak</div>
 <div class="gh-stats-grid">
 <img src="https://streak-stats.demolab.com?user=paaaraaaeaaa&theme=transparent&hide_border=true" alt="GitHub Streak Stats" loading="lazy" />
 </div>
 </div>
 
 <div class="gh-widget">
-<div class="gh-widget__label">🟩 Contribution Calender </div>
+<div class="gh-widget__label">🟩 Contribution Calendar</div>
 <div class="gh-chart-wrap">
 <img src="https://ghchart.rshah.org/2E8B57/paaaraaaeaaa" alt="GitHub Contribution Chart" loading="lazy" />
 </div>
