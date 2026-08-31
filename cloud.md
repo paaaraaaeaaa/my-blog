@@ -12,50 +12,60 @@ permalink: /cloud/
   padding-right: 0 !important;
   float: none !important;
 }
-.cloud-top-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.2rem;
-  align-items: start;
-  margin-bottom: 1.5rem;
-  width: 100%;
+
+/* 상단 탭 전환 */
+.cloud-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem;
+  margin-bottom: 1.8rem;
+  border-bottom: 1px solid rgba(0,0,0,.08);
 }
-@media (max-width: 700px) {
-  .cloud-top-grid {
-    grid-template-columns: 1fr;
-  }
-}
-.cloud-top-section {
-  margin-bottom: 0;
-  border: 1px solid rgba(0,0,0,.1);
-  border-radius: 14px;
-  overflow: hidden;
-}
-.cloud-top-section > summary {
+.cloud-tab-btn {
+  appearance: none;
+  border: none;
+  background: none;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: .5em;
   padding: .9rem 1.3rem;
-  font-size: 1.1rem;
+  margin-bottom: -1px;
+  font-size: 1.02rem;
   font-weight: 700;
-  background: rgba(0,0,0,.03);
-  list-style: none;
-  user-select: none;
-}
-.cloud-top-section > summary::-webkit-details-marker {
-  display: none;
-}
-.cloud-top-section > summary::before {
-  content: '▶ ';
+  font-family: inherit;
   color: #888;
+  border-bottom: 3px solid transparent;
+  transition: color .15s ease, border-color .15s ease;
 }
-.cloud-top-section[open] > summary::before {
-  content: '▼ ';
+.cloud-tab-btn:hover {
+  color: #333;
 }
-.cloud-top-section > summary:hover {
+.cloud-tab-btn.is-active {
+  color: #1a73e8;
+  border-bottom-color: #1a73e8;
+}
+.cloud-tab-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5em;
+  height: 1.5em;
+  padding: 0 .4em;
+  border-radius: 999px;
   background: rgba(0,0,0,.06);
+  color: #777;
+  font-size: .72rem;
+  font-weight: 700;
 }
-.cloud-top-body {
-  padding: .2rem 1.3rem 1rem;
+.cloud-tab-btn.is-active .cloud-tab-count {
+  background: rgba(26,115,232,.12);
+  color: #1a73e8;
 }
+.cloud-tab-panel[hidden] {
+  display: none !important;
+}
+
 .module-section {
   margin: 1.5rem 0;
   padding-left: .9rem;
@@ -123,10 +133,12 @@ permalink: /cloud/
 {% assign daily_posts = cat_posts | where_exp: "post", "post.type != 'practice'" %}
 {% assign practice_posts = cat_posts | where_exp: "post", "post.type == 'practice'" %}
 
-<div class="cloud-top-grid">
-<details class="cloud-top-section" open>
-<summary>📅 일차별 학습노트</summary>
-<div class="cloud-top-body">
+<div class="cloud-tabs" role="tablist">
+<button type="button" class="cloud-tab-btn is-active" data-tab="daily" role="tab" aria-selected="true">📅 일차별 학습노트 <span class="cloud-tab-count">{{ daily_posts.size }}</span></button>
+<button type="button" class="cloud-tab-btn" data-tab="practice" role="tab" aria-selected="false">🧩 문제풀이 <span class="cloud-tab-count">{{ practice_posts.size }}</span></button>
+</div>
+
+<div class="cloud-tab-panel" id="cloud-panel-daily" data-panel="daily">
 {% if daily_posts.size == 0 %}
 <p class="post-list__empty">아직 작성된 글이 없습니다.</p>
 {% else %}
@@ -150,11 +162,8 @@ permalink: /cloud/
 {% endfor %}
 {% endif %}
 </div>
-</details>
 
-<details class="cloud-top-section" open>
-<summary>🧩 문제풀이</summary>
-<div class="cloud-top-body">
+<div class="cloud-tab-panel" id="cloud-panel-practice" data-panel="practice" hidden>
 {% if practice_posts.size == 0 %}
 <p class="post-list__empty">아직 작성된 글이 없습니다.</p>
 {% else %}
@@ -176,7 +185,25 @@ permalink: /cloud/
 {% endfor %}
 {% endif %}
 </div>
-</details>
-</div>
+
+<script>
+(function () {
+  var buttons = document.querySelectorAll('.cloud-tab-btn');
+  var panels = document.querySelectorAll('.cloud-tab-panel');
+  buttons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var target = btn.getAttribute('data-tab');
+      buttons.forEach(function (b) {
+        var active = b === btn;
+        b.classList.toggle('is-active', active);
+        b.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      panels.forEach(function (p) {
+        p.hidden = p.getAttribute('data-panel') !== target;
+      });
+    });
+  });
+})();
+</script>
 
 {% endif %}
