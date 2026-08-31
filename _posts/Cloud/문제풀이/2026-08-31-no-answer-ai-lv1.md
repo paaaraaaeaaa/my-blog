@@ -1,5 +1,5 @@
 ---
-title: "Lv1 · 기본 실습"
+title: "Lv1 · 역할과 규칙 나눠보기"
 subtitle: "역할과 규칙 칸을 나눠보며 /learn·/note를 처음 흔들어본 devlog"
 excerpt: "역할과 규칙 칸을 나눠보며 /learn·/note를 처음 흔들어본 devlog"
 date: 2026-08-31

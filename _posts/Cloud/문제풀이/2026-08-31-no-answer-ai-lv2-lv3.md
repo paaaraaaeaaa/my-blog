@@ -1,5 +1,5 @@
 ---
-title: "Lv2+Lv3 · 심화 실습"
+title: "Lv2+Lv3 · 경계 규칙 검증과 스킬 이식"
 subtitle: "경계 규칙 검증부터 한 줄 지시로 매번 같은 결과 내기까지 다룬 devlog"
 excerpt: "경계 규칙 검증부터 한 줄 지시로 매번 같은 결과 내기까지 다룬 devlog"
 date: 2026-08-31

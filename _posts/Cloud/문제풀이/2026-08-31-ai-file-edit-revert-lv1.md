@@ -1,5 +1,5 @@
 ---
-title: "Lv1 · 기본 실습"
+title: "Lv1 · git으로 되돌리는 법 익히기"
 subtitle: "AI가 파일을 고쳤을 때 되돌리는 법부터 익히는 기본 변형 devlog"
 excerpt: "AI가 파일을 고쳤을 때 되돌리는 법부터 익히는 기본 변형 devlog"
 date: 2026-08-31

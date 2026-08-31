@@ -1,5 +1,5 @@
 ---
-title: "Bonus · 보너스 문제"
+title: "Bonus · 사용 기록 점검과 스킬 다이어트"
 subtitle: "며칠간 사용 기록을 점검하고 스킬을 절반으로 줄여본 보너스 devlog"
 excerpt: "며칠간 사용 기록을 점검하고 스킬을 절반으로 줄여본 보너스 devlog"
 date: 2026-08-31

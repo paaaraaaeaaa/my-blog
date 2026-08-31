@@ -1,5 +1,5 @@
 ---
-title: "Lv2+Lv3 · 심화 실습"
+title: "Lv2+Lv3 · 사고 처리와 브랜치·PR 흐름"
 subtitle: "애매한 지시·브랜치+PR·AI 환각 검증까지 다뤄본 응용·도전 devlog"
 excerpt: "애매한 지시·브랜치+PR·AI 환각 검증까지 다뤄본 응용·도전 devlog"
 date: 2026-08-31
