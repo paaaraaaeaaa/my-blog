@@ -5,6 +5,12 @@ permalink: /projects/
 ---
 
 <style>
+.page {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding-right: 0 !important;
+  float: none !important;
+}
 .post-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));

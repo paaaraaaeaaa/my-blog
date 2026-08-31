@@ -5,6 +5,12 @@ permalink: /database/
 ---
 
 <style>
+.page {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding-right: 0 !important;
+  float: none !important;
+}
 .db-section {
   margin-bottom: 2rem;
 }
