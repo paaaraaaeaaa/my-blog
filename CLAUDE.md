@@ -265,10 +265,11 @@ YYYY-MM-DD-제목.md
 
 ```yaml
 ---
-layout: post
+layout: single
 title: "4일차"
 date: 2026.08.31
 categories: [Frontend]
+excerpt: "글의 한 줄 요약"
 type: daily
 tags: [react, react-query, caching]
 comments: true
@@ -276,6 +277,7 @@ toc: true
 toc_sticky: true
 mermaid: true
 ---
+
 ```
 
 | 항목 | 필수 여부 | 규칙 |
