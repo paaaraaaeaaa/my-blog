@@ -152,3 +152,31 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 {% endif %}
+
+<!-- 9. Mermaid 다이어그램 렌더링: ```mermaid 코드블록을 실제 그림으로 그려줌 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  if (typeof mermaid === 'undefined') return;
+
+  // kramdown이 ```mermaid 코드블록을 <pre><code class="language-mermaid">...</code></pre> 형태로 렌더링하는데,
+  // mermaid.js는 <div class="mermaid">원본 텍스트</div> 형태를 찾아서 그림으로 바꿔주기 때문에
+  // 코드블록을 찾아서 div.mermaid로 바꿔치기 해줌.
+  var blocks = document.querySelectorAll('code.language-mermaid, code.language-Mermaid');
+  if (blocks.length === 0) return;
+
+  blocks.forEach(function (codeEl) {
+    var graphText = codeEl.textContent;
+    var wrapper = codeEl.closest('div.highlighter-rouge') || codeEl.closest('figure.highlight') || codeEl.closest('pre');
+    if (!wrapper) wrapper = codeEl;
+
+    var div = document.createElement('div');
+    div.className = 'mermaid';
+    div.textContent = graphText;
+    wrapper.parentNode.replaceChild(div, wrapper);
+  });
+
+  mermaid.initialize({ startOnLoad: false, theme: 'default' });
+  mermaid.run({ querySelector: '.mermaid' });
+});
+</script>
