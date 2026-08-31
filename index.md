@@ -190,6 +190,102 @@ author_profile: true
   padding: .75em;
   font-size: .92em;
 }
+
+/* 인사말 카드 */
+.intro-card {
+  display: flex;
+  align-items: flex-start;
+  gap: .8rem;
+  padding: 1.2rem 1.4rem;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(66,133,244,.06), rgba(52,168,83,.06));
+  border: 1px solid rgba(66,133,244,.12);
+  margin: 1rem 0 1.5rem;
+}
+.intro-card__emoji {
+  font-size: 1.6rem;
+  line-height: 1.4;
+  flex-shrink: 0;
+}
+.intro-card p {
+  margin: 0;
+  line-height: 1.7;
+}
+
+/* 배운 것 / 진행 상황 / 목표 3분할 카드 */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 0 0 1.5rem;
+}
+@media (max-width: 700px) {
+  .info-grid { grid-template-columns: 1fr; }
+}
+.info-tile {
+  padding: 1.1rem 1.2rem;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,.04);
+}
+.info-tile__icon {
+  font-size: 1.4rem;
+  margin-bottom: .3rem;
+}
+.info-tile__label {
+  font-size: .78rem;
+  font-weight: 700;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  margin-bottom: .6rem;
+}
+.info-tile__value {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: .55rem;
+}
+.info-tile__sub {
+  font-size: .74rem;
+  font-weight: 400;
+  color: #999;
+}
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+}
+.chip {
+  display: inline-block;
+  padding: .3em .75em;
+  border-radius: 999px;
+  background: rgba(66,133,244,.1);
+  color: #3367d6;
+  font-size: .82rem;
+  font-weight: 600;
+}
+.progress-bar--mini {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.08);
+  overflow: hidden;
+  margin-bottom: .4rem;
+}
+.progress-bar--mini .progress-bar__fill {
+  height: 100%;
+}
+.info-tile--goal {
+  background: linear-gradient(135deg, rgba(255,112,67,.06), rgba(255,112,67,.02));
+  border-color: rgba(255,112,67,.15);
+}
+.goal-quote {
+  margin: 0;
+  font-size: .92rem;
+  font-weight: 600;
+  line-height: 1.6;
+  color: #444;
+}
 </style>
 
 <aside class="sidebar__right sticky visitor-aside">
@@ -209,7 +305,10 @@ author_profile: true
 </nav>
 </aside>
 
-안녕하세요! 개발을 처음 배우는 부트캠프 학습자입니다. 매일 배운 내용과 겪은 시행착오를 여기에 기록하면서, 몇 달 뒤에 다시 읽었을 때 "그때보다 늘었다"를 확인할 수 있는 블로그로 만들어가고 있습니다.
+<div class="intro-card">
+<span class="intro-card__emoji">👋</span>
+<p>안녕하세요! 개발을 처음 배우는 부트캠프 학습자입니다. 매일 배운 내용과 겪은 시행착오를 여기에 기록하면서, 몇 달 뒤에 다시 읽었을 때 "그때보다 늘었다"를 확인할 수 있는 블로그로 만들어가고 있습니다.</p>
+</div>
 
 {% comment %}
 "N일차"는 주말 + 한국 공휴일(_data/holidays.yml)을 제외한 평일만 세서 계산.
@@ -240,14 +339,30 @@ author_profile: true
 {% if percent > 100 %}{% assign percent = 100 %}{% endif %}
 {% if percent < 0 %}{% assign percent = 0 %}{% endif %}
 
-- 배운 것: Git, GitHub, 마크다운
-- 지금 하는 것: 부트캠프 {{ day_number }}일차
-    - 기간: 2026.08.26-2027.02.16
-- 목표: 하루도 빠짐없이 기록하고, 막혔던 부분은 반드시 다시 정리하기
+<div class="info-grid">
+<div class="info-tile">
+<div class="info-tile__icon">📚</div>
+<div class="info-tile__label">배운 것</div>
+<div class="chip-list">
+<span class="chip">Git</span>
+<span class="chip">GitHub</span>
+<span class="chip">마크다운</span>
+</div>
+</div>
 
-<div class="progress-wrap">
-<div class="progress-label">전체 진행률: {{ day_number }}일차 / 총 {{ total_calendar_days }}일 ({{ percent }}%)</div>
-<div class="progress-bar"><div class="progress-bar__fill" style="width: {{ percent }}%;"></div></div>
+<div class="info-tile">
+<div class="info-tile__icon">📅</div>
+<div class="info-tile__label">진행 상황</div>
+<div class="info-tile__value">{{ day_number }}일차 <span class="info-tile__sub">(평일 기준)</span></div>
+<div class="progress-bar progress-bar--mini"><div class="progress-bar__fill" style="width: {{ percent }}%;"></div></div>
+<div class="info-tile__sub">총 {{ total_calendar_days }}일 · {{ percent }}% · 2026.08.26~2027.02.16</div>
+</div>
+
+<div class="info-tile info-tile--goal">
+<div class="info-tile__icon">🎯</div>
+<div class="info-tile__label">목표</div>
+<p class="goal-quote">하루도 빠짐없이 기록하고,<br>막혔던 부분은 반드시 다시 정리하기</p>
+</div>
 </div>
 
 <div class="quicknav-grid">
@@ -301,4 +416,4 @@ author_profile: true
 <img src="https://ghchart.rshah.org/2E8B57/paaaraaaeaaa" alt="GitHub Contribution Chart" loading="lazy" />
 </div>
 
-> 꾸준함이 실력이 된다고 믿습니다. 오늘도 한 줄 더 기록합니다.
+> 꾸준함이 실력이 된다고 믿습니다. 오늘도 한 줄 더 기록합니다. 🚀
