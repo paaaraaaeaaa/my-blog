@@ -173,12 +173,15 @@ author_profile: true
 .visitor-tech-stack img {
   max-width: 100%;
 }
-.visitor-contrib {
-  overflow-x: auto;
+.visitor-quote .daily-quote {
+  padding: 0;
+  text-align: left;
 }
-.visitor-contrib img {
-  max-width: none;
-  height: 90px;
+.visitor-quote .daily-quote__en {
+  font-size: .8em;
+}
+.visitor-quote .daily-quote__ko {
+  font-size: .74em;
 }
 .visitor-label {
   display: block;
@@ -377,14 +380,42 @@ author_profile: true
 <span class="visitor-label">기술 스택</span>
 <img src="https://skillicons.dev/icons?i=git,github,md,py,vscode" alt="기술 스택" loading="lazy" />
 </div>
-<div class="visitor-row visitor-contrib">
-<span class="visitor-label">컨트리뷰션 캘린더</span>
-<img src="https://ghchart.rshah.org/2E8B57/paaaraaaeaaa" alt="GitHub Contribution Chart" loading="lazy" />
+<div class="visitor-row visitor-quote">
+<span class="visitor-label">오늘의 개발 명언</span>
+<p class="daily-quote">
+<span id="daily-quote-en" class="daily-quote__en"></span>
+<span id="daily-quote-ko" class="daily-quote__ko"></span>
+</p>
 </div>
 <button type="button" id="copy-link-btn" class="copy-link-btn">🔗 이 페이지 링크 복사</button>
 </div>
 </nav>
 </aside>
+
+<script>
+(function () {
+  // 전부 실제로 존재하는 인용문만 담았습니다 (출처: Wikiquote 및 각 저자 본인의 저서/발언 기록).
+  var quotes = [
+    { en: "Programs must be written for people to read, and only incidentally for machines to execute.", ko: "프로그램은 사람이 읽기 위해 작성되어야 하며, 기계가 실행하는 것은 부차적인 일이다.", author: "Harold Abelson" },
+    { en: "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.", ko: "바보도 컴퓨터가 이해하는 코드는 짤 수 있다. 좋은 프로그래머는 사람이 이해할 수 있는 코드를 짠다.", author: "Martin Fowler" },
+    { en: "Make it work, make it right, make it fast.", ko: "일단 되게 만들고, 그다음 옳게 만들고, 그다음 빠르게 만들어라.", author: "Kent Beck" },
+    { en: "Talk is cheap. Show me the code.", ko: "말은 쉽다. 코드로 보여줘라.", author: "Linus Torvalds" },
+    { en: "Simplicity is prerequisite for reliability.", ko: "단순함은 신뢰성의 전제조건이다.", author: "Edsger W. Dijkstra" },
+    { en: "Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.", ko: "완벽함이란 더 보탤 것이 없을 때가 아니라, 더 뺄 것이 없을 때 이루어진다.", author: "Antoine de Saint-Exupéry" },
+    { en: "The only way to go fast is to go well.", ko: "빨리 가는 유일한 방법은 제대로 가는 것이다.", author: "Robert C. Martin" },
+    { en: "Measuring programming progress by lines of code is like measuring aircraft building progress by weight.", ko: "코드 줄 수로 개발 진척을 재는 것은 비행기 제작 진척을 무게로 재는 것과 같다.", author: "Bill Gates" },
+    { en: "The most dangerous phrase in the language is, 'We've always done it this way.'", ko: "가장 위험한 말은 '우리는 항상 이렇게 해왔어'이다.", author: "Grace Hopper" },
+    { en: "Learning without thought is labour lost; thought without learning is perilous.", ko: "배우기만 하고 생각하지 않으면 얻는 것이 없고, 생각만 하고 배우지 않으면 위태롭다.", author: "Confucius" },
+    { en: "Premature optimization is the root of all evil.", ko: "섣부른 최적화는 모든 악의 근원이다.", author: "Donald Knuth" },
+    { en: "Testing shows the presence, not the absence, of bugs.", ko: "테스트는 버그가 있다는 것을 보여줄 뿐, 버그가 없다는 것을 보여주지는 않는다.", author: "Edsger W. Dijkstra" }
+  ];
+  var pick = quotes[Math.floor(Math.random() * quotes.length)];
+  var enEl = document.getElementById('daily-quote-en');
+  var koEl = document.getElementById('daily-quote-ko');
+  if (enEl) enEl.textContent = '“' + pick.en + '” — ' + pick.author;
+  if (koEl) koEl.textContent = pick.ko;
+})();
+</script>
 
 <div class="typing-banner">
 <img src="https://readme-typing-svg.demolab.com/?font=Noto+Sans+KR&size=22&pause=1200&color=2E8B57&center=true&vCenter=true&width=560&lines=%EC%95%88%EB%85%95%ED%95%98%EC%84%B8%EC%9A%94%2C%20%EA%B0%9C%EB%B0%9C%20%EA%B3%B5%EB%B6%80%20%EC%A4%91%EC%9E%85%EB%8B%88%EB%8B%A4%20%F0%9F%91%8B;Git%20%C2%B7%20GitHub%20%EC%8B%A4%EC%8A%B5%20%EA%B8%B0%EB%A1%9D%20%EC%A4%91;%EA%BE%B8%EC%A4%80%ED%9E%88%20%EC%84%B1%EC%9E%A5%ED%95%98%EB%8A%94%20%EA%B0%9C%EB%B0%9C%EC%9E%90%EA%B0%80%20%EB%90%98%EA%B3%A0%20%EC%8B%B6%EC%96%B4%EC%9A%94" alt="타이핑 인트로 배너" loading="lazy" />
@@ -500,40 +531,12 @@ author_profile: true
 </div>
 </div>
 
-## 오늘의 한마디
-
 <div class="gh-widget">
-<div class="gh-widget__label">💬 오늘의 개발 명언</div>
-<p class="daily-quote">
-<span id="daily-quote-en" class="daily-quote__en"></span>
-<span id="daily-quote-ko" class="daily-quote__ko"></span>
-</p>
+<div class="gh-widget__label">🟩 컨트리뷰션 캘린더</div>
+<div class="gh-chart-wrap">
+<img src="https://ghchart.rshah.org/2E8B57/paaaraaaeaaa" alt="GitHub Contribution Chart" loading="lazy" />
 </div>
-
-<script>
-(function () {
-  // 전부 실제로 존재하는 인용문만 담았습니다 (출처: Wikiquote 및 각 저자 본인의 저서/발언 기록).
-  var quotes = [
-    { en: "Programs must be written for people to read, and only incidentally for machines to execute.", ko: "프로그램은 사람이 읽기 위해 작성되어야 하며, 기계가 실행하는 것은 부차적인 일이다.", author: "Harold Abelson" },
-    { en: "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.", ko: "바보도 컴퓨터가 이해하는 코드는 짤 수 있다. 좋은 프로그래머는 사람이 이해할 수 있는 코드를 짠다.", author: "Martin Fowler" },
-    { en: "Make it work, make it right, make it fast.", ko: "일단 되게 만들고, 그다음 옳게 만들고, 그다음 빠르게 만들어라.", author: "Kent Beck" },
-    { en: "Talk is cheap. Show me the code.", ko: "말은 쉽다. 코드로 보여줘라.", author: "Linus Torvalds" },
-    { en: "Simplicity is prerequisite for reliability.", ko: "단순함은 신뢰성의 전제조건이다.", author: "Edsger W. Dijkstra" },
-    { en: "Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.", ko: "완벽함이란 더 보탤 것이 없을 때가 아니라, 더 뺄 것이 없을 때 이루어진다.", author: "Antoine de Saint-Exupéry" },
-    { en: "The only way to go fast is to go well.", ko: "빨리 가는 유일한 방법은 제대로 가는 것이다.", author: "Robert C. Martin" },
-    { en: "Measuring programming progress by lines of code is like measuring aircraft building progress by weight.", ko: "코드 줄 수로 개발 진척을 재는 것은 비행기 제작 진척을 무게로 재는 것과 같다.", author: "Bill Gates" },
-    { en: "The most dangerous phrase in the language is, 'We've always done it this way.'", ko: "가장 위험한 말은 '우리는 항상 이렇게 해왔어'이다.", author: "Grace Hopper" },
-    { en: "Learning without thought is labour lost; thought without learning is perilous.", ko: "배우기만 하고 생각하지 않으면 얻는 것이 없고, 생각만 하고 배우지 않으면 위태롭다.", author: "Confucius" },
-    { en: "Premature optimization is the root of all evil.", ko: "섣부른 최적화는 모든 악의 근원이다.", author: "Donald Knuth" },
-    { en: "Testing shows the presence, not the absence, of bugs.", ko: "테스트는 버그가 있다는 것을 보여줄 뿐, 버그가 없다는 것을 보여주지는 않는다.", author: "Edsger W. Dijkstra" }
-  ];
-  var pick = quotes[Math.floor(Math.random() * quotes.length)];
-  var enEl = document.getElementById('daily-quote-en');
-  var koEl = document.getElementById('daily-quote-ko');
-  if (enEl) enEl.textContent = '“' + pick.en + '” — ' + pick.author;
-  if (koEl) koEl.textContent = pick.ko;
-})();
-</script>
+</div>
 
 > 꾸준함이 실력이 된다고 믿습니다. 오늘도 한 줄 더 기록합니다. 🚀
 
