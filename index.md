@@ -162,9 +162,9 @@ author_profile: true
 
 .intro-card p {
   margin: 0;
-  line-height: 1.8;
+  line-height: 1.75;
   color: #555;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 500;
 }
 
@@ -751,11 +751,11 @@ author_profile: true
 
 .chip {
   display: inline-block;
-  padding: 0.4em 0.85em;
+  padding: 0.35em 0.75em;
   border-radius: 999px;
   background: rgba(66,133,244,.12);
   color: #3367d6;
-  font-size: 0.85rem;
+  font-size: 0.74rem;
   font-weight: 700;
   transition: all 0.3s ease;
   animation: fadeInUp 0.6s ease-out both;
@@ -851,7 +851,7 @@ h2::after {
   }
   
   .intro-card p {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
   }
   
   .info-grid {
