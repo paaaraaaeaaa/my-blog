@@ -182,12 +182,13 @@ permalink: /cloud/
 {% if practice_posts.size == 0 %}
 <p class="post-list__empty">아직 작성된 글이 없습니다.</p>
 {% else %}
-{% assign topic_order = "Git & GitHub|AI가 내 파일을 직접 고친다|규칙 하나로 답이 달라진다" | split: "|" %}
-{% for name in topic_order %}
+{% assign practice_posts_by_date = practice_posts | sort: 'date' %}
+{% assign topic_names_ordered = practice_posts_by_date | map: 'topic' | uniq %}
+{% for name in topic_names_ordered %}
 {% assign topic_posts = practice_posts | where_exp: "post", "post.topic == name" | sort: 'date' %}
 {% if topic_posts.size > 0 %}
 <div class="module-section">
-<h3>{% if forloop.index == 1 %}1️⃣{% elsif forloop.index == 2 %}2️⃣{% elsif forloop.index == 3 %}3️⃣{% else %}{{ forloop.index }}️⃣{% endif %} {{ name }}</h3>
+<h3>{% assign num = forloop.index %}{% case num %}{% when 1 %}1️⃣{% when 2 %}2️⃣{% when 3 %}3️⃣{% when 4 %}4️⃣{% when 5 %}5️⃣{% when 6 %}6️⃣{% when 7 %}7️⃣{% when 8 %}8️⃣{% when 9 %}9️⃣{% when 10 %}🔟{% else %}{{ num }}.{% endcase %} {% if name %}{{ name }}{% else %}미분류{% endif %}</h3>
 <div class="post-list">
 {% for post in topic_posts %}
 <a class="post-list__card" href="{{ post.url | relative_url }}">
@@ -199,24 +200,6 @@ permalink: /cloud/
 </div>
 </div>
 {% endif %}
-{% endfor %}
-{% assign practice_topics = practice_posts | group_by: 'topic' | sort: 'name' %}
-{% for grp in practice_topics %}
-{% unless topic_order contains grp.name %}
-<div class="module-section">
-<h3>🎯 {% if grp.name %}{{ grp.name }}{% else %}미분류{% endif %}</h3>
-<div class="post-list">
-{% assign topic_posts = grp.items | sort: 'date' %}
-{% for post in topic_posts %}
-<a class="post-list__card" href="{{ post.url | relative_url }}">
-<div class="post-list__date">{{ post.date | date: "%Y-%m-%d" }}</div>
-<div class="post-list__title">{{ post.title }}</div>
-<div class="post-list__subtitle">{{ post.subtitle }}</div>
-</a>
-{% endfor %}
-</div>
-</div>
-{% endunless %}
 {% endfor %}
 {% endif %}
 </div>
