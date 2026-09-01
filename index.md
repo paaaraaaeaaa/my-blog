@@ -103,45 +103,33 @@ author_profile: true
 /* ===== 소개 카드 ===== */
 .intro-card {
   display: flex;
-  align-items: flex-start;
-  gap: 1.2rem;
-  padding: 1.5rem 1.8rem;
-  border-radius: 16px;
-  background: linear-gradient(135deg, rgba(66,133,244,.08), rgba(52,168,83,.08));
-  border: 1.5px solid rgba(66,133,244,.2);
-  margin: 1.5rem 0 2rem;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.15rem 1.4rem;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.07);
+  border-left: 3px solid #4285f4;
+  margin: 1.1rem 0 1.8rem;
   animation: fadeInUp 0.8s ease-out 0.1s both;
   position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
-
-.intro-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.15), transparent);
-  transition: left 0.7s ease;
-}
-
-.intro-card:hover::before {
-  left: 100%;
+  box-shadow: 0 2px 10px rgba(0,0,0,.04);
+  transition: all 0.25s ease;
 }
 
 .intro-card:hover {
-  border-color: rgba(66,133,244,.35);
-  box-shadow: 0 8px 24px rgba(66,133,244,.12);
-  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,0,0,.07);
+  transform: translateY(-2px);
 }
 
 .intro-card__emoji {
-  font-size: 2rem;
+  font-size: 1.3rem;
   line-height: 1;
   flex-shrink: 0;
-  animation: float 3s ease-in-out infinite;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background: rgba(66,133,244,.08);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -149,10 +137,10 @@ author_profile: true
 
 .intro-card p {
   margin: 0;
-  line-height: 1.8;
-  color: #555;
-  font-size: 1rem;
-  font-weight: 500;
+  line-height: 1.65;
+  color: #666;
+  font-size: 0.86rem;
+  font-weight: 400;
 }
 
 /* ===== 진행 상황 섹션 (목표와 명언 포함) ===== */
@@ -164,8 +152,8 @@ author_profile: true
 }
 
 .info-tile {
-  padding: 1.8rem;
-  border-radius: 16px;
+  padding: 1.4rem 1.6rem;
+  border-radius: 14px;
   background: #fff;
   border: 1px solid rgba(0,0,0,.08);
   box-shadow: 0 4px 12px rgba(0,0,0,.05);
@@ -208,26 +196,26 @@ author_profile: true
 }
 
 .info-tile__icon {
-  font-size: 1.8rem;
-  margin-bottom: 0.8rem;
+  font-size: 1.4rem;
+  margin-bottom: 0.6rem;
   display: inline-block;
   animation: float 3s ease-in-out infinite;
 }
 
 .info-tile__label {
-  font-size: 0.75rem;
+  font-size: 0.68rem;
   font-weight: 800;
   color: #999;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.6rem;
   display: block;
 }
 
 .info-tile__value {
-  font-size: 1.8rem;
+  font-size: 1.35rem;
   font-weight: 800;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.6rem;
   background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -236,7 +224,7 @@ author_profile: true
 }
 
 .info-tile__sub {
-  font-size: 0.85rem;
+  font-size: 0.76rem;
   font-weight: 500;
   color: #aaa;
   line-height: 1.6;
@@ -289,41 +277,41 @@ author_profile: true
 
 .goal-quote {
   margin: 0;
-  font-size: 1.05rem;
+  font-size: 0.92rem;
   font-weight: 700;
-  line-height: 1.7;
+  line-height: 1.65;
   color: #333;
   animation: slideInLeft 0.8s ease-out 0.4s both;
 }
 
 /* 명언 섹션 */
 .quote-section {
-  padding: 1.2rem;
+  padding: 0.9rem 1rem;
   background: rgba(66,133,244,.04);
-  border-left: 4px solid #4285f4;
+  border-left: 3px solid #4285f4;
   border-radius: 8px;
-  margin-top: 1rem;
+  margin-top: 0.9rem;
   animation: scaleIn 0.6s ease-out 0.5s both;
 }
 
 .daily-quote {
   margin: 0;
   padding: 0;
-  line-height: 1.7;
+  line-height: 1.6;
 }
 
 .daily-quote__en {
   display: block;
-  font-size: 0.9rem;
+  font-size: 0.78rem;
   font-style: italic;
   color: #555;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
   font-weight: 500;
 }
 
 .daily-quote__ko {
   display: block;
-  font-size: 0.85rem;
+  font-size: 0.73rem;
   color: #777;
   font-weight: 400;
 }
@@ -341,14 +329,14 @@ author_profile: true
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.8rem;
-  padding: 1.8rem 1.2rem;
-  border: 2px solid rgba(0,0,0,.08);
+  gap: 0.6rem;
+  padding: 1.3rem 1.1rem;
+  border: 1.5px solid rgba(0,0,0,.08);
   border-radius: 14px;
   text-decoration: none;
   color: inherit;
   font-weight: 700;
-  font-size: 1.05rem;
+  font-size: 0.88rem;
   background: #fff;
   transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   animation: fadeInUp 0.8s ease-out both;
@@ -383,7 +371,7 @@ author_profile: true
 }
 
 .quicknav-card__icon {
-  font-size: 2.2rem;
+  font-size: 1.7rem;
   transition: transform 0.3s ease;
 }
 
@@ -407,7 +395,7 @@ author_profile: true
 .post-list__card {
   display: flex;
   flex-direction: column;
-  padding: 1.6rem;
+  padding: 1.3rem 1.4rem;
   border: 1px solid rgba(0,0,0,.08);
   border-radius: 14px;
   text-decoration: none;
@@ -462,9 +450,9 @@ author_profile: true
   display: inline-flex;
   align-items: center;
   gap: 0.4em;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   font-weight: 800;
-  padding: 0.4em 0.9em;
+  padding: 0.35em 0.75em;
   border-radius: 999px;
   color: #fff;
   white-space: nowrap;
@@ -480,7 +468,7 @@ author_profile: true
 .post-list__badge--default { background: #888; }
 
 .post-list__date {
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   color: #aaa;
   font-weight: 600;
   white-space: nowrap;
@@ -493,9 +481,9 @@ author_profile: true
 
 .post-list__title {
   font-weight: 800;
-  font-size: 1.15rem;
+  font-size: 0.98rem;
   line-height: 1.4;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.6rem;
   color: #222;
   transition: color 0.3s ease;
   letter-spacing: -0.01em;
@@ -506,10 +494,10 @@ author_profile: true
 }
 
 .post-list__excerpt {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: #777;
-  line-height: 1.6;
-  margin-bottom: 1rem;
+  line-height: 1.55;
+  margin-bottom: 0.8rem;
   flex-grow: 1;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -518,7 +506,7 @@ author_profile: true
 }
 
 .post-list__more {
-  font-size: 0.85rem;
+  font-size: 0.73rem;
   font-weight: 700;
   color: #4285f4;
   margin-top: auto;
@@ -691,11 +679,11 @@ author_profile: true
 
 .chip {
   display: inline-block;
-  padding: 0.4em 0.85em;
+  padding: 0.35em 0.75em;
   border-radius: 999px;
   background: rgba(66,133,244,.12);
   color: #3367d6;
-  font-size: 0.85rem;
+  font-size: 0.76rem;
   font-weight: 700;
   transition: all 0.3s ease;
   animation: fadeInUp 0.6s ease-out both;
@@ -744,8 +732,8 @@ author_profile: true
 /* ===== 헤더 언더라인 ===== */
 h2 {
   position: relative;
-  margin-bottom: 1.5rem;
-  font-size: 1.4rem;
+  margin-bottom: 1.2rem;
+  font-size: 1.15rem;
   font-weight: 800;
   letter-spacing: -0.02em;
   color: #222;
