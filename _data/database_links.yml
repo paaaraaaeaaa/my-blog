@@ -28,3 +28,8 @@
   title: "규칙 하나로 답이 달라진다"
   url: "https://claude.ai/code/artifact/e3c61ac6-1063-46d8-bdf5-4d09fa2c21e4"
   description: "문제 링크를 클릭하면 문제를 확인할 수 있습니다."
+
+- category: "문제"
+  title: "화면 보고 HTML 만들기"
+  url: "https://claude.ai/code/artifact/0e439cbf-68f6-4b70-959c-c857547be66c"
+  description: "문제 링크를 클릭하면 문제를 확인할 수 있습니다."
