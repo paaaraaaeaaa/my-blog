@@ -1,6 +1,7 @@
 {% comment %}
-같은 카테고리 + 같은 type(일차별 학습노트 / 문제풀이) 안에서만
-날짜순(오래된 글 -> 최신 글)으로 정렬한 뒤, 이전 글 = 더 오래된 글, 다음 글 = 더 최신 글로 연결합니다.
+일차별 학습노트: 같은 카테고리 + 같은 type 안에서 날짜순(오래된 글 -> 최신 글)으로 정렬.
+문제풀이: 그 안에서도 같은 topic(미션) 안에서만, level_order(Lv1->Lv2->Lv3->보너스) 기준으로 정렬.
+이전 글 = 순서상 앞선 글, 다음 글 = 순서상 다음 글로 연결됩니다.
 Cloud뿐 아니라 Database, Projects 등 다른 카테고리에서도 같은 방식으로 동작합니다.
 {% endcomment %}
 {% assign page_type = page.type | default: "daily" %}
@@ -9,11 +10,14 @@ Cloud뿐 아니라 Database, Projects 등 다른 카테고리에서도 같은 �
 {% assign cat_posts = site.categories[page_cat] | default: empty_array %}
 
 {% if page_type == "practice" %}
+{% assign page_topic = page.topic | default: "" %}
 {% assign scoped_posts = cat_posts | where_exp: "post", "post.type == 'practice'" %}
+{% assign scoped_posts = scoped_posts | where_exp: "post", "post.topic == page_topic" %}
+{% assign scoped_posts = scoped_posts | sort: 'date' | sort: 'level_order' %}
 {% else %}
 {% assign scoped_posts = cat_posts | where_exp: "post", "post.type != 'practice'" %}
-{% endif %}
 {% assign scoped_posts = scoped_posts | sort: 'date' %}
+{% endif %}
 
 {% assign nav_previous = nil %}
 {% assign nav_next = nil %}
