@@ -441,47 +441,94 @@ details.code-collapse[open] > summary {
 
 /* 목차 링크 목록 (게시글에서만 존재하는 li > a 구조) */
 .toc__menu:not(.visitor-box) {
-  padding: 0.4rem 0.3rem;
+  padding: 0.5rem 0.35rem;
 }
 
 .toc__menu:not(.visitor-box) li {
   position: relative;
 }
 
-.toc__menu:not(.visitor-box) a {
+/* 최상위 레벨: 글 제목 (예: "Lv.2 — 개념을 엮어서 푸는 문제") */
+.toc__menu:not(.visitor-box) > li > a {
   display: block;
-  padding: 0.42rem 0.7rem 0.42rem 0.9rem;
-  margin: 0.1rem 0;
+  padding: 0.45rem 0.7rem;
+  margin: 0.05rem 0 0.2rem;
   border-radius: 8px;
-  font-size: 0.82rem;
-  color: #666;
-  font-weight: 500;
+  font-size: 0.85rem;
+  color: #333;
+  font-weight: 700;
+  line-height: 1.45;
   border-left: 2px solid transparent;
-  transition: all 0.22s ease;
+  transition: all 0.2s ease;
 }
 
-.toc__menu:not(.visitor-box) a:hover {
+.toc__menu:not(.visitor-box) > li > a:hover {
   color: #1a73e8;
   background: rgba(66,133,244,.07);
   border-left-color: #4285f4;
-  transform: translateX(2px);
 }
 
-/* 중첩된 하위 목차: 들여쓰기 + 얇은 안내선 + 글씨 살짝 축소 */
-.toc__menu:not(.visitor-box) ul {
-  margin-left: 0.55rem;
-  padding-left: 0.6rem;
-  border-left: 1px solid rgba(0,0,0,.08);
+/* 2단계: 소제목 그룹 (예: "2-1. 소개 화면 그대로 만들기") — 그룹마다 위 여백을 줘서 구분감 강화 */
+.toc__menu:not(.visitor-box) > li > ul {
+  margin: 0 0 0.3rem 0.4rem;
+  padding-left: 0.7rem;
+  border-left: 2px solid rgba(66,133,244,.15);
 }
 
-.toc__menu:not(.visitor-box) ul a {
-  font-size: 0.76rem;
-  color: #888;
-  font-weight: 400;
+.toc__menu:not(.visitor-box) > li > ul > li {
+  margin-top: 0.65rem;
 }
 
-.toc__menu:not(.visitor-box) ul a:hover {
+.toc__menu:not(.visitor-box) > li > ul > li:first-child {
+  margin-top: 0.15rem;
+}
+
+.toc__menu:not(.visitor-box) > li > ul > li > a {
+  display: block;
+  padding: 0.3rem 0.6rem;
+  border-radius: 7px;
+  font-size: 0.78rem;
+  color: #4a4a4a;
+  font-weight: 700;
+  line-height: 1.4;
+  border-left: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.toc__menu:not(.visitor-box) > li > ul > li > a:hover {
   color: #1a73e8;
+  background: rgba(66,133,244,.07);
+  border-left-color: #4285f4;
+}
+
+/* 3단계: 세부 항목 (예: "문제 상황", "시도한 방법") — 가장 작고 옅게, 안내선 없이 컴팩트하게 */
+.toc__menu:not(.visitor-box) > li > ul > li > ul {
+  margin: 0.15rem 0 0.1rem 0.3rem;
+  padding-left: 0.5rem;
+  border-left: 1px dashed rgba(0,0,0,.1);
+}
+
+.toc__menu:not(.visitor-box) > li > ul > li > ul > li {
+  margin-top: 0;
+}
+
+.toc__menu:not(.visitor-box) > li > ul > li > ul > li > a {
+  display: block;
+  padding: 0.2rem 0.55rem;
+  margin: 0;
+  border-radius: 6px;
+  font-size: 0.71rem;
+  color: #999;
+  font-weight: 400;
+  line-height: 1.5;
+  border-left: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.toc__menu:not(.visitor-box) > li > ul > li > ul > li > a:hover {
+  color: #1a73e8;
+  background: rgba(66,133,244,.06);
+  border-left-color: rgba(66,133,244,.5);
 }
 
 /* 스크롤 중 현재 보고 있는 섹션 강조 (테마/스크립트가 active 클래스를 붙이는 경우 대비) */
