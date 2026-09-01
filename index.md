@@ -6,12 +6,325 @@ author_profile: true
 ---
 
 <style>
+/* ===== 기본 동적 효과 ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(66, 133, 244, 0.5), 0 2px 8px rgba(0,0,0,.04);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(66, 133, 244, 0.8), 0 2px 8px rgba(0,0,0,.04);
+  }
+}
+
+/* ===== 타이핑 배너 애니메이션 ===== */
+.typing-banner {
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem 0 1.2rem;
+  animation: fadeInDown 0.8s ease-out;
+}
+
+.typing-banner img {
+  max-width: 100%;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,.1));
+  transition: filter 0.3s ease;
+}
+
+.typing-banner:hover img {
+  filter: drop-shadow(0 6px 16px rgba(66,133,244,.2));
+}
+
+/* ===== 인사말 카드 - 개선된 버전 ===== */
+.intro-card {
+  display: flex;
+  align-items: flex-start;
+  gap: .8rem;
+  padding: 1.2rem 1.4rem;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(66,133,244,.08), rgba(52,168,83,.08));
+  border: 1px solid rgba(66,133,244,.15);
+  margin: 1rem 0 1.5rem;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.intro-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.1), transparent);
+  transition: left 0.6s ease;
+}
+
+.intro-card:hover::before {
+  left: 100%;
+}
+
+.intro-card:hover {
+  border-color: rgba(66,133,244,.25);
+  box-shadow: 0 4px 16px rgba(66,133,244,.1);
+  transform: translateY(-2px);
+}
+
+.intro-card__emoji {
+  font-size: 1.6rem;
+  line-height: 1.4;
+  flex-shrink: 0;
+  animation: float 3s ease-in-out infinite;
+}
+
+.intro-card p {
+  margin: 0;
+  line-height: 1.7;
+  color: #555;
+}
+
+/* ===== 진행 상황/목표 섹션 ===== */
+.info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0 0 1.5rem;
+}
+
+.info-tile {
+  padding: 1.1rem 1.2rem;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,.04);
+  animation: fadeInUp 0.8s ease-out both;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+}
+
+.info-tile:nth-child(1) {
+  animation-delay: 0.3s;
+}
+
+.info-tile:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.info-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+  border-color: rgba(66,133,244,.2);
+}
+
+.info-tile__icon {
+  font-size: 1.4rem;
+  margin-bottom: .3rem;
+  display: inline-block;
+  animation: float 3s ease-in-out infinite;
+}
+
+.info-tile__label {
+  font-size: .78rem;
+  font-weight: 700;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  margin-bottom: .6rem;
+}
+
+.info-tile__value {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: .55rem;
+  background: linear-gradient(135deg, #4285f4, #34a853);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.info-tile__sub {
+  font-size: .74rem;
+  font-weight: 400;
+  color: #999;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.08);
+  overflow: hidden;
+  margin-bottom: .4rem;
+}
+
+.progress-bar__fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #4285f4, #34a853);
+  width: 0;
+  animation: fillProgress 1.5s ease-out 0.5s forwards;
+}
+
+@keyframes fillProgress {
+  to {
+    width: var(--progress-width);
+  }
+}
+
+.info-tile--goal {
+  background: linear-gradient(135deg, rgba(255,112,67,.06), rgba(255,112,67,.02));
+  border-color: rgba(255,112,67,.15);
+}
+
+.goal-quote {
+  margin: 0;
+  font-size: .92rem;
+  font-weight: 600;
+  line-height: 1.6;
+  color: #444;
+  animation: slideInLeft 0.8s ease-out 0.4s both;
+}
+
+/* ===== 빠른 네비게이션 ===== */
+.quicknav-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.quicknav-card {
+  display: block;
+  text-align: center;
+  padding: 1.1rem .8rem;
+  border: 2px solid rgba(0,0,0,.1);
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  font-weight: 600;
+  font-size: 1rem;
+  background: #fff;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: fadeInUp 0.8s ease-out both;
+  position: relative;
+  overflow: hidden;
+}
+
+.quicknav-card:nth-child(1) {
+  animation-delay: 0.5s;
+}
+
+.quicknav-card:nth-child(2) {
+  animation-delay: 0.6s;
+}
+
+.quicknav-card:nth-child(3) {
+  animation-delay: 0.7s;
+}
+
+.quicknav-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(66,133,244,.1), transparent);
+  transition: left 0.6s ease;
+}
+
+.quicknav-card:hover::before {
+  left: 100%;
+}
+
+.quicknav-card:hover {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 10px 24px rgba(66,133,244,.2);
+  border-color: rgba(66,133,244,.4);
+  background: linear-gradient(135deg, rgba(66,133,244,.02), rgba(52,168,83,.02));
+}
+
+.quicknav-card__icon {
+  display: block;
+  font-size: 1.6rem;
+  margin-bottom: .3rem;
+  animation: float 3s ease-in-out infinite;
+  transition: transform 0.3s ease;
+}
+
+.quicknav-card:hover .quicknav-card__icon {
+  transform: scale(1.2) rotateY(10deg);
+}
+
+/* ===== 포스트 리스트 ===== */
 .post-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 1.1rem;
   margin: 1rem 0 1.5rem;
 }
+
 .post-list__card {
   display: flex;
   flex-direction: column;
@@ -22,26 +335,46 @@ author_profile: true
   color: inherit;
   background: #fff;
   box-shadow: 0 2px 8px rgba(0,0,0,.04);
-  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
   overflow: hidden;
+  animation: fadeInUp 0.8s ease-out both;
 }
+
+.post-list__card:nth-child(1) {
+  animation-delay: 0.6s;
+}
+
+.post-list__card:nth-child(2) {
+  animation-delay: 0.7s;
+}
+
 .post-list__card::before {
   content: '';
   position: absolute;
-  top: 0; left: 0;
-  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
   height: 4px;
   background: linear-gradient(90deg, #4285f4, #34a853);
+  transition: height 0.3s ease;
 }
+
 .post-list__card--cloud::before { background: #4285f4; }
 .post-list__card--database::before { background: #a142f4; }
 .post-list__card--projects::before { background: #ff7043; }
+
+.post-list__card:hover::before {
+  height: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.1);
+}
+
 .post-list__card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 22px rgba(0,0,0,.1);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 28px rgba(0,0,0,.12);
   border-color: rgba(0,0,0,.16);
 }
+
 .post-list__top {
   display: flex;
   align-items: center;
@@ -49,6 +382,7 @@ author_profile: true
   gap: .5rem;
   margin-bottom: .7rem;
 }
+
 .post-list__badge {
   display: inline-flex;
   align-items: center;
@@ -59,22 +393,38 @@ author_profile: true
   border-radius: 999px;
   color: #fff;
   white-space: nowrap;
+  animation: pulse 2s ease-in-out infinite;
 }
+
 .post-list__badge--cloud { background: #4285f4; }
 .post-list__badge--database { background: #a142f4; }
 .post-list__badge--projects { background: #ff7043; }
 .post-list__badge--default { background: #888; }
+
 .post-list__date {
   font-size: .76rem;
   color: #999;
   white-space: nowrap;
+  transition: color 0.3s ease;
 }
+
+.post-list__card:hover .post-list__date {
+  color: #4285f4;
+  font-weight: 600;
+}
+
 .post-list__title {
   font-weight: 700;
   font-size: 1.08rem;
   line-height: 1.4;
   margin-bottom: .5rem;
+  transition: color 0.3s ease;
 }
+
+.post-list__card:hover .post-list__title {
+  color: #4285f4;
+}
+
 .post-list__excerpt {
   font-size: .85rem;
   color: #777;
@@ -86,33 +436,29 @@ author_profile: true
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
 .post-list__more {
   font-size: .8rem;
   font-weight: 600;
   color: #4285f4;
   margin-top: auto;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
 }
+
+.post-list__card:hover .post-list__more {
+  gap: 0.6em;
+  color: #3367d6;
+}
+
 .post-list__empty {
   color: #888;
   padding: 1rem 0;
 }
-.gh-stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1rem;
-  margin: 1rem 0 1.5rem;
-}
-.gh-stats-grid img {
-  width: 100%;
-  border-radius: 10px;
-}
-.gh-chart-wrap {
-  overflow-x: auto;
-  margin: 1rem 0 1.5rem;
-}
-.gh-chart-wrap img {
-  max-width: 100%;
-}
+
+/* ===== GitHub 위젯 ===== */
 .gh-widget {
   margin: 0 0 1.3rem;
   padding: 1rem 1.2rem 1.2rem;
@@ -120,29 +466,23 @@ author_profile: true
   border-radius: 14px;
   background: #fff;
   box-shadow: 0 2px 8px rgba(0,0,0,.04);
+  animation: fadeInUp 0.8s ease-out both;
+  transition: all 0.3s ease;
 }
-.gh-widget .gh-stats-grid,
-.gh-widget .gh-chart-wrap {
-  margin: 0;
+
+.gh-widget:nth-of-type(1) {
+  animation-delay: 0.8s;
 }
-.daily-quote {
-  margin: .2rem 0 0;
-  padding: 0 .4rem;
-  text-align: center;
-  line-height: 1.7;
+
+.gh-widget:nth-of-type(2) {
+  animation-delay: 0.9s;
 }
-.daily-quote__en {
-  display: block;
-  font-size: .85em;
-  font-style: italic;
-  color: #333;
+
+.gh-widget:hover {
+  box-shadow: 0 6px 16px rgba(0,0,0,.08);
+  transform: translateY(-2px);
 }
-.daily-quote__ko {
-  display: block;
-  margin-top: .3em;
-  font-size: .78em;
-  color: #999;
-}
+
 .gh-widget__label {
   font-size: .82rem;
   font-weight: 700;
@@ -150,183 +490,51 @@ author_profile: true
   text-transform: uppercase;
   letter-spacing: .03em;
   margin-bottom: .7rem;
-}
-.visitor-row {
-  margin-bottom: .8em;
-}
-.visitor-row:last-of-type {
-  margin-bottom: 0;
-}
-.visitor-row--split {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: .6em;
+  align-items: center;
+  gap: 0.5em;
 }
-.visitor-row--split .visitor-col {
-  flex: 1 1 0;
-  min-width: 0;
-}
-.visitor-row--split .visitor-col img {
-  max-width: 100%;
-}
-.visitor-tech-stack img {
-  max-width: 100%;
-}
-.visitor-quote .daily-quote {
-  padding: 0;
-  text-align: left;
-}
-.visitor-quote .daily-quote__en {
-  font-size: .8em;
-}
-.visitor-quote .daily-quote__ko {
-  font-size: .74em;
-}
-.visitor-label {
-  display: block;
-  font-size: .78em;
-  color: #888;
-  margin-bottom: .3em;
-}
-.progress-wrap {
-  margin: 1rem 0 1.5rem;
-}
-.progress-label {
-  font-size: .88rem;
-  color: #555;
-  margin-bottom: .4rem;
-}
-.progress-bar {
-  width: 100%;
-  height: 10px;
-  border-radius: 999px;
-  background: rgba(0,0,0,.08);
-  overflow: hidden;
-}
-.progress-bar__fill {
-  height: 100%;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #4285f4, #34a853);
-}
-.quicknav-grid {
+
+.gh-stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1rem;
   margin: 1rem 0 1.5rem;
 }
-.quicknav-card {
-  display: block;
-  text-align: center;
-  padding: 1.1rem .8rem;
-  border: 1px solid rgba(0,0,0,.1);
-  border-radius: 12px;
-  text-decoration: none;
-  color: inherit;
-  font-weight: 600;
-  font-size: 1rem;
-  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
-}
-.quicknav-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(0,0,0,.08);
-  border-color: rgba(66,133,244,.4);
-}
-.quicknav-card__icon {
-  display: block;
-  font-size: 1.6rem;
-  margin-bottom: .3rem;
-}
-.visitor-aside {
-  min-width: 245px;
-}
-.visitor-box {
-  padding: 1.35em !important;
-}
-.visitor-box .visitor-label {
-  font-size: .85em;
-}
-.visitor-box img {
-  transform: scale(1.06);
-  transform-origin: left center;
-}
-.visitor-box .copy-link-btn {
-  padding: .75em;
-  font-size: .92em;
+
+.gh-stats-grid img {
+  width: 100%;
+  border-radius: 10px;
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
 
-/* 타이핑 애니메이션 인트로 배너 */
-.typing-banner {
-  display: flex;
-  justify-content: center;
-  margin: 0.5rem 0 1.2rem;
+.gh-stats-grid img:hover {
+  transform: scale(1.02);
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,.1));
 }
-.typing-banner img {
+
+.gh-chart-wrap {
+  overflow-x: auto;
+  margin: 1rem 0 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.gh-chart-wrap img {
   max-width: 100%;
+  transition: filter 0.3s ease;
 }
 
-/* 인사말 카드 */
-.intro-card {
-  display: flex;
-  align-items: flex-start;
-  gap: .8rem;
-  padding: 1.2rem 1.4rem;
-  border-radius: 14px;
-  background: linear-gradient(135deg, rgba(66,133,244,.06), rgba(52,168,83,.06));
-  border: 1px solid rgba(66,133,244,.12);
-  margin: 1rem 0 1.5rem;
-}
-.intro-card__emoji {
-  font-size: 1.6rem;
-  line-height: 1.4;
-  flex-shrink: 0;
-}
-.intro-card p {
-  margin: 0;
-  line-height: 1.7;
+.gh-chart-wrap img:hover {
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,.1));
 }
 
-/* 진행 상황 / 목표 위아래 배치 ("배운 것"은 사이드바 "한눈에 보기"로 이동함) */
-.info-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin: 0 0 1.5rem;
-}
-.info-tile {
-  padding: 1.1rem 1.2rem;
-  border: 1px solid rgba(0,0,0,.08);
-  border-radius: 14px;
-  background: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,.04);
-}
-.info-tile__icon {
-  font-size: 1.4rem;
-  margin-bottom: .3rem;
-}
-.info-tile__label {
-  font-size: .78rem;
-  font-weight: 700;
-  color: #888;
-  text-transform: uppercase;
-  letter-spacing: .03em;
-  margin-bottom: .6rem;
-}
-.info-tile__value {
-  font-size: 1.15rem;
-  font-weight: 700;
-  margin-bottom: .55rem;
-}
-.info-tile__sub {
-  font-size: .74rem;
-  font-weight: 400;
-  color: #999;
-}
+/* ===== 칩 리스트 ===== */
 .chip-list {
   display: flex;
   flex-wrap: wrap;
   gap: .4rem;
 }
+
 .chip {
   display: inline-block;
   padding: .3em .75em;
@@ -335,27 +543,147 @@ author_profile: true
   color: #3367d6;
   font-size: .82rem;
   font-weight: 600;
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.6s ease-out both;
 }
-.progress-bar--mini {
-  height: 6px;
-  border-radius: 999px;
-  background: rgba(0,0,0,.08);
-  overflow: hidden;
-  margin-bottom: .4rem;
+
+.chip:nth-child(1) { animation-delay: 0.5s; }
+.chip:nth-child(2) { animation-delay: 0.55s; }
+.chip:nth-child(3) { animation-delay: 0.6s; }
+
+.chip:hover {
+  background: #4285f4;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(66,133,244,.3);
 }
-.progress-bar--mini .progress-bar__fill {
-  height: 100%;
+
+/* ===== 우측 사이드바 ===== */
+.visitor-aside {
+  min-width: 245px;
+  animation: slideInLeft 0.8s ease-out;
 }
-.info-tile--goal {
-  background: linear-gradient(135deg, rgba(255,112,67,.06), rgba(255,112,67,.02));
-  border-color: rgba(255,112,67,.15);
+
+.visitor-box {
+  padding: 1.35em !important;
+  animation: fadeInUp 0.8s ease-out 0.3s both;
 }
-.goal-quote {
-  margin: 0;
-  font-size: .92rem;
+
+.visitor-label {
+  display: block;
+  font-size: .78em;
+  color: #888;
+  margin-bottom: .3em;
+}
+
+.visitor-row {
+  margin-bottom: .8em;
+  animation: fadeInUp 0.6s ease-out both;
+}
+
+.visitor-row:nth-child(1) { animation-delay: 0.4s; }
+.visitor-row:nth-child(2) { animation-delay: 0.5s; }
+.visitor-row:nth-child(3) { animation-delay: 0.6s; }
+.visitor-row:nth-child(4) { animation-delay: 0.7s; }
+
+.visitor-row:last-of-type {
+  margin-bottom: 0;
+}
+
+.visitor-row--split {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: .6em;
+}
+
+.visitor-row--split .visitor-col {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.visitor-row--split .visitor-col img {
+  max-width: 100%;
+  transition: filter 0.3s ease;
+}
+
+.visitor-row--split .visitor-col img:hover {
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,.1));
+}
+
+.visitor-tech-stack img {
+  max-width: 100%;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.visitor-tech-stack img:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 2px 8px rgba(66,133,244,.2));
+}
+
+.copy-link-btn {
+  padding: .75em;
+  font-size: .92em;
+  border: 1px solid #4285f4;
+  background: #fff;
+  color: #4285f4;
+  border-radius: 8px;
+  cursor: pointer;
   font-weight: 600;
-  line-height: 1.6;
-  color: #444;
+  transition: all 0.3s ease;
+  width: 100%;
+  animation: fadeInUp 0.8s ease-out both;
+  animation-delay: 0.9s;
+}
+
+.copy-link-btn:hover {
+  background: #4285f4;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(66,133,244,.3);
+  transform: translateY(-2px);
+}
+
+.copy-link-btn:active {
+  transform: translateY(0);
+}
+
+/* ===== 일반 텍스트 애니메이션 ===== */
+h2 {
+  animation: fadeInUp 0.8s ease-out both;
+  position: relative;
+  display: inline-block;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #4285f4, #34a853);
+  animation: expandWidth 0.8s ease-out 0.3s forwards;
+}
+
+@keyframes expandWidth {
+  to {
+    width: 100%;
+  }
+}
+
+/* ===== 반응형 ===== */
+@media (max-width: 768px) {
+  .visitor-aside {
+    animation: none;
+  }
+  
+  .quicknav-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+  
+  .post-list {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
 
@@ -399,7 +727,6 @@ author_profile: true
 
 <script>
 (function () {
-  // 전부 실제로 존재하는 인용문만 담았습니다 (출처: Wikiquote 및 각 저자 본인의 저서/발언 기록).
   var quotes = [
     { en: "Programs must be written for people to read, and only incidentally for machines to execute.", ko: "프로그램은 사람이 읽기 위해 작성되어야 하며, 기계가 실행하는 것은 부차적인 일이다.", author: "Harold Abelson" },
     { en: "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.", ko: "바보도 컴퓨터가 이해하는 코드는 짤 수 있다. 좋은 프로그래머는 사람이 이해할 수 있는 코드를 짠다.", author: "Martin Fowler" },
@@ -417,9 +744,53 @@ author_profile: true
   var pick = quotes[Math.floor(Math.random() * quotes.length)];
   var enEl = document.getElementById('daily-quote-en');
   var koEl = document.getElementById('daily-quote-ko');
-  if (enEl) enEl.textContent = '“' + pick.en + '” — ' + pick.author;
+  if (enEl) enEl.textContent = '"' + pick.en + '" — ' + pick.author;
   if (koEl) koEl.textContent = pick.ko;
 })();
+
+// 링크 복사 기능
+document.addEventListener('DOMContentLoaded', function() {
+  var copyBtn = document.getElementById('copy-link-btn');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', function() {
+      var currentUrl = window.location.href;
+      navigator.clipboard.writeText(currentUrl).then(function() {
+        var originalText = copyBtn.textContent;
+        copyBtn.textContent = '✅ 복사되었습니다!';
+        setTimeout(function() {
+          copyBtn.textContent = originalText;
+        }, 2000);
+      });
+    });
+  }
+  
+  // 진행도 애니메이션 설정
+  var progressElements = document.querySelectorAll('.progress-bar__fill');
+  progressElements.forEach(function(el) {
+    var width = el.style.width;
+    el.style.setProperty('--progress-width', width);
+  });
+});
+
+// 스크롤 시 요소 나타나기 (Intersection Observer)
+document.addEventListener('DOMContentLoaded', function() {
+  var observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.style.animationPlayState = 'running';
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.post-list__card, .info-tile, .quicknav-card').forEach(function(el) {
+    observer.observe(el);
+  });
+});
 </script>
 
 <div class="typing-banner">
@@ -464,8 +835,8 @@ author_profile: true
 <div class="info-tile">
 <div class="info-tile__icon">📅</div>
 <div class="info-tile__label">진행 상황</div>
-<div class="info-tile__value">{{ day_number }}일차 <span class="info-tile__sub"></span></div>
-<div class="progress-bar progress-bar--mini"><div class="progress-bar__fill" style="width: {{ percent }}%;"></div></div>
+<div class="info-tile__value">{{ day_number }}일차</div>
+<div class="progress-bar"><div class="progress-bar__fill" style="width: {{ percent }}%; --progress-width: {{ percent }}%;"></div></div>
 <div class="info-tile__sub">총 {{ total_calendar_days }}일 · {{ percent }}% · 2026.08.26~2027.02.16</div>
 </div>
 
