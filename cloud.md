@@ -197,7 +197,7 @@ permalink: /cloud/
 {% assign practice_posts_by_date = practice_posts | sort: 'date' %}
 {% assign topic_names_ordered = practice_posts_by_date | map: 'topic' | uniq %}
 {% for name in topic_names_ordered %}
-{% assign topic_posts = practice_posts | where_exp: "post", "post.topic == name" | sort: 'date' %}
+{% assign topic_posts = practice_posts | where_exp: "post", "post.topic == name" | sort: 'date' | sort: 'level_order' %}
 {% if topic_posts.size > 0 %}
 <div class="module-section">
 <h3>{% assign num = forloop.index %}{% case num %}{% when 1 %}1️⃣{% when 2 %}2️⃣{% when 3 %}3️⃣{% when 4 %}4️⃣{% when 5 %}5️⃣{% when 6 %}6️⃣{% when 7 %}7️⃣{% when 8 %}8️⃣{% when 9 %}9️⃣{% when 10 %}🔟{% else %}{{ num }}.{% endcase %} {% if name %}{{ name }}{% else %}미분류{% endif %}</h3>
