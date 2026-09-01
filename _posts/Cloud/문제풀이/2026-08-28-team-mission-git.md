@@ -6,6 +6,7 @@ date: 2026-08-28
 categories: [Cloud]
 type: practice
 topic: "Git & GitHub"
+level_order: 20
 tags: [git, github, devlog, 부트캠프, 팀미션]
 layout: single
 comments: true

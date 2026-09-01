@@ -6,6 +6,7 @@ date: 2026-08-31
 categories: [Cloud]
 type: practice
 topic: "AI가 내 파일을 직접 고친다"
+level_order: 20
 tags: [git, github, claude-code, claude-md, devlog, 부트캠프, 자율실습]
 layout: single
 comments: true
