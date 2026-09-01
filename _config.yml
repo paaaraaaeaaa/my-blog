@@ -5,6 +5,13 @@ baseurl: "/my-blog"
 plugins:
   - jekyll-include-cache
 
+# 🔗 링크 공유(카카오톡/문자/디스코드 등) 시 미리보기에 쓰일 설명 + 이미지
+# description: 미리보기 카드에 나올 한 줄 소개
+# logo: 미리보기 카드에 나올 대표 이미지 (og:image). 이걸 지정 안 하면
+#       일부 메신저 앱이 페이지에서 처음 보이는 이미지(=프로필 사진)를 멋대로 가져다 씀.
+description: "데이터 분석과 클라우드 아키텍처를 공부하며 매일 배운 내용을 기록하는 학습 블로그입니다."
+logo: "/assets/images/og-banner.png"
+
 # 🎨 테마 스킨 변경 (dark, air, mint 중 택 1)
 minimal_mistakes_skin: "mint"
 
