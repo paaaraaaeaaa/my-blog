@@ -275,16 +275,23 @@ details.code-collapse[open] > summary {
 
 /* ===== 이전 글 / 다음 글 네비게이션 꾸미기 ===== */
 .pagination {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
   gap: 1rem;
-  margin: 2.2rem 0;
-  padding: 0;
+  margin: 2.2rem 0 !important;
+  padding: 0 !important;
   list-style: none;
+  clear: both;
+}
+
+.pagination::before,
+.pagination::after {
+  content: none !important;
+  display: none !important;
 }
 
 .pagination--pager {
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   gap: 0.35em;
   padding: 1.1rem 1.3rem;
@@ -300,6 +307,11 @@ details.code-collapse[open] > summary {
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   box-shadow: 0 2px 8px rgba(0,0,0,.04);
+  float: none !important;
+  width: auto !important;
+  max-width: none !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
 }
 
 .pagination--pager::before {
@@ -315,7 +327,7 @@ details.code-collapse[open] > summary {
   transition: transform 0.35s ease;
 }
 
-.pagination--pager:nth-child(2)::before {
+.pagination--pager:last-child::before {
   transform-origin: right;
 }
 
@@ -330,9 +342,16 @@ details.code-collapse[open] > summary {
   color: #1a73e8;
 }
 
-.pagination--pager:nth-child(2) {
+.pagination--pager:first-child,
+.pagination--pager:last-child {
+  float: none !important;
+  width: auto !important;
+  text-align: left;
+}
+
+.pagination--pager:last-child {
   align-items: flex-end;
-  text-align: right;
+  text-align: right !important;
 }
 
 .pagination--pager.disabled {
@@ -350,9 +369,9 @@ details.code-collapse[open] > summary {
   .pagination {
     grid-template-columns: 1fr;
   }
-  .pagination--pager:nth-child(2) {
+  .pagination--pager:last-child {
     align-items: flex-start;
-    text-align: left;
+    text-align: left !important;
   }
 }
 
