@@ -286,34 +286,12 @@ author_profile: true
   line-height: 1.7;
 }
 
-/* 배운 것(왼쪽, 세로로 길게) / 진행 상황·목표(오른쪽, 위아래로) 2분할 카드 */
+/* 진행 상황 / 목표 위아래 배치 ("배운 것"은 사이드바 "한눈에 보기"로 이동함) */
 .info-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
   margin: 0 0 1.5rem;
-}
-.info-grid > .info-tile:nth-child(1) {
-  grid-column: 1;
-  grid-row: 1 / span 2;
-}
-.info-grid > .info-tile:nth-child(2) {
-  grid-column: 2;
-  grid-row: 1;
-}
-.info-grid > .info-tile:nth-child(3) {
-  grid-column: 2;
-  grid-row: 2;
-}
-@media (max-width: 700px) {
-  .info-grid { grid-template-columns: 1fr; }
-  .info-grid > .info-tile:nth-child(1),
-  .info-grid > .info-tile:nth-child(2),
-  .info-grid > .info-tile:nth-child(3) {
-    grid-column: auto;
-    grid-row: auto;
-  }
 }
 .info-tile {
   padding: 1.1rem 1.2rem;
@@ -393,6 +371,14 @@ author_profile: true
 <div class="visitor-col">
 <span class="visitor-label">누적 방문자</span>
 <img src="https://visitor-badge.laobi.icu/badge?page_id=paaaraaaeaaa.my-blog&left_color=555555&right_color=79C83D" alt="누적 방문자 수" />
+</div>
+</div>
+<div class="visitor-row visitor-learned">
+<span class="visitor-label">배운 것</span>
+<div class="chip-list">
+<span class="chip">Git</span>
+<span class="chip">GitHub</span>
+<span class="chip">마크다운</span>
 </div>
 </div>
 <div class="visitor-row visitor-tech-stack">
@@ -475,16 +461,6 @@ author_profile: true
 {% if percent < 0 %}{% assign percent = 0 %}{% endif %}
 
 <div class="info-grid">
-<div class="info-tile">
-<div class="info-tile__icon">📚</div>
-<div class="info-tile__label">배운 것</div>
-<div class="chip-list">
-<span class="chip">Git</span>
-<span class="chip">GitHub</span>
-<span class="chip">마크다운</span>
-</div>
-</div>
-
 <div class="info-tile">
 <div class="info-tile__icon">📅</div>
 <div class="info-tile__label">진행 상황</div>
