@@ -7,12 +7,14 @@ plugins:
 
 # 🔗 링크 공유(카카오톡/문자/디스코드 등) 시 미리보기에 쓰일 설명 + 이미지
 # description: 미리보기 카드에 나올 한 줄 소개
-# image: 미리보기 카드의 대표 이미지 (og:image / twitter:image). 이걸 지정 안 하면
+# og_image: 미리보기 카드의 대표 이미지 (og:image / twitter:image). 이걸 지정 안 하면
 #        일부 메신저 앱이 페이지에서 처음 보이는 이미지(=프로필 사진)를 멋대로 가져다 씀.
-# 주의: "logo"는 절대 쓰면 안 됨 — 테마가 그걸 상단 네비게이션 바의 작은 로고 이미지로
+# 주의: minimal-mistakes 테마는 이 값을 "image"가 아니라 "og_image" 키로 읽는다
+#      (테마 자체 _includes/seo.html 기준 — jekyll-seo-tag 플러그인의 "image"와는 다름).
+#      "logo"도 절대 쓰면 안 됨 — 테마가 그걸 상단 네비게이션 바의 작은 로고 이미지로
 #      실제로 렌더링해버려서, 큰 배너 이미지가 찌그러져 박히는 문제가 생김.
 description: "데이터 분석과 클라우드 아키텍처를 공부하며 매일 배운 내용을 기록하는 학습 블로그입니다."
-image: "/assets/images/og-banner.png"
+og_image: "/assets/images/og-banner.png"
 
 # 🎨 테마 스킨 변경 (dark, air, mint 중 택 1)
 minimal_mistakes_skin: "mint"
