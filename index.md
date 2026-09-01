@@ -467,10 +467,10 @@ author_profile: true
 .post-list__card {
   display: flex;
   flex-direction: column;
-  padding: 1.6rem;
+  padding: 1.35rem 1.5rem;
   border: 1px solid rgba(0,0,0,.08);
   border-radius: 14px;
-  text-decoration: none;
+  text-decoration: none !important;
   color: inherit;
   background: #fff;
   box-shadow: 0 4px 12px rgba(0,0,0,.05);
@@ -478,6 +478,14 @@ author_profile: true
   position: relative;
   overflow: hidden;
   animation: fadeInUp 0.8s ease-out both;
+}
+
+.post-list__card,
+.post-list__card:hover,
+.post-list__card:visited,
+.post-list__card:active,
+.post-list__card * {
+  text-decoration: none !important;
 }
 
 .post-list__card:nth-child(1) { animation-delay: 0.5s; }
@@ -522,9 +530,9 @@ author_profile: true
   display: inline-flex;
   align-items: center;
   gap: 0.4em;
-  font-size: 0.75rem;
+  font-size: 0.66rem;
   font-weight: 800;
-  padding: 0.4em 0.9em;
+  padding: 0.35em 0.8em;
   border-radius: 999px;
   color: #fff;
   white-space: nowrap;
@@ -540,7 +548,7 @@ author_profile: true
 .post-list__badge--default { background: #888; }
 
 .post-list__date {
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   color: #aaa;
   font-weight: 600;
   white-space: nowrap;
@@ -553,9 +561,9 @@ author_profile: true
 
 .post-list__title {
   font-weight: 800;
-  font-size: 1.15rem;
+  font-size: 0.98rem;
   line-height: 1.4;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.6rem;
   color: #222;
   transition: color 0.3s ease;
   letter-spacing: -0.01em;
@@ -566,10 +574,10 @@ author_profile: true
 }
 
 .post-list__excerpt {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: #777;
-  line-height: 1.6;
-  margin-bottom: 1rem;
+  line-height: 1.55;
+  margin-bottom: 0.8rem;
   flex-grow: 1;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -578,7 +586,7 @@ author_profile: true
 }
 
 .post-list__more {
-  font-size: 0.85rem;
+  font-size: 0.73rem;
   font-weight: 700;
   color: #4285f4;
   margin-top: auto;

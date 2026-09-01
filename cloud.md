@@ -107,27 +107,39 @@ permalink: /cloud/
   padding: 1rem 1.2rem;
   border: 1px solid rgba(0,0,0,.1);
   border-radius: 12px;
-  text-decoration: none;
+  text-decoration: none !important;
   color: inherit;
-  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  transition: transform .2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow .2s ease, border-color .2s ease;
+  background: #fff;
+}
+.post-list__card,
+.post-list__card:hover,
+.post-list__card:visited,
+.post-list__card:active,
+.post-list__card * {
+  text-decoration: none !important;
 }
 .post-list__card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(0,0,0,.08);
-  border-color: rgba(0,0,0,.2);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 22px rgba(66,133,244,.14);
+  border-color: rgba(66,133,244,.25);
+}
+.post-list__card:hover .post-list__title {
+  color: #1a73e8;
 }
 .post-list__date {
-  font-size: .8rem;
+  font-size: .72rem;
   color: #888;
   margin-bottom: .4rem;
 }
 .post-list__title {
-  font-weight: 600;
-  font-size: 1.05rem;
+  font-weight: 700;
+  font-size: 0.92rem;
   line-height: 1.4;
+  transition: color 0.2s ease;
 }
 .post-list__subtitle {
-  font-size: .85rem;
+  font-size: .76rem;
   color: #666;
   margin-top: .3rem;
   line-height: 1.4;
@@ -185,7 +197,7 @@ permalink: /cloud/
 {% assign practice_posts_by_date = practice_posts | sort: 'date' %}
 {% assign topic_names_ordered = practice_posts_by_date | map: 'topic' | uniq %}
 {% for name in topic_names_ordered %}
-{% assign topic_posts = practice_posts | where_exp: "post", "post.topic == name" | sort: 'date' | sort: 'level_order' %}
+{% assign topic_posts = practice_posts | where_exp: "post", "post.topic == name" | sort: 'date' %}
 {% if topic_posts.size > 0 %}
 <div class="module-section">
 <h3>{% assign num = forloop.index %}{% case num %}{% when 1 %}1️⃣{% when 2 %}2️⃣{% when 3 %}3️⃣{% when 4 %}4️⃣{% when 5 %}5️⃣{% when 6 %}6️⃣{% when 7 %}7️⃣{% when 8 %}8️⃣{% when 9 %}9️⃣{% when 10 %}🔟{% else %}{{ num }}.{% endcase %} {% if name %}{{ name }}{% else %}미분류{% endif %}</h3>
