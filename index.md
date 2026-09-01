@@ -91,10 +91,10 @@ author_profile: true
 }
 
 .greeting-banner__title {
-  font-size: 1.55rem;
+  font-size: 1.25rem;
   font-weight: 800;
   letter-spacing: -0.02em;
-  margin: 0 0 0.6rem;
+  margin: 0 0 0.55rem;
   background: linear-gradient(135deg, #2E8B57, #4285f4);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -105,11 +105,11 @@ author_profile: true
   display: inline-flex;
   align-items: center;
   gap: 0.5em;
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: #4285f4;
   background: rgba(66,133,244,.08);
-  padding: 0.45em 1.1em;
+  padding: 0.4em 1em;
   border-radius: 999px;
 }
 
@@ -190,6 +190,7 @@ author_profile: true
 
 .info-tile:nth-child(1) {
   animation-delay: 0.2s;
+  grid-column: 1 / -1;
 }
 
 .info-tile:nth-child(2) {
@@ -253,6 +254,52 @@ author_profile: true
   font-weight: 500;
   color: #aaa;
   line-height: 1.6;
+}
+
+/* 진행 상황 카드 - 가로로 꽉 채우는 레이아웃 */
+.info-tile--progress {
+  display: flex;
+  align-items: center;
+  gap: 2.2rem;
+}
+
+.info-tile--progress .info-tile__left {
+  flex: 0 0 auto;
+  min-width: 150px;
+}
+
+.info-tile--progress .info-tile__left .info-tile__icon,
+.info-tile--progress .info-tile__left .info-tile__label {
+  margin-bottom: 0.5rem;
+}
+
+.info-tile--progress .info-tile__left .info-tile__value {
+  margin-bottom: 0;
+}
+
+.info-tile--progress .info-tile__right {
+  flex: 1;
+  min-width: 0;
+}
+
+.info-tile--progress .info-tile__right .progress-bar {
+  margin: 0 0 0.6rem;
+}
+
+.info-tile--progress .info-tile__right .info-tile__sub {
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .info-tile--progress {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  
+  .info-tile--progress .info-tile__left {
+    min-width: 0;
+  }
 }
 
 /* 진행도 바 */
@@ -972,12 +1019,16 @@ document.addEventListener('DOMContentLoaded', function() {
 {% if percent < 0 %}{% assign percent = 0 %}{% endif %}
 
 <div class="info-grid">
-<div class="info-tile">
+<div class="info-tile info-tile--progress">
+<div class="info-tile__left">
 <div class="info-tile__icon">📅</div>
 <div class="info-tile__label">진행 상황</div>
 <div class="info-tile__value">{{ day_number }}일차</div>
+</div>
+<div class="info-tile__right">
 <div class="progress-bar"><div class="progress-bar__fill" style="width: {{ percent }}%; --progress-width: {{ percent }}%;"></div></div>
 <div class="info-tile__sub">총 {{ total_calendar_days }}일 · {{ percent }}% · 2026.08.26~2027.02.16</div>
+</div>
 </div>
 
 <div class="info-tile info-tile--goal">
