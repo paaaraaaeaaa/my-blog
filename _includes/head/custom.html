@@ -416,4 +416,81 @@ details.code-collapse[open] > summary {
 .page__comments iframe {
   border-radius: 12px !important;
 }
+
+/* ===== 오른쪽 목차(TOC) 꾸미기 =====
+   주의: 홈 화면의 "한눈에 보기" 위젯도 nav.toc / .toc__menu 클래스를 재사용하므로,
+   여기서는 실제 목차 링크 구조(li > a, 중첩 ul)에만 걸리는 선택자를 써서
+   홈 화면 위젯 디자인은 건드리지 않도록 함. */
+.sidebar__right.sticky nav.toc {
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 3px 14px rgba(0,0,0,.06);
+  transition: box-shadow 0.3s ease;
+}
+
+.sidebar__right.sticky nav.toc:hover {
+  box-shadow: 0 6px 20px rgba(0,0,0,.09);
+}
+
+.sidebar__right.sticky nav.toc header .nav__title {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  letter-spacing: 0.04em;
+}
+
+/* 목차 링크 목록 (게시글에서만 존재하는 li > a 구조) */
+.toc__menu:not(.visitor-box) {
+  padding: 0.4rem 0.3rem;
+}
+
+.toc__menu:not(.visitor-box) li {
+  position: relative;
+}
+
+.toc__menu:not(.visitor-box) a {
+  display: block;
+  padding: 0.42rem 0.7rem 0.42rem 0.9rem;
+  margin: 0.1rem 0;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  color: #666;
+  font-weight: 500;
+  border-left: 2px solid transparent;
+  transition: all 0.22s ease;
+}
+
+.toc__menu:not(.visitor-box) a:hover {
+  color: #1a73e8;
+  background: rgba(66,133,244,.07);
+  border-left-color: #4285f4;
+  transform: translateX(2px);
+}
+
+/* 중첩된 하위 목차: 들여쓰기 + 얇은 안내선 + 글씨 살짝 축소 */
+.toc__menu:not(.visitor-box) ul {
+  margin-left: 0.55rem;
+  padding-left: 0.6rem;
+  border-left: 1px solid rgba(0,0,0,.08);
+}
+
+.toc__menu:not(.visitor-box) ul a {
+  font-size: 0.76rem;
+  color: #888;
+  font-weight: 400;
+}
+
+.toc__menu:not(.visitor-box) ul a:hover {
+  color: #1a73e8;
+}
+
+/* 스크롤 중 현재 보고 있는 섹션 강조 (테마/스크립트가 active 클래스를 붙이는 경우 대비) */
+.toc__menu:not(.visitor-box) a.active,
+.toc__menu:not(.visitor-box) a[aria-current="true"],
+.toc__menu:not(.visitor-box) a.is-active-link {
+  color: #1a73e8 !important;
+  font-weight: 700;
+  background: rgba(66,133,244,.1);
+  border-left-color: #4285f4;
+}
 </style>
