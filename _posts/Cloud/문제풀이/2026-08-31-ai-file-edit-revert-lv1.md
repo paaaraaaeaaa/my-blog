@@ -11,6 +11,7 @@ tags: [git, github, claude-code, claude-md, devlog, 부트캠프, 자율실습]
 comments: true
 toc: true
 toc_sticky: true
+mermaid: true
 ---
 <style>
 .page__content { font-size: 0.85em; }
@@ -38,6 +39,21 @@ toc_sticky: true
 - **이미 커밋됐다** → `git log --oneline`으로 맨 위 커밋(방금 만든 것)의 앞 7글자를 확인하고 `git revert --no-edit <7글자>`.
 
 🚨 `git clean`으로 지운 것은 되살릴 수 없다. `-n`은 보기만, `-f`는 진짜 지움, `-d`를 붙여야 폴더까지 지운다. 반드시 이름을 적어서 지운다.
+
+| 상황 | git이 이 파일을 아는가 | 쓸 명령 |
+|---|---|---|
+| 원래 있던 파일이 고쳐짐 (커밋 전) | 안다(추적 중) | `git restore <파일>` |
+| 없던 파일이 새로 생김 | 모른다(Untracked) | `git clean -f -d <이름>` |
+| 이미 커밋됨 | 안다 + 기록도 있음 | `git revert --no-edit <해시>` |
+
+```mermaid
+flowchart TD
+    A["AI가 파일을 건드림"] --> B{"git status로 확인"}
+    B -->|"Untracked (새 파일)"| C["git clean -n -d 로 확인 후 git clean -f -d"]
+    B -->|"Changes not staged (기존 파일 수정)"| D["git restore 파일명"]
+    B -->|"이미 커밋됨"| E["git log --oneline 으로 해시 확인"]
+    E --> F["git revert --no-edit 해시"]
+```
 
 ⚠️ `revert`에서 글자로 가득 찬 낯선 화면이 뜨면 `--no-edit`을 빠뜨린 것이다 — Esc → `:q!` → Enter (`q`로는 안 나가진다). 뭔가를 고르라는 화면이 뜨면 충돌이 난 것이므로 `git revert --abort`로 통째로 취소한다.
 

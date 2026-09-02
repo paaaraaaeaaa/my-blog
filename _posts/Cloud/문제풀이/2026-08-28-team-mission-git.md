@@ -11,6 +11,7 @@ tags: [git, github, devlog, 부트캠프, 팀미션]
 comments: true
 toc: true
 toc_sticky: true
+mermaid: true
 ---
 <style>
 .page__content { font-size: 0.85em; }
@@ -95,6 +96,20 @@ git push -u origin feature-내기능
 
 #### 배운 점
 💡 Request changes는 단순 거절이 아니라 **다음 커밋을 위한 구체적 지시**여야 한다는 것. 코드 리뷰 코멘트도 하나의 "기록"이라 나중에 다시 읽어도 이해가 가야 한다.
+
+```mermaid
+sequenceDiagram
+    participant Me as 작성자
+    participant GH as GitHub
+    participant R as 리뷰어
+    Me->>GH: feature-내기능 브랜치 push + PR 오픈
+    GH-->>R: 리뷰 요청
+    R->>GH: review-rule.txt 기준과 대조 후 Request changes
+    GH-->>Me: "몇 번 기준 위반"까지 인용한 코멘트 확인
+    Me->>GH: 수정 후 같은 브랜치에 다시 push
+    R->>GH: Approve
+    Me->>GH: main으로 병합
+```
 
 ### 3단계 — 기준 고치기
 
@@ -422,6 +437,14 @@ push한 뒤 PR 화면이 어떻게 바뀌는지 보고 병합했다.
 ---
 
 ## 다섯 미션을 다 풀어보고 나서
+
+| 미션 | 무엇을 관찰하게 만드는가 | 핵심 도구 |
+|---|---|---|
+| A. 한 줄을 다 같이 고치기 | 일을 어떻게 나누면 충돌이 줄어드는가 | 브랜치 · 충돌 해결 |
+| B. 기획서 검수 기준 (우리 팀) | 판정 가능한 리뷰 기준은 어떻게 생겼는가 | PR · 코드 리뷰 |
+| C. 같은 작업, 다른 커밋 단위 | 커밋 하나에 무엇을 담아야 남이 읽을 수 있는가 | 커밋 · 커밋 히스토리 |
+| D. 잘못 병합된 PR | 팀 저장소에서 안전하게 되돌리는 법 | revert (reset 아님) |
+| E. 브랜치를 딴 시점이 어긋남 | 브랜치를 딴 시점이 왜 중요한가 | 병합 · 충돌 해결 |
 
 - 미션마다 같은 브랜치 → PR → 리뷰 → 병합 흐름을 쓰지만, **무엇을 관찰하게 만드는지**가 다 달랐다. (A: 충돌을 줄이는 방법 / B: 판정 가능한 리뷰 기준 / C: 커밋 단위가 남기는 정보량 / D: 팀 저장소에서 안전하게 되돌리기 / E: 브랜치를 딴 시점의 중요성)
 - 다섯 미션을 통틀어 가장 인상 깊었던 것: 미션 D에서 `reset --hard` 대신 `revert`를 써야 하는 이유를 직접 겪어본 게 가장 인상 깊었다. 팀 저장소에서 기록을 지우는 것과 되돌리는 것이 왜 다른지 몸으로 이해했다.

@@ -11,6 +11,7 @@ tags: [claude-code, skill, claude-md, prompt-engineering, devlog, 부트캠프, 
 comments: true
 toc: true
 toc_sticky: true
+mermaid: true
 ---
 <style>
 .page__content { font-size: 0.85em; }
@@ -43,6 +44,19 @@ toc_sticky: true
 
 ⚠️ `.claude`는 점으로 시작해서 파일 탐색기에는 안 보인다. 스킬 파일 작업은 VS Code에서 한다.
 
+```mermaid
+flowchart TD
+    A["스킬이 / 목록에 안 뜬다"] --> B{"폴더를 새로 만들었나?"}
+    B -->|예| C["/exit 후 다시 claude"]
+    B -->|아니오| D{"파일 이름이 SKILL.md 맞나?"}
+    D -->|아니오| E["대문자 SKILL.md로 이름 수정"]
+    D -->|예| F{"폴더 이름이 소문자인가?"}
+    F -->|아니오| G["소문자로 수정"]
+    F -->|예| H{"위치가 저장소 최상위 .claude/skills 인가?"}
+    H -->|아니오| I["_posts 등이 아닌 최상위로 이동"]
+    H -->|예| J["Ctrl+S로 저장했는지 확인"]
+```
+
 ---
 
 ## Lv.1 — 기본 변형 (6문제)
@@ -69,6 +83,11 @@ toc_sticky: true
 
 #### 배운 점
 💡 역할 문장만 바꿔도 되묻는 행동(성장 규칙)은 그대로고 말투만 달라진다 — "무엇을 하는가"와 "누구로서 하는가"는 서로 다른 칸에서 따로 결정된다.
+
+| 칸 | 답하는 질문 | 이번 실습에서 바뀐 것 | 이번 실습에서 그대로인 것 |
+|---|---|---|---|
+| 역할 (`## 역할`) | 누구로서 답하는가 | 말투·태도 | — |
+| 규칙 (`## 규칙`) | 어떻게 답하는가 | — | 되묻는 성장 규칙 |
 
 ---
 

@@ -11,6 +11,7 @@ tags: [claude-code, skill, claude-md, prompt-engineering, devlog, 부트캠프, 
 comments: true
 toc: true
 toc_sticky: true
+mermaid: true
 ---
 <style>
 .page__content { font-size: 0.85em; }
@@ -42,6 +43,19 @@ toc_sticky: true
 - **목록에서 못 찾는 것뿐이다** → `/le`·`/no`까지 쳐서 좁힌다(목록에서 나가려면 `Esc`)
 
 ⚠️ `.claude`는 점으로 시작해서 파일 탐색기에는 안 보인다. 스킬 파일 작업은 VS Code에서 한다.
+
+```mermaid
+flowchart TD
+    A["스킬이 / 목록에 안 뜬다"] --> B{"폴더를 새로 만들었나?"}
+    B -->|예| C["/exit 후 다시 claude"]
+    B -->|아니오| D{"파일 이름이 SKILL.md 맞나?"}
+    D -->|아니오| E["대문자 SKILL.md로 이름 수정"]
+    D -->|예| F{"폴더 이름이 소문자인가?"}
+    F -->|아니오| G["소문자로 수정"]
+    F -->|예| H{"위치가 저장소 최상위 .claude/skills 인가?"}
+    H -->|아니오| I["_posts 등이 아닌 최상위로 이동"]
+    H -->|예| J["Ctrl+S로 저장했는지 확인"]
+```
 
 ---
 
@@ -169,6 +183,12 @@ my-blog의 `/note` 2번 줄(`CLAUDE.md` 참조 부분)을 그 저장소에 맞�
 
 #### 배운 점
 💡 한 번에 완성되지 않는다 — 1회차에 추가로 설명하게 된 것이 곧 2회차에 고칠 대상이 된다.
+
+| 회차 | 주제 | 내가 추가로 말한 것 | 어디로 옮겼나 |
+|---|---|---|---|
+| 1회 | Git 브랜치 전략 | 저장 위치, 태그 개수 | 저장 위치 → `CLAUDE.md` / 태그 개수 → `/note` 순서 |
+| 2회 | Docker 컨테이너 기초 | 제목에 콜론 쓸 때 따옴표 필요 | `/note` 순서에 "Front Matter 규칙을 그대로 따른다" 추가 |
+| 3회 | React Query 캐싱 | 없음(성공) | — |
 
 1회차(주제: Git 브랜치 전략)에는 저장 위치와 태그 개수를 추가로 말해야 했고, 저장 위치는 `CLAUDE.md`에, 태그 개수는 `/note` 순서에 각각 반영했다. 2회차(주제: Docker 컨테이너 기초)에는 제목에 콜론을 썼는데 따옴표로 안 감싸서 한 번 더 고쳐야 했다 — 이건 `CLAUDE.md`의 Front Matter 규칙에 이미 있던 내용을 `/note`가 안 따르고 있었던 것이라, `/note` 순서에 "제목은 CLAUDE.md의 Front Matter 규칙을 그대로 따른다"는 줄을 추가했다. 3회차(주제: React Query 캐싱)는 "뭘 배웠어요?"에 답하고 글을 확인한 것 말고는 더 말한 게 없었다.
 
