@@ -34,6 +34,16 @@
   url: "https://claude.ai/code/artifact/0e439cbf-68f6-4b70-959c-c857547be66c"
   description: "문제 링크를 클릭하면 문제를 확인할 수 있습니다."
 
+- category: "문제"
+  title: "CSS 레이아웃 · 자율 실습 - 카드로 배치 익히기"
+  url: "https://claude.ai/code/artifact/fb3d6b63-604e-4b56-8510-60685be1f775"
+  description: "문제 링크를 클릭하면 문제를 확인할 수 있습니다."
+
+  - category: "문제"
+  title: "CSS 레이아웃 · 자율 실습 - 움직이는 카드 만들기"
+  url: "https://claude.ai/code/artifact/fd533bbc-cab5-44e4-8f24-34706f7c3c52"
+  description: "문제 링크를 클릭하면 문제를 확인할 수 있습니다."
+
 - category: "게임"
   title: "CSS Diner"
   url: "https://flukeout.github.io/"
