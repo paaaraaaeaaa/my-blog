@@ -33,3 +33,18 @@
   title: "화면 보고 HTML 만들기"
   url: "https://claude.ai/code/artifact/0e439cbf-68f6-4b70-959c-c857547be66c"
   description: "문제 링크를 클릭하면 문제를 확인할 수 있습니다."
+
+- category: "게임"
+  title: "CSS Diner"
+  url: "https://flukeout.github.io/"
+  description: "링크를 클릭하면 게임을 실행시킬 수 있습니다."
+
+- category: "게임"
+  title: "flexboxfroggy"
+  url: "https://flexboxfroggy.com/#ko"
+  description: "링크를 클릭하면 게임을 실행시킬 수 있습니다."
+
+- category: "게임"
+  title: "gridgarden"
+  url: "https://cssgridgarden.com/#ko"
+  description: "링크를 클릭하면 게임을 실행시킬 수 있습니다."
