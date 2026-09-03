@@ -3,7 +3,7 @@ title: "Lv1 · 카드 하나로 배치 감각 익히기"
 subtitle: "박스 모델·Flex·Grid로 카페 메뉴 카드를 여섯 방향으로 뜯어본 devlog"
 excerpt: "박스 모델·Flex·Grid로 카페 메뉴 카드를 여섯 방향으로 뜯어본 devlog"
 date: 2026-09-03
-categories: [Cloud]
+categories: Cloud
 type: practice
 topic: "카드로 배치 익히기"
 level_order: 10
@@ -22,6 +22,24 @@ mermaid: true
 > 문제마다 `문제 상황 → 시도한 방법 → 막혔던 점 → 해결 과정 → 배운 점` 순서로 정리했다.
 
 ---
+
+## 핵심 개념 정리
+
+- **박스 모델 (Box Model)**
+  - 요소가 화면에서 차지하는 영역을 content · padding · border · margin 네 겹으로 나눠 보는 모델이다.
+  - `padding`을 늘리면 안쪽 내용만 밀리는 게 아니라 요소가 실제로 차지하는 높이·너비 자체가 커진다.
+
+- **Flexbox (`display: flex`)**
+  - 자식 요소를 한 방향(기본은 가로)으로 늘어놓고, 진행 방향은 `justify-content`, 반대 방향은 `align-items`로 나눠서 정렬하는 1차원 레이아웃 모델이다.
+  - `gap`은 컨테이너가 자식 "사이"에만 주는 간격이라 목록의 양 끝에는 생기지 않는다 — 자식이 갖는 `margin`과는 이 지점에서 다르다.
+
+- **Grid (`display: grid`)**
+  - `grid-template-columns`로 열 구성을 직접 선언해야 하는 2차원 레이아웃 모델이다. Flex처럼 `display`만 바꾼다고 자동으로 칸이 나뉘지 않는다.
+  - `fr` 단위는 컨테이너의 남는 공간을 몫으로 나눠 갖는다 — `repeat(3, 1fr)`은 "똑같은 몫 3개"라는 뜻이다.
+
+- **`display` 값 — `inline` / `block` / `inline-block`**
+  - `inline`은 옆으로 붙지만 위아래 여백이 레이아웃 공간을 못 만들고, `block`은 여백은 자리를 만들지만 가로 전체를 차지한다.
+  - `inline-block`은 두 성질을 섞어 "옆으로 붙으면서 여백·크기도 온전히 갖는" 상태로, 배지 같은 작은 UI 요소에 자주 쓰인다.
 
 ## Lv.1 — 기본 변형 (6문제)
 
