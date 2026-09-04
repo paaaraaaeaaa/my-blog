@@ -22,6 +22,10 @@ minimal_mistakes_skin: "mint"
 # 미래 날짜로 작성해도 바로 게시되도록 허용
 future: true
 
+# GitHub Pages 빌드 서버는 기본적으로 UTC를 쓴다. 이걸 안 맞추면 한국 시간 새벽(00~09시)에
+# 빌드될 때 "오늘 날짜"가 하루 전으로 계산돼서, index.md의 N일차 계산이 어긋난다.
+timezone: "Asia/Seoul"
+
 # 🔍 사이트 전체 검색 기능 (상단 돋보기 아이콘)
 search: true
 search_full_content: true

@@ -1,0 +1,125 @@
+/* ========= */
+/* 페이지 전체 설정 */
+
+body {
+    background-color:rgb(255, 255, 221);
+    color:rgb(108, 86, 172);
+}
+
+h1 {
+    font-size: 45px;
+}
+/* ========= */
+
+/* ========= */
+/* 카드 관련 CSS */
+.card {
+    background-color:rgba(0, 255, 255, 0.37);
+    border: 1px solid rgb(6, 32, 32);
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.thumb {
+    width: 180px;
+    height: 120px;
+    background-color: palegreen;
+    border-radius: 8px;
+}
+
+.product-name {
+    font-size: 30px;
+}
+
+.price {
+    font-size: 15px;
+}
+
+.desc {
+    font-size: 20px;
+}
+/* ========= */
+/* ========= */
+/* 블록과 인라인 - display 전략 */
+/*
+div: 블록의 특징을 갖는다.
+블럭은 아래로 쌓이는 특징을 가지며 div의 기본 값은 블럭이다.
+
+span: 인라인의 특징을 갖는다.
+인라인은 옆으로 이어지는 특징을 가지며 span의 기본 값은 인라인이다.
+*/
+.box-block-span {
+    display: block;
+}
+
+.box-inline-div {
+    display: inline;
+}
+/* ========= */
+
+/* ========= */
+/* 카드 3장을 가로로 배치 */
+/* 
+플렉스박스(Flexbox)는 항목을 한 방향으로 줄로 세우는 배치 방식이다.
+dispplay: flex 는 카드가 아닌 카드를 감싸는 상자에게 부여해야 한다.
+감싸는 상자를 플렉스 컨테이너, 
+상자 내부에 카드 하나하나를 플렉스 아이템이라고 부르게 된다.
+
+플렉스는 2개의 축이 있다.
+주축: flex-direction 이 정한 방향
+교차축: 주축과 직각인 방향
+*/
+
+.card-list {
+    /* 플렉스 컨테이너로 만든다. */
+    display:flex;
+    /* 주축 설정 
+    기본값: row(가로)
+    reverse: 역순
+    */
+    flex-direction: row;
+    /* 주축 방향으로 항목을 어디에 모을지 (지금은 가로 위치)
+       flex-start 왼쪽 · center 가운데 · flex-end 오른쪽
+       space-between 양 끝에 붙이고 사이를 고르게
+       space-around · space-evenly 는 바깥쪽 여백까지 나눠 갖는 방식이 다르다 */
+    justify-content: space-between;
+
+    /* 교차축 방향으로 항목을 어디에 맞출지 (지금은 세로 위치)
+       stretch(기본값) 컨테이너 높이만큼 늘린다 → 카드 높이가 서로 같아 보인다
+       flex-start 위쪽 끝 맞춤 · center 가운데 · flex-end 아래쪽 끝 맞춤
+     여기서 flex-start 를 쓰는 이유: 카드를 늘리지 않고 자기 내용만큼만 높이를 갖게 하려고.
+     설명이 한 줄 더 있는 카드만 아래로 길어지는 것이 이 값 때문이다 */
+    align-items: flex-start;
+
+    /* 아이템과 아이템 사이의 간격 조정 */
+    gap: 20px;
+
+    /* 화면을 줄였을 때 한 줄에 다 들어가지 못할 때 어떻게 할 것인지? 
+        wrap: 화면을 좁힐 때 화면 비율에 맞추어 아래로 내려가게 설정한다.
+        nowrap: 기본값이며, 항목이 줄어들거나 상자 밖으로 넘치게 된다.
+    */
+    flex-wrap: wrap;
+}
+
+
+/* 
+Grid
+    그리드는 행과 열, 두 방향으로 함께 정하는 배치 방식이다.
+    플렉스는 "한 줄로 세우고 정렬"
+    그리드는 "칸을 그려두고 칸에 넣으며 정렬"
+*/
+
+.grid-list {
+    /* 해당 속성만 있으면 열이 기본적으로 1개이다. */
+    display: grid;
+    /* repeat(3,1fr) 열이 3개
+       fr: 남은 공간의 몫
+       행의 갯수르르 지정하지 않은 이유
+       - 열을 지정하면, 행은 자동을 결정된다.
+       - ex) 아이템 6개 / 3열 = 2행
+    */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+
+}
+/* ========= */

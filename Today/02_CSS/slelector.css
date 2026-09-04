@@ -1,0 +1,93 @@
+/* 
+    외부 스타일 시트 방식은 HTML 파일 내에서 CSS를 작성하는 것이 아닌
+    별도의 .css 파일을 만드는 것이다. (우선순위 동일)
+*/
+
+/* 속성 값과 일치하는 태그(요소) 선택 */
+div[name=name2] {
+    border: 1px;
+    background: paleturquoise;
+}
+
+/* 속성 안의 값이 특정 값을 띄어쓰기 단위로 포함하는 태그(요소) 선택*/
+div[name~=name1] {
+    background: yellow;
+}
+/*
+속성 값이 특정 값과 일치하거나,'-' 문자가 곧바로 해당 값 뒤에 붙는 태그(요소) 선택
+
+class |(or) class- 을 선택하겠다. 라는 의미
+*/
+div[class|=class] {
+    background: greenyellow;
+}
+
+/*
+속성 값을 가지고 있으며, 접두사로 값이 포함되어 있는 태그(요소) 선택    
+*/
+div[name^=name] {
+    background: palevioletred;
+}
+
+/* 
+속성 안의 값이 특정 값으로 끝나는(접미사) 태그(요소) 선택
+*/
+div[class$=class] {
+    background: orange;
+}
+
+/*
+속성 안의 값이 특정 값을 포함하는 태그(요소) 선택
+*/
+div[class*=div] {
+    background: blue;
+}
+
+/* ======================== */
+
+/* 자손 선택자 테스트 */
+
+/* 사용할 수 있는 hint : 부모 태그의 id */
+#test1>h4 {
+    background: hotpink;
+}
+
+/* 아래는 불가능 */
+#test1>ul>li {
+    background: cadetblue;
+}
+
+/* 후손 선택자 테스트 */
+#test1 ul {
+    background: cadetblue;
+}
+
+ /* css 에서 제공하는 이벤트 관련 선택자 */
+        #active-test:active {
+            background: red;
+            color: white;
+        }
+
+        #hover-test:hover {
+            cursor: pointer;
+            background: darkgreen;
+            color: bisque;
+            font: 60px bold;
+        }
+
+        input[type=checkbox]:checked {
+            width: 100px;
+            height: 100px;
+        }
+
+        #userId:focus, #userPwd:focus {
+            background: hotpink;
+        }
+
+        option:enabled {
+            background: darkred;
+        }
+
+        option:disabled {
+            background: red;
+        }
