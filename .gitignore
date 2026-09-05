@@ -4,5 +4,6 @@ _site/
 .jekyll-metadata
 vendor/
 _tmp_build/
-profile.png
-og-banner.png
+profile.png/
+og-banner.png/
+.claude/skills
