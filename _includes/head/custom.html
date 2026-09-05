@@ -1,6 +1,11 @@
 <style>
 :root {
   --fixed-offset: 110px; /* JS가 계산하기 전 기본값 */
+  /* 넓은 화면에서 배너/본문이 쓸 최대 폭. 테마 기본값은 1280px 이상 화면에서
+     무조건 max-width:1280px로 고정돼서, 그보다 넓은 모니터에서는 배너와
+     본문이 가운데 좁은 폭에 갇히고 양옆에 빈 여백만 남는다. 그래서 고정 px
+     대신 화면 너비 비례값(vw)으로 바꿔서 창 크기에 따라 같이 늘어나게 함. */
+  --site-max-width: min(94vw, 1920px);
 }
 
 /* 상단 메뉴바(배너) 고정 */
@@ -15,6 +20,12 @@
   box-shadow: 0 1px 6px rgba(0,0,0,.12);
 }
 
+/* 배너(제목/네비게이션) 안쪽 내용물을 감싸는 틀. 글자 크기·로고 크기는 그대로 두고
+   이 틀의 최대 폭만 창 너비에 맞춰 늘어나도록 재설정 (테마 기본 1280px 고정 해제) */
+.masthead__inner-wrap {
+  max-width: var(--site-max-width) !important;
+}
+
 /* 글 경로(breadcrumb)도 상단바 바로 밑에 고정 */
 .breadcrumbs {
   position: fixed !important;
@@ -26,6 +37,15 @@
   border-bottom: 1px solid rgba(0,0,0,.08);
   padding-top: .5em;
   padding-bottom: .5em;
+  /* 테마 기본 max-width:1280px 고정 해제 (배너/본문과 폭을 맞춤) */
+  max-width: var(--site-max-width) !important;
+  margin-inline: auto !important;
+}
+
+/* 본문 영역(왼쪽 프로필 + 글 + 오른쪽 목차)도 배너와 같은 폭 기준을 쓰도록 함.
+   배너만 넓어지고 본문은 좁은 채로 남으면 위아래 폭이 안 맞아 더 어색해 보임. */
+#main {
+  max-width: var(--site-max-width) !important;
 }
 
 /* 왼쪽 프로필 / 오른쪽 목차 sticky 시작 위치를 상단바+경로 높이만큼 밀어냄 */

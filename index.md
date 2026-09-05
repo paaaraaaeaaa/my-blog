@@ -459,7 +459,11 @@ author_profile: true
 /* ===== 포스트 리스트 ===== */
 .post-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  /* auto-fill이면 카드 수(2개)보다 화면이 넓을 때 빈 트랙이 오른쪽에 남아서
+     카드가 폭을 다 못 채우고 왼쪽에 몰려 보임. auto-fit으로 바꿔서 실제
+     카드가 있는 만큼만 컬럼을 만들고 남은 폭을 나눠 갖도록 함(화면이 넓어질수록
+     카드도 같이 넓어짐). */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.4rem;
   margin: 1.5rem 0 2rem;
 }
@@ -653,6 +657,8 @@ author_profile: true
 
 .gh-stats-grid {
   display: grid;
+  /* auto-fit: 이미지가 1장뿐이라도 화면 폭 전체를 채우도록 늘어남
+     (auto-fill이면 넓은 화면에서 이미지 오른쪽에 빈 공간이 남음) */
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1rem;
   margin: 1rem 0;
