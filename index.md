@@ -5,6 +5,8 @@ list_title: 최근 글
 author_profile: true
 ---
 
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
 /* ===== 전체 리셋 및 기본 스타일 ===== */
 * {
@@ -82,90 +84,78 @@ author_profile: true
   }
 }
 
-/* ===== 타이핑 배너 ===== */
-/* ===== 인사 배너 (한 번만 나타나는 정적 버전) ===== */
-.greeting-banner {
-  text-align: center;
-  margin: 1.5rem 0 2rem;
-  animation: fadeInDown 0.8s ease-out;
-}
-
-.greeting-banner__title {
-  font-size: 1.25rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  margin: 0 0 0.55rem;
-  background: linear-gradient(135deg, #2E8B57, #4285f4);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.greeting-banner__sub {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5em;
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: #4285f4;
-  background: rgba(66,133,244,.08);
-  padding: 0.4em 1em;
-  border-radius: 999px;
-}
-
-/* ===== 소개 카드 ===== */
-.intro-card {
+/* ===== 홈 히어로 (인사 + 소개를 하나로) ===== */
+.home-hero {
+  position: relative;
   display: flex;
   align-items: flex-start;
-  gap: 1.2rem;
-  padding: 1.5rem 1.8rem;
-  border-radius: 16px;
-  background: linear-gradient(135deg, rgba(66,133,244,.08), rgba(52,168,83,.08));
-  border: 1.5px solid rgba(66,133,244,.2);
-  margin: 1.5rem 0 2rem;
-  animation: fadeInUp 0.8s ease-out 0.1s both;
-  position: relative;
+  gap: 1.3rem;
+  padding: 2.1rem 2rem;
+  margin: .5rem 0 2rem;
+  border-radius: 22px;
   overflow: hidden;
-  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #0f1b3d 0%, #1a2f74 45%, #5a2f9e 100%);
+  isolation: isolate;
+  animation: fadeInUp 0.8s ease-out both;
 }
-
-.intro-card::before {
+.home-hero::before,
+.home-hero::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.15), transparent);
-  transition: left 0.7s ease;
+  border-radius: 50%;
+  filter: blur(46px);
+  z-index: -1;
+  opacity: .5;
 }
-
-.intro-card:hover::before {
-  left: 100%;
+.home-hero::before {
+  width: 260px;
+  height: 260px;
+  background: #34d1c9;
+  top: -90px;
+  right: 8%;
 }
-
-.intro-card:hover {
-  border-color: rgba(66,133,244,.35);
-  box-shadow: 0 8px 24px rgba(66,133,244,.12);
-  transform: translateY(-3px);
+.home-hero::after {
+  width: 220px;
+  height: 220px;
+  background: #ff8fc4;
+  bottom: -100px;
+  left: 6%;
 }
-
-.intro-card__emoji {
-  font-size: 2rem;
+.home-hero__emoji {
+  font-size: 2.1rem;
   line-height: 1;
   flex-shrink: 0;
   animation: float 3s ease-in-out infinite;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,.2));
 }
-
-.intro-card p {
-  margin: 0;
+.home-hero__body {
+  min-width: 0;
+}
+.home-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .4em;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #bcd4ff;
+  margin-bottom: .6rem;
+}
+.home-hero__title {
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  font-size: clamp(1.35rem, 2.6vw, 1.7rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin: 0 0 .6rem;
+}
+.home-hero__desc {
+  font-size: .88rem;
   line-height: 1.75;
-  color: #555;
-  font-size: 0.9rem;
-  font-weight: 500;
+  color: #d9e0f7;
+  max-width: 620px;
+  margin: 0;
 }
 
 /* ===== 진행 상황 섹션 (목표와 명언 포함) ===== */
@@ -205,7 +195,7 @@ author_profile: true
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, #4285f4, #34a853);
+  background: linear-gradient(90deg, #185fa8, #34d1c9);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.5s ease;
@@ -239,10 +229,11 @@ author_profile: true
 }
 
 .info-tile__value {
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
   font-size: 1.8rem;
   font-weight: 800;
   margin-bottom: 0.8rem;
-  background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+  background: linear-gradient(135deg, #185fa8 0%, #34d1c9 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -327,7 +318,7 @@ author_profile: true
 .progress-bar__fill {
   height: 100%;
   border-radius: 999px;
-  background: linear-gradient(90deg, #4285f4, #34a853);
+  background: linear-gradient(90deg, #185fa8, #34d1c9);
   width: 0;
   animation: fillBar 1.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s forwards;
   box-shadow: 0 0 8px rgba(66,133,244,.4);
@@ -392,28 +383,32 @@ author_profile: true
 .quicknav-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.2rem;
+  gap: 1.1rem;
   margin: 2rem 0;
 }
 
 .quicknav-card {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 0.8rem;
-  padding: 1.8rem 1.2rem;
-  border: 2px solid rgba(0,0,0,.08);
-  border-radius: 14px;
-  text-decoration: none;
+  gap: 1rem;
+  padding: 1.4rem 1.3rem;
+  border: 1px solid rgba(15,23,60,.08);
+  border-radius: 18px;
+  text-decoration: none !important;
   color: inherit;
-  font-weight: 700;
-  font-size: 1.05rem;
   background: #fff;
+  box-shadow: 0 4px 12px rgba(15,23,60,.04);
   transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   animation: fadeInUp 0.8s ease-out both;
   position: relative;
   overflow: hidden;
+}
+
+.quicknav-card,
+.quicknav-card:hover,
+.quicknav-card:visited,
+.quicknav-card * {
+  text-decoration: none !important;
 }
 
 .quicknav-card:nth-child(1) { animation-delay: 0.4s; }
@@ -423,37 +418,74 @@ author_profile: true
 .quicknav-card::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(66,133,244,.1), transparent);
-  transition: left 0.6s ease;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--accent, linear-gradient(90deg, #185fa8, #34d1c9));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
 }
 
 .quicknav-card:hover::before {
-  left: 100%;
+  transform: scaleX(1);
 }
 
 .quicknav-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 12px 32px rgba(66,133,244,.2);
-  border-color: rgba(66,133,244,.3);
-  background: linear-gradient(135deg, rgba(66,133,244,.02), rgba(52,168,83,.02));
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(15,23,60,.12);
+  border-color: rgba(15,23,60,.14);
 }
 
 .quicknav-card__icon {
-  font-size: 2.2rem;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  font-size: 1.4rem;
+  background: var(--accent, linear-gradient(135deg, #185fa8, #34d1c9));
+  box-shadow: 0 6px 14px rgba(15,23,60,.12);
   transition: transform 0.3s ease;
 }
 
 .quicknav-card:hover .quicknav-card__icon {
-  transform: scale(1.15) rotateY(10deg);
-  animation: float 2s ease-in-out infinite;
+  transform: scale(1.08) rotate(-4deg);
+}
+
+.quicknav-card__body {
+  min-width: 0;
 }
 
 .quicknav-card__label {
+  display: block;
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
   letter-spacing: -0.02em;
+  color: #14192b;
+}
+
+.quicknav-card__desc {
+  display: block;
+  font-size: .74rem;
+  color: #97a0b5;
+  font-weight: 600;
+  margin-top: .15rem;
+}
+
+.quicknav-card__arrow {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: .9rem;
+  color: #c3c9d8;
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.quicknav-card:hover .quicknav-card__arrow {
+  transform: translateX(4px);
+  color: #4285f4;
 }
 
 /* ===== 포스트 리스트 ===== */
@@ -502,15 +534,15 @@ author_profile: true
   left: 0;
   right: 0;
   height: 5px;
-  background: linear-gradient(90deg, #4285f4, #34a853);
+  background: linear-gradient(90deg, #185fa8, #34d1c9);
   transform: scaleY(0);
   transform-origin: top;
   transition: transform 0.4s ease;
 }
 
-.post-list__card--cloud::before { background: linear-gradient(90deg, #4285f4, #1e88e5); }
-.post-list__card--database::before { background: linear-gradient(90deg, #a142f4, #7e57c2); }
-.post-list__card--projects::before { background: linear-gradient(90deg, #ff7043, #ff5722); }
+.post-list__card--cloud::before { background: linear-gradient(90deg, #185fa8, #34d1c9); }
+.post-list__card--database::before { background: linear-gradient(90deg, #7a3fc2, #ff8fc4); }
+.post-list__card--projects::before { background: linear-gradient(90deg, #1a3fa8, #6ec6ff); }
 
 .post-list__card:hover::before {
   transform: scaleY(1);
@@ -546,9 +578,9 @@ author_profile: true
   box-shadow: 0 2px 8px rgba(0,0,0,.1);
 }
 
-.post-list__badge--cloud { background: #4285f4; }
-.post-list__badge--database { background: #a142f4; }
-.post-list__badge--projects { background: #ff7043; }
+.post-list__badge--cloud { background: linear-gradient(135deg, #185fa8, #34d1c9); }
+.post-list__badge--database { background: linear-gradient(135deg, #7a3fc2, #ff8fc4); }
+.post-list__badge--projects { background: linear-gradient(135deg, #1a3fa8, #6ec6ff); }
 .post-list__badge--default { background: #888; }
 
 .post-list__date {
@@ -651,7 +683,7 @@ author_profile: true
   content: '';
   width: 3px;
   height: 16px;
-  background: linear-gradient(180deg, #4285f4, #34a853);
+  background: linear-gradient(180deg, #185fa8, #34d1c9);
   border-radius: 999px;
 }
 
@@ -819,10 +851,11 @@ author_profile: true
 h2 {
   position: relative;
   margin-bottom: 1.5rem;
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
   font-size: 1.4rem;
   font-weight: 800;
   letter-spacing: -0.02em;
-  color: #222;
+  color: #14192b;
 }
 
 h2::after {
@@ -832,7 +865,7 @@ h2::after {
   left: 0;
   width: 0;
   height: 4px;
-  background: linear-gradient(90deg, #4285f4, #34a853);
+  background: linear-gradient(90deg, #185fa8, #34d1c9);
   border-radius: 999px;
   animation: expandWidth 0.8s ease-out 0.3s forwards;
 }
@@ -855,19 +888,15 @@ h2::after {
 }
 
 @media (max-width: 768px) {
-  .greeting-banner {
-    margin: 1rem 0 1.5rem;
-  }
-  
-  .intro-card {
-    padding: 1.2rem 1.4rem;
+  .home-hero {
+    padding: 1.5rem 1.4rem;
     gap: 0.8rem;
   }
-  
-  .intro-card p {
+
+  .home-hero__desc {
     font-size: 0.85rem;
   }
-  
+
   .info-grid {
     gap: 1rem;
   }
@@ -993,14 +1022,13 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<div class="greeting-banner">
-<p class="greeting-banner__title">안녕하세요, 개발 공부 중입니다 👋</p>
-<span class="greeting-banner__sub">🔥 Git · GitHub 실습 기록 중</span>
+<div class="home-hero">
+<span class="home-hero__emoji">👋</span>
+<div class="home-hero__body">
+<div class="home-hero__eyebrow">🔥 Git · GitHub 실습 기록 중</div>
+<div class="home-hero__title">안녕하세요, 개발 공부 중입니다</div>
+<p class="home-hero__desc">개발을 처음 배우는 부트캠프 학습자입니다. 매일 배운 내용과 겪은 시행착오를 여기에 기록하면서, 몇 달 뒤에 다시 읽었을 때 "그때보다 늘었다"를 확인할 수 있는 블로그로 만들어가고 있습니다.</p>
 </div>
-
-<div class="intro-card">
-<span class="intro-card__emoji">👋</span>
-<p>안녕하세요! 개발을 처음 배우는 부트캠프 학습자입니다. 매일 배운 내용과 겪은 시행착오를 여기에 기록하면서, 몇 달 뒤에 다시 읽었을 때 "그때보다 늘었다"를 확인할 수 있는 블로그로 만들어가고 있습니다.</p>
 </div>
 
 {% comment %}
@@ -1052,10 +1080,36 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 </div>
 
+{% assign empty_array = "" | split: "," %}
+{% assign cloud_count = site.categories.Cloud | default: empty_array | size %}
+{% assign db_count = site.data.database_links | default: empty_array | size %}
+{% assign proj_count = site.categories.Projects | default: empty_array | size %}
+
 <div class="quicknav-grid">
-<a class="quicknav-card" href="{{ '/cloud/' | relative_url }}"><span class="quicknav-card__icon">☁️</span><span class="quicknav-card__label">Cloud</span></a>
-<a class="quicknav-card" href="{{ '/database/' | relative_url }}"><span class="quicknav-card__icon">🗄️</span><span class="quicknav-card__label">Database</span></a>
-<a class="quicknav-card" href="{{ '/projects/' | relative_url }}"><span class="quicknav-card__icon">🚀</span><span class="quicknav-card__label">Projects</span></a>
+<a class="quicknav-card" style="--accent: linear-gradient(135deg, #185fa8, #34d1c9);" href="{{ '/cloud/' | relative_url }}">
+<span class="quicknav-card__icon">☁️</span>
+<span class="quicknav-card__body">
+<span class="quicknav-card__label">Cloud</span>
+<span class="quicknav-card__desc">글 {{ cloud_count }}편</span>
+</span>
+<span class="quicknav-card__arrow">→</span>
+</a>
+<a class="quicknav-card" style="--accent: linear-gradient(135deg, #7a3fc2, #ff8fc4);" href="{{ '/database/' | relative_url }}">
+<span class="quicknav-card__icon">🗄️</span>
+<span class="quicknav-card__body">
+<span class="quicknav-card__label">Database</span>
+<span class="quicknav-card__desc">자료 {{ db_count }}개</span>
+</span>
+<span class="quicknav-card__arrow">→</span>
+</a>
+<a class="quicknav-card" style="--accent: linear-gradient(135deg, #1a3fa8, #6ec6ff);" href="{{ '/projects/' | relative_url }}">
+<span class="quicknav-card__icon">🚀</span>
+<span class="quicknav-card__body">
+<span class="quicknav-card__label">Projects</span>
+<span class="quicknav-card__desc">글 {{ proj_count }}편</span>
+</span>
+<span class="quicknav-card__arrow">→</span>
+</a>
 </div>
 
 ## 📚 {{ page.list_title }}
