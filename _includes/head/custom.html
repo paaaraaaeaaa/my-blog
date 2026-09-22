@@ -1,3 +1,5 @@
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
 :root {
   --fixed-offset: 110px; /* JS가 계산하기 전 기본값 */
@@ -20,6 +22,55 @@
   box-shadow: 0 1px 6px rgba(0,0,0,.12);
 }
 
+/* 상단바 로고(사이트 제목) */
+.site-title {
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.01em;
+  background: linear-gradient(135deg, #185fa8, #6c2bb5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 상단 탭(Cloud/Database/Projects)을 세그먼트 pill 컨트롤로 */
+.greedy-nav .visible-links {
+  display: flex;
+  align-items: center;
+  gap: .2rem;
+  padding: .28rem;
+  border-radius: 999px;
+  background: rgba(15,23,60,.05);
+}
+.greedy-nav .visible-links li {
+  list-style: none;
+}
+.greedy-nav .visible-links a {
+  display: inline-flex !important;
+  align-items: center;
+  gap: .4em;
+  padding: .5rem 1.05rem !important;
+  border-radius: 999px !important;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700 !important;
+  font-size: .88rem !important;
+  color: #6b7288 !important;
+  text-decoration: none !important;
+  transition: color .18s ease, background .18s ease, box-shadow .18s ease;
+}
+.greedy-nav .visible-links a:hover {
+  color: #17203a !important;
+  background: rgba(15,23,60,.05);
+}
+.greedy-nav .visible-links a.nav-current {
+  color: #14192b !important;
+  background: #fff;
+  box-shadow: 0 3px 10px rgba(15,23,60,.14);
+}
+.greedy-nav .visible-links a[href*="/cloud/"]::before { content: '☁️'; }
+.greedy-nav .visible-links a[href*="/database/"]::before { content: '🗄️'; }
+.greedy-nav .visible-links a[href*="/projects/"]::before { content: '🚀'; }
+
 /* 배너(제목/네비게이션) 안쪽 내용물을 감싸는 틀. 글자 크기·로고 크기는 그대로 두고
    이 틀의 최대 폭만 창 너비에 맞춰 늘어나도록 재설정 (테마 기본 1280px 고정 해제) */
 .masthead__inner-wrap {
@@ -33,13 +84,55 @@
   right: 0 !important;
   width: 100% !important;
   z-index: 998 !important;
-  background-color: #fff !important;
-  border-bottom: 1px solid rgba(0,0,0,.08);
+  background-color: #fbfcff !important;
+  border-bottom: 1px solid rgba(15,23,60,.07);
   padding-top: .5em;
   padding-bottom: .5em;
   /* 테마 기본 max-width:1280px 고정 해제 (배너/본문과 폭을 맞춤) */
   max-width: var(--site-max-width) !important;
   margin-inline: auto !important;
+}
+
+/* 경로(breadcrumb) 칩 스타일 */
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .1rem;
+}
+.breadcrumbs li {
+  display: inline-flex;
+  align-items: center;
+}
+.breadcrumbs li a {
+  display: inline-flex;
+  align-items: center;
+  padding: .28rem .6rem;
+  border-radius: 999px;
+  font-size: .78rem;
+  font-weight: 600;
+  color: #6b7288 !important;
+  text-decoration: none !important;
+  transition: color .15s ease, background .15s ease;
+}
+.breadcrumbs li a:hover {
+  color: #185fa8 !important;
+  background: rgba(24,95,168,.08);
+}
+.breadcrumbs li:first-child a {
+  padding-left: .5rem;
+}
+/* 현재 글(마지막 항목)은 링크가 아니라 "li.current" 텍스트로 렌더링된다 */
+.breadcrumbs li.current {
+  padding: .28rem .3rem;
+  font-size: .78rem;
+  font-weight: 700;
+  color: #14192b;
+}
+.breadcrumbs .sep {
+  margin: 0 .1rem;
+  color: #c3c9d8;
+  font-size: .7rem;
 }
 
 /* 본문 영역(왼쪽 프로필 + 글 + 오른쪽 목차)도 배너와 같은 폭 기준을 쓰도록 함.

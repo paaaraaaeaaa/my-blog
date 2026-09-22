@@ -32,6 +32,17 @@ document.addEventListener('DOMContentLoaded', function () {
     pre.appendChild(btn);
   });
 
+  // 1-1. 상단 탭(Cloud/Database/Projects) 중 지금 보고 있는 섹션에 강조 표시
+  document.querySelectorAll('.greedy-nav .visible-links a').forEach(function (a) {
+    try {
+      var linkPath = new URL(a.href).pathname.replace(/\/$/, '');
+      var curPath = window.location.pathname.replace(/\/$/, '');
+      if (linkPath && curPath.indexOf(linkPath) === 0) {
+        a.classList.add('nav-current');
+      }
+    } catch (e) {}
+  });
+
   // 2. 상단바 + 글 경로(breadcrumb) 높이를 합쳐서 여백/sticky 위치 자동 보정
   function adjustFixedOffsets() {
     var masthead = document.querySelector('.masthead');
