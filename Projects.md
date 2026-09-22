@@ -26,15 +26,17 @@ permalink: /projects/
   border: 1px solid rgba(0,0,0,.1);
   border-radius: 14px;
   overflow: hidden;
-  text-decoration: none !important;
-  color: inherit;
   background: #fff;
   transition: transform .2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow .2s ease, border-color .2s ease;
 }
-.post-list__card,
-.post-list__card:hover,
-.post-list__card:visited,
-.post-list__card * {
+.post-list__card-link {
+  display: block;
+  color: inherit;
+}
+.post-list__card-link,
+.post-list__card-link:hover,
+.post-list__card-link:visited,
+.post-list__card-link * {
   text-decoration: none !important;
 }
 .post-list__card:hover {
@@ -90,10 +92,16 @@ permalink: /projects/
   display: flex;
   align-items: center;
   gap: .3rem;
-  margin-top: .8rem;
+  margin: 0 1.2rem 1.2rem;
+  padding-top: .8rem;
+  border-top: 1px solid rgba(0,0,0,.08);
   font-size: .78rem;
   font-weight: 700;
-  color: #1a73e8;
+  color: #1a73e8 !important;
+  text-decoration: none !important;
+}
+.post-list__link-row:hover {
+  color: #1558b0 !important;
 }
 .post-list__empty {
   color: #888;
@@ -106,7 +114,8 @@ permalink: /projects/
 {%- assign cat_posts = cat_posts | sort: 'date' | reverse -%}
 <div class="post-list">
 {%- for post in cat_posts -%}
-<a class="post-list__card" href="{{ post.url | relative_url }}">
+<div class="post-list__card">
+<a class="post-list__card-link" href="{{ post.url | relative_url }}">
 <div class="post-list__banner" style="background: {{ post.banner_gradient | default: 'linear-gradient(135deg, #1a73e8, #6ec6ff)' }};">{{ post.banner_emoji | default: "🚀" }}</div>
 <div class="post-list__body">
 <div class="post-list__date">{{ post.date | date: "%Y-%m-%d" }}{% if post.module %} · 모듈 {{ post.module }}{% endif %}</div>
@@ -121,11 +130,12 @@ permalink: /projects/
 {%- endfor -%}
 </div>
 {%- endif -%}
-{%- if post.live_url -%}
-<div class="post-list__link-row">🔗 라이브 사이트 보기</div>
-{%- endif -%}
 </div>
 </a>
+{%- if post.live_url -%}
+<a class="post-list__link-row" href="{{ post.live_url }}" target="_blank" rel="noopener">🔗 라이브 사이트 바로가기</a>
+{%- endif -%}
+</div>
 {%- endfor -%}
 </div>
 {%- if cat_posts.size == 0 -%}
