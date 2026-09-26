@@ -126,9 +126,9 @@ Pretendard는 국내 서비스(토스, 당근 등)에서 가장 많이 쓰는 �
 
 | 페이지 | 구조 (위에서 아래로) |
 |---|---|
-| 홈 `index.md` | 미션 패널(인사 · N일차 · D-day · 궤적 · **이번 주 기록 5칸** · 목표) → 섹션 바로가기 3칸 → 최근에 쓴 글 5편 → GitHub 잔디. 오른쪽 패널: 방문자 · **자주 쓴 태그(자동, 누르면 검색)** · 기술 스택 |
+| 홈 `index.md` | 미션 패널(인사 · N일차 · D-day · 궤적 · **이번 주 기록 5칸** · 목표) → 구분선 + **둘러보기** 띠(카테고리 색으로 물든 카드 3개) → 최근에 쓴 글 5편 → GitHub 잔디. 오른쪽 패널: **수료까지 모듈 진척 6칸** · 방문자 · **자주 쓴 태그**(자동, 누르면 검색) · **기술 스택**(태그로 자동, `_data/skills.yml`) |
 | Cloud `cloud.md` | 섹션 머리 → **모듈 스테이지 6칸**(클릭 시 전환) → 모듈 제목 + **통계 타일 4개**(기간·학습노트는 중립, 문제풀이는 핑크·결과물은 라임 링크 타일) → **주 단위 달력** |
-| Database `Database.md` | 섹션 머리 → **섹션 바로가기 칩** → 🧩 문제와 풀이(문제 카드 + Lv 단계) → `_data/database_sections.yml` 순서대로 자료 섹션(아이콘·색·설명) → 거기 없는 분류는 기본 모양으로 맨 뒤 |
+| Database `Database.md` | 섹션 머리 → **섹션 필터 칩**(하나만 선택, 같은 칩 다시 누르면 해제, 오른쪽 ↻ 전체로 초기화, `/database/#problems`처럼 주소로 바로 필터) → 🧩 문제와 풀이(문제 카드 + Lv 단계) → `_data/database_sections.yml` 순서대로 자료 섹션(아이콘·색·설명) → 거기 없는 분류는 기본 모양으로 맨 뒤 |
 | Projects `Projects.md` | 섹션 머리 → **모듈 타임라인**. 완료 = 2열 카드(왼쪽 결과물 요약, 오른쪽 연동기 상세), 진행 중 = 안내, 시작 전 모듈은 맨 아래 **다음 정거장** 한 줄로 |
 | 게시글 | 제목 → (선택) `#` 부제목 → 본문 → 이전/다음 → 댓글. 우측 목차(`##`부터) |
 
@@ -170,7 +170,9 @@ Pretendard는 국내 서비스(토스, 당근 등)에서 가장 많이 쓰는 �
 | `.problem-list` > `.problem` (+ `.problem--unlinked`) | 문제 카드 |
 | `.steps` > `.step` (+ `__lv` `__title`) | 풀이 단계 목록 |
 | `.module-stats` > `.stat` / `.stat--link` / `.stat--muted` | 모듈 통계 타일. 링크 타일은 `is-섹션`색 |
-| `.jump-nav` > `.jump` | 섹션 바로가기 칩 (개수 뱃지) |
+| `.jump-nav` > `.jump[data-filter]` + `.jump-reset` | 섹션 필터 칩 (단일 선택) + 초기화 버튼 |
+| `.mbars` > `.mbar.is-done/.is-current/.is-upcoming` | 모듈 진척 막대. 진행 중 막대는 `_data/module_schedule.yml` 날짜 비율, 없으면 빗금 |
+| `.section-head--band` | 홈에서 미션 패널과 아래 영역을 나누는 구분 머리 |
 | `.res-section` (+ `__head` `__icon` `__title` `__desc` `__count`) | Database 자료 섹션 머리. `is-색이름`으로 톤 지정 |
 | `.res-grid` > `.res-card` | 자료 카드: 파비콘 + 도메인, 제목(카드 전체 클릭), 설명, 첨부파일 버튼 |
 | `.proj-card--split` > `.proj-card__main` + `.proj-card__side` | 결과물 2열 카드 |

@@ -971,50 +971,67 @@ nav.toc .toc__menu li.active > a {       /* 스크롤 추적: 지금 읽는 항�
 .daily-quote__en { font-size: var(--fs-sm); color: var(--c-text-2); }
 .daily-quote__ko { font-size: var(--fs-sm); color: var(--c-text-3); }
 
-/* 섹션 바로가기 3칸 */
+/* 섹션 바로가기 3칸: 미션 패널과 분리되는 "둘러보기" 띠. 카테고리 색으로 물든 카드 */
+.page__content .section-head--band {
+  margin-top: var(--s-8);
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--c-line);
+}
 .index-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--s-3);
-  margin-top: var(--s-4);
 }
 .index-card {
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: var(--s-2);
-  padding: var(--s-4) var(--s-4) var(--s-4);
-  border: 1px solid var(--c-line);
-  border-top: 2px solid var(--cat);
+  min-height: 13rem;
+  padding: var(--s-5);
+  border: 1px solid color-mix(in srgb, var(--cat) 30%, var(--c-line));
   border-radius: var(--r-md);
-  background: var(--c-surface);
+  background:
+    radial-gradient(120% 80% at 100% 0%, color-mix(in srgb, var(--cat) 22%, transparent), transparent 60%),
+    color-mix(in srgb, var(--cat) 5%, var(--c-surface));
   color: var(--c-text) !important;
   text-decoration: none !important;
-  transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
 }
+.index-card:hover { border-color: var(--cat); background:
+    radial-gradient(120% 80% at 100% 0%, color-mix(in srgb, var(--cat) 30%, transparent), transparent 60%),
+    color-mix(in srgb, var(--cat) 8%, var(--c-surface)); }
 .index-card__icon {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 2.5rem; height: 2.5rem;
+  width: 3rem; height: 3rem;
+  margin-bottom: var(--s-2);
   border-radius: var(--r-pill);
-  background: color-mix(in srgb, var(--cat) 14%, transparent);
-  font-size: 1.25rem; line-height: 1;
+  background: color-mix(in srgb, var(--cat) 20%, var(--c-bg));
+  font-size: 1.5rem; line-height: 1;
 }
-.index-card, a.day, .problem, .res-card { transition: transform var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease); }
-.index-card:hover, a.day:hover { transform: translateY(-2px); }
-.index-card:hover { background: var(--c-surface-2); border-color: color-mix(in srgb, var(--cat) 40%, var(--c-line)); border-top-color: var(--cat); }
 .index-card__top { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-2); }
-.index-card__name { font-size: var(--fs-md); font-weight: var(--fw-heavy); color: var(--c-text); }
-.index-card__count { font-size: var(--fs-sm); color: var(--c-text-3); font-variant-numeric: tabular-nums; }
-.index-card__count b { color: var(--cat); font-weight: var(--fw-heavy); font-size: var(--fs-md); }
+.index-card__name { font-size: var(--fs-lg); font-weight: var(--fw-heavy); letter-spacing: var(--ls-tight); color: var(--c-text); }
+.index-card__count { font-size: var(--fs-sm); color: var(--c-text-2); font-variant-numeric: tabular-nums; }
+.index-card__count b { color: var(--cat); font-weight: var(--fw-heavy); font-size: var(--fs-xl); letter-spacing: var(--ls-tight); }
 .index-card__desc { font-size: var(--fs-sm); color: var(--c-text-2); line-height: 1.55; }
 .index-card__latest {
   margin-top: auto;
-  padding-top: var(--s-2);
-  border-top: 1px solid var(--c-line);
+  padding-top: var(--s-3);
+  border-top: 1px solid color-mix(in srgb, var(--cat) 20%, var(--c-line));
   font-size: var(--fs-xs);
   color: var(--c-text-3);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.index-card__cta {
+  align-self: flex-start;
+  padding: 2px var(--s-3);
+  border-radius: var(--r-pill);
+  background: color-mix(in srgb, var(--cat) 16%, transparent);
+  color: var(--cat);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
 }
 
 /* 최근 글 행: 앞에 카테고리 표시 */
@@ -1079,6 +1096,20 @@ nav.toc .toc__menu li.active > a {       /* 스크롤 추적: 지금 읽는 항�
 .home-panel__label { display: block; margin-bottom: var(--s-2); font-size: var(--fs-xs); color: var(--c-text-3); }
 .home-panel__row img { display: block; max-width: 100%; }
 .home-panel .btn-line { width: 100%; margin-top: var(--s-2); }
+.home-panel__label--split { display: flex; justify-content: space-between; gap: var(--s-2); }
+.home-panel__label--split b { font-weight: var(--fw-bold); color: var(--c-text-2); }
+.home-panel__stack { width: 100%; height: auto; }
+.mbars { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--s-1); text-decoration: none !important; }
+.mbar { display: flex; flex-direction: column; align-items: center; gap: var(--s-1); }
+.mbar__track { position: relative; width: 100%; height: 8px; border-radius: var(--r-pill); background: var(--c-surface-2); overflow: hidden; }
+.mbar.is-upcoming .mbar__track { background: transparent; border: 1px dashed var(--c-line-strong); }
+.mbar__fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: inherit; background: var(--c-signal); }
+.mbar.is-done .mbar__fill { width: 100%; }
+.mbar.is-current .mbar__fill { box-shadow: var(--glow); }
+.mbar__fill--hatch { width: 100%; background: repeating-linear-gradient(135deg, var(--c-signal) 0 3px, transparent 3px 7px); opacity: .8; }
+.mbar__n { font-size: .75rem; font-weight: var(--fw-bold); color: var(--c-text-3); }
+.mbar.is-done .mbar__n, .mbar.is-current .mbar__n { color: var(--c-text); }
+.mbars__note { display: block; margin-top: var(--s-2); font-size: var(--fs-xs); color: var(--c-text-3); }
 
 /* ---------------------------------------------------------------------
    11. Cloud — 모듈 스테이지 + 주 단위 달력
@@ -1268,12 +1299,38 @@ a.day:hover .day__n { color: var(--c-signal); }
   transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
 }
 .jump b { padding: 0 var(--s-2); border-radius: var(--r-pill); background: color-mix(in srgb, var(--cat) 16%, transparent); color: var(--cat); font-size: var(--fs-xs); }
+.jump { font-family: inherit; cursor: pointer; }
 .jump:hover { border-color: color-mix(in srgb, var(--cat) 55%, var(--c-line)); background: var(--c-surface-2); }
+.jump.is-active { border-color: var(--cat); background: color-mix(in srgb, var(--cat) 16%, var(--c-surface)); box-shadow: 0 0 0 1px var(--cat) inset; }
+.jump.is-active b { background: var(--cat); color: var(--c-bg); }
+.is-filtered .jump:not(.is-active) { opacity: .55; }
+.is-filtered .jump:not(.is-active):hover { opacity: 1; }
+.jump-reset {
+  margin-left: auto;
+  display: inline-flex; align-items: center; gap: var(--s-1);
+  padding: var(--s-2) var(--s-4);
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--c-text);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  cursor: pointer;
+  transition: opacity var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+.jump-reset svg { transition: transform .4s var(--ease); }
+.jump-reset:hover:not(:disabled) { border-color: var(--c-signal); color: var(--c-signal); }
+.jump-reset:hover:not(:disabled) svg { transform: rotate(-180deg); }
+.jump-reset:disabled { opacity: .35; cursor: default; }
+.page__content .jump-status { min-height: 1.4em; margin: var(--s-2) 0 0 !important; font-size: var(--fs-xs); color: var(--c-text-3); }
+.res-section[hidden] { display: none; }
+.is-filtered .res-section { margin-top: var(--s-5); }
 #problems, .res-section { scroll-margin-top: calc(var(--fixed-offset) + var(--s-4)); }
 
 /* 자료 섹션 (게임, 아티팩트, 앞으로 추가될 섹션 공통) */
 .res-section { margin-top: var(--s-7); }
-.res-section--first { margin-top: var(--s-6); }
+.res-section--first { margin-top: var(--s-5); }
 .res-section__head { display: flex; align-items: center; gap: var(--s-3); margin-bottom: var(--s-4); }
 .res-section__icon {
   display: inline-flex; align-items: center; justify-content: center;

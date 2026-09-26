@@ -1,0 +1,42 @@
+# _data/skills.yml
+# 홈 "기술 스택" 아이콘을 글 태그로 자동 결정합니다.
+# 글 tags 중 aliases에 있는 단어가 하나라도 쓰이면 그 아이콘이 나타나고,
+# 많이 쓴 기술일수록 앞쪽에 옵니다. (태그는 대소문자 구분 없이 비교)
+# - id      : skillicons.dev 아이콘 이름 (https://github.com/tandpfun/skill-icons#icons-list)
+# - aliases : 이 아이콘으로 셀 태그들 (소문자로)
+# - always  : true면 태그가 없어도 항상 표시
+
+- id: git
+  aliases: [git, git협업, 버전관리, 브랜치전략]
+- id: github
+  aliases: [github, github-pages, pull-request, pull request, issue]
+- id: md
+  aliases: [마크다운, markdown, jekyll, blog, claude-md]
+- id: html
+  aliases: [html, tag, 웹개발기초, attribute]
+- id: css
+  aliases: [css, flexbox, grid, transition, animation, transform, hover, css modules, 레이아웃, 반응형웹, selector]
+- id: tailwind
+  aliases: [tailwind]
+- id: ts
+  aliases: [typescript]
+- id: react
+  aliases: [react, react state]
+- id: nextjs
+  aliases: [next.js, nextjs, app router]
+- id: nodejs
+  aliases: [nodejs, node.js, nodemailer, smtp]
+- id: postgres
+  aliases: [postgresql, postgres, drizzle orm]
+- id: supabase
+  aliases: [supabase]
+- id: vercel
+  aliases: [vercel, vercel functions]
+- id: figma
+  aliases: [figma]
+- id: py
+  aliases: [python, py]
+  always: true
+- id: vscode
+  aliases: [vscode]
+  always: true

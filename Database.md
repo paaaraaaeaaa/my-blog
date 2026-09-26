@@ -35,18 +35,24 @@ classes: section-page
 {%- assign section_names = known -%}
 {%- for c in other_cats -%}{%- unless known contains c -%}{%- assign section_names = section_names | push: c -%}{%- endunless -%}{%- endfor -%}
 
-<nav class="jump-nav" aria-label="섹션 바로가기">
-<a class="jump is-database" href="#problems"><span aria-hidden="true">🧩</span>문제와 풀이<b>{{ problems.size }}</b></a>
+<nav class="jump-nav" aria-label="섹션 골라 보기">
+<button type="button" class="jump is-database" data-filter="problems" data-label="문제와 풀이" aria-pressed="false"><span aria-hidden="true">🧩</span>문제와 풀이<b>{{ problems.size }}</b></button>
 {%- for name in section_names -%}
 {%- assign items = others | where: "category", name -%}
 {%- if items.size > 0 -%}
 {%- assign def = section_defs | where: "name", name | first -%}
-<a class="jump is-{{ def.tone | default: 'signal' }}" href="#sec-{{ forloop.index }}"><span aria-hidden="true">{{ def.emoji | default: "📁" }}</span>{{ name }}<b>{{ items.size }}</b></a>
+<button type="button" class="jump is-{{ def.tone | default: 'signal' }}" data-filter="sec-{{ forloop.index }}" data-label="{{ name }}" aria-pressed="false"><span aria-hidden="true">{{ def.emoji | default: "📁" }}</span>{{ name }}<b>{{ items.size }}</b></button>
 {%- endif -%}
 {%- endfor -%}
+<button type="button" class="jump-reset" data-filter-reset aria-label="전체 보기로 초기화" title="전체 보기" disabled>
+<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.34 5.66" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M20 5v6h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<span>전체</span>
+</button>
 </nav>
+<p class="jump-status" aria-live="polite"></p>
 
-<div class="res-section__head res-section--first is-database" id="problems">
+<section class="res-section res-section--first is-database" id="problems" data-sec="problems">
+<div class="res-section__head">
 <span class="res-section__icon" aria-hidden="true">🧩</span>
 <div class="res-section__titles"><h2 class="res-section__title">문제와 풀이</h2><span class="res-section__desc">받은 문제와 레벨별 풀이를 한 카드에 묶었어요</span></div>
 <span class="res-section__count">문제 {{ problems.size }}개 · 풀이 {{ practice_posts.size }}편</span>
@@ -106,12 +112,13 @@ classes: section-page
 {%- endunless -%}
 {%- endfor -%}
 </div>
+</section>
 
 {%- for name in section_names -%}
 {%- assign items = others | where: "category", name -%}
 {%- if items.size > 0 -%}
 {%- assign def = section_defs | where: "name", name | first -%}
-<section class="res-section is-{{ def.tone | default: 'signal' }}" id="sec-{{ forloop.index }}">
+<section class="res-section is-{{ def.tone | default: 'signal' }}" id="sec-{{ forloop.index }}" data-sec="sec-{{ forloop.index }}">
 <div class="res-section__head">
 <span class="res-section__icon" aria-hidden="true">{{ def.emoji | default: "📁" }}</span>
 <div class="res-section__titles"><h2 class="res-section__title">{{ name }}</h2>{% if def.desc %}<span class="res-section__desc">{{ def.desc }}</span>{% endif %}</div>
@@ -141,3 +148,40 @@ classes: section-page
 </section>
 {%- endif -%}
 {%- endfor -%}
+
+<script>
+/* 섹션 필터: 칩 하나만 선택(다른 칩을 누르면 전환), 같은 칩을 다시 누르거나 ↻를 누르면 전체 보기 */
+(function () {
+  var chips = document.querySelectorAll('.jump[data-filter]');
+  var reset = document.querySelector('[data-filter-reset]');
+  var status = document.querySelector('.jump-status');
+  var sections = document.querySelectorAll('[data-sec]');
+  var active = null;
+  function apply(key) {
+    active = key;
+    chips.forEach(function (c) {
+      var on = c.getAttribute('data-filter') === key;
+      c.classList.toggle('is-active', on);
+      c.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    sections.forEach(function (sec) { sec.hidden = key !== null && sec.getAttribute('data-sec') !== key; });
+    document.body.classList.toggle('is-filtered', key !== null);
+    if (reset) reset.disabled = key === null;
+    if (status) {
+      var chip = key && document.querySelector('.jump[data-filter="' + key + '"]');
+      status.textContent = chip ? '‘' + chip.getAttribute('data-label') + '’ 섹션만 보는 중이에요. 같은 칩이나 ↻ 전체를 누르면 다시 모두 보여요.' : '';
+    }
+    if (history.replaceState) history.replaceState(null, '', key ? '#' + key : location.pathname);
+  }
+  chips.forEach(function (c) {
+    c.addEventListener('click', function () {
+      var key = c.getAttribute('data-filter');
+      apply(active === key ? null : key);
+    });
+  });
+  if (reset) reset.addEventListener('click', function () { apply(null); });
+  // 다른 페이지에서 /database/#problems 로 들어오면 그 섹션만 보여준다
+  var hash = location.hash.replace('#', '');
+  if (hash && document.querySelector('[data-sec="' + hash + '"]')) apply(hash);
+})();
+</script>

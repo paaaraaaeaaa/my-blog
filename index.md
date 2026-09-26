@@ -13,6 +13,38 @@ classes: home-page
 <aside class="sidebar__right sticky home-aside">
 <section class="home-panel" aria-label="방문자와 기술 스택">
 <h2 class="home-panel__title">한눈에 보기</h2>
+{%- comment -%}
+  수료까지 모듈 진척: 완료 = Projects 결과물 글이 있는 모듈 / 진행 중 = 학습노트가 있고 결과물이 아직 없는 첫 모듈.
+  진행 중 막대는 _data/module_schedule.yml에 날짜가 있으면 그 비율만큼, 없으면 빗금으로 표시.
+{%- endcomment -%}
+{%- assign mp_proj = site.categories.Projects | where_exp: "p", "p.type == nil" -%}
+{%- assign mp_daily = site.categories.Cloud | where_exp: "p", "p.type != 'practice'" | where_exp: "p", "p.module" -%}
+{%- assign mp_done = 0 -%}{%- assign mp_current = 0 -%}{%- assign mp_now = site.time | date: "%s" | plus: 0 -%}
+{%- capture mp_bars -%}
+{%- for i in (1..6) -%}
+{%- assign key = i | append: "" -%}
+{%- assign has_proj = mp_proj | where_exp: "p", "p.module == i" | size -%}
+{%- assign notes = mp_daily | where_exp: "p", "p.module == i" | size -%}
+{%- assign fill = 0 -%}{%- assign st = "upcoming" -%}{%- assign st_label = "예정" -%}
+{%- if has_proj > 0 -%}
+{%- assign st = "done" -%}{%- assign st_label = "완료" -%}{%- assign fill = 100 -%}{%- assign mp_done = mp_done | plus: 1 -%}
+{%- elsif mp_current == 0 and notes > 0 -%}
+{%- assign st = "current" -%}{%- assign st_label = "진행 중" -%}{%- assign mp_current = i -%}
+{%- assign sched = site.data.module_schedule[key] -%}
+{%- if sched and sched.start and sched.end -%}
+{%- assign s0 = sched.start | date: "%s" | plus: 0 -%}{%- assign s1 = sched.end | date: "%s" | plus: 0 -%}
+{%- assign span = s1 | minus: s0 -%}{%- assign fill = mp_now | minus: s0 | times: 100 | divided_by: span -%}
+{%- if fill > 100 -%}{%- assign fill = 100 -%}{%- endif -%}{%- if fill < 0 -%}{%- assign fill = 0 -%}{%- endif -%}
+{%- else -%}{%- assign fill = -1 -%}{%- endif -%}
+{%- endif -%}
+<span class="mbar is-{{ st }}" title="모듈 {{ i }} · {{ site.data.modules[key] }} · {{ st_label }}"><span class="mbar__track">{%- if fill == -1 -%}<span class="mbar__fill mbar__fill--hatch"></span>{%- elsif fill > 0 -%}<span class="mbar__fill" style="width: {{ fill }}%;"></span>{%- endif -%}</span><span class="mbar__n">{{ i }}</span></span>
+{%- endfor -%}
+{%- endcapture -%}
+<div class="home-panel__row">
+<span class="home-panel__label home-panel__label--split"><span>수료까지 모듈 진척</span><b>{{ mp_done }} / 6 완료</b></span>
+<a class="mbars" href="{{ '/projects/' | relative_url }}" aria-label="모듈 진척: 6개 중 {{ mp_done }}개 완료">{{ mp_bars }}</a>
+{%- if mp_current > 0 -%}{%- assign ck = mp_current | append: "" -%}<span class="mbars__note">지금 모듈 {{ mp_current }} · {{ site.data.modules[ck] }}</span>{%- else -%}{%- assign nk = mp_done | plus: 1 | append: "" -%}{%- if mp_done < 6 -%}<span class="mbars__note">다음 모듈 {{ nk }} · {{ site.data.modules[nk] }}</span>{%- endif -%}{%- endif -%}
+</div>
 <div class="home-panel__row home-panel__row--split">
 <div>
 <span class="home-panel__label">오늘 방문자</span>
@@ -35,9 +67,19 @@ classes: home-page
 {%- endfor -%}
 </div>
 </div>
+{%- comment -%} 기술 스택: _data/skills.yml 기준으로 글 태그에서 자동 추출, 많이 쓴 순서 {%- endcomment -%}
+{%- assign skill_rank = "" | split: "," -%}
+{%- for sk in site.data.skills -%}
+{%- assign n = 0 -%}
+{%- for t in site.tags -%}{%- assign td = t[0] | downcase -%}{%- if sk.aliases contains td -%}{%- assign n = n | plus: t[1].size -%}{%- endif -%}{%- endfor -%}
+{%- if n > 0 or sk.always -%}{%- capture entry -%}{{ n | plus: 1000 }}|{{ sk.id }}{%- endcapture -%}{%- assign skill_rank = skill_rank | push: entry -%}{%- endif -%}
+{%- endfor -%}
+{%- assign skill_rank = skill_rank | sort | reverse -%}
+{%- assign skill_ids = "" | split: "," -%}
+{%- for e in skill_rank limit: 18 -%}{%- assign parts = e | split: "|" -%}{%- assign skill_ids = skill_ids | push: parts[1] -%}{%- endfor -%}
 <div class="home-panel__row">
-<span class="home-panel__label">기술 스택</span>
-<img src="https://skillicons.dev/icons?i=git,github,md,py,vscode&theme=dark" alt="Git, GitHub, Markdown, Python, VS Code" loading="lazy" />
+<span class="home-panel__label home-panel__label--split"><span>기술 스택</span><b>{{ skill_ids.size }}개 · 태그 기준 자동</b></span>
+<img class="home-panel__stack" src="https://skillicons.dev/icons?i={{ skill_ids | join: ',' }}&theme=dark&perline=6" alt="{{ skill_ids | join: ', ' }}" loading="lazy" />
 </div>
 <button type="button" id="copy-link-btn" class="btn-line">🔗 링크 복사하기</button>
 </section>
@@ -132,24 +174,29 @@ classes: home-page
 {% assign proj_posts = site.categories.Projects | default: empty_array %}
 {% assign db_items = site.data.database_links | default: empty_array %}
 
+<div class="section-head section-head--band"><h2>둘러보기</h2><span class="section-head__aside">세 섹션으로 나눠 기록하고 있어요</span></div>
+
 <nav class="index-grid" aria-label="섹션 바로가기">
 <a class="index-card is-cloud" href="{{ '/cloud/' | relative_url }}">
 <span class="index-card__icon" aria-hidden="true">☁️</span>
 <span class="index-card__top"><span class="index-card__name">Cloud</span><span class="index-card__count"><b>{{ cloud_posts.size }}</b> 편</span></span>
 <span class="index-card__desc">모듈별 일차 학습노트</span>
 {% if cloud_posts.size > 0 %}<span class="index-card__latest">최신 · {{ cloud_posts.first.title }}</span>{% endif %}
+<span class="index-card__cta">학습 로그 보기</span>
 </a>
 <a class="index-card is-database" href="{{ '/database/' | relative_url }}">
 <span class="index-card__icon" aria-hidden="true">🗄️</span>
 <span class="index-card__top"><span class="index-card__name">Database</span><span class="index-card__count"><b>{{ db_items.size }}</b> 개</span></span>
 <span class="index-card__desc">문제와 풀이, 게임, 아티팩트</span>
 {% if db_items.size > 0 %}<span class="index-card__latest">최신 · {{ db_items.last.title }}</span>{% endif %}
+<span class="index-card__cta">자료 보기</span>
 </a>
 <a class="index-card is-projects" href="{{ '/projects/' | relative_url }}">
 <span class="index-card__icon" aria-hidden="true">🚀</span>
 <span class="index-card__top"><span class="index-card__name">Projects</span><span class="index-card__count"><b>{{ proj_posts.size }}</b> 편</span></span>
 <span class="index-card__desc">모듈별 결과물 6개와 연동기</span>
 {% if proj_posts.size > 0 %}<span class="index-card__latest">최신 · {{ proj_posts.first.title }}</span>{% endif %}
+<span class="index-card__cta">결과물 보기</span>
 </a>
 </nav>
 
