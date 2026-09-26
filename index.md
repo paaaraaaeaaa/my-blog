@@ -119,7 +119,7 @@ classes: home-page
 {% assign span_sec = end_ts | minus: start_ts %}
 
 <section class="mission" aria-label="학습 진행 상황">
-<p class="mission__status">🔥 요즘 Git · GitHub 실습 기록 중</p>
+<p class="mission__status">🔥 요즘 {{ site.data.now.status | default: "공부 기록 중" }}</p>
 <h1 class="mission__title">안녕하세요, 개발 공부 중입니다</h1>
 <p class="mission__desc">개발을 처음 배우는 부트캠프 학습자입니다. 매일 배운 내용과 시행착오를 기록해서, 몇 달 뒤 다시 읽었을 때 "그때보다 늘었다"를 확인할 수 있는 블로그로 만들고 있습니다.</p>
 

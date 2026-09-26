@@ -258,8 +258,8 @@ YYYY-MM-DD-제목.md
 | 제목 | 영문 소문자 + 하이픈(`-`) 사용, 공백·한글·특수문자 금지 | `react-query-caching` |
 | 확장자 | `.md` 또는 `.markdown` | `.md` 권장 |
 
-:흰색_확인_표시: 올바른 예: `_posts/Cloud/2026-08-31-day4.md`
-:x: 잘못된 예: `_posts/리액트쿼리 정리.md` (날짜 없음, 한글, 공백 → 빌드에서 무시됨)
+✅ 올바른 예: `_posts/Cloud/학습노트/2026-08-31-day4.md`, `_posts/Cloud/문제풀이/2026-09-01-html-from-screen-lv1.md`, `_posts/Projects/2026-09-22-pinder.md`
+❌ 잘못된 예: `_posts/리액트쿼리 정리.md` (날짜 없음, 한글, 공백 → 빌드에서 무시됨)
 
 ### 5.2 Front Matter (필수)
 
@@ -269,8 +269,9 @@ YYYY-MM-DD-제목.md
 ---
 layout: single
 title: "4일차"
-date: 2026.08.31
-categories: [Frontend]
+date: 2026-08-31
+categories: [Cloud]
+module: 1
 excerpt: "글의 한 줄 요약"
 type: daily
 tags: [react, react-query, caching]
@@ -284,10 +285,12 @@ mermaid: true
 
 | 항목 | 필수 여부 | 규칙 |
 |------|-----------|------|
-| `layout` | 필수 | 테마에서 제공하는 레이아웃 이름 (보통 `post`) |
+| `layout` | 선택 | 쓰려면 `single`만. `_config.yml`이 자동으로 넣는다. `post`는 목차·콜아웃이 깨진다 |
 | `title` | 필수 | 글 제목. 콜론(`:`) 등 특수문자 포함 시 반드시 따옴표로 감싼다 |
-| `date` | 필수 | 파일명 날짜와 일치, 한국 시간대 `YYYY.MM.DD` 형식 |
-| `categories` | 권장 | 1~2개, 대분류 중심 (예: Frontend, Backend, Cloud, Database, Projects) |
+| `date` | 필수 | 파일명 날짜와 일치, `YYYY-MM-DD` 하이픈 표기 (기존 점 표기 글은 그대로 둬도 된다) |
+| `categories` | 필수 | `Cloud` 또는 `Projects` 하나. Database 페이지는 글이 아니라 `_data/database_links.yml`로 채운다 |
+| `module` | 필수 | 모듈 번호 1~6. 없으면 Cloud 달력·Projects 타임라인·모듈 진척에서 빠진다 |
+| `excerpt` | 필수 | 한두 문장. 목록·달력 칸·검색 미리보기에 그대로 보인다 |
 | `type` | 권장 | 글의 분류 유형 (아래 설명 참고) |
 | `tags` | 권장 | 3~5개, 소문자 |
 | `mermaid` | 조건 | Mermaid 다이어그램을 사용하는 글에만 `true` 추가 |
@@ -301,7 +304,10 @@ mermaid: true
 | type 값 | 의미 | 사용 예시 |
 |---------|------|----------|
 | `daily` | 일차별 학습 노트, 개념 정리 | "Day 1 React 기초", "DNS 동작 원리" |
-| `practice` | 문제 풀이, 코딩 테스트, 과제 | "LeetCode 문제 풀이", "알고리즘 문제 풀기" |
+| `practice` | 문제 풀이(Cloud) · 연동기(Projects) | "Lv1 · 태그 하나로 화면 만들기", "구글 로그인 서명 검증" |
+| (없음) | Projects 결과물 | 모듈마다 하나 |
+
+`type: practice` 글은 `topic`과 `level_order`가 필수다. Cloud 문제풀이는 `topic`으로 Database 페이지 문제 카드에, Projects 연동기는 같은 `module`의 결과물 카드에 붙는다.
 
 **동작 방식 (자동):**
 - 글을 게시하면, Jekyll은 같은 `categories` + 같은 `type` 안에서 날짜순(오래된 글 → 최신 글)으로 정렬한다.
@@ -359,10 +365,12 @@ Agent는 초안 작성 시 아래 골격을 따른다. **Front Matter를 포함�
 
 ```markdown
 ---
-layout: post
+layout: single
 title: "[문제 중심의 제목 — 'OO 기술 사용기'가 아닌 'OO 문제를 OO로 해결하기']"
-date: YYYY.MM.DD
-categories: [카테고리]
+excerpt: "한두 문장 요약"
+date: YYYY-MM-DD
+categories: [Cloud]
+module: 1
 type: daily
 tags: [태그1, 태그2, 태그3]
 toc: true
@@ -456,8 +464,10 @@ mermaid: true
 - [ ] 핵심 내용을 콜아웃 박스(💡, 🔴, 🟢, ⚠️, 🚨)로 강조했는가?
 - [ ] 복잡한 개념을 개념 카드(- **용어**)로 정리했는가?
 - [ ] 15줄 이상 코드 블록이 있는가? (자동 접기 기능 활용)
-- [ ] 파일명이 `_posts/YYYY-MM-DD-제목.md` 형식인가?
-- [ ] Front Matter가 올바르게 작성되어 있는가? (layout, title, date, type)
+- [ ] 파일이 `_posts/Cloud/학습노트/`, `_posts/Cloud/문제풀이/`, `_posts/Projects/` 중 맞는 곳에 `YYYY-MM-DD-제목.md`로 있는가?
+- [ ] Front Matter가 올바르게 작성되어 있는가? (title, date, categories, module, type, excerpt)
+- [ ] 본문에 `<style>`·글자 크기 조절 코드가 없는가?
+- [ ] practice 글이면 `topic`·`level_order`가 있고, 문제풀이는 `database_links.yml`에 연결했는가?
 - [ ] `type` 필드가 명시되어 있는가? (daily 또는 practice)
 - [ ] Mermaid 사용 시 `mermaid: true`가 Front Matter에 있는가?
 - [ ] 이미지 경로가 `{{ site.baseurl }}/assets/...` 형식인가?
@@ -486,3 +496,22 @@ mermaid: true
 | 검색 | 검색 동작·분류 규칙은 `DESIGN.md` 4.2. `assets/js/lunr/` 파일은 테마 파일을 덮어쓴 것이므로 지우지 않는다 |
 
 디자인을 수정한 뒤에는 `DESIGN.md` 8장 체크리스트를 확인한다.
+
+---
+
+## 10. 스킬과 에이전트
+
+작업 종류마다 정해진 스킬(`.claude/skills/`)을 쓰고, 초안을 보여주기 전에는 `post-checker` 에이전트(`.claude/agents/`)로 검사한다.
+
+| 명령 | 하는 일 | 만드는·고치는 파일 |
+|------|---------|------------------|
+| `/learn` | 질문으로 배우기 (답 대신 한 걸음씩) | 없음 |
+| `/note` | 일차 학습노트 | `_posts/Cloud/학습노트/` |
+| `/practice <링크>` | 문제풀이 devlog + 문제 카드 연결 | `_posts/Cloud/문제풀이/`, `_data/database_links.yml` |
+| `/project` | 모듈 결과물 회고 | `_posts/Projects/` |
+| `/series` | 결과물의 연동기 한 편 | `_posts/Projects/` (`type: practice`) |
+| `/resource <링크>` | 게임·아티팩트 등 자료 추가 | `_data/database_links.yml`, `_data/database_sections.yml` |
+| `/module` | 모듈 시작·종료 정리 | `_data/now.yml`, `_data/module_schedule.yml`, `_data/modules.yml` |
+| `post-checker` (에이전트) | 커밋 전 규칙 검사, 파일은 고치지 않음 | 읽기만 |
+
+모든 스킬은 **보여주기 → 내가 확인 → 커밋·push** 순서를 지킨다. 확인 전에는 커밋하지 않는다.

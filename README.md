@@ -109,6 +109,7 @@ my-blog/
 │   ├── database_sections.yml # Database 섹션 순서 · 아이콘 · 색
 │   ├── skills.yml            # 태그 → 기술 스택 아이콘 매핑
 │   ├── module_schedule.yml   # (선택) 모듈 시작 · 종료일
+│   ├── now.yml               # 홈 🔥 상태 문구
 │   └── navigation.yml        # 상단 메뉴
 │
 ├── _includes/
@@ -125,7 +126,8 @@ my-blog/
 │
 ├── DESIGN.md                 # 디자인 시스템 문서
 ├── CLAUDE.md                 # AI Agent 글쓰기 · 작업 규칙
-└── .claude/skills/           # Claude Code 스킬 (/learn, /note, /practice)
+├── .claude/skills/           # Claude Code 스킬 7개 (/learn, /note, /practice, /project, /series, /resource, /module)
+└── .claude/agents/           # post-checker 검사 에이전트
 ```
 
 <br>
@@ -179,6 +181,7 @@ mermaid: true
 | Database에 새 섹션 추가 | `database_links.yml`에 새 `category`를 쓰고, `database_sections.yml`에 `name` `emoji` `tone` `desc` 한 줄 |
 | 기술 스택 아이콘 추가 | `skills.yml`에 skillicons `id`와 태그 `aliases` |
 | 모듈 진척 막대를 날짜로 채우기 | `module_schedule.yml`에 `start` `end` |
+| 홈 🔥 상태 문구 바꾸기 | `now.yml`의 `status` |
 
 <br>
 
@@ -216,9 +219,14 @@ bundle exec jekyll serve
 |---|---|
 | [`CLAUDE.md`](CLAUDE.md) | 글 구조, 마크다운 규칙, 게시 규칙, 디자인 규칙 |
 | [`DESIGN.md`](DESIGN.md) | 디자인 토큰과 컴포넌트, 페이지 구조 |
-| `.claude/skills/learn` | `/learn` — 새로 배우는 것을 물어볼 때 |
-| `.claude/skills/note` | `/note` — 배운 것을 학습 노트로 정리해서 올릴 때 |
-| `.claude/skills/practice` | `/practice <링크>` — 문제를 읽고 회고형 devlog로 정리할 때 |
+| `/learn` | 새로 배우는 것을 질문으로 한 걸음씩 |
+| `/note` | 배운 것을 일차 학습노트로 정리해서 올리기 |
+| `/practice <링크>` | 문제를 읽고 회고형 devlog로 정리 + Database 문제 카드에 연결 |
+| `/project` | 모듈이 끝날 때 결과물 회고 |
+| `/series` | 결과물의 연동기 한 편 |
+| `/resource <링크>` | 게임·아티팩트 등 자료를 Database에 추가 |
+| `/module` | 모듈 시작·종료 때 홈 문구·일정 정리 |
+| `post-checker` 에이전트 | 커밋 전에 글 규칙을 검사 (파일은 고치지 않음) |
 
 <br>
 
