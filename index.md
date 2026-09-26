@@ -23,12 +23,16 @@ classes: home-page
 <img src="https://visitor-badge.laobi.icu/badge?page_id=paaaraaaeaaa.my-blog&left_color=1F1F2B&right_color=6A58E0" alt="누적 방문자 수" />
 </div>
 </div>
+{%- comment -%} 자주 쓴 태그: 글 front matter의 tags를 세서 자동으로 상위 8개. 누르면 검색창이 열린다 {%- endcomment -%}
+{%- assign tag_rank = "" | split: "," -%}
+{%- for t in site.tags -%}{%- capture entry -%}{{ t[1].size | plus: 1000 }}|{{ t[0] }}{%- endcapture -%}{%- assign tag_rank = tag_rank | push: entry -%}{%- endfor -%}
+{%- assign tag_rank = tag_rank | sort | reverse -%}
 <div class="home-panel__row">
-<span class="home-panel__label">배운 것</span>
+<span class="home-panel__label">자주 쓴 태그</span>
 <div class="chip-list">
-<span class="chip">Git</span>
-<span class="chip">GitHub</span>
-<span class="chip">마크다운</span>
+{%- for e in tag_rank limit: 8 -%}{%- assign parts = e | split: "|" -%}
+<button type="button" class="chip chip--btn" data-search="{{ parts[1] }}">{{ parts[1] }}<span class="chip__n">{{ parts[0] | minus: 1000 }}</span></button>
+{%- endfor -%}
 </div>
 </div>
 <div class="home-panel__row">
@@ -95,7 +99,26 @@ classes: home-page
 {%- endfor -%}
 <span class="track__craft"></span>
 </div>
+{%- comment -%} 이번 주 기록: 빌드 시점 기준 이번 주 월~금에 학습노트가 있으면 채운 점 {%- endcomment -%}
+{%- assign today_u = site.time | date: "%u" | plus: 0 -%}
+{%- assign today_str = site.time | date: "%Y-%m-%d" -%}
+{%- assign back = today_u | minus: 1 | times: 86400 -%}
+{%- assign week_mon = today_ts | minus: back -%}
+{%- assign cloud_daily_all = site.categories.Cloud | where_exp: "p", "p.type != 'practice'" -%}
+{%- assign week_hits = 0 -%}
+{%- capture week_dots -%}
+{%- assign labels = "월,화,수,목,금" | split: "," -%}
+{%- for d in (1..5) -%}
+{%- assign off = d | minus: 1 | times: 86400 -%}
+{%- assign cell = week_mon | plus: off | date: "%Y-%m-%d" -%}
+{%- assign hit = false -%}
+{%- for p in cloud_daily_all -%}{%- assign pd = p.date | date: "%Y-%m-%d" -%}{%- if pd == cell -%}{%- assign hit = true -%}{%- endif -%}{%- endfor -%}
+{%- if hit -%}{%- assign week_hits = week_hits | plus: 1 -%}{%- endif -%}
+<span class="wdot{% if hit %} is-on{% endif %}{% if cell == today_str %} is-today{% endif %}{% if site.data.holidays contains cell %} is-off{% endif %}" title="{{ cell }}">{{ labels[forloop.index0] }}</span>
+{%- endfor -%}
+{%- endcapture -%}
 <p class="mission__ends"><span>🚀 2026.08.26 출발</span><span>🏁 2027.02.16 수료 · 총 {{ total_calendar_days }}일</span></p>
+<div class="week-strip"><span class="week-strip__label">이번 주 기록</span><span class="week-strip__dots">{{ week_dots }}</span><span class="week-strip__count"><b>{{ week_hits }}</b> / 5일</span></div>
 
 <div class="goal info-tile--goal">
 <span class="goal__label">🎯 목표</span>
@@ -162,7 +185,6 @@ classes: home-page
 </div>
 </section>
 
-<p class="home-sign">꾸준함이 실력이 된다고 믿습니다. 오늘도 한 줄 더 기록합니다.</p>
 
 <script>
 (function () {

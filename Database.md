@@ -28,7 +28,29 @@ classes: section-page
 <p class="page-intro__stats"><span>문제 <b>{{ problems.size }}</b>개</span><span>풀이 <b>{{ practice_posts.size }}</b>편</span><span>자료 <b>{{ others.size }}</b>개</span></p>
 </header>
 
-<div class="section-head" id="problems"><h2>문제와 풀이</h2><span class="section-head__aside">레벨 순서대로 풀이가 이어집니다</span></div>
+{%- comment -%} 섹션 순서: 문제와 풀이 → database_sections.yml 순서 → 거기 없는 category {%- endcomment -%}
+{%- assign section_defs = site.data.database_sections | default: empty_array -%}
+{%- assign known = section_defs | map: "name" -%}
+{%- assign other_cats = others | map: "category" | uniq -%}
+{%- assign section_names = known -%}
+{%- for c in other_cats -%}{%- unless known contains c -%}{%- assign section_names = section_names | push: c -%}{%- endunless -%}{%- endfor -%}
+
+<nav class="jump-nav" aria-label="섹션 바로가기">
+<a class="jump is-database" href="#problems"><span aria-hidden="true">🧩</span>문제와 풀이<b>{{ problems.size }}</b></a>
+{%- for name in section_names -%}
+{%- assign items = others | where: "category", name -%}
+{%- if items.size > 0 -%}
+{%- assign def = section_defs | where: "name", name | first -%}
+<a class="jump is-{{ def.tone | default: 'signal' }}" href="#sec-{{ forloop.index }}"><span aria-hidden="true">{{ def.emoji | default: "📁" }}</span>{{ name }}<b>{{ items.size }}</b></a>
+{%- endif -%}
+{%- endfor -%}
+</nav>
+
+<div class="res-section__head res-section--first is-database" id="problems">
+<span class="res-section__icon" aria-hidden="true">🧩</span>
+<div class="res-section__titles"><h2 class="res-section__title">문제와 풀이</h2><span class="res-section__desc">받은 문제와 레벨별 풀이를 한 카드에 묶었어요</span></div>
+<span class="res-section__count">문제 {{ problems.size }}개 · 풀이 {{ practice_posts.size }}편</span>
+</div>
 
 <div class="problem-list">
 {%- assign problems_by_module = problems | sort: "module" -%}
@@ -85,24 +107,37 @@ classes: section-page
 {%- endfor -%}
 </div>
 
-{%- assign groups = others | group_by: "category" -%}
-{%- for group in groups -%}
-{%- case group.name -%}
-  {%- when "게임" -%}{%- assign desc = "브라우저에서 바로 하는 CSS 연습 게임" -%}
-  {%- when "아티팩트" -%}{%- assign desc = "수업과 실습에서 정리한 산출물" -%}
-  {%- else -%}{%- assign desc = "" -%}
-{%- endcase -%}
-<div class="section-head"><h2>{{ group.name }}</h2><span class="section-head__aside">{{ desc }}{% if desc != "" %}, {% endif %}{{ group.items.size }}개</span></div>
+{%- for name in section_names -%}
+{%- assign items = others | where: "category", name -%}
+{%- if items.size > 0 -%}
+{%- assign def = section_defs | where: "name", name | first -%}
+<section class="res-section is-{{ def.tone | default: 'signal' }}" id="sec-{{ forloop.index }}">
+<div class="res-section__head">
+<span class="res-section__icon" aria-hidden="true">{{ def.emoji | default: "📁" }}</span>
+<div class="res-section__titles"><h2 class="res-section__title">{{ name }}</h2>{% if def.desc %}<span class="res-section__desc">{{ def.desc }}</span>{% endif %}</div>
+<span class="res-section__count">{{ items.size }}개</span>
+</div>
 <div class="res-grid">
-{%- for item in group.items -%}
+{%- for item in items -%}
+{%- if item.url -%}{%- assign host = item.url | split: "//" | last | split: "/" | first | remove: "www." -%}{%- else -%}{%- assign host = "첨부파일" -%}{%- endif -%}
 <article class="res-card">
+<div class="res-card__top">
+{%- if item.url -%}<img class="res-card__favicon" src="https://www.google.com/s2/favicons?domain={{ host }}&sz=64" alt="" loading="lazy" width="20" height="20">{%- else -%}<span class="res-card__favicon res-card__favicon--file" aria-hidden="true">📎</span>{%- endif -%}
+<span class="res-card__host">{{ host }}</span>
+</div>
+{%- if item.url -%}
+<a class="res-card__title res-card__stretch" href="{{ item.url }}" target="_blank" rel="noopener noreferrer">{{ item.title }}</a>
+{%- else -%}
 <span class="res-card__title">{{ item.title }}</span>
+{%- endif -%}
 {% if item.description %}<span class="res-card__desc">{{ item.description }}</span>{% endif %}
-<div class="res-card__actions">
-{% if item.url %}<a class="btn-line" href="{{ item.url }}" target="_blank" rel="noopener noreferrer">열기</a>{% endif %}
-{% if item.file %}<a class="btn-line" href="{{ item.file | relative_url }}" target="_blank" rel="noopener noreferrer">첨부파일</a>{% endif %}
+<div class="res-card__foot">
+{% if item.url %}<span class="res-card__open">새 탭에서 열기</span>{% endif %}
+{% if item.file %}<a class="btn-line res-card__file" href="{{ item.file | relative_url }}" target="_blank" rel="noopener noreferrer">📎 첨부파일</a>{% endif %}
 </div>
 </article>
 {%- endfor -%}
 </div>
+</section>
+{%- endif -%}
 {%- endfor -%}

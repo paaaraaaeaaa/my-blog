@@ -28,6 +28,8 @@ classes: section-page
 <p class="page-intro__stats"><span>결과물 <b>{{ main_posts.size }}</b> / 6</span><span>연동기 <b>{{ series_posts.size }}</b>편</span></p>
 </header>
 
+{%- comment -%} 완료·진행 중인 모듈은 타임라인에, 아직 시작 전인 모듈은 맨 아래 "다음 정거장" 한 줄로 모은다 {%- endcomment -%}
+{%- assign upcoming_count = 0 -%}
 <ol class="timeline">
 {%- for i in (1..6) -%}
 {%- assign key = i | append: "" -%}
@@ -35,7 +37,8 @@ classes: section-page
 {%- assign mod_series = series_posts | where_exp: "p", "p.module == i" -%}
 {%- if project -%}{%- assign st = "done" -%}{%- assign st_label = "완료 ✓" -%}
 {%- elsif i == current -%}{%- assign st = "current" -%}{%- assign st_label = "지금 여기" -%}
-{%- else -%}{%- assign st = "upcoming" -%}{%- assign st_label = "예정" -%}{%- endif -%}
+{%- else -%}{%- assign st = "upcoming" -%}{%- assign upcoming_count = upcoming_count | plus: 1 -%}{%- endif -%}
+{%- if st != "upcoming" -%}
 <li class="timeline__item is-{{ st }}">
 <span class="timeline__marker" aria-hidden="true"></span>
 <div class="timeline__head">
@@ -43,45 +46,68 @@ classes: section-page
 <span class="timeline__name">{{ site.data.modules[key] | default: "미정" }}</span>
 <span class="timeline__status">{{ st_label }}</span>
 </div>
-
 {%- if project -%}
-<article class="proj-card">
+<article class="proj-card{% if mod_series.size > 0 %} proj-card--split{% endif %}">
+<div class="proj-card__main">
 <span class="proj-card__mark" aria-hidden="true">{{ project.banner_emoji | default: "🚀" }}</span>
-<div>
 <div class="proj-card__meta">{% if project.project_name %}<span class="proj-card__name">{{ project.project_name }}</span>{% endif %}<span>{{ project.date | date: "%Y.%m.%d" }} 공개</span></div>
 <a class="proj-card__title" href="{{ project.url | relative_url }}">{{ project.title }}</a>
-{% if project.excerpt %}<p class="proj-card__excerpt">{{ project.excerpt | strip_html | strip_newlines | truncate: 140 }}</p>{% endif %}
-<div class="proj-card__foot">
-{% if project.tags.size > 0 %}<div class="chip-list">{% for tag in project.tags limit: 6 %}<span class="chip">{{ tag }}</span>{% endfor %}</div>{% endif %}
+{% if project.excerpt %}<p class="proj-card__excerpt">{{ project.excerpt | strip_html | strip_newlines | truncate: 160 }}</p>{% endif %}
+{% if project.tags.size > 0 %}<div class="chip-list">{% for tag in project.tags limit: 8 %}<span class="chip">{{ tag }}</span>{% endfor %}</div>{% endif %}
 <div class="proj-card__links">
 <a class="btn-line" href="{{ project.url | relative_url }}">회고 읽기</a>
 {% if project.live_url %}<a class="btn-solid" href="{{ project.live_url }}" target="_blank" rel="noopener">라이브 사이트</a>{% endif %}
 </div>
 </div>
-
 {%- if mod_series.size > 0 -%}
+<aside class="proj-card__side" aria-label="연동기">
 {%- assign series_groups = mod_series | group_by: "topic" -%}
 {%- for g in series_groups -%}
 {%- assign chapters = g.items | sort: "level_order" -%}
 <div class="proj-series">
 <div class="proj-series__head"><span class="proj-series__title">{{ g.name }}</span><span class="proj-series__count">{{ chapters.size }}편</span></div>
-<ul class="row-list">
+<p class="proj-series__desc">결과물을 만들며 가장 오래 막혔던 연동 과정만 따로 깊게 기록했어요.</p>
+<ol class="chapter-list">
 {%- for post in chapters -%}
-<li><a class="row row--numbered" href="{{ post.url | relative_url }}">
-<span><span class="row__num">{{ forloop.index }}</span></span>
-<span class="row__main"><span class="row__title">{{ post.title }}</span>{% if post.excerpt %}<span class="row__sub">{{ post.excerpt | strip_html | strip_newlines | truncate: 90 }}</span>{% endif %}</span>
-<span class="row__aside">{% if post.tags.size > 0 %}<span class="chip">{{ post.tags | first }}</span>{% endif %}</span>
+<li><a class="chapter" href="{{ post.url | relative_url }}">
+<span class="chapter__num">{{ forloop.index }}</span>
+<span class="chapter__body">
+<span class="chapter__top">{% if post.tags.size > 0 %}<span class="chapter__tag">{{ post.tags | first }}</span>{% endif %}<span class="chapter__date">{{ post.date | date: "%-m.%-d" }}</span></span>
+<span class="chapter__title">{{ post.title }}</span>
+{% if post.excerpt %}<span class="chapter__excerpt">{{ post.excerpt | strip_html | strip_newlines | truncate: 80 }}</span>{% endif %}
+</span>
 </a></li>
 {%- endfor -%}
-</ul>
+</ol>
 </div>
 {%- endfor -%}
+</aside>
 {%- endif -%}
-</div>
 </article>
-{%- elsif st == "current" -%}
-<div class="proj-slot"><p class="proj-slot__text">지금 진행 중인 모듈입니다. 모듈이 끝나면 팀 프로젝트 결과물이 여기에 올라옵니다.</p></div>
+{%- else -%}
+<div class="proj-slot"><p class="proj-slot__text">지금 진행 중인 모듈이에요. 모듈이 끝나면 팀 프로젝트 결과물이 여기에 올라와요.</p></div>
 {%- endif -%}
 </li>
+{%- endif -%}
 {%- endfor -%}
+
+{%- if upcoming_count > 0 -%}
+<li class="timeline__item is-upcoming">
+<span class="timeline__marker" aria-hidden="true"></span>
+<div class="timeline__head"><span class="timeline__name">다음 정거장</span><span class="timeline__status">{{ upcoming_count }}개 모듈 남음</span></div>
+<div class="next-stops">
+{%- for i in (1..6) -%}
+{%- assign key = i | append: "" -%}
+{%- assign project = main_posts | where_exp: "p", "p.module == i" | first -%}
+{%- unless project or i == current -%}
+<div class="next-stop">
+<span class="next-stop__num">모듈 {{ i }}</span>
+<span class="next-stop__name">{{ site.data.modules[key] | default: "미정" }}</span>
+<span class="next-stop__note">결과물 곧 공개</span>
+</div>
+{%- endunless -%}
+{%- endfor -%}
+</div>
+</li>
+{%- endif -%}
 </ol>

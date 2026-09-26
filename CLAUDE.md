@@ -480,5 +480,7 @@ mermaid: true
 | module 필드 | Cloud·Projects의 **모든 글**(학습노트, 문제풀이, 결과물, 연동기)에 `module: N`을 넣는다. 없으면 Cloud 달력·Projects 타임라인에 나타나지 않는다 |
 | 문제풀이 연결 | 새 문제를 풀면 `_data/database_links.yml`의 해당 문제 항목 `topics`에 풀이 글의 `topic` 값을 추가한다 |
 | 결과물 글 | Projects 결과물에는 `project_name`(짧은 이름), `banner_emoji`, `live_url`을 넣는다 |
+| Database 새 분류 | `database_links.yml`에 새 `category`를 쓰면 `_data/database_sections.yml`에도 `name`·`emoji`·`tone`·`desc`를 추가한다 |
+| 검색 | 검색 동작·분류 규칙은 `DESIGN.md` 4.2. `assets/js/lunr/` 파일은 테마 파일을 덮어쓴 것이므로 지우지 않는다 |
 
 디자인을 수정한 뒤에는 `DESIGN.md` 8장 체크리스트를 확인한다.

@@ -1,0 +1,29 @@
+# _data/database_sections.yml
+# Database 페이지의 "문제" 외 섹션(게임, 아티팩트, …)을 어떤 순서·아이콘·색으로 보여줄지 정합니다.
+# database_links.yml에 새 category를 쓰면, 여기 한 줄을 추가하는 것만으로 섹션 모양이 정해집니다.
+# 여기 없는 category도 자동으로 맨 뒤에 기본 모양(📁, 라일락)으로 표시되니 빠뜨려도 깨지지 않아요.
+#
+# - name  : database_links.yml의 category 값과 똑같이
+# - emoji : 섹션 아이콘
+# - tone  : cloud | database | projects | signal | success | warning | danger (tokens.css 색 이름)
+# - desc  : 섹션 한 줄 설명
+
+- name: "게임"
+  emoji: "🎮"
+  tone: "success"
+  desc: "브라우저에서 바로 하는 CSS 연습 게임"
+
+- name: "아티팩트"
+  emoji: "🗂️"
+  tone: "warning"
+  desc: "수업과 실습에서 정리한 산출물"
+
+# 앞으로 추가할 섹션 예시 (필요할 때 주석 해제)
+# - name: "치트시트"
+#   emoji: "📌"
+#   tone: "cloud"
+#   desc: "자주 찾아보는 명령어·문법 정리"
+# - name: "참고 링크"
+#   emoji: "🔖"
+#   tone: "signal"
+#   desc: "공식 문서와 좋은 글 모음"

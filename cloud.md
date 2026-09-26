@@ -51,17 +51,39 @@ classes: section-page
 {%- assign mod_project = proj_main | where_exp: "p", "p.module == i" | first -%}
 <section class="tab-panel module-panel" id="panel-m{{ i }}" data-panel="m{{ i }}" role="tabpanel"{% if i != current %} hidden{% endif %}>
 <div class="module-panel__head">
-<div>
+<div class="module-panel__titles">
 <span class="module-panel__eyebrow">모듈 {{ i }}</span>
 <h2 class="module-panel__title">{{ site.data.modules[key] | default: "미정" }}</h2>
 </div>
 {%- if mod_posts.size > 0 -%}
-<dl class="module-panel__facts">
-<div><dt>기간</dt><dd>{{ mod_posts.first.date | date: "%-m.%-d" }} – {{ mod_posts.last.date | date: "%-m.%-d" }}</dd></div>
-<div><dt>학습노트</dt><dd>{{ mod_posts.size }}편</dd></div>
-<div><dt>문제풀이</dt><dd>{% if mod_practice.size > 0 %}<a href="{{ '/database/' | relative_url }}#problems">{{ mod_practice.size }}편</a>{% else %}–{% endif %}</dd></div>
-<div><dt>결과물</dt><dd>{% if mod_project %}<a href="{{ mod_project.url | relative_url }}">{{ mod_project.project_name | default: mod_project.title | truncate: 18 }}</a>{% else %}–{% endif %}</dd></div>
-</dl>
+<div class="module-stats">
+<div class="stat">
+<span class="stat__label">기간</span>
+<span class="stat__value">{{ mod_posts.first.date | date: "%-m.%-d" }} – {{ mod_posts.last.date | date: "%-m.%-d" }}</span>
+</div>
+<div class="stat">
+<span class="stat__label">학습노트</span>
+<span class="stat__value">{{ mod_posts.size }}<small>편</small></span>
+</div>
+{%- if mod_practice.size > 0 -%}
+<a class="stat stat--link is-database" href="{{ '/database/' | relative_url }}#problems">
+<span class="stat__icon" aria-hidden="true">🧩</span>
+<span class="stat__body"><span class="stat__label">문제풀이</span><span class="stat__value">{{ mod_practice.size }}<small>편</small></span></span>
+<span class="stat__cta">Database에서 보기</span>
+</a>
+{%- else -%}
+<div class="stat stat--muted"><span class="stat__label">문제풀이</span><span class="stat__value">아직 없음</span></div>
+{%- endif -%}
+{%- if mod_project -%}
+<a class="stat stat--link is-projects" href="{{ mod_project.url | relative_url }}">
+<span class="stat__icon" aria-hidden="true">{{ mod_project.banner_emoji | default: "🚀" }}</span>
+<span class="stat__body"><span class="stat__label">결과물</span><span class="stat__value">{{ mod_project.project_name | default: mod_project.title | truncate: 16 }}</span></span>
+<span class="stat__cta">회고 읽기</span>
+</a>
+{%- else -%}
+<div class="stat stat--muted"><span class="stat__label">결과물</span><span class="stat__value">모듈이 끝나면 공개</span></div>
+{%- endif -%}
+</div>
 {%- endif -%}
 </div>
 
