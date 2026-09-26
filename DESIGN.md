@@ -70,6 +70,8 @@
 
 IBM Plex는 IBM이 엔지니어링 도구용으로 만든 서체라 "계기판" 느낌을 과장 없이 준다. 제목을 다른 서체로 바꾸지 않는다. 위계는 크기와 굵기로만 만든다.
 
+`1rem`은 모바일 16px, 1024px 이상 17px이다. 아래 크기는 이 기준으로 변한다.
+
 | 토큰 | 크기 | 쓰는 곳 |
 |---|---|---|
 | `--fs-3xl` | 48px | 홈의 "N일차" 숫자 (한 곳뿐) |
@@ -77,9 +79,9 @@ IBM Plex는 IBM이 엔지니어링 도구용으로 만든 서체라 "계기판" 
 | `--fs-xl` | 28px | 본문 `##` |
 | `--fs-lg` | 22px | 본문 `###`, 섹션 머리 |
 | `--fs-md` | 19px | `####`, 카드 제목 |
-| `--fs-base` | 17px | 본문 |
-| `--fs-sm` | 14px | 요약, 메타, 버튼 |
-| `--fs-xs` | 12px | 캡션, 경로 |
+| `--fs-base` | 17~18px | 본문 |
+| `--fs-sm` | 15~16px | 요약, 메타, 버튼, 경로(breadcrumb) |
+| `--fs-xs` | 13~14px | 캡션 |
 
 규칙: 제목에 한 단어만 색칠하기, 영어 대문자 라벨(ALL CAPS), 제목 위의 장식용 작은 라벨은 쓰지 않는다.
 
@@ -88,7 +90,7 @@ IBM Plex는 IBM이 엔지니어링 도구용으로 만든 서체라 "계기판" 
 - 간격은 4px 단위: `--s-1`(4) `--s-2`(8) `--s-3`(12) `--s-4`(16) `--s-5`(24) `--s-6`(32) `--s-7`(48) `--s-8`(64)
 - 모서리는 **계층별로 다르게**: 칩·버튼 `--r-sm`(6), 카드·패널·표 `--r-md`(10), 홈 미션 패널만 `--r-lg`(16)
 - 면 구분은 그림자가 아니라 **선(`--c-line`)과 면 색 차이**로 한다.
-- `--glow`는 "지금 여기"를 뜻하는 곳에만: 홈 궤적의 현재 위치 점, 상단 탭의 현재 섹션 점, 섹션 머리 밑줄.
+- `--glow`는 "지금 여기"를 뜻하는 곳에만: 홈 궤적의 현재 위치 점, 상단 탭의 현재 섹션 점, 섹션 머리 밑줄, 진행 중인 모듈 스테이지와 타임라인 정거장.
 - 자동 애니메이션은 홈 궤적이 출발점에서 현재 위치로 이동하는 **한 번**뿐. `prefers-reduced-motion`이면 꺼진다.
 
 ---
@@ -110,15 +112,35 @@ IBM Plex는 IBM이 엔지니어링 도구용으로 만든 서체라 "계기판" 
 - 모든 글자는 **왼쪽 정렬**. 가운데 정렬은 빈 상태 안내문(`.empty-note`)뿐.
 - 1023px 이하에서는 1열. 홈의 오른쪽 패널은 맨 아래로 내려간다.
 
-### 3.1 페이지별 구조
+### 3.1 정보 구조: "모듈"이 모든 것을 잇는다
+
+부트캠프는 6개 모듈(`_data/modules.yml`)로 나뉘고, 세 섹션은 모두 **모듈 번호(`module:`)**로 연결된다.
+
+```
+모듈 N ──┬── Cloud     일차 학습노트 (type: daily)      → 주 단위 달력
+         ├── Database  문제(yml) ← 풀이 글(type: practice) → 문제 카드 아래 단계 목록
+         └── Projects  결과물 1개 + 연동기 시리즈         → 타임라인 정거장
+```
 
 | 페이지 | 구조 (위에서 아래로) |
 |---|---|
 | 홈 `index.md` | 미션 패널(인사 · N일차 · 궤적 · 목표) → 섹션 바로가기 3칸 → 최근 글 5편 → GitHub 활동 |
-| Cloud `cloud.md` | 섹션 머리 → 탭(학습노트/문제풀이) → 모듈·주제별 그룹 → 행 목록(최신순) |
-| Database `Database.md` | 섹션 머리 → 분류별 그룹 → 자료 카드 격자 |
-| Projects `Projects.md` | 섹션 머리 → 완성한 프로젝트 카드 → 시리즈별 번호 행 목록 |
-| 게시글 | 제목 → (선택) `#` 부제목 → 본문 → 이전/다음 → 댓글. 우측 목차 |
+| Cloud `cloud.md` | 섹션 머리 → **모듈 스테이지 6칸**(완료/진행 중/예정, 클릭 시 전환) → 선택 모듈 요약(기간·노트·풀이·결과물) → **주 단위 달력**(주차 × 월~금, 휴일 표시) |
+| Database `Database.md` | 섹션 머리 → **문제와 풀이**(문제 카드 + Lv 단계 목록, 2열) → 게임 → 아티팩트 |
+| Projects `Projects.md` | 섹션 머리 → **모듈 타임라인 6정거장**(완료 = 결과물 카드 + 연동기, 진행 중 = 안내, 예정 = 제목만) |
+| 게시글 | 제목 → (선택) `#` 부제목 → 본문 → 이전/다음 → 댓글. 우측 목차(`##`부터) |
+
+섹션 페이지(Cloud/Database/Projects)는 사이드바가 없으므로 본문이 사이트 폭 전체를 쓴다.
+
+### 3.2 글 front matter 규칙 (디자인이 읽는 값)
+
+| 글 종류 | 필수 | 선택 |
+|---|---|---|
+| Cloud 학습노트 | `categories: [Cloud]`, `type: daily`, `module: N`, `excerpt` | `tags` (달력 칸에 앞 2개 표시) |
+| Cloud 문제풀이 | `type: practice`, `module: N`, `topic`, `level_order` | 제목을 `Lv1 · 제목` 형식으로 쓰면 단계 라벨이 자동 분리됨 |
+| Projects 결과물 | `categories: [Projects]`, `module: N` (type 없음) | `project_name`, `banner_emoji`, `live_url`, `tags` |
+| Projects 연동기 | `type: practice`, `module: N`, `topic`, `level_order` | `tags` (첫 번째가 칩으로 표시) |
+| Database 문제 (yml) | `category: "문제"`, `title`, `url` | `module`, `topics: ["풀이 글의 topic"]` |
 
 ---
 
@@ -139,7 +161,15 @@ IBM Plex는 IBM이 엔지니어링 도구용으로 만든 서체라 "계기판" 
 | `.panel` | 선으로 구분된 어두운 면 |
 | `.chip-list` > `.chip` | 태그, 키워드 (색 없음) |
 | `.btn-line` / `.btn-solid` | 보조 버튼 / 주요 버튼 (화면당 주요 버튼 1개) |
+| `.stages` > `.stage.is-done/.is-current/.is-upcoming` | Cloud 모듈 스테이지 (윗선이 진행 상태) |
+| `.module-panel` (+ `__head` `__facts`) | 선택한 모듈의 요약 |
+| `.week-grid` > `.week` > `.day` / `.day--off` / `.day--empty` | 주 단위 달력 칸 |
+| `.problem-list` > `.problem` (+ `.problem--unlinked`) | 문제 카드 |
+| `.steps` > `.step` (+ `__lv` `__title`) | 풀이 단계 목록 |
 | `.res-grid` > `.res-card` | Database 자료 카드 |
+| `.timeline` > `.timeline__item.is-done/.is-current/.is-upcoming` | Projects 모듈 타임라인 |
+| `.proj-series` | 결과물 카드 안 연동기 목록 |
+| `.proj-slot` | 진행 중인 모듈의 빈 결과물 자리 |
 | `.proj-card` | Projects 대표 카드 |
 | `.project-hero` | 게시글 안 프로젝트 소개 박스 |
 | `.mission` `.track` | 홈 전용. 다른 페이지에서 쓰지 않는다 |
@@ -154,6 +184,7 @@ IBM Plex는 IBM이 엔지니어링 도구용으로 만든 서체라 "계기판" 
 | 15줄 넘는 코드 블록 | 접기/펼치기 |
 | 모든 코드 블록 | 복사 버튼 |
 | 표 | 가로 스크롤 틀로 감싸짐 |
+| 글 안의 `#` 부제목 | 목차에서 제외 (`_includes/toc.html`이 `##`부터 목차로 만듦) |
 | ` ```mermaid ` | 토큰 색으로 그려진 다이어그램 |
 
 ---

@@ -5,6 +5,7 @@ excerpt: "AI가 파일을 고쳤을 때 되돌리는 법부터 익히는 기본 
 date: 2026-08-31
 categories: [Cloud]
 type: practice
+module: 1
 topic: "AI가 내 파일을 직접 고친다"
 level_order: 10
 tags: [git, github, claude-code, claude-md, devlog, 부트캠프, 자율실습]

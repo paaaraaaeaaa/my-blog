@@ -5,6 +5,7 @@ excerpt: "실험 커밋 되돌리기와 CLAUDE.md 최소화까지 파본 보너�
 date: 2026-08-31
 categories: [Cloud]
 type: practice
+module: 1
 topic: "AI가 내 파일을 직접 고친다"
 level_order: 90
 tags: [git, github, claude-code, claude-md, devlog, 부트캠프, 자율실습]

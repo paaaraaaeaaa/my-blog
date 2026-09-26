@@ -5,6 +5,7 @@ excerpt: "요구사항만 보고 설계한 이벤트 배너, 페이지 전체를
 date: 2026-09-03
 categories: [Cloud]
 type: practice
+module: 1
 topic: "움직이는 카드 만들기"
 level_order: 30
 tags: [css, animation, transition, transform, tailwind]

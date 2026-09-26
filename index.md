@@ -104,24 +104,25 @@ classes: home-page
 </section>
 
 {% assign empty_array = "" | split: "," %}
-{% assign cloud_posts = site.categories.Cloud | default: empty_array %}
+{% assign cloud_all = site.categories.Cloud | default: empty_array %}
+{% assign cloud_posts = cloud_all | where_exp: "p", "p.type != 'practice'" %}
 {% assign proj_posts = site.categories.Projects | default: empty_array %}
 {% assign db_items = site.data.database_links | default: empty_array %}
 
 <nav class="index-grid" aria-label="섹션 바로가기">
 <a class="index-card is-cloud" href="{{ '/cloud/' | relative_url }}">
 <span class="index-card__top"><span class="index-card__name">Cloud</span><span class="index-card__count"><b>{{ cloud_posts.size }}</b> 편</span></span>
-<span class="index-card__desc">일차별 학습노트와 문제풀이</span>
+<span class="index-card__desc">모듈별 일차 학습노트</span>
 {% if cloud_posts.size > 0 %}<span class="index-card__latest">최신 · {{ cloud_posts.first.title }}</span>{% endif %}
 </a>
 <a class="index-card is-database" href="{{ '/database/' | relative_url }}">
 <span class="index-card__top"><span class="index-card__name">Database</span><span class="index-card__count"><b>{{ db_items.size }}</b> 개</span></span>
-<span class="index-card__desc">문제, 게임, 아티팩트 모음</span>
+<span class="index-card__desc">문제와 풀이, 게임, 아티팩트</span>
 {% if db_items.size > 0 %}<span class="index-card__latest">최신 · {{ db_items.last.title }}</span>{% endif %}
 </a>
 <a class="index-card is-projects" href="{{ '/projects/' | relative_url }}">
 <span class="index-card__top"><span class="index-card__name">Projects</span><span class="index-card__count"><b>{{ proj_posts.size }}</b> 편</span></span>
-<span class="index-card__desc">팀 프로젝트와 연동기</span>
+<span class="index-card__desc">모듈별 결과물 6개와 연동기</span>
 {% if proj_posts.size > 0 %}<span class="index-card__latest">최신 · {{ proj_posts.first.title }}</span>{% endif %}
 </a>
 </nav>
@@ -148,7 +149,7 @@ classes: home-page
 <div class="section-head"><h2>GitHub 활동</h2><span class="section-head__aside"><a href="https://github.com/paaaraaaeaaa" target="_blank" rel="noopener">github.com/paaaraaaeaaa</a></span></div>
 
 <section class="panel gh-panel">
-<div class="gh-panel__item">
+<div class="gh-panel__item gh-panel__streak">
 <h3>연속 기록</h3>
 <img src="https://streak-stats.demolab.com?user=paaaraaaeaaa&hide_border=true&background=00000000&stroke=223049&ring=6FC3FF&fire=6FC3FF&currStreakNum=E3E8F2&sideNums=E3E8F2&currStreakLabel=6FC3FF&sideLabels=A7B1C6&dates=76819A" alt="GitHub 연속 기여 통계" loading="lazy" />
 </div>

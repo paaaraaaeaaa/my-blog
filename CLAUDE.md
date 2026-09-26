@@ -477,5 +477,8 @@ mermaid: true
 | 새 컴포넌트 | 꼭 필요할 때만 `site.css`에 추가하고, `DESIGN.md` 4장 표에 한 줄 기록한다 |
 | 제목 이모지 | `##`, `###` 제목에 이모지를 넣지 않는다. 이모지는 콜아웃 표시용 |
 | 외부 위젯 색 | 뱃지·통계 이미지 URL의 색은 `DESIGN.md` 6장 표의 값을 쓴다 |
+| module 필드 | Cloud·Projects의 **모든 글**(학습노트, 문제풀이, 결과물, 연동기)에 `module: N`을 넣는다. 없으면 Cloud 달력·Projects 타임라인에 나타나지 않는다 |
+| 문제풀이 연결 | 새 문제를 풀면 `_data/database_links.yml`의 해당 문제 항목 `topics`에 풀이 글의 `topic` 값을 추가한다 |
+| 결과물 글 | Projects 결과물에는 `project_name`(짧은 이름), `banner_emoji`, `live_url`을 넣는다 |
 
 디자인을 수정한 뒤에는 `DESIGN.md` 8장 체크리스트를 확인한다.

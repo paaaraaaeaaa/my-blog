@@ -5,6 +5,7 @@ excerpt: "애매한 지시·브랜치+PR·AI 환각 검증까지 다뤄본 응�
 date: 2026-08-31
 categories: [Cloud]
 type: practice
+module: 1
 topic: "AI가 내 파일을 직접 고친다"
 level_order: 20
 tags: [git, github, claude-code, claude-md, devlog, 부트캠프, 자율실습]

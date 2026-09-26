@@ -5,6 +5,7 @@ excerpt: "며칠간 사용 기록을 점검하고 스킬을 절반으로 줄여�
 date: 2026-08-31
 categories: [Cloud]
 type: practice
+module: 1
 topic: "규칙 하나로 답이 달라진다"
 level_order: 90
 tags: [claude-code, skill, claude-md, prompt-engineering, devlog, 부트캠프, 자율실습]

@@ -5,6 +5,7 @@ excerpt: "역할과 규칙 칸을 나눠보며 /learn·/note를 처음 흔들어
 date: 2026-08-31
 categories: [Cloud]
 type: practice
+module: 1
 topic: "규칙 하나로 답이 달라진다"
 level_order: 10
 tags: [claude-code, skill, claude-md, prompt-engineering, devlog, 부트캠프, 자율실습]

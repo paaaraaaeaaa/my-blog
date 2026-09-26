@@ -5,6 +5,7 @@ excerpt: "개인 미션 devlog — 자율 실습 15문제"
 date: 2026-08-27
 categories: [Cloud]
 type: practice
+module: 1
 topic: "Git & GitHub"
 level_order: 10
 tags: [git, github, devlog, 부트캠프, 개인미션]

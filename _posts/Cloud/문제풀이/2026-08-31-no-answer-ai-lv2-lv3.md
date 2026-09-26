@@ -5,6 +5,7 @@ excerpt: "경계 규칙 검증부터 한 줄 지시로 매번 같은 결과 내�
 date: 2026-08-31
 categories: [Cloud]
 type: practice
+module: 1
 topic: "규칙 하나로 답이 달라진다"
 level_order: 20
 tags: [claude-code, skill, claude-md, prompt-engineering, devlog, 부트캠프, 자율실습]

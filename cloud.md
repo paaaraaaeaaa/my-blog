@@ -6,93 +6,109 @@ classes: section-page
 ---
 
 {%- comment -%}
-  Cloud 섹션. 스타일: assets/css/site.css "9. 공용 컴포넌트" (page-intro, tabs, group, row).
-  모듈 이름은 _data/modules.yml 에서 온다.
+  Cloud = 모듈별 일차 학습노트 (type: daily).
+  - 모듈 이름: _data/modules.yml (1~6)
+  - 글 front matter의 module 값으로 모듈에 들어간다
+  - 문제풀이(type: practice)는 Database 페이지에서 문제별로 모아 보여준다
+  스타일: assets/css/site.css "11. Cloud"
 {%- endcomment -%}
 
-{% assign empty_array = "" | split: "," %}
-{% assign cat_posts = site.categories.Cloud | default: empty_array %}
-{% assign daily_posts = cat_posts | where_exp: "post", "post.type != 'practice'" %}
-{% assign practice_posts = cat_posts | where_exp: "post", "post.type == 'practice'" %}
+{%- assign empty_array = "" | split: "," -%}
+{%- assign cat_posts = site.categories.Cloud | default: empty_array -%}
+{%- assign daily_posts = cat_posts | where_exp: "p", "p.type != 'practice'" | where_exp: "p", "p.module" -%}
+{%- assign practice_posts = cat_posts | where_exp: "p", "p.type == 'practice'" -%}
+{%- assign proj_main = site.categories.Projects | default: empty_array | where_exp: "p", "p.type == nil" -%}
+
+{%- assign current = 1 -%}
+{%- for p in daily_posts -%}{%- if p.module > current -%}{%- assign current = p.module -%}{%- endif -%}{%- endfor -%}
 
 <header class="page-intro is-cloud">
 <span class="cat-label">Cloud</span>
-<h1 class="page-intro__title">매일 배운 것을 코드로 남기기</h1>
-<p class="page-intro__desc">부트캠프에서 하루하루 부딪힌 문제와 풀어낸 방법을 기록합니다. 일차별 학습노트와 자율 실습 문제풀이로 나눠 정리했습니다.</p>
-<p class="page-intro__stats"><span>학습노트 <b>{{ daily_posts.size }}</b>편</span><span>문제풀이 <b>{{ practice_posts.size }}</b>편</span></p>
+<h1 class="page-intro__title">모듈별 학습 로그</h1>
+<p class="page-intro__desc">부트캠프 6개 모듈을 하루 단위로 기록합니다. 모듈을 고르면 그 기간의 학습노트가 주 단위 달력으로 펼쳐집니다.</p>
+<p class="page-intro__stats"><span>학습노트 <b>{{ daily_posts.size }}</b>편</span><span>진행 모듈 <b>{{ current }}</b> / 6</span><span><a href="{{ '/database/' | relative_url }}#problems">문제풀이 {{ practice_posts.size }}편은 Database에서 보기</a></span></p>
 </header>
 
-{% if cat_posts.size == 0 %}
-<p class="empty-note">아직 작성된 글이 없습니다.</p>
-{% else %}
-
-<div class="tabs is-cloud" role="tablist">
-<button type="button" class="tab is-active" data-tab="daily" role="tab" aria-selected="true" aria-controls="cloud-panel-daily">일차별 학습노트 <span class="tab__count">{{ daily_posts.size }}</span></button>
-<button type="button" class="tab" data-tab="practice" role="tab" aria-selected="false" aria-controls="cloud-panel-practice">문제풀이 <span class="tab__count">{{ practice_posts.size }}</span></button>
+<div class="stages is-cloud" role="tablist" aria-label="모듈 선택">
+{%- for i in (1..6) -%}
+{%- assign key = i | append: "" -%}
+{%- assign mod_posts = daily_posts | where_exp: "p", "p.module == i" -%}
+{%- if i < current -%}{%- assign st = "done" -%}{%- assign st_label = "완료" -%}
+{%- elsif i == current -%}{%- assign st = "current" -%}{%- assign st_label = "진행 중" -%}
+{%- else -%}{%- assign st = "upcoming" -%}{%- assign st_label = "예정" -%}{%- endif -%}
+<button type="button" class="stage is-{{ st }}{% if i == current %} is-active{% endif %}" data-tab="m{{ i }}" role="tab" aria-selected="{% if i == current %}true{% else %}false{% endif %}" aria-controls="panel-m{{ i }}">
+<span class="stage__top"><span class="stage__num">모듈 {{ i }}</span><span class="stage__status">{{ st_label }}</span></span>
+<span class="stage__name">{{ site.data.modules[key] | default: "미정" }}</span>
+<span class="stage__meta">{% if mod_posts.size > 0 %}{{ mod_posts.size }}편{% else %}기록 전{% endif %}</span>
+</button>
+{%- endfor -%}
 </div>
 
-<div class="tab-panel" id="cloud-panel-daily" data-panel="daily" role="tabpanel">
-{% if daily_posts.size == 0 %}
-<p class="empty-note">아직 작성된 글이 없습니다.</p>
-{% else %}
-{% assign modules = daily_posts | group_by: 'module' | sort: 'name' %}
-{% for mod in modules %}
-{% assign mod_name = site.data.modules[mod.name] %}
-<section class="group is-cloud">
-<div class="group__head">
-<span class="group__key">{{ mod.name | default: "–" }}</span>
-<span class="group__title">{% if mod_name %}{{ mod_name }}{% else %}모듈 {{ mod.name }}{% endif %}</span>
-<span class="group__count">{{ mod.items.size }}편</span>
+{%- for i in (1..6) -%}
+{%- assign key = i | append: "" -%}
+{%- assign mod_posts = daily_posts | where_exp: "p", "p.module == i" | sort: "date" -%}
+{%- assign mod_practice = practice_posts | where_exp: "p", "p.module == i" -%}
+{%- assign mod_project = proj_main | where_exp: "p", "p.module == i" | first -%}
+<section class="tab-panel module-panel" id="panel-m{{ i }}" data-panel="m{{ i }}" role="tabpanel"{% if i != current %} hidden{% endif %}>
+<div class="module-panel__head">
+<div>
+<span class="module-panel__eyebrow">모듈 {{ i }}</span>
+<h2 class="module-panel__title">{{ site.data.modules[key] | default: "미정" }}</h2>
 </div>
-<ul class="row-list">
-{% assign mod_posts = mod.items | sort: 'date' | reverse %}
-{% for post in mod_posts %}
-<li><a class="row" href="{{ post.url | relative_url }}">
-<span class="row__date">{{ post.date | date: "%Y.%m.%d" }}</span>
-<span class="row__main"><span class="row__title">{{ post.title }}</span>{% if post.excerpt %}<span class="row__sub">{{ post.excerpt | strip_html | strip_newlines | truncate: 100 }}</span>{% endif %}</span>
-<span class="row__aside"></span>
-</a></li>
-{% endfor %}
-</ul>
+{%- if mod_posts.size > 0 -%}
+<dl class="module-panel__facts">
+<div><dt>기간</dt><dd>{{ mod_posts.first.date | date: "%-m.%-d" }} – {{ mod_posts.last.date | date: "%-m.%-d" }}</dd></div>
+<div><dt>학습노트</dt><dd>{{ mod_posts.size }}편</dd></div>
+<div><dt>문제풀이</dt><dd>{% if mod_practice.size > 0 %}<a href="{{ '/database/' | relative_url }}#problems">{{ mod_practice.size }}편</a>{% else %}–{% endif %}</dd></div>
+<div><dt>결과물</dt><dd>{% if mod_project %}<a href="{{ mod_project.url | relative_url }}">{{ mod_project.project_name | default: mod_project.title | truncate: 18 }}</a>{% else %}–{% endif %}</dd></div>
+</dl>
+{%- endif -%}
+</div>
+
+{%- if mod_posts.size == 0 -%}
+<p class="empty-note">모듈 {{ i }}은 아직 시작 전입니다. 첫 학습노트를 쓰면 이곳에 주 단위 달력이 생깁니다.</p>
+{%- else -%}
+<div class="week-grid" role="list">
+<div class="week-grid__head" aria-hidden="true"><span></span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span></div>
+{%- assign weeks = mod_posts | group_by_exp: "p", "p.date | date: '%G-%V'" -%}
+{%- for w in weeks -%}
+{%- assign first = w.items.first -%}
+{%- assign f_ts = first.date | date: "%s" | plus: 0 -%}
+{%- assign f_u = first.date | date: "%u" | plus: 0 -%}
+{%- assign back = f_u | minus: 1 | times: 86400 -%}
+{%- assign mon_ts = f_ts | minus: back -%}
+{%- assign fri_ts = mon_ts | plus: 345600 -%}
+<div class="week" role="listitem">
+<div class="week__label"><span class="week__n">{{ forloop.index }}주차</span><span class="week__range">{{ mon_ts | date: "%-m.%-d" }}–{{ fri_ts | date: "%-m.%-d" }}</span></div>
+{%- for d in (1..5) -%}
+{%- assign cell_off = d | minus: 1 | times: 86400 -%}
+{%- assign cell_ts = mon_ts | plus: cell_off -%}
+{%- assign cell_date = cell_ts | date: "%Y-%m-%d" -%}
+{%- assign hit = nil -%}
+{%- for p in w.items -%}{%- assign pu = p.date | date: "%u" | plus: 0 -%}{%- if pu == d -%}{%- assign hit = p -%}{%- endif -%}{%- endfor -%}
+{%- if hit -%}
+<a class="day" href="{{ hit.url | relative_url }}">
+<span class="day__top"><span class="day__n">{{ hit.title }}</span><span class="day__date">{{ hit.date | date: "%-m.%-d" }}</span></span>
+<span class="day__text">{{ hit.excerpt | strip_html | strip_newlines | truncate: 64 }}</span>
+{%- if hit.tags.size > 0 -%}<span class="day__tags">{% for t in hit.tags limit: 2 %}<span class="chip">{{ t }}</span>{% endfor %}</span>{%- endif -%}
+</a>
+{%- elsif site.data.holidays contains cell_date -%}
+<span class="day day--off"><span class="day__date">{{ cell_ts | date: "%-m.%-d" }}</span><span class="day__note">휴일</span></span>
+{%- else -%}
+<span class="day day--empty" aria-hidden="true"><span class="day__date">{{ cell_ts | date: "%-m.%-d" }}</span></span>
+{%- endif -%}
+{%- endfor -%}
+</div>
+{%- endfor -%}
+</div>
+{%- endif -%}
 </section>
-{% endfor %}
-{% endif %}
-</div>
-
-<div class="tab-panel" id="cloud-panel-practice" data-panel="practice" role="tabpanel" hidden>
-{% if practice_posts.size == 0 %}
-<p class="empty-note">아직 작성된 글이 없습니다.</p>
-{% else %}
-{% assign practice_posts_by_date = practice_posts | sort: 'date' %}
-{% assign topic_names_ordered = practice_posts_by_date | map: 'topic' | uniq %}
-{% for name in topic_names_ordered %}
-{% assign topic_posts = practice_posts | where_exp: "post", "post.topic == name" | sort: 'date' | sort: 'level_order' %}
-{% if topic_posts.size > 0 %}
-<section class="group is-cloud">
-<div class="group__head">
-<span class="group__key">{{ forloop.index }}</span>
-<span class="group__title">{% if name %}{{ name }}{% else %}미분류{% endif %}</span>
-<span class="group__count">{{ topic_posts.size }}편</span>
-</div>
-<ul class="row-list">
-{% for post in topic_posts %}
-<li><a class="row" href="{{ post.url | relative_url }}">
-<span class="row__date">{{ post.date | date: "%Y.%m.%d" }}</span>
-<span class="row__main"><span class="row__title">{{ post.title }}</span>{% if post.subtitle %}<span class="row__sub">{{ post.subtitle }}</span>{% endif %}</span>
-<span class="row__aside"></span>
-</a></li>
-{% endfor %}
-</ul>
-</section>
-{% endif %}
-{% endfor %}
-{% endif %}
-</div>
+{%- endfor -%}
 
 <script>
 (function () {
-  var tabs = document.querySelectorAll('.tabs .tab');
-  var panels = document.querySelectorAll('.tab-panel');
+  var tabs = document.querySelectorAll('.stages .stage');
+  var panels = document.querySelectorAll('.module-panel');
   tabs.forEach(function (tab) {
     tab.addEventListener('click', function () {
       var target = tab.getAttribute('data-tab');
@@ -106,5 +122,3 @@ classes: section-page
   });
 })();
 </script>
-
-{% endif %}

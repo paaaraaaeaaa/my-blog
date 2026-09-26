@@ -5,6 +5,7 @@ excerpt: "transition 속도 비교, hover 범위, 배지 기울이기, 키프레
 date: 2026-09-03
 categories: [Cloud]
 type: practice
+module: 1
 topic: "움직이는 카드 만들기"
 level_order: 10
 tags: [css, transition, hover, animation, transform]

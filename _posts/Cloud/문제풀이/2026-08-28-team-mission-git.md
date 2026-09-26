@@ -5,6 +5,7 @@ excerpt: "팀 미션 devlog — 미션 A~E 전부 풀어보기"
 date: 2026-08-28
 categories: [Cloud]
 type: practice
+module: 1
 topic: "Git & GitHub"
 level_order: 20
 tags: [git, github, devlog, 부트캠프, 팀미션]

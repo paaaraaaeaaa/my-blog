@@ -5,6 +5,7 @@ excerpt: "회원가입 카드 가운데 정렬, 깨진 CSS 세 곳 디버깅, �
 date: 2026-09-03
 categories: Cloud
 type: practice
+module: 1
 topic: "카드로 배치 익히기"
 level_order: 20
 tags: [css, flexbox, 레이아웃, 디버깅, 자율실습]

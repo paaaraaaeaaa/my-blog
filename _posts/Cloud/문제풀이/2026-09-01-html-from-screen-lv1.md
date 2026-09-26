@@ -5,6 +5,7 @@ excerpt: "제목·문단·목록·링크·이미지·표·미디어까지 태그
 date: 2026-09-01
 categories: [Cloud]
 type: practice
+module: 1
 topic: "화면 보고 HTML 만들기"
 level_order: 10
 tags: [html, 웹개발기초, 태그, 부트캠프, 자율실습]

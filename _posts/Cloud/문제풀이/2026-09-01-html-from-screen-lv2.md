@@ -5,6 +5,7 @@ excerpt: "목록+링크, 목록+이미지, 표 병합까지 태그를 조합해 
 date: 2026-09-01
 categories: [Cloud]
 type: practice
+module: 1
 topic: "화면 보고 HTML 만들기"
 level_order: 20
 tags: [html, 웹개발기초, 태그, 부트캠프, 자율실습]

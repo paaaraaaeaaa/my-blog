@@ -5,6 +5,7 @@ excerpt: "목록 전체 hover, 안 먹는 transition·animation 세 곳 디버�
 date: 2026-09-03
 categories: [Cloud]
 type: practice
+module: 1
 topic: "움직이는 카드 만들기"
 level_order: 20
 tags: [css, hover, transition, animation, tailwind]

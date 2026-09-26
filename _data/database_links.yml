@@ -10,37 +10,54 @@
 # - file        : 레포에 직접 올린 첨부파일 경로 (선택) — 예: /assets/files/git-cheatsheet.pdf
 #                 url과 file 둘 다 적으면 버튼이 두 개 다 나옴. 최소 하나는 있어야 함.
 # - description : 카드 안 설명 문구 (선택)
+# - module      : (문제 전용) 몇 번째 모듈의 문제인지 숫자 (선택)
+# - topics      : (문제 전용) 이 문제를 푼 풀이 글들의 front matter "topic" 값 목록.
+#                 여기 적힌 topic의 글(type: practice, Cloud)이 문제 카드 아래 풀이 목록으로 자동 연결됨.
+#                 예: topics: ["화면 보고 HTML 만들기"]
+#                 어떤 문제에도 연결되지 않은 풀이 topic은 "문제 링크 미등록" 카드로 따로 표시됨.
 #
 # 첨부파일(file)을 쓰려면: 레포 루트에 assets/files 폴더를 만들고 그 안에 파일을 올린 뒤
 # file: /assets/files/파일이름.pdf 처럼 경로를 적으면 됩니다.
 
 - category: "문제"
   title: "Git과 GitHub 실습"
+  module: 1
+  topics: ["Git & GitHub"]
   url: "https://claude.ai/code/artifact/70fb9b0b-1c2e-4503-97a7-e31dd4c365f9"
   description: "문제 링크를 클릭하면 문제를 확인할 수 있습니다."
 
 - category: "문제"
   title: "AI가 내 파일을 직접 고친다"
+  module: 1
+  topics: ["AI가 내 파일을 직접 고친다"]
   url: "https://claude.ai/code/artifact/96689c97-96f9-42d5-be46-3666a79cac73"
   description: "문제 링크를 클릭하면 문제를 확인할 수 있습니다."
 
 - category: "문제"
   title: "규칙 하나로 답이 달라진다"
+  module: 1
+  topics: ["규칙 하나로 답이 달라진다"]
   url: "https://claude.ai/code/artifact/e3c61ac6-1063-46d8-bdf5-4d09fa2c21e4"
   description: "문제 링크를 클릭하면 문제를 확인할 수 있습니다."
 
 - category: "문제"
   title: "화면 보고 HTML 만들기"
+  module: 1
+  topics: ["화면 보고 HTML 만들기"]
   url: "https://claude.ai/code/artifact/0e439cbf-68f6-4b70-959c-c857547be66c"
   description: "문제 링크를 클릭하면 문제를 확인할 수 있습니다."
 
 - category: "문제"
   title: "CSS 레이아웃 · 자율 실습 - 카드로 배치 익히기"
+  module: 1
+  topics: ["카드로 배치 익히기"]
   url: "https://claude.ai/code/artifact/fb3d6b63-604e-4b56-8510-60685be1f775"
   description: "문제 링크를 클릭하면 문제를 확인할 수 있습니다."
 
 - category: "문제"
   title: "CSS 레이아웃 · 자율 실습 - 움직이는 카드 만들기"
+  module: 1
+  topics: ["움직이는 카드 만들기"]
   url: "https://claude.ai/code/artifact/fd533bbc-cab5-44e4-8f24-34706f7c3c52"
   description: "문제 링크를 클릭하면 문제를 확인할 수 있습니다."
 

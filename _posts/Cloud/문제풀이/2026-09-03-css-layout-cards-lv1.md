@@ -5,6 +5,7 @@ excerpt: "박스 모델·Flex·Grid로 카페 메뉴 카드를 여섯 방향으�
 date: 2026-09-03
 categories: Cloud
 type: practice
+module: 1
 topic: "카드로 배치 익히기"
 level_order: 10
 tags: [css, flexbox, grid, 레이아웃, 자율실습]

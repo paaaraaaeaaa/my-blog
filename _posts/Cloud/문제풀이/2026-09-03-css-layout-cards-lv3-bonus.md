@@ -5,6 +5,7 @@ excerpt: "이벤트 배너+그리드 카드 설계, 옛날 표 레이아웃을 F
 date: 2026-09-03
 categories: Cloud
 type: practice
+module: 1
 topic: "카드로 배치 익히기"
 level_order: 30
 tags: [css, flexbox, grid, 레이아웃, 자율실습]
