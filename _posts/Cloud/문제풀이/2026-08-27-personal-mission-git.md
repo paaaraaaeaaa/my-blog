@@ -13,10 +13,6 @@ toc: true
 toc_sticky: true
 mermaid: true
 ---
-<style>
-.page__content { font-size: 0.85em; }
-</style>
-
 > 이 글은 오늘 수업의 **자율 실습 15문제**(개인 미션)를 기록한 devlog입니다.
 > 문제마다 `문제 상황 → 시도한 방법 → 막혔던 점 → 해결 과정 → 배운 점` 순서로 정리했습니다.
 

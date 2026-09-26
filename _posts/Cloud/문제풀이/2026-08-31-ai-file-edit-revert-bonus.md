@@ -13,10 +13,6 @@ toc: true
 toc_sticky: true
 mermaid: true
 ---
-<style>
-.page__content { font-size: 0.85em; }
-</style>
-
 > 이 글은 **자율 실습 · 12문제**(개인 실습) 중 **보너스(2문제)**를 기록한 devlog입니다.
 > 여유가 있을 때 푸는 문제로, Lv.1~Lv.3에서 익힌 되돌리기와 `CLAUDE.md` 설계를 더 깊이 파본다.
 > 문제마다 `문제 상황 → 시도한 방법 → 막혔던 점 → 해결 과정 → 배운 점` 순서로 정리했다.

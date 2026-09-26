@@ -16,8 +16,8 @@ plugins:
 description: "데이터 분석과 클라우드 아키텍처를 공부하며 매일 배운 내용을 기록하는 학습 블로그입니다."
 og_image: "/assets/images/og-banner.png"
 
-# 🎨 테마 스킨 변경 (dark, air, mint 중 택 1)
-minimal_mistakes_skin: "mint"
+# 🎨 테마 스킨: dark 고정. 실제 색은 assets/css/tokens.css가 덮어쓴다 (DESIGN.md 참고)
+minimal_mistakes_skin: "dark"
 
 # 미래 날짜로 작성해도 바로 게시되도록 허용
 future: true
@@ -46,7 +46,7 @@ breadcrumbs: true
 comments:
   provider: "utterances"
   utterances:
-    theme: "github-light"
+    theme: "github-dark"
     issue_term: "pathname"
 
 defaults:
@@ -59,3 +59,13 @@ defaults:
 
 # 게시글 주소(URL) 규칙 변경 (날짜 폴더 숨기기)
 permalink: /:categories/:title/
+
+# 사이트에 공개하지 않을 파일 (작성 가이드·디자인 문서·Agent 설정)
+exclude:
+  - CLAUDE.md
+  - DESIGN.md
+  - .claude
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - node_modules

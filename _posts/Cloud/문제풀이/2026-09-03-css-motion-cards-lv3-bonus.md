@@ -13,10 +13,6 @@ toc: true
 toc_sticky: true
 mermaid: true
 ---
-<style>
-.page__content { font-size: 0.85em; }
-</style>
-
 > 이 글은 **"CSS 심화 · 움직이는 카드 만들기" 자율 실습 · 전체 14문제**(개인 실습) 중 **Lv.3 — 도전(2문제)**과 **보너스(2문제)**를 기록한 devlog입니다.
 > Lv.1~Lv.2에서 익힌 `:hover`·`transition`·`transform`·`@keyframes`·Tailwind를 요구사항만 보고 스스로 설계하거나(3-1), 페이지 전체를 다른 방식으로 재작성하거나(3-2), 실제 서비스·내 페이지를 관찰하는(B-1, B-2) 단계다.
 > 문제마다 `문제 상황 → 시도한 방법 → 막혔던 점 → 해결 과정 → 배운 점` 순서로 정리했다.

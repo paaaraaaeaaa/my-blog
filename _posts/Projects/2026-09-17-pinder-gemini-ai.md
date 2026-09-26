@@ -15,10 +15,6 @@ toc_sticky: true
 mermaid: true
 ---
 
-<style>
-.page__content { font-size: 0.85em; }
-</style>
-
 > 시리즈 마지막 편. Gemini를 쓰는 두 기능 — AI 일정 생성 마법사와 채팅형 AI 도우미(`/api/chat`) — 을 다룬다. 앞의 셋(구글·이메일·카카오)이 "처음부터 안 됨"이었다면, 이번은 "로컬에선 되는데 배포하면 이상해지는" 종류의 문제라 원인을 좁히는 과정 자체가 달랐다.
 
 ## 문제 상황 (Task)

@@ -13,10 +13,6 @@ toc: true
 toc_sticky: true
 mermaid: true
 ---
-<style>
-.page__content { font-size: 0.85em; }
-</style>
-
 > 이 글은 **자율 실습 · 12문제**(개인 실습) 중 **Lv.1 — 기본 변형(5문제)**을 기록한 devlog입니다.
 > AI(Claude Code)가 내 블로그 파일을 직접 고치는 상황에서, 먼저 "되돌리는 법"부터 익힌다.
 > 문제마다 `문제 상황 → 시도한 방법 → 막혔던 점 → 해결 과정 → 배운 점` 순서로 정리했다.

@@ -15,10 +15,6 @@ toc_sticky: true
 mermaid: true
 ---
 
-<style>
-.page__content { font-size: 0.85em; }
-</style>
-
 > `pinder` 팀 프로젝트에서 내가 맡은 외부 서비스 연동을 하나씩 깊게 기록하는 시리즈다. 이 편은 Google 로그인 — [일차별 학습노트]({{ site.baseurl }}/cloud/day15/)에는 "Google 로그인까지 연동했다" 한 줄로 지나간 작업이지만, 실제로는 이틀에 걸쳐 두 단계로 끝난 일이었다.
 
 ## 문제 상황 (Task)

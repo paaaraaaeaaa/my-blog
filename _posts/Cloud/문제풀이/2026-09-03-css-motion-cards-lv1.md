@@ -13,10 +13,6 @@ toc: true
 toc_sticky: true
 mermaid: true
 ---
-<style>
-.page__content { font-size: 0.85em; }
-</style>
-
 > 이 글은 **"CSS 심화 · 움직이는 카드 만들기" 자율 실습 · 전체 14문제**(개인 실습) 중 **Lv.1 — 기본 변형(6문제)**을 기록한 devlog입니다.
 > 카페 메뉴 카드 세 장이 가로로 놓인 시작 코드에서, `:hover`와 `transition`, `transform`, `@keyframes`를 하나씩 붙여보며 움직임의 기본 감각을 익히는 단계다.
 > 문제마다 `문제 상황 → 시도한 방법 → 막혔던 점 → 해결 과정 → 배운 점` 순서로 정리했다.

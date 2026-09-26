@@ -81,6 +81,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+  // 3-1. 표를 가로 스크롤 틀로 감싸기 (좁은 화면에서 본문이 옆으로 밀리지 않도록)
+  document.querySelectorAll('.page__content table').forEach(function (table) {
+    if (table.closest('.table-scroll') || table.closest('.sidebar__right')) return;
+    var wrap = document.createElement('div');
+    wrap.className = 'table-scroll';
+    table.parentNode.insertBefore(wrap, table);
+    wrap.appendChild(table);
+  });
   // 4. 긴 코드 블록(15줄 초과) 접기/펼치기로 감싸기
   document.querySelectorAll('.page__content pre').forEach(function (pre) {
     if (pre.closest('.sidebar__right')) return;
@@ -118,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (todayBadge) {
     var kstNow = new Date(Date.now() + 9 * 60 * 60 * 1000);
     var todayStr = kstNow.toISOString().slice(0, 10);
-    todayBadge.src = 'https://visitor-badge.laobi.icu/badge?page_id=paaaraaaeaaa.my-blog-daily-' + todayStr + '&left_color=555555&right_color=4285f4';
+    todayBadge.src = 'https://visitor-badge.laobi.icu/badge?page_id=paaaraaaeaaa.my-blog-daily-' + todayStr + '&left_color=172238&right_color=2B5C86';
   }
 
   // 7. 링크 복사 버튼 (홈 화면 방문자 박스 안)
@@ -128,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var url = window.location.href;
       var done = function (ok) {
         copyBtn.textContent = ok ? '복사됨!' : '실패';
-        setTimeout(function () { copyBtn.textContent = '🔗 이 페이지 링크 복사'; }, 1500);
+        setTimeout(function () { copyBtn.textContent = '이 페이지 링크 복사'; }, 1500);
       };
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(url).then(function () { done(true); }).catch(function () { done(false); });
@@ -187,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var badge = document.createElement('span');
     badge.className = 'page-view-badge';
     var img = document.createElement('img');
-    img.src = 'https://visitor-badge.laobi.icu/badge?page_id=' + encodeURIComponent(key) + '&left_color=555555&right_color=4285f4&left_text=views';
+    img.src = 'https://visitor-badge.laobi.icu/badge?page_id=' + encodeURIComponent(key) + '&left_color=172238&right_color=2B5C86&left_text=views';
     img.alt = '조회수';
     badge.appendChild(img);
     bc.appendChild(badge);
@@ -219,7 +227,39 @@ document.addEventListener('DOMContentLoaded', function () {
     wrapper.parentNode.replaceChild(div, wrapper);
   });
 
-  mermaid.initialize({ startOnLoad: false, theme: 'default' });
+  // 다이어그램 색도 tokens.css 값을 그대로 읽어서 쓴다 (색을 여기 따로 적지 않음)
+  var css = getComputedStyle(document.documentElement);
+  var t = function (name) { return css.getPropertyValue(name).trim(); };
+  mermaid.initialize({
+    startOnLoad: false,
+    theme: 'base',
+    themeVariables: {
+      darkMode: true,
+      background: t('--c-surface'),
+      fontFamily: t('--font-sans'),
+      primaryColor: t('--c-surface-2'),
+      primaryTextColor: t('--c-text'),
+      primaryBorderColor: t('--c-signal'),
+      secondaryColor: t('--c-surface'),
+      tertiaryColor: t('--c-bg'),
+      lineColor: t('--c-text-3'),
+      textColor: t('--c-text-2'),
+      mainBkg: t('--c-surface-2'),
+      nodeBorder: t('--c-signal'),
+      clusterBkg: t('--c-bg'),
+      clusterBorder: t('--c-line-strong'),
+      edgeLabelBackground: t('--c-surface'),
+      actorBkg: t('--c-surface-2'),
+      actorBorder: t('--c-signal'),
+      actorTextColor: t('--c-text'),
+      signalColor: t('--c-text-2'),
+      signalTextColor: t('--c-text'),
+      noteBkgColor: t('--c-surface'),
+      noteTextColor: t('--c-text-2'),
+      noteBorderColor: t('--c-line-strong'),
+      git0: t('--c-cloud'), git1: t('--c-database'), git2: t('--c-projects'), git3: t('--c-success')
+    }
+  });
   mermaid.run({ querySelector: '.mermaid' });
 });
 </script>

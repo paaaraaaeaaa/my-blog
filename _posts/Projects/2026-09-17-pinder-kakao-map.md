@@ -15,10 +15,6 @@ toc_sticky: true
 mermaid: true
 ---
 
-<style>
-.page__content { font-size: 0.85em; }
-</style>
-
 > 플래너(동선짜기)의 지도·경로 기능은 카카오 API 세 종류(Map SDK, 로컬 라우팅, 모빌리티 길찾기)를 함께 쓴다. [17일차 학습노트]({{ site.baseurl }}/cloud/day17/)에는 동시 요청 제한 문제를 깊게 다뤘는데, 여기서는 그날 하루 동안 "지도에 경로선이 안 보인다"는 같은 증상으로 신고됐던 버그 다섯 개를 원인별로 모아 정리한다.
 
 ## 문제 상황 (Task)

@@ -1,0 +1,84 @@
+/* =====================================================================
+   tokens.css — 디자인 토큰 (Single Source of Truth)
+   ---------------------------------------------------------------------
+   사이트의 모든 색·글꼴·간격·모서리·그림자 값은 여기에만 존재한다.
+   site.css와 페이지 템플릿은 var(--...)만 쓰고, 색상 코드(#hex)를
+   직접 쓰지 않는다. 분위기를 바꾸고 싶으면 이 파일만 고치면 된다.
+   규칙 설명은 저장소 루트의 DESIGN.md 참고.
+   ===================================================================== */
+:root {
+  /* ---------- Color · 공간(배경) ---------- */
+  --c-bg:            #0B1120;  /* 페이지 배경: 깊은 우주 남색 */
+  --c-surface:       #111A2E;  /* 패널·카드 배경 */
+  --c-surface-2:     #172238;  /* 한 단계 올라온 면(hover, 표 헤더) */
+  --c-line:          #223049;  /* 기본 구분선 */
+  --c-line-strong:   #33425F;  /* 강조 구분선, 입력창 테두리 */
+  --c-code-bg:       #0E1628;  /* 코드 블록 배경 */
+
+  /* ---------- Color · 글자 ---------- */
+  --c-text:          #E3E8F2;  /* 본문 */
+  --c-text-2:        #A7B1C6;  /* 보조 설명 */
+  --c-text-3:        #76819A;  /* 날짜, 캡션 등 가장 약한 글자 */
+
+  /* ---------- Color · 신호(포인트) ---------- */
+  --c-signal:        #6FC3FF;  /* 유일한 네온 포인트: 링크·활성·진행 */
+  --c-signal-soft:   rgba(111,195,255,.12);
+  --c-signal-line:   rgba(111,195,255,.35);
+
+  /* ---------- Color · 카테고리 (정보 전달용, 장식 금지) ---------- */
+  --c-cloud:         #6FC3FF;  /* Cloud  — 신호색과 동일 계열 */
+  --c-database:      #B39DFF;  /* Database — 라벤더 */
+  --c-projects:      #F2A96B;  /* Projects — 추진체 앰버 */
+
+  /* ---------- Color · 상태 (콜아웃) ---------- */
+  --c-info:          #6FC3FF;
+  --c-danger:        #FF7C8B;
+  --c-success:       #5FD4A0;
+  --c-warning:       #F3C766;
+
+  /* ---------- Effect ---------- */
+  --glow:            0 0 10px rgba(111,195,255,.45);   /* 진행 점, 활성 표시에만 */
+  --shadow-pop:      0 12px 32px rgba(0,0,0,.35);      /* 떠 있는 요소(검색창 등)에만 */
+  --focus-ring:      0 0 0 2px var(--c-bg), 0 0 0 4px var(--c-signal);
+
+  /* ---------- Type ---------- */
+  --font-sans: "IBM Plex Sans KR", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", "D2Coding", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --fs-xs:   .75rem;    /* 12px 캡션 */
+  --fs-sm:   .875rem;   /* 14px 메타·버튼 */
+  --fs-base: 1.0625rem; /* 17px 본문 */
+  --fs-md:   1.1875rem; /* 19px h4 / 카드 제목 */
+  --fs-lg:   1.375rem;  /* 22px h3 */
+  --fs-xl:   1.75rem;   /* 28px h2 */
+  --fs-2xl:  2.25rem;   /* 36px 페이지 제목 */
+  --fs-3xl:  3rem;      /* 48px 홈 대시보드 숫자 */
+
+  --lh-body:  1.8;      /* 한글 본문 */
+  --lh-tight: 1.35;     /* 제목 */
+
+  --fw-regular: 400;
+  --fw-medium:  500;
+  --fw-bold:    600;
+  --fw-heavy:   700;
+
+  /* ---------- Space (4px 기반) ---------- */
+  --s-1: .25rem;  --s-2: .5rem;  --s-3: .75rem;  --s-4: 1rem;
+  --s-5: 1.5rem;  --s-6: 2rem;   --s-7: 3rem;    --s-8: 4rem;
+
+  /* ---------- Radius (계층별로 다르게) ---------- */
+  --r-sm: 6px;    /* 칩, 버튼, 코드 */
+  --r-md: 10px;   /* 카드, 패널, 표 */
+  --r-lg: 16px;   /* 홈 대시보드 패널 1개 */
+  --r-pill: 999px;
+
+  /* ---------- Layout ---------- */
+  --site-max-width: 1320px;
+  --measure: 44rem;          /* 본문 한 줄 최대 폭 (한글 약 40자) */
+  --fixed-offset: 110px;     /* JS가 상단바+경로 높이로 덮어씀 */
+
+  /* ---------- Motion ---------- */
+  --ease: cubic-bezier(.2,.7,.2,1);
+  --dur-fast: .15s;
+  --dur-slow: 1.2s;
+}

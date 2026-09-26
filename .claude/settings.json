@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-Command git -ErrorAction SilentlyContinue; where.exe git 2>$null; \\(Get-ChildItem \"C:\\\\Program Files\\\\Git\\\\bin\\\\git.exe\" -ErrorAction SilentlyContinue\\))"
+    ]
+  }
+}

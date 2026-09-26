@@ -15,10 +15,6 @@ toc_sticky: true
 mermaid: true
 ---
 
-<style>
-.page__content { font-size: 0.85em; }
-</style>
-
 > [일차별 학습노트 16일차]({{ site.baseurl }}/cloud/day16/)에도 이 작업이 실려 있지만, 여기서는 Resend가 왜 막혔는지, Gmail SMTP로 넘어가면서 같이 터진 문제까지 더 깊게 남긴다.
 
 ## 문제 상황 (Task)
