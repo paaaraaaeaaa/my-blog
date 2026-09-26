@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (todayBadge) {
     var kstNow = new Date(Date.now() + 9 * 60 * 60 * 1000);
     var todayStr = kstNow.toISOString().slice(0, 10);
-    todayBadge.src = 'https://visitor-badge.laobi.icu/badge?page_id=paaaraaaeaaa.my-blog-daily-' + todayStr + '&left_color=172238&right_color=2B5C86';
+    todayBadge.src = 'https://visitor-badge.laobi.icu/badge?page_id=paaaraaaeaaa.my-blog-daily-' + todayStr + '&left_color=1F1F2B&right_color=6A58E0';
   }
 
   // 7. 링크 복사 버튼 (홈 화면 방문자 박스 안)
@@ -135,8 +135,8 @@ document.addEventListener('DOMContentLoaded', function () {
     copyBtn.addEventListener('click', function () {
       var url = window.location.href;
       var done = function (ok) {
-        copyBtn.textContent = ok ? '복사됨!' : '실패';
-        setTimeout(function () { copyBtn.textContent = '이 페이지 링크 복사'; }, 1500);
+        copyBtn.textContent = ok ? '✅ 복사 완료!' : '실패';
+        setTimeout(function () { copyBtn.textContent = '🔗 링크 복사하기'; }, 1500);
       };
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(url).then(function () { done(true); }).catch(function () { done(false); });
@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var badge = document.createElement('span');
     badge.className = 'page-view-badge';
     var img = document.createElement('img');
-    img.src = 'https://visitor-badge.laobi.icu/badge?page_id=' + encodeURIComponent(key) + '&left_color=172238&right_color=2B5C86&left_text=views';
+    img.src = 'https://visitor-badge.laobi.icu/badge?page_id=' + encodeURIComponent(key) + '&left_color=1F1F2B&right_color=6A58E0&left_text=views';
     img.alt = '조회수';
     badge.appendChild(img);
     bc.appendChild(badge);

@@ -19,8 +19,10 @@ body {
   background: var(--c-bg);
   color: var(--c-text);
   font-family: var(--font-sans);
+  letter-spacing: var(--ls-body);
   -webkit-font-smoothing: antialiased;
 }
+h1, h2, h3, h4 { letter-spacing: var(--ls-tight); }
 h1, h2, h3, h4, h5, h6,
 .masthead, .greedy-nav, .page__meta, .page__taxonomy, .toc, .nav__list,
 .btn, .author__content, .author__urls, .breadcrumbs, .pagination,
@@ -69,8 +71,12 @@ a:visited { color: var(--c-signal); }
   gap: var(--s-2);
   font-weight: var(--fw-heavy) !important;
   font-size: var(--fs-md) !important;
-  letter-spacing: -.01em;
+  letter-spacing: var(--ls-tight);
   color: var(--c-text) !important;
+  background: linear-gradient(90deg, var(--c-text) 30%, var(--c-signal));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .site-title::before {
   content: "";
@@ -151,8 +157,8 @@ a:visited { color: var(--c-signal); }
 .breadcrumbs ol { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-1); margin: 0; padding: 0; }
 .breadcrumbs li { display: inline-flex; align-items: center; }
 .breadcrumbs li a {
-  padding: var(--s-1) var(--s-2);
-  border-radius: var(--r-sm);
+  padding: var(--s-1) var(--s-3);
+  border-radius: var(--r-pill);
   font-weight: var(--fw-medium);
   color: var(--c-text-3) !important;
   text-decoration: none !important;
@@ -217,7 +223,7 @@ a:visited { color: var(--c-signal); }
   font-size: var(--fs-2xl);
   font-weight: var(--fw-heavy);
   line-height: var(--lh-tight);
-  letter-spacing: -.02em;
+  letter-spacing: var(--ls-tight);
   margin-bottom: var(--s-3);
 }
 .page__meta { color: var(--c-text-3); font-size: var(--fs-sm); }
@@ -254,7 +260,7 @@ a:visited { color: var(--c-signal); }
   font-size: var(--fs-xl);
   font-weight: var(--fw-heavy);
   line-height: var(--lh-tight);
-  letter-spacing: -.015em;
+  letter-spacing: var(--ls-tight);
   color: var(--c-text);
   margin: var(--s-8) 0 var(--s-4);
   padding-bottom: var(--s-3);
@@ -351,7 +357,7 @@ pre { position: relative !important; }
   color: var(--c-text-2);
   background: var(--c-surface-2);
   border: 1px solid var(--c-line-strong);
-  border-radius: var(--r-sm);
+  border-radius: var(--r-pill);
   cursor: pointer;
 }
 .code-copy-btn:hover { color: var(--c-text); border-color: var(--c-signal-line); }
@@ -601,9 +607,10 @@ nav.toc .toc__menu li.active > a {       /* 스크롤 추적: 지금 읽는 항�
 .chip {
   display: inline-flex;
   align-items: center;
-  padding: 2px var(--s-2);
-  border: 1px solid var(--c-line-strong);
-  border-radius: var(--r-sm);
+  padding: 2px var(--s-3);
+  border: 1px solid transparent;
+  border-radius: var(--r-pill);
+  background: var(--c-surface-2);
   font-size: var(--fs-xs);
   font-weight: var(--fw-medium);
   color: var(--c-text-2);
@@ -617,8 +624,8 @@ nav.toc .toc__menu li.active > a {       /* 스크롤 추적: 지금 읽는 항�
   align-items: center;
   justify-content: center;
   gap: var(--s-2);
-  padding: var(--s-2) var(--s-4);
-  border-radius: var(--r-sm);
+  padding: var(--s-2) var(--s-5);
+  border-radius: var(--r-pill);
   font-size: var(--fs-sm);
   font-weight: var(--fw-bold);
   line-height: 1.4;
@@ -759,7 +766,7 @@ nav.toc .toc__menu li.active > a {       /* 스크롤 추적: 지금 읽는 항�
   font-size: var(--fs-2xl);
   font-weight: var(--fw-heavy);
   line-height: var(--lh-tight);
-  letter-spacing: -.02em;
+  letter-spacing: var(--ls-tight);
 }
 .page__content .page-intro__desc { max-width: var(--measure); margin: 0 0 var(--s-4) !important; color: var(--c-text-2); }
 .page__content .page-intro__stats { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); margin: 0; font-size: var(--fs-sm); color: var(--c-text-3); }
@@ -833,6 +840,7 @@ nav.toc .toc__menu li.active > a {       /* 스크롤 추적: 지금 읽는 항�
     radial-gradient(1px 1px at 88% 62%, color-mix(in srgb, var(--c-text) 50%, transparent), transparent),
     radial-gradient(1px 1px at 94% 30%, color-mix(in srgb, var(--c-text) 30%, transparent), transparent),
     radial-gradient(120% 90% at 100% 0%, var(--c-signal-soft), transparent 55%),
+    radial-gradient(90% 70% at 0% 100%, color-mix(in srgb, var(--c-database) 7%, transparent), transparent 60%),
     var(--c-surface);
 }
 .page__content .mission__status {
@@ -843,12 +851,12 @@ nav.toc .toc__menu li.active > a {       /* 스크롤 추적: 지금 읽는 항�
   font-size: var(--fs-sm);
   color: var(--c-text-2);
 }
-.mission__status::before {
-  content: "";
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: var(--c-success);
-  box-shadow: 0 0 8px var(--c-success);
+.page__content .mission__status {
+  padding: var(--s-1) var(--s-3);
+  border-radius: var(--r-pill);
+  background: var(--c-surface-2);
+  color: var(--c-text);
+  font-weight: var(--fw-medium);
 }
 .page__content .mission__title {
   margin: 0 0 var(--s-3);
@@ -856,7 +864,7 @@ nav.toc .toc__menu li.active > a {       /* 스크롤 추적: 지금 읽는 항�
   font-size: var(--fs-2xl);
   font-weight: var(--fw-heavy);
   line-height: var(--lh-tight);
-  letter-spacing: -.02em;
+  letter-spacing: var(--ls-tight);
 }
 .page__content .mission__desc { max-width: 36rem; margin: 0 0 var(--s-6) !important; color: var(--c-text-2); font-size: var(--fs-base); }
 
@@ -874,12 +882,20 @@ nav.toc .toc__menu li.active > a {       /* 스크롤 추적: 지금 읽는 항�
   font-size: var(--fs-3xl);
   font-weight: var(--fw-heavy);
   line-height: 1;
-  letter-spacing: -.03em;
+  letter-spacing: var(--ls-tight);
   font-variant-numeric: tabular-nums;
   color: var(--c-text);
 }
 .mission__day-unit { font-size: var(--fs-lg); font-weight: var(--fw-bold); color: var(--c-text); }
-.page__content .mission__meta { display: flex; gap: var(--s-5); margin: 0 !important; font-size: var(--fs-sm); color: var(--c-text-3); }
+.page__content .mission__meta { display: flex; align-items: center; gap: var(--s-4); margin: 0 !important; font-size: var(--fs-sm); color: var(--c-text-3); }
+.mission__dday {
+  padding: 2px var(--s-3);
+  border-radius: var(--r-pill);
+  background: var(--c-signal-soft);
+  color: var(--c-signal);
+  font-weight: var(--fw-heavy);
+  font-variant-numeric: tabular-nums;
+}
 .mission__meta b { color: var(--c-text); font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; }
 
 /* 궤적: 출발 → 현재 위치 → 도착 */
@@ -980,6 +996,15 @@ nav.toc .toc__menu li.active > a {       /* 스크롤 추적: 지금 읽는 항�
   text-decoration: none !important;
   transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
 }
+.index-card__icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.5rem; height: 2.5rem;
+  border-radius: var(--r-pill);
+  background: color-mix(in srgb, var(--cat) 14%, transparent);
+  font-size: 1.25rem; line-height: 1;
+}
+.index-card, a.day, .problem, .res-card { transition: transform var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease); }
+.index-card:hover, a.day:hover { transform: translateY(-2px); }
 .index-card:hover { background: var(--c-surface-2); border-color: color-mix(in srgb, var(--cat) 40%, var(--c-line)); border-top-color: var(--cat); }
 .index-card__top { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-2); }
 .index-card__name { font-size: var(--fs-md); font-weight: var(--fw-heavy); color: var(--c-text); }
@@ -1213,8 +1238,9 @@ a.day:hover .day__n { color: var(--c-signal); }
 .step__lv {
   justify-self: start;
   padding: 0 var(--s-2);
-  border: 1px solid color-mix(in srgb, var(--c-database) 40%, var(--c-line));
-  border-radius: var(--r-sm);
+  border: 1px solid transparent;
+  background: color-mix(in srgb, var(--c-database) 14%, transparent);
+  border-radius: var(--r-pill);
   font-size: .75rem;
   font-weight: var(--fw-bold);
   color: var(--c-database);
@@ -1321,8 +1347,8 @@ a.day:hover .day__n { color: var(--c-signal); }
 .project-hero__links { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-top: var(--s-4); }
 .project-hero__link {
   display: inline-flex; align-items: center; gap: var(--s-2);
-  padding: var(--s-2) var(--s-4);
-  border-radius: var(--r-sm);
+  padding: var(--s-2) var(--s-5);
+  border-radius: var(--r-pill);
   border: 1px solid var(--c-signal);
   background: var(--c-signal);
   color: var(--c-bg) !important;

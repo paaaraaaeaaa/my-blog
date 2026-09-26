@@ -33,8 +33,8 @@ classes: section-page
 {%- assign key = i | append: "" -%}
 {%- assign project = main_posts | where_exp: "p", "p.module == i" | first -%}
 {%- assign mod_series = series_posts | where_exp: "p", "p.module == i" -%}
-{%- if project -%}{%- assign st = "done" -%}{%- assign st_label = "완료" -%}
-{%- elsif i == current -%}{%- assign st = "current" -%}{%- assign st_label = "진행 중" -%}
+{%- if project -%}{%- assign st = "done" -%}{%- assign st_label = "완료 ✓" -%}
+{%- elsif i == current -%}{%- assign st = "current" -%}{%- assign st_label = "지금 여기" -%}
 {%- else -%}{%- assign st = "upcoming" -%}{%- assign st_label = "예정" -%}{%- endif -%}
 <li class="timeline__item is-{{ st }}">
 <span class="timeline__marker" aria-hidden="true"></span>

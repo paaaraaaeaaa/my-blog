@@ -33,13 +33,13 @@ classes: section-page
 {%- for i in (1..6) -%}
 {%- assign key = i | append: "" -%}
 {%- assign mod_posts = daily_posts | where_exp: "p", "p.module == i" -%}
-{%- if i < current -%}{%- assign st = "done" -%}{%- assign st_label = "완료" -%}
-{%- elsif i == current -%}{%- assign st = "current" -%}{%- assign st_label = "진행 중" -%}
+{%- if i < current -%}{%- assign st = "done" -%}{%- assign st_label = "완료 ✓" -%}
+{%- elsif i == current -%}{%- assign st = "current" -%}{%- assign st_label = "지금 여기" -%}
 {%- else -%}{%- assign st = "upcoming" -%}{%- assign st_label = "예정" -%}{%- endif -%}
 <button type="button" class="stage is-{{ st }}{% if i == current %} is-active{% endif %}" data-tab="m{{ i }}" role="tab" aria-selected="{% if i == current %}true{% else %}false{% endif %}" aria-controls="panel-m{{ i }}">
 <span class="stage__top"><span class="stage__num">모듈 {{ i }}</span><span class="stage__status">{{ st_label }}</span></span>
 <span class="stage__name">{{ site.data.modules[key] | default: "미정" }}</span>
-<span class="stage__meta">{% if mod_posts.size > 0 %}{{ mod_posts.size }}편{% else %}기록 전{% endif %}</span>
+<span class="stage__meta">{% if mod_posts.size > 0 %}{{ mod_posts.size }}편{% else %}곧 출발{% endif %}</span>
 </button>
 {%- endfor -%}
 </div>
@@ -93,7 +93,7 @@ classes: section-page
 {%- if hit.tags.size > 0 -%}<span class="day__tags">{% for t in hit.tags limit: 2 %}<span class="chip">{{ t }}</span>{% endfor %}</span>{%- endif -%}
 </a>
 {%- elsif site.data.holidays contains cell_date -%}
-<span class="day day--off"><span class="day__date">{{ cell_ts | date: "%-m.%-d" }}</span><span class="day__note">휴일</span></span>
+<span class="day day--off"><span class="day__date">{{ cell_ts | date: "%-m.%-d" }}</span><span class="day__note">쉬는 날 🌙</span></span>
 {%- else -%}
 <span class="day day--empty" aria-hidden="true"><span class="day__date">{{ cell_ts | date: "%-m.%-d" }}</span></span>
 {%- endif -%}
