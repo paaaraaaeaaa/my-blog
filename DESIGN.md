@@ -126,10 +126,10 @@ Pretendard는 국내 서비스(토스, 당근 등)에서 가장 많이 쓰는 �
 
 | 페이지 | 구조 (위에서 아래로) |
 |---|---|
-| 홈 `index.md` | 미션 패널(인사 · N일차 · 궤적 · 목표) → 섹션 바로가기 3칸 → 최근 글 5편 → GitHub 활동 |
-| Cloud `cloud.md` | 섹션 머리 → **모듈 스테이지 6칸**(완료/진행 중/예정, 클릭 시 전환) → 선택 모듈 요약(기간·노트·풀이·결과물) → **주 단위 달력**(주차 × 월~금, 휴일 표시) |
-| Database `Database.md` | 섹션 머리 → **문제와 풀이**(문제 카드 + Lv 단계 목록, 2열) → 게임 → 아티팩트 |
-| Projects `Projects.md` | 섹션 머리 → **모듈 타임라인 6정거장**(완료 = 결과물 카드 + 연동기, 진행 중 = 안내, 예정 = 제목만) |
+| 홈 `index.md` | 미션 패널(인사 · N일차 · D-day · 궤적 · **이번 주 기록 5칸** · 목표) → 섹션 바로가기 3칸 → 최근에 쓴 글 5편 → GitHub 잔디. 오른쪽 패널: 방문자 · **자주 쓴 태그(자동, 누르면 검색)** · 기술 스택 |
+| Cloud `cloud.md` | 섹션 머리 → **모듈 스테이지 6칸**(클릭 시 전환) → 모듈 제목 + **통계 타일 4개**(기간·학습노트는 중립, 문제풀이는 핑크·결과물은 라임 링크 타일) → **주 단위 달력** |
+| Database `Database.md` | 섹션 머리 → **섹션 바로가기 칩** → 🧩 문제와 풀이(문제 카드 + Lv 단계) → `_data/database_sections.yml` 순서대로 자료 섹션(아이콘·색·설명) → 거기 없는 분류는 기본 모양으로 맨 뒤 |
+| Projects `Projects.md` | 섹션 머리 → **모듈 타임라인**. 완료 = 2열 카드(왼쪽 결과물 요약, 오른쪽 연동기 상세), 진행 중 = 안내, 시작 전 모듈은 맨 아래 **다음 정거장** 한 줄로 |
 | 게시글 | 제목 → (선택) `#` 부제목 → 본문 → 이전/다음 → 댓글. 우측 목차(`##`부터) |
 
 섹션 페이지(Cloud/Database/Projects)는 사이드바가 없으므로 본문이 사이트 폭 전체를 쓴다.
@@ -143,6 +143,7 @@ Pretendard는 국내 서비스(토스, 당근 등)에서 가장 많이 쓰는 �
 | Projects 결과물 | `categories: [Projects]`, `module: N` (type 없음) | `project_name`, `banner_emoji`, `live_url`, `tags` |
 | Projects 연동기 | `type: practice`, `module: N`, `topic`, `level_order` | `tags` (첫 번째가 칩으로 표시) |
 | Database 문제 (yml) | `category: "문제"`, `title`, `url` | `module`, `topics: ["풀이 글의 topic"]` |
+| Database 자료 (yml) | `category`, `title`, `url` 또는 `file` | `description`. 새 category는 `_data/database_sections.yml`에 `name`·`emoji`·`tone`·`desc` 한 줄 추가 |
 
 ---
 
@@ -168,7 +169,16 @@ Pretendard는 국내 서비스(토스, 당근 등)에서 가장 많이 쓰는 �
 | `.week-grid` > `.week` > `.day` / `.day--off` / `.day--empty` | 주 단위 달력 칸 |
 | `.problem-list` > `.problem` (+ `.problem--unlinked`) | 문제 카드 |
 | `.steps` > `.step` (+ `__lv` `__title`) | 풀이 단계 목록 |
-| `.res-grid` > `.res-card` | Database 자료 카드 |
+| `.module-stats` > `.stat` / `.stat--link` / `.stat--muted` | 모듈 통계 타일. 링크 타일은 `is-섹션`색 |
+| `.jump-nav` > `.jump` | 섹션 바로가기 칩 (개수 뱃지) |
+| `.res-section` (+ `__head` `__icon` `__title` `__desc` `__count`) | Database 자료 섹션 머리. `is-색이름`으로 톤 지정 |
+| `.res-grid` > `.res-card` | 자료 카드: 파비콘 + 도메인, 제목(카드 전체 클릭), 설명, 첨부파일 버튼 |
+| `.proj-card--split` > `.proj-card__main` + `.proj-card__side` | 결과물 2열 카드 |
+| `.chapter-list` > `.chapter` | 연동기 챕터 (번호 원 + 세로선) |
+| `.next-stops` > `.next-stop` | 시작 전 모듈 모음 |
+| `.week-strip` > `.wdot` | 홈 이번 주 기록 점 |
+| `.chip--btn[data-search]` | 누르면 검색창이 열리며 그 단어로 검색 |
+| `.sr-*` | 검색 결과 (탭, 그룹, 항목) |
 | `.timeline` > `.timeline__item.is-done/.is-current/.is-upcoming` | Projects 모듈 타임라인 |
 | `.proj-series` | 결과물 카드 안 연동기 목록 |
 | `.proj-slot` | 진행 중인 모듈의 빈 결과물 자리 |
@@ -190,6 +200,16 @@ Pretendard는 국내 서비스(토스, 당근 등)에서 가장 많이 쓰는 �
 | ` ```mermaid ` | 토큰 색으로 그려진 다이어그램 |
 
 ---
+
+### 4.2 검색
+
+상단 돋보기를 누르면 본문 자리에 검색 화면이 열린다. 테마 기본 lunr 대신 `assets/js/lunr/lunr-en.js`의 부분 문자열 검색을 쓴다(한글 단어 중간 일치).
+
+- 데이터: `assets/js/lunr/lunr-store.js`가 모든 글 + `database_links.yml` 자료를 모은다.
+- 분류: Cloud 학습노트 → **Cloud**, 문제풀이·문제·자료 → **Database**, 결과물·연동기 → **Projects**.
+- 결과 화면: **전체 / Cloud / Database / Projects** 탭(개수 표시). 전체 탭은 섹션별로 3개씩 보여주고 "모두 보기"로 해당 탭 이동.
+- 점수: 제목 > 태그 > 요약 > 본문. 여러 단어는 모두 포함된 글만(AND). Enter는 첫 결과로 이동, Esc는 닫기.
+- 어느 페이지든 `data-search="단어"` 속성을 가진 버튼은 검색 트리거가 된다.
 
 ## 5. 글 작성 규칙 (스타일 관련)
 
