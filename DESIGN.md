@@ -138,7 +138,7 @@ Pretendard는 국내 서비스(토스, 당근 등)에서 가장 많이 쓰는 �
 
 | 글 종류 | 필수 | 선택 |
 |---|---|---|
-| Cloud 학습노트 | `categories: [Cloud]`, `type: daily`, `module: N`, `excerpt` | `tags` (달력 칸에 앞 2개 표시) |
+| Cloud 학습노트 | `categories: [Cloud]`, `type: daily`, `module: N`, `summary`, `excerpt` | `tags` (달력 칸에 앞 2개 표시). `summary`는 달력 칸 한 줄, `excerpt`는 목록·검색 요약 |
 | Cloud 문제풀이 | `type: practice`, `module: N`, `topic`, `level_order` | 제목을 `Lv1 · 제목` 형식으로 쓰면 단계 라벨이 자동 분리됨 |
 | Projects 결과물 | `categories: [Projects]`, `module: N` (type 없음) | `project_name`, `banner_emoji`, `live_url`, `tags` |
 | Projects 연동기 | `type: practice`, `module: N`, `topic`, `level_order` | `tags` (첫 번째가 칩으로 표시) |

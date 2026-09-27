@@ -141,7 +141,7 @@ my-blog/
 
 | 글 종류 | 필수 | 선택 |
 |---|---|---|
-| Cloud 학습노트 | `categories: [Cloud]` `type: daily` `module: N` `excerpt` | `tags` (달력 칸에 앞 2개 표시) |
+| Cloud 학습노트 | `categories: [Cloud]` `type: daily` `module: N` `summary` `excerpt` | `tags` (달력 칸에 앞 2개 표시) |
 | Cloud 문제풀이 | `type: practice` `module: N` `topic` `level_order` | 제목을 `Lv1 · 제목`으로 쓰면 레벨 라벨이 자동 분리 |
 | Projects 결과물 | `categories: [Projects]` `module: N` (type 없음) | `project_name` `banner_emoji` `live_url` `tags` |
 | Projects 연동기 | `type: practice` `module: N` `topic` `level_order` | `tags` |
@@ -151,6 +151,7 @@ my-blog/
 ```yaml
 ---
 title: "21일차"
+summary: "오늘 배운 것 한 줄. Cloud 달력 칸에 크게 보여요."
 excerpt: "오늘 배운 것을 한두 문장으로. 목록과 달력 칸에 이 문장이 보여요."
 layout: single
 categories: [Cloud]

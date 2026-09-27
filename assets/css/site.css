@@ -1274,6 +1274,19 @@ a.day:hover .day__n { color: var(--c-signal); }
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+.day__summary {                           /* 글의 "오늘 배운 것" 한 줄 (front matter summary) */
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  line-height: 1.5;
+  letter-spacing: var(--ls-body);
+  color: var(--c-text);
+  word-break: keep-all;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+a.day:hover .day__summary { color: var(--c-text); }
 .day__tags { display: flex; flex-wrap: wrap; gap: var(--s-1); margin-top: auto; padding-top: var(--s-1); }
 .day__tags .chip { font-size: .75rem; padding: 0 var(--s-1); max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
 .day--empty, .day--off { background: transparent; border-style: dashed; border-color: var(--c-line); }

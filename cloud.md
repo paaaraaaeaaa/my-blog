@@ -109,9 +109,9 @@ classes: section-page
 {%- assign hit = nil -%}
 {%- for p in w.items -%}{%- assign pu = p.date | date: "%u" | plus: 0 -%}{%- if pu == d -%}{%- assign hit = p -%}{%- endif -%}{%- endfor -%}
 {%- if hit -%}
-<a class="day" href="{{ hit.url | relative_url }}">
+<a class="day" href="{{ hit.url | relative_url }}" title="{{ hit.excerpt | strip_html | strip_newlines | escape }}">
 <span class="day__top"><span class="day__n">{{ hit.title }}</span><span class="day__date">{{ hit.date | date: "%-m.%-d" }}</span></span>
-<span class="day__text">{{ hit.excerpt | strip_html | strip_newlines | truncate: 64 }}</span>
+{%- if hit.summary -%}<span class="day__summary">{{ hit.summary }}</span>{%- else -%}<span class="day__text">{{ hit.excerpt | strip_html | strip_newlines | truncate: 64 }}</span>{%- endif -%}
 {%- if hit.tags.size > 0 -%}<span class="day__tags">{% for t in hit.tags limit: 2 %}<span class="chip">{{ t }}</span>{% endfor %}</span>{%- endif -%}
 </a>
 {%- elsif site.data.holidays contains cell_date -%}
