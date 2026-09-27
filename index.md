@@ -88,7 +88,7 @@ classes: home-page
 {%- for e in skill_rank limit: 10 -%}{%- assign parts = e | split: "|" -%}{%- assign skill_ids = skill_ids | push: parts[1] -%}{%- endfor -%}
 <div class="home-panel__row">
 <span class="home-panel__label home-panel__label--split"><span>기술 스택</span><b>많이 쓴 순 {{ skill_ids.size }}개</b></span>
-<img class="home-panel__stack" src="https://skillicons.dev/icons?i={{ skill_ids | join: ',' }}&theme=dark&perline=5" alt="{{ skill_ids | join: ', ' }}" loading="lazy" />
+<img class="home-panel__stack" src="https://skillicons.dev/icons?i={{ skill_ids | join: ',' }}&theme=dark&perline=5" data-src-light="https://skillicons.dev/icons?i={{ skill_ids | join: ',' }}&theme=light&perline=5" alt="{{ skill_ids | join: ', ' }}" loading="lazy" />
 </div>
 <button type="button" id="copy-link-btn" class="btn-line">🔗 링크 복사하기</button>
 </section>
@@ -235,7 +235,7 @@ classes: home-page
 <section class="panel gh-panel">
 <div class="gh-panel__item gh-panel__streak">
 <h3>🔥 연속 커밋</h3>
-<img src="https://streak-stats.demolab.com?user=paaaraaaeaaa&hide_border=true&background=00000000&stroke=272734&ring=A594FF&fire=FF8AC8&currStreakNum=F4F4F8&sideNums=F4F4F8&currStreakLabel=A594FF&sideLabels=B6B6C8&dates=80809A" alt="GitHub 연속 기여 통계" loading="lazy" />
+<img src="https://streak-stats.demolab.com?user=paaaraaaeaaa&hide_border=true&background=00000000&stroke=272734&ring=A594FF&fire=FF8AC8&currStreakNum=F4F4F8&sideNums=F4F4F8&currStreakLabel=A594FF&sideLabels=B6B6C8&dates=80809A" data-src-light="https://streak-stats.demolab.com?user=paaaraaaeaaa&hide_border=true&background=00000000&stroke=E2E2EB&ring=6A55E0&fire=C22C80&currStreakNum=15151E&sideNums=15151E&currStreakLabel=6A55E0&sideLabels=4B4B60&dates=6E6E84" alt="GitHub 연속 기여 통계" loading="lazy" />
 </div>
 <div class="gh-panel__item">
 <h3>🌱 잔디밭</h3>

@@ -22,7 +22,7 @@ body {
   letter-spacing: var(--ls-body);
   -webkit-font-smoothing: antialiased;
 }
-h1, h2, h3, h4 { letter-spacing: var(--ls-tight); }
+h1, h2, h3, h4, h5, h6 { letter-spacing: var(--ls-tight); color: var(--c-text); }  /* 테마 기본 제목색(회색) 덮어쓰기 */
 h1, h2, h3, h4, h5, h6,
 .masthead, .greedy-nav, .page__meta, .page__taxonomy, .toc, .nav__list,
 .btn, .author__content, .author__urls, .breadcrumbs, .pagination,
@@ -242,7 +242,7 @@ a:visited { color: var(--c-signal); }
 .page__content li > ul, .page__content li > ol { margin-top: var(--s-2); }
 .page__content ul li::marker, .page__content ol li::marker { color: var(--c-text-3); }
 
-.page__content h1 {                        /* 글 안의 # 은 부제목으로 취급 */
+.layout--single:not(.section-page):not(.home-page) .page__content h1 {   /* 게시글 안의 # 은 부제목으로 취급 (홈·섹션 제목 h1에는 적용 안 함) */
   font-size: var(--fs-lg);
   font-weight: var(--fw-bold);
   line-height: 1.5;
@@ -331,7 +331,7 @@ a:visited { color: var(--c-signal); }
 }
 div.highlighter-rouge, figure.highlight {
   border-radius: var(--r-md);
-  border: 1px solid var(--c-line);
+  border: 1px solid color-mix(in srgb, var(--c-code-bg) 70%, var(--c-line));
   background: var(--c-code-bg) !important;
   margin: var(--s-5) 0;
 }
@@ -349,13 +349,13 @@ pre { position: relative !important; }
   font-family: var(--font-sans);
   font-size: var(--fs-xs);
   line-height: 1.5;
-  color: var(--c-text-2);
-  background: var(--c-surface-2);
-  border: 1px solid var(--c-line-strong);
+  color: var(--c-code-ui-text);
+  background: var(--c-code-ui-bg);
+  border: 1px solid var(--c-code-ui-line);
   border-radius: var(--r-pill);
   cursor: pointer;
 }
-.code-copy-btn:hover { color: var(--c-text); border-color: var(--c-signal-line); }
+.code-copy-btn:hover { color: var(--c-code-text); border-color: var(--c-signal-line); }
 
 details.code-collapse { margin: var(--s-5) 0; }
 details.code-collapse > summary {
@@ -1051,9 +1051,10 @@ nav.toc .toc__menu li.active > a {       /* 스크롤 추적: 지금 읽는 항�
 .gh-panel__streak img { max-width: 30rem; margin: 0 auto; }
 .gh-panel__chart { padding: var(--s-3) var(--s-4); border-radius: var(--r-sm); background: var(--c-bg); }
 .gh-panel__chart img {
-  /* ghchart는 밝은 배경 전용 SVG라 색을 반전해 어두운 면에 맞춘다. 폭은 패널에 맞춰 축소 */
+  /* ghchart는 밝은 배경 전용 SVG라 다크 테마에서만 색을 반전해 어두운 면에 맞춘다 */
   filter: invert(1) hue-rotate(180deg) brightness(.92) contrast(.92);
 }
+:root[data-theme="light"] .gh-panel__chart img { filter: none; }
 .week-strip {
   display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-4);
   margin-top: var(--s-5);
@@ -1276,10 +1277,10 @@ a.day:hover .day__n { color: var(--c-signal); }
 }
 .day__summary {                           /* 글의 "오늘 배운 것" 한 줄 (front matter summary) */
   font-size: var(--fs-sm);
-  font-weight: var(--fw-bold);
-  line-height: 1.5;
+  font-weight: var(--fw-regular);       /* 일차 제목(굵게)과 겹쳐 보이지 않도록 보통 굵기 */
+  line-height: 1.6;
   letter-spacing: var(--ls-body);
-  color: var(--c-text);
+  color: var(--c-text-2);
   word-break: keep-all;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -1287,6 +1288,7 @@ a.day:hover .day__n { color: var(--c-signal); }
   overflow: hidden;
 }
 a.day:hover .day__summary { color: var(--c-text); }
+.day__top { margin-bottom: 2px; }
 .day__tags { display: flex; flex-wrap: wrap; gap: var(--s-1); margin-top: auto; padding-top: var(--s-1); }
 .day__tags .chip { font-size: .75rem; padding: 0 var(--s-1); max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
 .day--empty, .day--off { background: transparent; border-style: dashed; border-color: var(--c-line); }
@@ -1641,7 +1643,7 @@ a.day:hover .day__summary { color: var(--c-text); }
 }
 .search-content .search-input::placeholder { color: var(--c-text-3); }
 .search-content .search-input:focus { border-color: var(--c-signal) !important; box-shadow: 0 0 0 4px var(--c-signal-soft) !important; outline: none; }
-.search-content .search-input::-webkit-search-cancel-button { filter: invert(1) opacity(.5); }
+:root:not([data-theme="light"]) .search-content .search-input::-webkit-search-cancel-button { filter: invert(1) opacity(.5); }
 .search-content .results { margin-top: var(--s-5); }
 
 .sr-empty { padding: var(--s-6) var(--s-2); text-align: center; }
@@ -1832,7 +1834,8 @@ div.highlighter-rouge { position: relative; }
   font-size: .75rem;
   font-weight: var(--fw-bold);
   line-height: 1.5;
-  color: var(--c-text-3);
+  color: var(--c-code-ui-text);
+  opacity: .8;
   pointer-events: none;
 }
 
@@ -1862,7 +1865,8 @@ div.highlighter-rouge { position: relative; }
 @media (max-width: 640px) {
   .greedy-nav .visible-links, .greedy-nav__toggle, .greedy-nav .hidden-links { display: none !important; }
   .greedy-nav { justify-content: flex-start; }
-  .search__toggle { margin-left: auto !important; margin-right: 0 !important; min-width: 2.5rem; }
+  .theme-toggle { margin-left: auto; }
+  .search__toggle { margin-left: 0 !important; margin-right: 0 !important; min-width: 2.5rem; }
   .site-title { font-size: var(--fs-base) !important; }
   .mnav__toggle {
     display: inline-flex; align-items: center; justify-content: center;
@@ -1904,6 +1908,42 @@ div.highlighter-rouge { position: relative; }
   .code-lang { display: none; }
   .post-meta__item + .post-meta__item::before { display: none; }
 }
+
+/* ---------------------------------------------------------------------
+   18. 테마 전환 버튼 (상단바, 모든 페이지)
+   --------------------------------------------------------------------- */
+.theme-toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.5rem; height: 2.5rem;
+  margin-left: var(--s-2);
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--c-text-2);
+  cursor: pointer;
+  flex: none;
+  transition: color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+.theme-toggle:hover { color: var(--c-text); background: var(--c-surface); border-color: var(--c-line); }
+.theme-toggle:focus:not(:focus-visible) { outline: none; box-shadow: none; }
+.author__urls-wrapper button { white-space: nowrap; }
+.theme-toggle__sun { display: none; }
+:root[data-theme="light"] .theme-toggle__sun { display: block; }
+:root[data-theme="light"] .theme-toggle__moon { display: none; }
+.theme-toggle svg { transition: transform .35s var(--ease); }
+.theme-toggle:hover svg { transform: rotate(-20deg); }
+/* 전환하는 순간에만 색이 부드럽게 바뀐다 (평소 hover 반응 속도에는 영향 없음) */
+.theme-anim, .theme-anim *, .theme-anim *::before, .theme-anim *::after {
+  transition: background-color .3s var(--ease), border-color .3s var(--ease), color .3s var(--ease), fill .3s var(--ease) !important;
+}
+/* 테마 기본 스타일 중 색이 고정된 것들을 토큰으로 */
+@media (max-width: 1023px) {             /* 모바일에서 펼쳐지는 연락처 상자만 */
+  .author__urls { background: var(--c-surface) !important; border-color: var(--c-line) !important; }
+  .author__urls::before, .author__urls::after { display: none; }
+}
+@media (min-width: 1024px) { .author__urls { background: transparent !important; border: 0 !important; box-shadow: none !important; } }
+:root[data-theme="light"] .page-view-badge img { opacity: 1; }
 
 /* ---------------------------------------------------------------------
    14. 반응형 · 접근성

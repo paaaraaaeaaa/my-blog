@@ -235,44 +235,53 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var div = document.createElement('div');
     div.className = 'mermaid';
+    div.setAttribute('data-src', graphText);   // 테마를 바꿀 때 다시 그리기 위해 원본 보관
     div.textContent = graphText;
     wrapper.parentNode.replaceChild(div, wrapper);
   });
 
   // 다이어그램 색도 tokens.css 값을 그대로 읽어서 쓴다 (색을 여기 따로 적지 않음)
-  var css = getComputedStyle(document.documentElement);
-  var t = function (name) { return css.getPropertyValue(name).trim(); };
-  mermaid.initialize({
-    startOnLoad: false,
-    theme: 'base',
-    themeVariables: {
-      darkMode: true,
-      background: t('--c-surface'),
-      fontFamily: t('--font-sans'),
-      primaryColor: t('--c-surface-2'),
-      primaryTextColor: t('--c-text'),
-      primaryBorderColor: t('--c-signal'),
-      secondaryColor: t('--c-surface'),
-      tertiaryColor: t('--c-bg'),
-      lineColor: t('--c-text-3'),
-      textColor: t('--c-text-2'),
-      mainBkg: t('--c-surface-2'),
-      nodeBorder: t('--c-signal'),
-      clusterBkg: t('--c-bg'),
-      clusterBorder: t('--c-line-strong'),
-      edgeLabelBackground: t('--c-surface'),
-      actorBkg: t('--c-surface-2'),
-      actorBorder: t('--c-signal'),
-      actorTextColor: t('--c-text'),
-      signalColor: t('--c-text-2'),
-      signalTextColor: t('--c-text'),
-      noteBkgColor: t('--c-surface'),
-      noteTextColor: t('--c-text-2'),
-      noteBorderColor: t('--c-line-strong'),
-      git0: t('--c-cloud'), git1: t('--c-database'), git2: t('--c-projects'), git3: t('--c-success')
-    }
-  });
-  mermaid.run({ querySelector: '.mermaid' });
+  function renderMermaid() {
+    var css = getComputedStyle(document.documentElement);
+    var t = function (name) { return css.getPropertyValue(name).trim(); };
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'base',
+      themeVariables: {
+        darkMode: document.documentElement.getAttribute('data-theme') !== 'light',
+        background: t('--c-surface'),
+        fontFamily: t('--font-sans'),
+        primaryColor: t('--c-surface-2'),
+        primaryTextColor: t('--c-text'),
+        primaryBorderColor: t('--c-signal'),
+        secondaryColor: t('--c-surface'),
+        tertiaryColor: t('--c-bg'),
+        lineColor: t('--c-text-3'),
+        textColor: t('--c-text-2'),
+        mainBkg: t('--c-surface-2'),
+        nodeBorder: t('--c-signal'),
+        clusterBkg: t('--c-bg'),
+        clusterBorder: t('--c-line-strong'),
+        edgeLabelBackground: t('--c-surface'),
+        actorBkg: t('--c-surface-2'),
+        actorBorder: t('--c-signal'),
+        actorTextColor: t('--c-text'),
+        signalColor: t('--c-text-2'),
+        signalTextColor: t('--c-text'),
+        noteBkgColor: t('--c-surface'),
+        noteTextColor: t('--c-text-2'),
+        noteBorderColor: t('--c-line-strong'),
+        git0: t('--c-cloud'), git1: t('--c-database'), git2: t('--c-projects'), git3: t('--c-success')
+      }
+    });
+    document.querySelectorAll('.mermaid[data-src]').forEach(function (el) {
+      el.removeAttribute('data-processed');
+      el.textContent = el.getAttribute('data-src');
+    });
+    mermaid.run({ querySelector: '.mermaid' });
+  }
+  renderMermaid();
+  document.addEventListener('themechange', renderMermaid);
 });
 </script>
 
@@ -318,5 +327,76 @@ document.addEventListener('DOMContentLoaded', function () {
   btn.addEventListener('click', function (e) { e.stopPropagation(); setOpen(menu.hidden); });
   document.addEventListener('click', function (e) { if (!menu.hidden && !menu.contains(e.target)) setOpen(false); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
+})();
+</script>
+
+<script>
+/* [my-blog] 라이트/다크 테마 전환. 색은 tokens.css, 규칙은 DESIGN.md "2.4 테마" */
+(function () {
+  var root = document.documentElement;
+  function current() { return root.getAttribute('data-theme') === 'light' ? 'light' : 'dark'; }
+
+  // 외부 위젯 이미지: data-src-light가 있으면 라이트일 때 그 주소로 바꾼다
+  function swapImages(theme) {
+    document.querySelectorAll('img[data-src-light]').forEach(function (img) {
+      if (!img.getAttribute('data-src-dark')) img.setAttribute('data-src-dark', img.getAttribute('src'));
+      var next = img.getAttribute(theme === 'light' ? 'data-src-light' : 'data-src-dark');
+      if (img.getAttribute('src') !== next) img.setAttribute('src', next);
+    });
+  }
+  // 댓글(utterances) 테마
+  function setComments(theme) {
+    var frame = document.querySelector('.utterances-frame');
+    if (frame && frame.contentWindow) {
+      frame.contentWindow.postMessage({ type: 'set-theme', theme: theme === 'light' ? 'github-light' : 'github-dark' }, 'https://utteranc.es');
+    }
+  }
+  function syncMeta() {
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', getComputedStyle(root).getPropertyValue('--c-bg').trim());
+  }
+  function syncButton(theme) {
+    document.querySelectorAll('.theme-toggle').forEach(function (b) {
+      b.setAttribute('aria-label', theme === 'light' ? '다크 모드로 바꾸기' : '라이트 모드로 바꾸기');
+      b.setAttribute('aria-pressed', theme === 'light' ? 'true' : 'false');
+    });
+  }
+  function apply(theme, save) {
+    root.setAttribute('data-theme', theme);
+    if (save) { try { localStorage.setItem('theme', theme); } catch (e) {} }
+    swapImages(theme); setComments(theme); syncMeta(); syncButton(theme);
+    document.dispatchEvent(new CustomEvent('themechange', { detail: { theme: theme } }));
+  }
+
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.theme-toggle')) return;
+    root.classList.add('theme-anim');
+    apply(current() === 'light' ? 'dark' : 'light', true);
+    setTimeout(function () { root.classList.remove('theme-anim'); }, 350);
+  });
+
+  // 직접 고른 적이 없으면 기기 설정 변경을 따라간다
+  if (window.matchMedia) {
+    var mq = matchMedia('(prefers-color-scheme: light)');
+    var onChange = function (ev) {
+      var saved; try { saved = localStorage.getItem('theme'); } catch (e) {}
+      if (!saved) apply(ev.matches ? 'light' : 'dark', false);
+    };
+    if (mq.addEventListener) mq.addEventListener('change', onChange); else if (mq.addListener) mq.addListener(onChange);
+  }
+
+  // 댓글 iframe은 늦게 생기므로, 생기면 현재 테마를 한 번 보낸다
+  var box = document.getElementById('utterances-comments');
+  if (box && window.MutationObserver) {
+    new MutationObserver(function () {
+      var frame = box.querySelector('.utterances-frame');
+      if (frame && !frame.dataset.themed) {
+        frame.dataset.themed = '1';
+        frame.addEventListener('load', function () { setComments(current()); });
+      }
+    }).observe(box, { childList: true, subtree: true });
+  }
+
+  swapImages(current()); syncMeta(); syncButton(current());
 })();
 </script>

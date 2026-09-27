@@ -5,6 +5,7 @@
 - 값(색·글꼴·간격): `assets/css/tokens.css`
 - 컴포넌트 스타일: `assets/css/site.css`
 - 연결부: `_includes/head/custom.html` (위 두 파일을 불러오기만 함)
+- 작업 방법: 디자인을 바꿀 때는 `/design` 스킬로 작업하고, 커밋 전에 `design-guard` 에이전트로 검사한다.
 
 ---
 
@@ -62,6 +63,30 @@
 | `--c-danger` | `#FF6F82` | 🔴 에러 |
 | `--c-success` | `#4FE0A6` | 🟢 해결 |
 | `--c-warning` | `#FFCB5C` | ⚠️ 🚨 주의 |
+
+### 2.1-1 라이트 테마 값
+
+상단바 해·달 버튼으로 모든 페이지에서 바꿀 수 있다. 선택은 브라우저에 저장되고, 고른 적이 없으면 기기 설정(다크/라이트)을 따른다.
+
+| 토큰 | 다크 | 라이트 |
+|---|---|---|
+| `--c-bg` | `#0C0C12` | `#F6F6FA` |
+| `--c-surface` / `--c-surface-2` | `#16161F` / `#1F1F2B` | `#FFFFFF` / `#EFEFF5` |
+| `--c-line` / `--c-line-strong` | `#272734` / `#383849` | `#E2E2EB` / `#CBCBD9` |
+| `--c-text` / `-2` / `-3` | `#F4F4F8` / `#B6B6C8` / `#80809A` | `#15151E` / `#4B4B60` / `#6E6E84` |
+| `--c-signal` | `#A594FF` | `#6A55E0` |
+| `--c-cloud` / `--c-database` / `--c-projects` | `#62CFFF` / `#FF8AC8` / `#C9F26B` | `#0B7CBB` / `#C22C80` / `#4F7D00` |
+| `--c-danger` / `--c-success` / `--c-warning` | `#FF6F82` / `#4FE0A6` / `#FFCB5C` | `#D23A50` / `#0E8455` / `#9A6310` |
+| `--c-code-*` (코드 블록) | 두 테마 공통으로 어두움 | ← 같음 |
+
+라이트 값은 흰 배경에서 **글자로 읽히도록(대비 4.5:1 이상)** 한 단계 진하다. 새 색 토큰은 반드시 두 블록에 모두 넣는다.
+
+테마를 바꾸면 함께 바뀌는 것(`_includes/footer/custom.html`):
+- `data-src-light` 속성이 있는 이미지(GitHub Streak, 기술 스택 아이콘)는 라이트용 주소로 교체
+- 댓글(utterances)은 `github-light` / `github-dark`로 전환
+- Mermaid 다이어그램은 새 토큰 색으로 다시 그림
+- 기여 캘린더(ghchart)는 다크에서만 색 반전 필터
+- 전환 순간에만 0.3초 색 전환 (`.theme-anim`)
 
 ### 2.2 글꼴
 
@@ -181,6 +206,8 @@ Pretendard는 국내 서비스(토스, 당근 등)에서 가장 많이 쓰는 �
 | `.week-strip` > `.wdot` | 홈 이번 주 기록 점 |
 | `.chip--btn[data-search]` | 누르면 검색창이 열리며 그 단어로 검색 |
 | `.sr-*` | 검색 결과 (탭, 그룹, 항목) |
+| `.theme-toggle` | 상단바 라이트/다크 전환 버튼 (`_includes/masthead.html`) |
+| `img[data-src-light]` | 라이트 테마에서 다른 주소로 바뀌는 외부 이미지 |
 | `.timeline` > `.timeline__item.is-done/.is-current/.is-upcoming` | Projects 모듈 타임라인 |
 | `.proj-series` | 결과물 카드 안 연동기 목록 |
 | `.proj-slot` | 진행 중인 모듈의 빈 결과물 자리 |
@@ -237,14 +264,15 @@ Pretendard는 국내 서비스(토스, 당근 등)에서 가장 많이 쓰는 �
 | 방문자·조회수 뱃지 | `index.md`, `_includes/footer/custom.html` | `left_color=1F1F2B` `right_color=6A58E0` |
 | GitHub Streak | `index.md` | `ring` `currStreakLabel` = signal, `fire` = database 핑크, 숫자 = text |
 | 기여 캘린더 (ghchart) | `index.md` | `5040C0` — CSS 필터로 반전되어 signal 색으로 보임 |
-| 댓글 (utterances) | `_config.yml` | `theme: "github-dark"` |
+| 댓글 (utterances) | `_config.yml` | `theme: "github-dark"` (라이트에서는 스크립트가 `github-light`로 전환) |
+| 라이트 테마 위젯 | `index.md` | 각 `<img>`의 `data-src-light` (Streak: 라이트 토큰 색, skillicons: `theme=light`) |
 | 브라우저 테마색 | `_includes/head/custom.html` | `theme-color` = `--c-bg` |
 
 ---
 
 ## 7. 한 번에 분위기를 바꾸는 방법
 
-1. `assets/css/tokens.css`의 값만 바꾼다. (예: `--c-signal`을 다른 색으로)
+1. `assets/css/tokens.css`의 값만 바꾼다. (예: `--c-signal`을 다른 색으로) — 다크 블록과 라이트 블록을 **둘 다**
 2. 6장 외부 위젯 표의 색을 맞춘다.
 3. 끝. `site.css`와 페이지 파일은 건드리지 않아도 전체에 반영된다.
 
@@ -253,6 +281,8 @@ Pretendard는 국내 서비스(토스, 당근 등)에서 가장 많이 쓰는 �
 ## 8. 변경 전 체크리스트
 
 - [ ] 새로 쓴 색이 모두 `var(--...)`인가? (`site.css`에서 `#`로 검색했을 때 결과가 없어야 함)
+- [ ] 새 색 토큰에 다크·라이트 **두 값**이 있는가? 두 테마에서 모두 눈으로 확인했는가?
+- [ ] 외부 이미지를 추가했다면 `data-src-light`를 넣었는가?
 - [ ] 목록을 카드 대신 `.row`로 만들 수 있는지 먼저 검토했는가?
 - [ ] 390px 폭(모바일)에서 가로 스크롤이 생기지 않는가?
 - [ ] 키보드 Tab으로 이동할 때 포커스 링이 보이는가?

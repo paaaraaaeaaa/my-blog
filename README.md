@@ -129,8 +129,8 @@ my-blog/
 │
 ├── DESIGN.md                 # 디자인 시스템 문서
 ├── CLAUDE.md                 # AI Agent 글쓰기 · 작업 규칙
-├── .claude/skills/           # Claude Code 스킬 7개 (/learn, /note, /practice, /project, /series, /resource, /module)
-└── .claude/agents/           # post-checker 검사 에이전트
+├── .claude/skills/           # Claude Code 스킬 8개 (/learn, /note, /practice, /project, /series, /resource, /module, /design)
+└── .claude/agents/           # post-checker(글), design-guard(디자인) 검사 에이전트
 ```
 
 <br>
@@ -192,7 +192,7 @@ mermaid: true
 
 ## 디자인 시스템
 
-다크 테마 위에 네온 라일락을 포인트로 쓰는 **"Mission Log"** 콘셉트예요. 부트캠프를 하나의 비행 임무로 보고, 블로그는 그 비행 기록이에요.
+다크·라이트 두 테마(상단바 해·달 버튼, 모든 페이지에서 전환)에 네온 라일락을 포인트로 쓰는 **"Mission Log"** 콘셉트예요. 부트캠프를 하나의 비행 임무로 보고, 블로그는 그 비행 기록이에요.
 
 - **모든 색 · 글꼴 · 간격은 `assets/css/tokens.css`에만** 있어요. `site.css`와 페이지 파일은 `var(--...)`만 써요.
 - 분위기를 바꾸고 싶으면 `tokens.css`만 고치면 사이트 전체에 한 번에 반영돼요.
@@ -231,7 +231,9 @@ bundle exec jekyll serve
 | `/series` | 결과물의 연동기 한 편 |
 | `/resource <링크>` | 게임·아티팩트 등 자료를 Database에 추가 |
 | `/module` | 모듈 시작·종료 때 홈 문구·일정 정리 |
+| `/design <요청>` | 화면·UI 디자인 수정 (다크·라이트 함께) |
 | `post-checker` 에이전트 | 커밋 전에 글 규칙을 검사 (파일은 고치지 않음) |
+| `design-guard` 에이전트 | 디자인 변경을 DESIGN.md 규칙으로 검사 (파일은 고치지 않음) |
 
 <br>
 

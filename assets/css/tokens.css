@@ -5,15 +5,24 @@
    site.css와 페이지 템플릿은 var(--...)만 쓰고, 색상 코드(#hex)를
    직접 쓰지 않는다. 분위기를 바꾸고 싶으면 이 파일만 고치면 된다.
    규칙 설명은 저장소 루트의 DESIGN.md 참고.
+
+   테마: 기본(:root)은 다크, :root[data-theme="light"]는 라이트.
+   새 색 토큰을 추가하면 반드시 두 블록 모두에 값을 넣는다.
+   코드 블록(--c-code-*)은 두 테마 모두 어두운 색을 유지한다(문법 색이 다크용).
    ===================================================================== */
 :root {
+  color-scheme: dark;
   /* ---------- Color · 공간(배경) ---------- */
   --c-bg:            #0C0C12;  /* 페이지 배경: 보랏빛이 살짝 도는 먹색 */
   --c-surface:       #16161F;  /* 패널·카드 배경 */
   --c-surface-2:     #1F1F2B;  /* 한 단계 올라온 면(hover, 표 헤더) */
   --c-line:          #272734;  /* 기본 구분선 */
   --c-line-strong:   #383849;  /* 강조 구분선, 입력창 테두리 */
-  --c-code-bg:       #111118;  /* 코드 블록 배경 */
+  --c-code-bg:       #111118;  /* 코드 블록 배경 (두 테마 공통으로 어두움) */
+  --c-code-ui-bg:    #1F1F2B;  /* 코드 블록 안 버튼·라벨 */
+  --c-code-ui-line:  #383849;
+  --c-code-ui-text:  #B6B6C8;
+  --c-code-text:     #F4F4F8;
 
   /* ---------- Color · 글자 ---------- */
   --c-text:          #F4F4F8;  /* 본문 */
@@ -22,8 +31,8 @@
 
   /* ---------- Color · 신호(포인트) ---------- */
   --c-signal:        #A594FF;  /* 메인 포인트: 네온 라일락 (링크·활성·진행) */
-  --c-signal-soft:   rgba(165,148,255,.14);
-  --c-signal-line:   rgba(165,148,255,.42);
+  --c-signal-soft:   color-mix(in srgb, var(--c-signal) 14%, transparent);
+  --c-signal-line:   color-mix(in srgb, var(--c-signal) 42%, transparent);
 
   /* ---------- Color · 카테고리 (정보 전달용, 장식 금지) ---------- */
   --c-cloud:         #62CFFF;  /* Cloud    — 스카이 */
@@ -37,7 +46,7 @@
   --c-warning:       #FFCB5C;
 
   /* ---------- Effect ---------- */
-  --glow:            0 0 14px rgba(165,148,255,.55);   /* 진행 점, 활성 표시에만 */
+  --glow:            0 0 14px color-mix(in srgb, var(--c-signal) 55%, transparent);   /* 진행 점, 활성 표시에만 */
   --shadow-pop:      0 12px 32px rgba(0,0,0,.35);      /* 떠 있는 요소(검색창 등)에만 */
   --focus-ring:      0 0 0 2px var(--c-bg), 0 0 0 4px var(--c-signal);
 
@@ -84,4 +93,36 @@
   --ease: cubic-bezier(.2,.7,.2,1);
   --dur-fast: .15s;
   --dur-slow: 1.2s;
+}
+
+/* ---------------------------------------------------------------------
+   라이트 테마: 색만 바꾼다. 글꼴·간격·모서리는 위 값을 그대로 쓴다.
+   카테고리·상태 색은 흰 배경에서 글자로 읽히도록(대비 4.5:1 이상) 한 단계 진하게.
+   --------------------------------------------------------------------- */
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --c-bg:            #F6F6FA;
+  --c-surface:       #FFFFFF;
+  --c-surface-2:     #EFEFF5;
+  --c-line:          #E2E2EB;
+  --c-line-strong:   #CBCBD9;
+
+  --c-text:          #15151E;
+  --c-text-2:        #4B4B60;
+  --c-text-3:        #6E6E84;
+
+  --c-signal:        #6A55E0;
+
+  --c-cloud:         #0B7CBB;
+  --c-database:      #C22C80;
+  --c-projects:      #4F7D00;
+
+  --c-info:          #6A55E0;
+  --c-danger:        #D23A50;
+  --c-success:       #0E8455;
+  --c-warning:       #9A6310;
+
+  --glow:            0 0 10px color-mix(in srgb, var(--c-signal) 35%, transparent);
+  --shadow-pop:      0 12px 32px rgba(20,20,40,.12);
 }

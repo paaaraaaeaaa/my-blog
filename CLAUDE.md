@@ -483,6 +483,7 @@ mermaid: true
 |------|------|
 | 값의 위치 | 색·글꼴·간격은 `assets/css/tokens.css`에만 있다. 다른 곳에 `#hex`, `rgb()`를 쓰지 않는다 |
 | 스타일 위치 | 컴포넌트 스타일은 `assets/css/site.css`에만 추가한다. 페이지·글 파일에 `<style>`을 넣지 않는다 |
+| 두 테마 | 다크·라이트 두 테마가 있다. 디자인을 바꿀 때는 `/design` 스킬로 작업하고 `design-guard`로 검사한다 |
 | 글자 크기 | 게시글에서 `.page__content { font-size: ... }` 같은 크기 조절 금지. 모든 글은 같은 크기로 읽힌다 |
 | 재사용 우선 | 새 목록·카드가 필요하면 `DESIGN.md` 4장 컴포넌트(`.row`, `.group`, `.panel`, `.chip` 등)를 먼저 조합한다 |
 | 새 컴포넌트 | 꼭 필요할 때만 `site.css`에 추가하고, `DESIGN.md` 4장 표에 한 줄 기록한다 |
@@ -513,6 +514,8 @@ mermaid: true
 | `/series` | 결과물의 연동기 한 편 | `_posts/Projects/` (`type: practice`) |
 | `/resource <링크>` | 게임·아티팩트 등 자료 추가 | `_data/database_links.yml`, `_data/database_sections.yml` |
 | `/module` | 모듈 시작·종료 정리 | `_data/now.yml`, `_data/module_schedule.yml`, `_data/modules.yml` |
-| `post-checker` (에이전트) | 커밋 전 규칙 검사, 파일은 고치지 않음 | 읽기만 |
+| `/design <요청>` | 화면·UI 디자인 수정 (다크·라이트 함께) | `assets/css/`, 페이지, `_includes/`, `DESIGN.md` |
+| `post-checker` (에이전트) | 글 커밋 전 규칙 검사, 파일은 고치지 않음 | 읽기만 |
+| `design-guard` (에이전트) | 디자인 변경 커밋 전 검사 (토큰, 두 테마, 반응형, 접근성) | 읽기만 |
 
 모든 스킬은 **보여주기 → 내가 확인 → 커밋·push** 순서를 지킨다. 확인 전에는 커밋하지 않는다.

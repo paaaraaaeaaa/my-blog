@@ -1,4 +1,4 @@
-{% comment %}[my-blog] 테마 masthead를 덮어씀: 640px 이하 전용 메뉴(.mnav) 추가. 나머지는 테마 원본과 같다.{% endcomment %}
+{% comment %}[my-blog] 테마 masthead를 덮어씀: 라이트/다크 토글(.theme-toggle), 640px 이하 전용 메뉴(.mnav) 추가. 나머지는 테마 원본과 같다.{% endcomment %}
 {% assign locale = include.locale | default: site.locale %}
 {% capture logo_path %}{{ site.logo }}{% endcapture %}
 
@@ -24,6 +24,10 @@
             </li>
           {%- endfor -%}
         </ul>
+        <button class="theme-toggle" type="button" aria-label="테마 바꾸기" title="라이트/다크 모드">
+          <svg class="theme-toggle__sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg class="theme-toggle__moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        </button>
         {% if site.search == true %}
         <button class="search__toggle" type="button">
           <span class="visually-hidden">{{ site.data.ui-text[locale].search_label | default: "Toggle search" }}</span>
