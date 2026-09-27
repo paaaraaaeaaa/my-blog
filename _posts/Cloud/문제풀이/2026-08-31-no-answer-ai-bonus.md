@@ -8,7 +8,7 @@ type: practice
 module: 1
 topic: "규칙 하나로 답이 달라진다"
 level_order: 90
-tags: [claude-code, skill, claude-md, prompt-engineering, devlog, 부트캠프, 자율실습]
+tags: [claude-code, skill, claude-md, prompt-engineering, devlog, 자율실습]
 comments: true
 toc: true
 toc_sticky: true

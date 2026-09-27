@@ -110,6 +110,7 @@ my-blog/
 │   ├── database_links.yml    # Database 자료 목록 (문제 · 게임 · 아티팩트 …)
 │   ├── database_sections.yml # Database 섹션 순서 · 아이콘 · 색
 │   ├── skills.yml            # 태그 → 기술 스택 아이콘 매핑
+│   ├── tag_rules.yml         # 자주 쓴 태그 순위에서 뺄 분류성 태그
 │   ├── module_schedule.yml   # (선택) 모듈 시작 · 종료일
 │   ├── now.yml               # 홈 🔥 상태 문구
 │   └── navigation.yml        # 상단 메뉴
@@ -181,7 +182,8 @@ mermaid: true
 | Database에 자료 추가 | `database_links.yml`에 `category` `title` `url`(또는 `file`) `description` |
 | 문제에 풀이 글 연결 | `database_links.yml`의 문제 항목 `topics`에 풀이 글의 `topic` 값 추가 |
 | Database에 새 섹션 추가 | `database_links.yml`에 새 `category`를 쓰고, `database_sections.yml`에 `name` `emoji` `tone` `desc` 한 줄 |
-| 기술 스택 아이콘 추가 | `skills.yml`에 skillicons `id`와 태그 `aliases` |
+| 기술 스택 아이콘 추가 | `skills.yml`에 skillicons `id`와 태그 `aliases` (그 태그가 붙은 글 수 순으로 최대 10개) |
+| 자주 쓴 태그에서 빼기 | `tag_rules.yml`의 `hidden_in_ranking` |
 | 모듈 진척 막대를 날짜로 채우기 | `module_schedule.yml`에 `start` `end` |
 | 홈 🔥 상태 문구 바꾸기 | `now.yml`의 `status` |
 

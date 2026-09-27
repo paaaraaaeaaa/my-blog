@@ -58,6 +58,7 @@ mermaid: true
 | `module` | 가장 최근 학습노트의 `module` 값 |
 | `topic` | 같은 문제의 모든 레벨 글에 **똑같은 문자열**. `database_links.yml`의 `topics`와도 같아야 한다 |
 | `level_order` | Lv1=10, Lv2=20, Lv3=30, 보너스=90. 레벨을 합쳤으면 낮은 쪽. 레벨이 없으면 게시 순서대로 10, 20, 30… |
+| `tags` | 기술·개념 태그 3~5개. `부트캠프`는 쓰지 않는다. 기술 이름은 소문자(`git`, `css`) |
 | `date` | `YYYY-MM-DD` 하이픈 표기 |
 | `layout` | 쓰지 않아도 된다(`_config.yml`이 `single`을 넣음). 쓰려면 `single`만. `post`는 목차·콜아웃이 깨진다 |
 

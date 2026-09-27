@@ -8,7 +8,7 @@ type: practice
 module: 1
 topic: "화면 보고 HTML 만들기"
 level_order: 10
-tags: [html, 웹개발기초, 태그, 부트캠프, 자율실습]
+tags: [html, 웹개발기초, 태그, 자율실습]
 comments: true
 toc: true
 toc_sticky: true

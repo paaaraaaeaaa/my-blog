@@ -8,7 +8,7 @@ type: practice
 module: 1
 topic: "Git & GitHub 팀 협업 드릴"
 level_order: 10
-tags: [git, github, issue, pull-request, devlog, 부트캠프, 팀미션]
+tags: [git, github, issue, pull-request, devlog, 팀미션]
 comments: true
 toc: true
 toc_sticky: true

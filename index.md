@@ -55,9 +55,11 @@ classes: home-page
 <img src="https://visitor-badge.laobi.icu/badge?page_id=paaaraaaeaaa.my-blog&left_color=1F1F2B&right_color=6A58E0" alt="누적 방문자 수" />
 </div>
 </div>
-{%- comment -%} 자주 쓴 태그: 글 front matter의 tags를 세서 자동으로 상위 8개. 누르면 검색창이 열린다 {%- endcomment -%}
+{%- comment -%} 자주 쓴 태그: 글 tags를 세서 상위 8개 (_data/tag_rules.yml의 분류성 태그는 제외). 누르면 검색창이 열린다 {%- endcomment -%}
+{%- assign empty_array = "" | split: "," -%}
 {%- assign tag_rank = "" | split: "," -%}
-{%- for t in site.tags -%}{%- capture entry -%}{{ t[1].size | plus: 1000 }}|{{ t[0] }}{%- endcapture -%}{%- assign tag_rank = tag_rank | push: entry -%}{%- endfor -%}
+{%- assign tag_hidden = site.data.tag_rules.hidden_in_ranking | default: empty_array -%}
+{%- for t in site.tags -%}{%- unless tag_hidden contains t[0] -%}{%- capture entry -%}{{ t[1].size | plus: 1000 }}|{{ t[0] }}{%- endcapture -%}{%- assign tag_rank = tag_rank | push: entry -%}{%- endunless -%}{%- endfor -%}
 {%- assign tag_rank = tag_rank | sort | reverse -%}
 <div class="home-panel__row">
 <span class="home-panel__label">자주 쓴 태그</span>
@@ -67,19 +69,26 @@ classes: home-page
 {%- endfor -%}
 </div>
 </div>
-{%- comment -%} 기술 스택: _data/skills.yml 기준으로 글 태그에서 자동 추출, 많이 쓴 순서 {%- endcomment -%}
+{%- comment -%}
+  기술 스택: _data/skills.yml 기준, 그 기술 태그가 붙은 "글 수"가 많은 순서로 최대 10개.
+  (태그 개수로 세면 별칭이 많은 기술이 한 글에서 여러 번 세어지므로 글 단위로 센다)
+{%- endcomment -%}
 {%- assign skill_rank = "" | split: "," -%}
 {%- for sk in site.data.skills -%}
 {%- assign n = 0 -%}
-{%- for t in site.tags -%}{%- assign td = t[0] | downcase -%}{%- if sk.aliases contains td -%}{%- assign n = n | plus: t[1].size -%}{%- endif -%}{%- endfor -%}
+{%- for p in site.posts -%}
+{%- assign hit = false -%}
+{%- for t in p.tags -%}{%- assign td = t | downcase -%}{%- if sk.aliases contains td -%}{%- assign hit = true -%}{%- break -%}{%- endif -%}{%- endfor -%}
+{%- if hit -%}{%- assign n = n | plus: 1 -%}{%- endif -%}
+{%- endfor -%}
 {%- if n > 0 or sk.always -%}{%- capture entry -%}{{ n | plus: 1000 }}|{{ sk.id }}{%- endcapture -%}{%- assign skill_rank = skill_rank | push: entry -%}{%- endif -%}
 {%- endfor -%}
 {%- assign skill_rank = skill_rank | sort | reverse -%}
 {%- assign skill_ids = "" | split: "," -%}
-{%- for e in skill_rank limit: 18 -%}{%- assign parts = e | split: "|" -%}{%- assign skill_ids = skill_ids | push: parts[1] -%}{%- endfor -%}
+{%- for e in skill_rank limit: 10 -%}{%- assign parts = e | split: "|" -%}{%- assign skill_ids = skill_ids | push: parts[1] -%}{%- endfor -%}
 <div class="home-panel__row">
-<span class="home-panel__label home-panel__label--split"><span>기술 스택</span><b>{{ skill_ids.size }}개 · 태그 기준 자동</b></span>
-<img class="home-panel__stack" src="https://skillicons.dev/icons?i={{ skill_ids | join: ',' }}&theme=dark&perline=6" alt="{{ skill_ids | join: ', ' }}" loading="lazy" />
+<span class="home-panel__label home-panel__label--split"><span>기술 스택</span><b>많이 쓴 순 {{ skill_ids.size }}개</b></span>
+<img class="home-panel__stack" src="https://skillicons.dev/icons?i={{ skill_ids | join: ',' }}&theme=dark&perline=5" alt="{{ skill_ids | join: ', ' }}" loading="lazy" />
 </div>
 <button type="button" id="copy-link-btn" class="btn-line">🔗 링크 복사하기</button>
 </section>

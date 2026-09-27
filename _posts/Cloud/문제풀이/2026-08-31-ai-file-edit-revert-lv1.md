@@ -8,7 +8,7 @@ type: practice
 module: 1
 topic: "AI가 내 파일을 직접 고친다"
 level_order: 10
-tags: [git, github, claude-code, claude-md, devlog, 부트캠프, 자율실습]
+tags: [git, github, claude-code, claude-md, devlog, 자율실습]
 comments: true
 toc: true
 toc_sticky: true

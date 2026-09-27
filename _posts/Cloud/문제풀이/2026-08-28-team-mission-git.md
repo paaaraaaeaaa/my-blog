@@ -8,7 +8,7 @@ type: practice
 module: 1
 topic: "Git & GitHub"
 level_order: 20
-tags: [git, github, devlog, 부트캠프, 팀미션]
+tags: [git, github, devlog, 팀미션]
 comments: true
 toc: true
 toc_sticky: true
