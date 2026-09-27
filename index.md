@@ -86,7 +86,8 @@ classes: home-page
 </aside>
 
 {% comment %}
-"N일차"는 주말 + 한국 공휴일(_data/holidays.yml)을 제외한 평일만 세서 계산.
+"N일차"는 첫 학습노트 날(2026-08-27)을 1일차로 두고, 주말 + 한국 공휴일(_data/holidays.yml)을 제외한 평일만 세서 계산.
+(8/26은 부트캠프 출발일이라 궤적·진행률에는 포함하지만 일차에는 세지 않는다)
 반면 "총 일수"와 진행률(%)은 전체 기간의 달력 날짜 그대로(오늘까지 지난 날짜 비율)로 계산.
 {% endcomment %}
 {% assign start_ts = "2026-08-26" | date: "%s" | plus: 0 %}
@@ -94,10 +95,11 @@ classes: home-page
 {% assign today_ts = site.time | date: "%s" | plus: 0 %}
 {% assign total_calendar_days = end_ts | minus: start_ts | divided_by: 86400 %}
 
+{% assign day_start_ts = "2026-08-27" | date: "%s" | plus: 0 %}
 {% assign day_number = 0 %}
 {% for i in (0..total_calendar_days) %}
   {% assign offset_sec = i | times: 86400 %}
-  {% assign cur_ts = start_ts | plus: offset_sec %}
+  {% assign cur_ts = day_start_ts | plus: offset_sec %}
   {% if cur_ts > today_ts %}{% break %}{% endif %}
   {% assign cur_wday = cur_ts | date: "%w" %}
   {% assign cur_date_str = cur_ts | date: "%Y-%m-%d" %}
