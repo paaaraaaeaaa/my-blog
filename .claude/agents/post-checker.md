@@ -28,6 +28,7 @@ tools: Read, Grep, Glob
 - `tags` 3~5개, 대표 태그가 앞 2개에 있는가
 - practice 제목이 `Lv1 · 제목` 형식인가 (레벨이 있는 문제일 때)
 - `date`가 `YYYY-MM-DD` 하이픈 표기이고 파일명 날짜와 같은가
+- 코드 블록(```)에 언어가 적혀 있는가 (```bash, ```html …). 없으면 언어 라벨·문법 색이 안 붙는다
 - Mermaid 코드 블록이 있으면 `mermaid: true`가 있는가
 - 이미지 경로가 `{{ site.baseurl }}/assets/...` 형식인가
 

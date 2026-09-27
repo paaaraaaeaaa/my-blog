@@ -89,6 +89,18 @@ document.addEventListener('DOMContentLoaded', function () {
     table.parentNode.insertBefore(wrap, table);
     wrap.appendChild(table);
   });
+  // 3-2. 코드 블록 언어 라벨 (```bash → "bash")
+  document.querySelectorAll('.page__content div.highlighter-rouge').forEach(function (block) {
+    var m = block.className.match(/language-([\w+-]+)/);
+    if (!m || m[1] === 'plaintext' || m[1] === 'text' || block.querySelector('.code-lang')) return;
+    var names = { js: 'JavaScript', javascript: 'JavaScript', ts: 'TypeScript', typescript: 'TypeScript', jsx: 'JSX', tsx: 'TSX',
+      html: 'HTML', css: 'CSS', scss: 'SCSS', bash: 'bash', shell: 'shell', sh: 'shell', zsh: 'zsh', powershell: 'PowerShell', ps1: 'PowerShell',
+      python: 'Python', py: 'Python', json: 'JSON', yaml: 'YAML', yml: 'YAML', sql: 'SQL', markdown: 'Markdown', md: 'Markdown', diff: 'diff', mermaid: 'Mermaid' };
+    var tag = document.createElement('span');
+    tag.className = 'code-lang';
+    tag.textContent = names[m[1].toLowerCase()] || m[1];
+    block.appendChild(tag);
+  });
   // 4. 긴 코드 블록(15줄 초과) 접기/펼치기로 감싸기
   document.querySelectorAll('.page__content pre').forEach(function (pre) {
     if (pre.closest('.sidebar__right')) return;
@@ -262,4 +274,49 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   mermaid.run({ querySelector: '.mermaid' });
 });
+</script>
+
+<script>
+/* [my-blog] 맨 위로 버튼 (D) + 모바일 메뉴 (8) */
+(function () {
+  // 맨 위로: 게시글에서만, 한 화면 넘게 내려가면 나타난다
+  if (document.querySelector('.layout--single:not(.section-page):not(.home-page)')) {
+    var top = document.createElement('button');
+    top.type = 'button';
+    top.className = 'to-top';
+    top.setAttribute('aria-label', '맨 위로');
+    top.innerHTML = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    document.body.appendChild(top);
+    var ticking = false;
+    window.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        top.classList.toggle('is-visible', window.scrollY > window.innerHeight);
+        ticking = false;
+      });
+    }, { passive: true });
+    top.addEventListener('click', function () {
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    });
+  }
+
+  // 모바일 메뉴: 현재 섹션 표시 + 열고 닫기
+  var btn = document.querySelector('.mnav__toggle');
+  var menu = document.getElementById('mnav');
+  if (!btn || !menu) return;
+  var path = location.pathname;
+  menu.querySelectorAll('a').forEach(function (a) {
+    if (path.indexOf(a.getAttribute('href')) === 0) a.classList.add('is-current');
+  });
+  function setOpen(open) {
+    menu.hidden = !open;
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.classList.toggle('is-open', open);
+  }
+  btn.addEventListener('click', function (e) { e.stopPropagation(); setOpen(menu.hidden); });
+  document.addEventListener('click', function (e) { if (!menu.hidden && !menu.contains(e.target)) setOpen(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
+})();
 </script>

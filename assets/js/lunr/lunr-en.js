@@ -3,9 +3,10 @@
    - 한글은 단어 중간 일치가 중요해서 lunr 대신 부분 문자열 검색을 쓴다
    - 결과를 전체 / Cloud / Database / Projects 탭으로 나눈다
    - data-search="검색어" 속성이 있는 버튼을 누르면 검색창이 열리며 바로 검색된다
-   데이터: assets/js/lunr/lunr-store.js · 스타일: site.css "15. 검색"
+   데이터: assets/js/lunr/lunr-store.js (검색창을 처음 열 때만 불러옴) · 스타일: site.css "15. 검색"
    ===================================================================== */
 (function () {
+  var STORE_URL = (document.currentScript && document.currentScript.getAttribute('data-store')) || '';
   var TABS = [
     { key: 'all', label: '전체' },
     { key: 'cloud', label: 'Cloud' },
@@ -23,9 +24,33 @@
   }
   function reEsc(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 
-  (window.store || []).forEach(function (d) {
-    d._t = norm(d.t); d._e = norm(d.e); d._b = norm(d.b); d._g = norm((d.g || []).join(' '));
-  });
+  var storeState = window.store ? 'ready' : 'idle';   // idle → loading → ready | error
+  var storeWaiters = [];
+  function prepare() {
+    (window.store || []).forEach(function (d) {
+      d._t = norm(d.t); d._e = norm(d.e); d._b = norm(d.b); d._g = norm((d.g || []).join(' '));
+    });
+  }
+  if (storeState === 'ready') prepare();
+  function ensureStore(cb) {
+    if (storeState === 'ready') { cb(); return; }
+    storeWaiters.push(cb);
+    if (storeState === 'loading' || !STORE_URL) return;
+    storeState = 'loading';
+    var tag = document.createElement('script');
+    tag.src = STORE_URL;
+    tag.onload = function () {
+      storeState = 'ready'; prepare();
+      var list = storeWaiters; storeWaiters = [];
+      list.forEach(function (fn) { fn(); });
+    };
+    tag.onerror = function () {
+      storeState = 'error';
+      var box = document.getElementById('results');
+      if (box) box.innerHTML = '<div class="sr-none"><p>검색 데이터를 불러오지 못했어요.</p><p>잠시 후 다시 열어 주세요.</p></div>';
+    };
+    document.head.appendChild(tag);
+  }
 
   function search(q) {
     var terms = norm(q).split(/\s+/).filter(Boolean);
@@ -95,6 +120,11 @@
   function render() {
     var box = document.getElementById('results');
     if (!box) return;
+    if (storeState !== 'ready') {
+      box.innerHTML = '<div class="sr-empty"><p class="sr-empty__desc">검색 준비 중…</p></div>';
+      ensureStore(render);
+      return;
+    }
     if (!state.q.trim()) {
       box.innerHTML =
         '<div class="sr-empty">' +
@@ -133,6 +163,7 @@
   }
 
   function run(q) {
+    if (storeState !== 'ready') { ensureStore(function () { run(q); }); render(); return; }
     state.q = q;
     state.results = search(q);
     var c = counts(state.results);
@@ -140,7 +171,7 @@
     render();
   }
 
-  document.addEventListener('DOMContentLoaded', function () {
+  function init() {
     var input = document.getElementById('search');
     var box = document.getElementById('results');
     if (!input || !box) return;
@@ -177,6 +208,10 @@
       run(input.value);
       window.scrollTo(0, 0);
     });
-    render();
-  });
+    // 돋보기를 누르거나 입력창에 들어가는 순간 데이터를 미리 불러온다
+    var toggle = document.querySelector('.search__toggle');
+    if (toggle) toggle.addEventListener('click', function () { ensureStore(render); });
+    input.addEventListener('focus', function () { ensureStore(render); });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

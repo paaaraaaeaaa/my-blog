@@ -1,9 +1,13 @@
 title: 예린님의 학습 노트
+locale: "ko-KR"            # <html lang="ko">, 테마 문구 한글화 (목차, 댓글 등)
+date_format: "%Y.%m.%d"    # 날짜 표기
 remote_theme: "mmistakes/minimal-mistakes"
 url: "https://paaaraaaeaaa.github.io"
 baseurl: "/my-blog"
 plugins:
   - jekyll-include-cache
+  - jekyll-sitemap   # /sitemap.xml — 검색엔진이 새 글을 찾는 지도
+  - jekyll-feed      # /feed.xml — RSS 구독
 
 # 🔗 링크 공유(카카오톡/문자/디스코드 등) 시 미리보기에 쓰일 설명 + 이미지
 # description: 미리보기 카드에 나올 한 줄 소개
@@ -34,7 +38,7 @@ search_full_content: true
 author:
   name: "김예린"
   bio: "데이터 분석과 클라우드 아키텍처에 관심이 많은 대학생입니다."
-  avatar: "/assets/images/profile.png"
+  avatar: "/assets/images/profile.webp"   # 256px WebP (원본 profile.png는 og 등 다른 용도로 보관)
   links:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"

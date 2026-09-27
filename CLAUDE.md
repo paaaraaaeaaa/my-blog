@@ -464,6 +464,7 @@ mermaid: true
 - [ ] 핵심 내용을 콜아웃 박스(💡, 🔴, 🟢, ⚠️, 🚨)로 강조했는가?
 - [ ] 복잡한 개념을 개념 카드(- **용어**)로 정리했는가?
 - [ ] 15줄 이상 코드 블록이 있는가? (자동 접기 기능 활용)
+- [ ] 코드 블록에 언어를 적었는가? (```bash, ```html 등 — 오른쪽 위에 언어 라벨과 색이 붙는다)
 - [ ] 파일이 `_posts/Cloud/학습노트/`, `_posts/Cloud/문제풀이/`, `_posts/Projects/` 중 맞는 곳에 `YYYY-MM-DD-제목.md`로 있는가?
 - [ ] Front Matter가 올바르게 작성되어 있는가? (title, date, categories, module, type, excerpt)
 - [ ] 본문에 `<style>`·글자 크기 조절 코드가 없는가?

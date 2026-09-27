@@ -1,0 +1,6 @@
+{% comment %}
+  [my-blog] 테마의 검색 스크립트 묶음을 덮어쓴다.
+  - lunr 라이브러리는 쓰지 않으므로 불러오지 않는다
+  - 검색 데이터(lunr-store.js, 약 400KB)는 검색창을 처음 열 때만 불러온다 (lunr-en.js 안에서)
+{% endcomment %}
+<script src="{{ '/assets/js/lunr/lunr-en.js' | relative_url }}" data-store="{{ '/assets/js/lunr/lunr-store.js' | relative_url }}" defer></script>

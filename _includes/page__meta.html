@@ -1,0 +1,58 @@
+{%- comment -%}
+  [my-blog] 테마 page__meta를 덮어씀.
+  게시글 제목 바로 아래에: 모듈 · 날짜 · 읽는 시간 · 태그 (A)
+  풀이·연동기 글이면: 시리즈 진행 표시 (B)
+  게시글이 아닌 곳(홈·섹션 페이지, 목록)에서는 아무것도 그리지 않는다.
+  스타일: site.css "17. 글 머리"
+{%- endcomment -%}
+{%- assign document = post | default: page -%}
+{%- if include.type == nil and document.collection == "posts" -%}
+{%- assign cat = document.categories | first -%}
+{%- assign cat_key = cat | downcase -%}
+{%- assign mkey = document.module | append: "" -%}
+{%- assign chars = document.content | strip_html | strip_newlines | size -%}
+{%- assign minutes = chars | divided_by: 500 | plus: 1 -%}
+<div class="post-meta is-{{ cat_key }}">
+  {%- if document.module -%}
+  <a class="post-meta__module" href="{{ '/cloud/' | relative_url }}">모듈 {{ document.module }}{% if site.data.modules[mkey] %} · {{ site.data.modules[mkey] }}{% endif %}</a>
+  {%- endif -%}
+  <time class="post-meta__item" datetime="{{ document.date | date_to_xmlschema }}">{{ document.date | date: "%Y.%m.%d" }}</time>
+  <span class="post-meta__item">읽는 데 {{ minutes }}분</span>
+  {%- if document.tags.size > 0 -%}
+  <span class="post-meta__tags">{%- for t in document.tags limit: 5 -%}<button type="button" class="chip chip--btn" data-search="{{ t }}">#{{ t }}</button>{%- endfor -%}</span>
+  {%- endif -%}
+</div>
+
+{%- if document.type == "practice" and document.topic -%}
+{%- assign siblings = site.posts | where: "topic", document.topic | sort: "date" | sort: "level_order" -%}
+{%- if siblings.size > 1 -%}
+{%- assign idx = 0 -%}
+{%- for s in siblings -%}{%- if s.url == document.url -%}{%- assign idx = forloop.index -%}{%- endif -%}{%- endfor -%}
+{%- assign problem = nil -%}
+{%- if cat == "Cloud" -%}
+{%- for item in site.data.database_links -%}{%- if item.topics contains document.topic -%}{%- assign problem = item -%}{%- endif -%}{%- endfor -%}
+{%- endif -%}
+<nav class="series-bar is-{{ cat_key }}" aria-label="{{ document.topic }} 시리즈">
+  <div class="series-bar__head">
+    <span class="series-bar__title">{% if cat == "Projects" %}🔗{% else %}🧩{% endif %} {{ document.topic }}</span>
+    <span class="series-bar__pos"><b>{{ siblings.size }}</b>편 중 <b>{{ idx }}</b>번째</span>
+    {%- if problem and problem.url -%}<a class="series-bar__link" href="{{ problem.url }}" target="_blank" rel="noopener">문제 보기</a>{%- endif -%}
+  </div>
+  <ol class="series-bar__steps">
+    {%- for s in siblings -%}
+    {%- assign parts = s.title | split: " · " -%}
+    {%- assign head2 = parts[0] | slice: 0, 2 -%}
+    {%- if parts.size > 1 and head2 == "Lv" or parts.size > 1 and head2 == "Bo" -%}{%- assign lv = parts[0] -%}{%- assign step_title = s.title | remove_first: parts[0] | remove_first: " · " -%}{%- else -%}{%- assign lv = forloop.index | prepend: "#" -%}{%- assign step_title = s.title -%}{%- endif -%}
+    <li class="series-step{% if s.url == document.url %} is-here{% elsif forloop.index < idx %} is-past{% endif %}">
+      {%- if s.url == document.url -%}
+      <span class="series-step__dot" aria-current="page">{{ lv }}</span><span class="series-step__title">{{ step_title }}</span>
+      {%- else -%}
+      <a href="{{ s.url | relative_url }}" title="{{ s.title }}"><span class="series-step__dot">{{ lv }}</span><span class="series-step__title">{{ step_title }}</span></a>
+      {%- endif -%}
+    </li>
+    {%- endfor -%}
+  </ol>
+</nav>
+{%- endif -%}
+{%- endif -%}
+{%- endif -%}
