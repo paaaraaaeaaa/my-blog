@@ -130,6 +130,73 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+  // 5-1. 게시글 본문 이미지: 클릭하면 확대해서 보여줌 (코드 복사 버튼처럼 자동 적용)
+  var postImgs = document.querySelectorAll('.page__content img');
+  if (postImgs.length > 0) {
+    var zoomOverlay = document.createElement('div');
+    zoomOverlay.className = 'img-zoom';
+    zoomOverlay.setAttribute('role', 'dialog');
+    zoomOverlay.setAttribute('aria-modal', 'true');
+    zoomOverlay.setAttribute('aria-label', '이미지 확대 보기');
+    zoomOverlay.hidden = true;
+
+    var zoomClose = document.createElement('button');
+    zoomClose.type = 'button';
+    zoomClose.className = 'img-zoom__close';
+    zoomClose.textContent = '[esc] 닫기';
+
+    var zoomImg = document.createElement('img');
+    zoomImg.className = 'img-zoom__img';
+
+    zoomOverlay.appendChild(zoomClose);
+    zoomOverlay.appendChild(zoomImg);
+    document.body.appendChild(zoomOverlay);
+
+    var lastTrigger = null;
+
+    var closeZoom = function () {
+      zoomOverlay.hidden = true;
+      zoomImg.classList.remove('is-zoomed');
+      zoomImg.src = '';
+      document.body.style.overflow = '';
+      if (lastTrigger) { lastTrigger.focus(); lastTrigger = null; }
+    };
+
+    var openZoom = function (img) {
+      lastTrigger = img;
+      zoomImg.src = img.currentSrc || img.src;
+      zoomImg.alt = img.alt || '';
+      zoomImg.classList.remove('is-zoomed');
+      zoomOverlay.hidden = false;
+      document.body.style.overflow = 'hidden';
+      zoomClose.focus();
+    };
+
+    postImgs.forEach(function (img) {
+      img.classList.add('is-zoomable');
+      img.tabIndex = 0;
+      img.setAttribute('role', 'button');
+      img.setAttribute('aria-label', (img.alt ? img.alt + ' - ' : '') + '이미지 확대');
+      img.addEventListener('click', function () { openZoom(img); });
+      img.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openZoom(img); }
+      });
+    });
+
+    // 확대 화면 안 이미지를 다시 누르면 실제 크기로 토글 (엑셀 확대/축소 느낌)
+    zoomImg.addEventListener('click', function (e) {
+      e.stopPropagation();
+      zoomImg.classList.toggle('is-zoomed');
+    });
+    zoomOverlay.addEventListener('click', function (e) {
+      if (e.target === zoomOverlay) closeZoom();
+    });
+    zoomClose.addEventListener('click', closeZoom);
+    document.addEventListener('keydown', function (e) {
+      if (!zoomOverlay.hidden && e.key === 'Escape') closeZoom();
+    });
+  }
+
   // 6. 오늘 방문자 뱃지: 날짜별로 다른 page_id를 써서 그날그날 새로 세도록 함
   //    (주의) new Date().toISOString()은 항상 UTC 기준 날짜를 반환해서,
   //    한국 시간으로는 자정이 아니라 "오전 9시"에 날짜가 바뀌는 버그가 있었음.

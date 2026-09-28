@@ -284,6 +284,55 @@ a:visited { color: var(--c-signal); }
 }
 .page__content hr { border: 0; border-top: 1px solid var(--c-line); margin: var(--s-7) 0; }
 .page__content img { border-radius: var(--r-md); }
+.page__content img.is-zoomable { cursor: zoom-in; }
+
+/* 게시글 이미지 확대 보기 (footer/custom.html이 클릭 시 연다) */
+.img-zoom {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--s-6);
+  overflow: auto;
+  background: color-mix(in srgb, var(--c-bg) 92%, transparent);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.img-zoom[hidden] { display: none; }
+.img-zoom__img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: var(--r-md);
+  border: 1px solid var(--c-line-strong);
+  cursor: zoom-in;
+}
+.img-zoom__img.is-zoomed {
+  max-width: none;
+  max-height: none;
+  width: auto;
+  height: auto;
+  cursor: zoom-out;
+}
+.img-zoom__close {
+  position: absolute;
+  top: var(--s-5);
+  right: var(--s-5);
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--r-sm);
+  background: var(--c-surface);
+  color: var(--c-text-2);
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  padding: var(--s-2) var(--s-3);
+  cursor: pointer;
+}
+.img-zoom__close:hover { color: var(--c-text); background: var(--c-surface-2); }
+@media (max-width: 640px) {
+  .img-zoom { padding: var(--s-4); }
+  .img-zoom__img.is-zoomed { max-width: none; }
+}
 
 /* 표: footer JS가 .table-scroll로 감싸서 좁은 화면에서 가로 스크롤 */
 .table-scroll {
