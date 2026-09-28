@@ -6,3 +6,4 @@ vendor/
 _tmp_build/
 profile.png/
 og-banner.png/
+.claude/
