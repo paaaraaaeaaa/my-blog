@@ -192,21 +192,18 @@ classes: home-page
 
 <nav class="ls" aria-label="섹션 바로가기">
 <a class="ls__row is-cloud" href="{{ '/cloud/' | relative_url }}">
-<span class="ls__perm" aria-hidden="true">drwxr-xr-x</span>
 <span class="ls__name">cloud/</span>
 <span class="ls__count"><b>{{ cloud_posts.size }}</b> notes</span>
 <span class="ls__desc">모듈별 일차 학습노트</span>
 <span class="ls__latest">{% if cloud_posts.size > 0 %}{{ cloud_posts.first.date | date: "%m.%d" }} {{ cloud_posts.first.title }}{% endif %}</span>
 </a>
 <a class="ls__row is-database" href="{{ '/database/' | relative_url }}">
-<span class="ls__perm" aria-hidden="true">drwxr-xr-x</span>
 <span class="ls__name">database/</span>
 <span class="ls__count"><b>{{ db_items.size }}</b> items</span>
 <span class="ls__desc">문제와 풀이, 게임, 아티팩트</span>
 <span class="ls__latest">{% if db_items.size > 0 %}{{ db_items.last.title }}{% endif %}</span>
 </a>
 <a class="ls__row is-projects" href="{{ '/projects/' | relative_url }}">
-<span class="ls__perm" aria-hidden="true">drwxr-xr-x</span>
 <span class="ls__name">projects/</span>
 <span class="ls__count"><b>{{ proj_posts.size }}</b> posts</span>
 <span class="ls__desc">모듈별 결과물 6개와 연동기</span>
