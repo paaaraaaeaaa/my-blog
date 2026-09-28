@@ -34,8 +34,8 @@
 {%- endif -%}
 <nav class="series-bar is-{{ cat_key }}" aria-label="{{ document.topic }} 시리즈">
   <div class="series-bar__head">
-    <span class="series-bar__title">{% if cat == "Projects" %}🔗{% else %}🧩{% endif %} {{ document.topic }}</span>
-    <span class="series-bar__pos"><b>{{ siblings.size }}</b>편 중 <b>{{ idx }}</b>번째</span>
+    <span class="series-bar__title">{{ document.topic }}</span>
+    <span class="series-bar__pos">[{{ idx }}/{{ siblings.size }}]</span>
     {%- if problem and problem.url -%}<a class="series-bar__link" href="{{ problem.url }}" target="_blank" rel="noopener">문제 보기</a>{%- endif -%}
   </div>
   <ol class="series-bar__steps">

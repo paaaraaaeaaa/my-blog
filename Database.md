@@ -22,7 +22,7 @@ classes: section-page
 {%- for pb in problems -%}{%- for t in pb.topics -%}{%- assign linked_topics = linked_topics | append: "|" | append: t | append: "|" -%}{%- endfor -%}{%- endfor -%}
 
 <header class="page-intro is-database">
-<span class="cat-label">Database</span>
+<p class="term__cmd">cd ~/database</p>
 <h1 class="page-intro__title">문제와 풀이, 그리고 자료</h1>
 <p class="page-intro__desc">부트캠프에서 받은 문제와 직접 푼 풀이를 한 묶음으로 모았습니다. 감각을 익히는 게임과 정리한 산출물도 함께 둡니다.</p>
 <p class="page-intro__stats"><span>문제 <b>{{ problems.size }}</b>개</span><span>풀이 <b>{{ practice_posts.size }}</b>편</span><span>자료 <b>{{ others.size }}</b>개</span></p>
@@ -36,24 +36,23 @@ classes: section-page
 {%- for c in other_cats -%}{%- unless known contains c -%}{%- assign section_names = section_names | push: c -%}{%- endunless -%}{%- endfor -%}
 
 <nav class="jump-nav" aria-label="섹션 골라 보기">
-<button type="button" class="jump is-database" data-filter="problems" data-label="문제와 풀이" aria-pressed="false"><span aria-hidden="true">🧩</span>문제와 풀이<b>{{ problems.size }}</b></button>
+<button type="button" class="jump is-database" data-filter="problems" data-label="문제와 풀이" aria-pressed="false">문제와 풀이<b>{{ problems.size }}</b></button>
 {%- for name in section_names -%}
 {%- assign items = others | where: "category", name -%}
 {%- if items.size > 0 -%}
 {%- assign def = section_defs | where: "name", name | first -%}
-<button type="button" class="jump is-{{ def.tone | default: 'signal' }}" data-filter="sec-{{ forloop.index }}" data-label="{{ name }}" aria-pressed="false"><span aria-hidden="true">{{ def.emoji | default: "📁" }}</span>{{ name }}<b>{{ items.size }}</b></button>
+<button type="button" class="jump is-{{ def.tone | default: 'signal' }}" data-filter="sec-{{ forloop.index }}" data-label="{{ name }}" aria-pressed="false">{{ name }}<b>{{ items.size }}</b></button>
 {%- endif -%}
 {%- endfor -%}
 <button type="button" class="jump-reset" data-filter-reset aria-label="전체 보기로 초기화" title="전체 보기" disabled>
 <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.34 5.66" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M20 5v6h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-<span>전체</span>
+<span>reset</span>
 </button>
 </nav>
 <p class="jump-status" aria-live="polite"></p>
 
 <section class="res-section res-section--first is-database" id="problems" data-sec="problems">
 <div class="res-section__head">
-<span class="res-section__icon" aria-hidden="true">🧩</span>
 <div class="res-section__titles"><h2 class="res-section__title">문제와 풀이</h2><span class="res-section__desc">받은 문제와 레벨별 풀이를 한 카드에 묶었어요</span></div>
 <span class="res-section__count">문제 {{ problems.size }}개 · 풀이 {{ practice_posts.size }}편</span>
 </div>
@@ -120,7 +119,6 @@ classes: section-page
 {%- assign def = section_defs | where: "name", name | first -%}
 <section class="res-section is-{{ def.tone | default: 'signal' }}" id="sec-{{ forloop.index }}" data-sec="sec-{{ forloop.index }}">
 <div class="res-section__head">
-<span class="res-section__icon" aria-hidden="true">{{ def.emoji | default: "📁" }}</span>
 <div class="res-section__titles"><h2 class="res-section__title">{{ name }}</h2>{% if def.desc %}<span class="res-section__desc">{{ def.desc }}</span>{% endif %}</div>
 <span class="res-section__count">{{ items.size }}개</span>
 </div>
@@ -129,7 +127,7 @@ classes: section-page
 {%- if item.url -%}{%- assign host = item.url | split: "//" | last | split: "/" | first | remove: "www." -%}{%- else -%}{%- assign host = "첨부파일" -%}{%- endif -%}
 <article class="res-card">
 <div class="res-card__top">
-{%- if item.url -%}<img class="res-card__favicon" src="https://www.google.com/s2/favicons?domain={{ host }}&sz=64" alt="" loading="lazy" width="20" height="20">{%- else -%}<span class="res-card__favicon res-card__favicon--file" aria-hidden="true">📎</span>{%- endif -%}
+{%- if item.url -%}<img class="res-card__favicon" src="https://www.google.com/s2/favicons?domain={{ host }}&sz=64" alt="" loading="lazy" width="20" height="20">{%- else -%}<span class="res-card__favicon res-card__favicon--file" aria-hidden="true">F</span>{%- endif -%}
 <span class="res-card__host">{{ host }}</span>
 </div>
 {%- if item.url -%}
@@ -139,8 +137,8 @@ classes: section-page
 {%- endif -%}
 {% if item.description %}<span class="res-card__desc">{{ item.description }}</span>{% endif %}
 <div class="res-card__foot">
-{% if item.url %}<span class="res-card__open">새 탭에서 열기</span>{% endif %}
-{% if item.file %}<a class="btn-line res-card__file" href="{{ item.file | relative_url }}" target="_blank" rel="noopener noreferrer">📎 첨부파일</a>{% endif %}
+{% if item.url %}<span class="res-card__open">open ↗</span>{% endif %}
+{% if item.file %}<a class="btn-line res-card__file" href="{{ item.file | relative_url }}" target="_blank" rel="noopener noreferrer">첨부파일</a>{% endif %}
 </div>
 </article>
 {%- endfor -%}

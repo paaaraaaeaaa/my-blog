@@ -23,7 +23,7 @@ classes: section-page
 {%- for p in daily_posts -%}{%- if p.module > current -%}{%- assign current = p.module -%}{%- endif -%}{%- endfor -%}
 
 <header class="page-intro is-cloud">
-<span class="cat-label">Cloud</span>
+<p class="term__cmd">cd ~/cloud</p>
 <h1 class="page-intro__title">모듈별 학습 로그</h1>
 <p class="page-intro__desc">부트캠프 6개 모듈을 하루 단위로 기록합니다. 모듈을 고르면 그 기간의 학습노트가 주 단위 달력으로 펼쳐집니다.</p>
 <p class="page-intro__stats"><span>학습노트 <b>{{ daily_posts.size }}</b>편</span><span>진행 모듈 <b>{{ current }}</b> / 6</span><span><a href="{{ '/database/' | relative_url }}#problems">문제풀이 {{ practice_posts.size }}편은 Database에서 보기</a></span></p>
@@ -33,13 +33,13 @@ classes: section-page
 {%- for i in (1..6) -%}
 {%- assign key = i | append: "" -%}
 {%- assign mod_posts = daily_posts | where_exp: "p", "p.module == i" -%}
-{%- if i < current -%}{%- assign st = "done" -%}{%- assign st_label = "완료 ✓" -%}
-{%- elsif i == current -%}{%- assign st = "current" -%}{%- assign st_label = "지금 여기" -%}
-{%- else -%}{%- assign st = "upcoming" -%}{%- assign st_label = "예정" -%}{%- endif -%}
+{%- if i < current -%}{%- assign st = "done" -%}{%- assign st_label = "done" -%}
+{%- elsif i == current -%}{%- assign st = "current" -%}{%- assign st_label = "running" -%}
+{%- else -%}{%- assign st = "upcoming" -%}{%- assign st_label = "todo" -%}{%- endif -%}
 <button type="button" class="stage is-{{ st }}{% if i == current %} is-active{% endif %}" data-tab="m{{ i }}" role="tab" aria-selected="{% if i == current %}true{% else %}false{% endif %}" aria-controls="panel-m{{ i }}">
 <span class="stage__top"><span class="stage__num">모듈 {{ i }}</span><span class="stage__status">{{ st_label }}</span></span>
 <span class="stage__name">{{ site.data.modules[key] | default: "미정" }}</span>
-<span class="stage__meta">{% if mod_posts.size > 0 %}{{ mod_posts.size }}편{% else %}곧 출발{% endif %}</span>
+<span class="stage__meta">{% if mod_posts.size > 0 %}{{ mod_posts.size }}편{% else %}대기 중{% endif %}</span>
 </button>
 {%- endfor -%}
 </div>
@@ -67,18 +67,16 @@ classes: section-page
 </div>
 {%- if mod_practice.size > 0 -%}
 <a class="stat stat--link is-database" href="{{ '/database/' | relative_url }}#problems">
-<span class="stat__icon" aria-hidden="true">🧩</span>
 <span class="stat__body"><span class="stat__label">문제풀이</span><span class="stat__value">{{ mod_practice.size }}<small>편</small></span></span>
-<span class="stat__cta">Database에서 보기</span>
+<span class="stat__cta">cd ../database →</span>
 </a>
 {%- else -%}
 <div class="stat stat--muted"><span class="stat__label">문제풀이</span><span class="stat__value">아직 없음</span></div>
 {%- endif -%}
 {%- if mod_project -%}
 <a class="stat stat--link is-projects" href="{{ mod_project.url | relative_url }}">
-<span class="stat__icon" aria-hidden="true">{{ mod_project.banner_emoji | default: "🚀" }}</span>
 <span class="stat__body"><span class="stat__label">결과물</span><span class="stat__value">{{ mod_project.project_name | default: mod_project.title | truncate: 16 }}</span></span>
-<span class="stat__cta">회고 읽기</span>
+<span class="stat__cta">cat retro.md →</span>
 </a>
 {%- else -%}
 <div class="stat stat--muted"><span class="stat__label">결과물</span><span class="stat__value">모듈이 끝나면 공개</span></div>
@@ -115,7 +113,7 @@ classes: section-page
 {%- if hit.tags.size > 0 -%}<span class="day__tags">{% for t in hit.tags limit: 2 %}<span class="chip">{{ t }}</span>{% endfor %}</span>{%- endif -%}
 </a>
 {%- elsif site.data.holidays contains cell_date -%}
-<span class="day day--off"><span class="day__date">{{ cell_ts | date: "%-m.%-d" }}</span><span class="day__note">쉬는 날 🌙</span></span>
+<span class="day day--off"><span class="day__date">{{ cell_ts | date: "%-m.%-d" }}</span><span class="day__note">휴일</span></span>
 {%- else -%}
 <span class="day day--empty" aria-hidden="true"><span class="day__date">{{ cell_ts | date: "%-m.%-d" }}</span></span>
 {%- endif -%}

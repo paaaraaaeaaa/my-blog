@@ -13,46 +13,47 @@
 :root {
   color-scheme: dark;
   /* ---------- Color · 공간(배경) ---------- */
-  --c-bg:            #0C0C12;  /* 페이지 배경: 보랏빛이 살짝 도는 먹색 */
-  --c-surface:       #16161F;  /* 패널·카드 배경 */
-  --c-surface-2:     #1F1F2B;  /* 한 단계 올라온 면(hover, 표 헤더) */
-  --c-line:          #272734;  /* 기본 구분선 */
-  --c-line-strong:   #383849;  /* 강조 구분선, 입력창 테두리 */
-  --c-code-bg:       #111118;  /* 코드 블록 배경 (두 테마 공통으로 어두움) */
-  --c-code-ui-bg:    #1F1F2B;  /* 코드 블록 안 버튼·라벨 */
-  --c-code-ui-line:  #383849;
-  --c-code-ui-text:  #B6B6C8;
-  --c-code-text:     #F4F4F8;
+  --c-bg:            #0D1117;  /* 페이지 배경: 터미널 먹색 */
+  --c-surface:       #10151C;  /* 패널·카드 배경 */
+  --c-surface-2:     #161B22;  /* 한 단계 올라온 면(hover, 표 헤더) */
+  --c-line:          #21262D;  /* 기본 구분선 */
+  --c-line-strong:   #30363D;  /* 강조 구분선, 입력창 테두리 */
+  --c-code-bg:       #0A0E14;  /* 코드 블록 배경 (두 테마 공통으로 어두움) */
+  --c-code-ui-bg:    #161B22;  /* 코드 블록 안 버튼·라벨 */
+  --c-code-ui-line:  #30363D;
+  --c-code-ui-text:  #8B949E;
+  --c-code-text:     #E6EDF3;
 
   /* ---------- Color · 글자 ---------- */
-  --c-text:          #F4F4F8;  /* 본문 */
-  --c-text-2:        #B6B6C8;  /* 보조 설명 */
-  --c-text-3:        #80809A;  /* 날짜, 캡션 등 가장 약한 글자 */
+  --c-text:          #E6EDF3;  /* 본문 */
+  --c-text-2:        #A9B4BF;  /* 보조 설명 */
+  --c-text-3:        #7D8590;  /* 날짜, 캡션 등 가장 약한 글자 */
 
   /* ---------- Color · 신호(포인트) ---------- */
-  --c-signal:        #A594FF;  /* 메인 포인트: 네온 라일락 (링크·활성·진행) */
+  --c-signal:        #7EE787;  /* 메인 포인트: 프롬프트 초록 (링크·활성·진행) */
   --c-signal-soft:   color-mix(in srgb, var(--c-signal) 14%, transparent);
   --c-signal-line:   color-mix(in srgb, var(--c-signal) 42%, transparent);
 
   /* ---------- Color · 카테고리 (정보 전달용, 장식 금지) ---------- */
-  --c-cloud:         #62CFFF;  /* Cloud    — 스카이 */
-  --c-database:      #FF8AC8;  /* Database — 핑크 */
-  --c-projects:      #C9F26B;  /* Projects — 라임 */
+  --c-cloud:         #79C0FF;  /* Cloud    — 시안 */
+  --c-database:      #F778BA;  /* Database — 마젠타 */
+  --c-projects:      #E3B341;  /* Projects — 앰버 */
 
   /* ---------- Color · 상태 (콜아웃) ---------- */
-  --c-info:          #A594FF;
-  --c-danger:        #FF6F82;
-  --c-success:       #4FE0A6;
-  --c-warning:       #FFCB5C;
+  --c-info:          #79C0FF;
+  --c-danger:        #FF7B72;
+  --c-success:       #7EE787;
+  --c-warning:       #E3B341;
 
   /* ---------- Effect ---------- */
-  --glow:            0 0 14px color-mix(in srgb, var(--c-signal) 55%, transparent);   /* 진행 점, 활성 표시에만 */
+  --glow:            none;   /* 터미널 스킨: 빛 번짐 쓰지 않음 */
   --shadow-pop:      0 12px 32px rgba(0,0,0,.35);      /* 떠 있는 요소(검색창 등)에만 */
   --focus-ring:      0 0 0 2px var(--c-bg), 0 0 0 4px var(--c-signal);
 
   /* ---------- Type ---------- */
   --font-sans: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", "D2Coding", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --font-mono: "JetBrains Mono", "D2Coding", ui-monospace, "SFMono-Regular", Menlo, Consolas, "Pretendard Variable", "Pretendard", monospace;
+  --font-ui:   var(--font-mono);   /* 제목·메뉴·라벨·숫자 (한글은 Pretendard로 자동 대체) */
 
   /* 1rem = 16px (모바일) / 17px (1024px 이상). site.css 1장 참고 */
   --fs-xs:   .8125rem;  /* 13~14px 캡션 */
@@ -66,23 +67,23 @@
 
   --lh-body:  1.8;      /* 한글 본문 */
   --lh-tight: 1.3;      /* 제목 */
-  --ls-tight: -.035em;  /* 제목 자간: 촘촘하게 */
+  --ls-tight: -.02em;   /* 제목 자간 */
   --ls-body:  -.01em;   /* 본문 자간 */
 
   --fw-regular: 400;
   --fw-medium:  500;
   --fw-bold:    650;
-  --fw-heavy:   800;
+  --fw-heavy:   700;
 
   /* ---------- Space (4px 기반) ---------- */
   --s-1: .25rem;  --s-2: .5rem;  --s-3: .75rem;  --s-4: 1rem;
   --s-5: 1.5rem;  --s-6: 2rem;   --s-7: 3rem;    --s-8: 4rem;
 
   /* ---------- Radius (계층별로 다르게) ---------- */
-  --r-sm: 8px;    /* 코드, 작은 박스 */
-  --r-md: 16px;   /* 카드, 패널, 표 */
-  --r-lg: 24px;   /* 홈 미션 패널 */
-  --r-pill: 999px; /* 칩, 버튼, 탭 */
+  --r-sm: 2px;    /* 칩, 버튼, 작은 박스 */
+  --r-md: 4px;    /* 카드, 패널, 표 */
+  --r-lg: 6px;    /* 홈 터미널 창 */
+  --r-pill: 2px;   /* (예전 알약 자리) 터미널 스킨에서는 각지게 */
 
   /* ---------- Layout ---------- */
   --site-max-width: 1320px;
@@ -102,27 +103,27 @@
 :root[data-theme="light"] {
   color-scheme: light;
 
-  --c-bg:            #F6F6FA;
-  --c-surface:       #FFFFFF;
-  --c-surface-2:     #EFEFF5;
-  --c-line:          #E2E2EB;
-  --c-line-strong:   #CBCBD9;
+  --c-bg:            #FFFFFF;
+  --c-surface:       #F6F8FA;
+  --c-surface-2:     #EAEEF2;
+  --c-line:          #D8DEE4;
+  --c-line-strong:   #C3CBD3;
 
-  --c-text:          #15151E;
-  --c-text-2:        #4B4B60;
-  --c-text-3:        #6E6E84;
+  --c-text:          #1F2328;
+  --c-text-2:        #464E57;
+  --c-text-3:        #656D76;
 
-  --c-signal:        #6A55E0;
+  --c-signal:        #1A7F37;
 
-  --c-cloud:         #0B7CBB;
-  --c-database:      #C22C80;
-  --c-projects:      #4F7D00;
+  --c-cloud:         #0969DA;
+  --c-database:      #BF3989;
+  --c-projects:      #9A6700;
 
-  --c-info:          #6A55E0;
-  --c-danger:        #D23A50;
-  --c-success:       #0E8455;
-  --c-warning:       #9A6310;
+  --c-info:          #0969DA;
+  --c-danger:        #CF222E;
+  --c-success:       #1A7F37;
+  --c-warning:       #9A6700;
 
-  --glow:            0 0 10px color-mix(in srgb, var(--c-signal) 35%, transparent);
+  --glow:            none;
   --shadow-pop:      0 12px 32px rgba(20,20,40,.12);
 }

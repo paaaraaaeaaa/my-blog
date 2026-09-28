@@ -52,7 +52,7 @@ classes: home-page
 </div>
 <div>
 <span class="home-panel__label">누적 방문자</span>
-<img src="https://visitor-badge.laobi.icu/badge?page_id=paaaraaaeaaa.my-blog&left_color=1F1F2B&right_color=6A58E0" alt="누적 방문자 수" />
+<img src="https://visitor-badge.laobi.icu/badge?page_id=paaaraaaeaaa.my-blog&left_color=161B22&right_color=238636" alt="누적 방문자 수" />
 </div>
 </div>
 {%- comment -%} 자주 쓴 태그: 글 tags를 세서 상위 8개 (_data/tag_rules.yml의 분류성 태그는 제외). 누르면 검색창이 열린다 {%- endcomment -%}
@@ -90,7 +90,7 @@ classes: home-page
 <span class="home-panel__label home-panel__label--split"><span>기술 스택</span><b>많이 쓴 순 {{ skill_ids.size }}개</b></span>
 <img class="home-panel__stack" src="https://skillicons.dev/icons?i={{ skill_ids | join: ',' }}&theme=dark&perline=5" data-src-light="https://skillicons.dev/icons?i={{ skill_ids | join: ',' }}&theme=light&perline=5" alt="{{ skill_ids | join: ', ' }}" loading="lazy" />
 </div>
-<button type="button" id="copy-link-btn" class="btn-line">🔗 링크 복사하기</button>
+<button type="button" id="copy-link-btn" class="btn-line">copy link</button>
 </section>
 </aside>
 
@@ -129,29 +129,11 @@ classes: home-page
 {% if remaining_days < 0 %}{% assign remaining_days = 0 %}{% endif %}
 {% assign span_sec = end_ts | minus: start_ts %}
 
-<section class="mission" aria-label="학습 진행 상황">
-<p class="mission__status">🔥 요즘 {{ site.data.now.status | default: "공부 기록 중" }}</p>
-<h1 class="mission__title">안녕하세요, 개발 공부 중입니다</h1>
-<p class="mission__desc">개발을 처음 배우는 부트캠프 학습자입니다. 매일 배운 내용과 시행착오를 기록해서, 몇 달 뒤 다시 읽었을 때 "그때보다 늘었다"를 확인할 수 있는 블로그로 만들고 있습니다.</p>
-
-<div class="mission__readout">
-<p class="mission__day"><span class="mission__day-label">오늘은</span><span class="mission__day-value">{{ day_number }}</span><span class="mission__day-unit">일차</span></p>
-<p class="mission__meta"><span>전체 기간 <b>{{ percent }}%</b> 지남</span><span class="mission__dday">D-{{ remaining_days }}</span></p>
-</div>
-
-<div class="track" style="--p: {{ percent }}%;" role="img" aria-label="전체 {{ total_calendar_days }}일 중 {{ percent }}% 진행">
-<span class="track__rail"></span>
-<span class="track__fill"></span>
-<span class="track__start"></span>
-<span class="track__end"></span>
-{%- assign month_starts = "2026-10-01,2026-11-01,2026-12-01,2027-01-01,2027-02-01" | split: "," -%}
-{%- for m in month_starts -%}
-{%- assign m_ts = m | date: "%s" | plus: 0 -%}
-{%- assign m_pos = m_ts | minus: start_ts | times: 1000 | divided_by: span_sec -%}
-<span class="track__tick" style="left: {{ m_pos | divided_by: 10.0 }}%;">{{ m | date: "%-m" }}월</span>
-{%- endfor -%}
-<span class="track__craft"></span>
-</div>
+{%- comment -%} 진행 막대: 30칸 ASCII. 채운 칸 수 = 진행률 × 30 {%- endcomment -%}
+{%- assign bar_cells = 30 -%}
+{%- assign bar_fill = percent | times: bar_cells | divided_by: 100 -%}
+{%- capture bar_on -%}{%- for i in (1..bar_cells) -%}{%- if i <= bar_fill -%}█{%- endif -%}{%- endfor -%}{%- endcapture -%}
+{%- capture bar_off -%}{%- for i in (1..bar_cells) -%}{%- if i > bar_fill -%}░{%- endif -%}{%- endfor -%}{%- endcapture -%}
 {%- comment -%} 이번 주 기록: 빌드 시점 기준 이번 주 월~금에 학습노트가 있으면 채운 점 {%- endcomment -%}
 {%- assign today_u = site.time | date: "%u" | plus: 0 -%}
 {%- assign today_str = site.time | date: "%Y-%m-%d" -%}
@@ -167,15 +149,36 @@ classes: home-page
 {%- assign hit = false -%}
 {%- for p in cloud_daily_all -%}{%- assign pd = p.date | date: "%Y-%m-%d" -%}{%- if pd == cell -%}{%- assign hit = true -%}{%- endif -%}{%- endfor -%}
 {%- if hit -%}{%- assign week_hits = week_hits | plus: 1 -%}{%- endif -%}
-<span class="wdot{% if hit %} is-on{% endif %}{% if cell == today_str %} is-today{% endif %}{% if site.data.holidays contains cell %} is-off{% endif %}" title="{{ cell }}">{{ labels[forloop.index0] }}</span>
+<span class="wdot{% if hit %} is-on{% endif %}{% if cell == today_str %} is-today{% endif %}{% if site.data.holidays contains cell %} is-off{% endif %}" title="{{ cell }}{% if hit %} 기록함{% elsif site.data.holidays contains cell %} 휴일{% endif %}">{{ labels[forloop.index0] }}</span>
 {%- endfor -%}
 {%- endcapture -%}
-<p class="mission__ends"><span>🚀 2026.08.26 출발</span><span>🏁 2027.02.16 수료 · 총 {{ total_calendar_days }}일</span></p>
-<div class="week-strip"><span class="week-strip__label">이번 주 기록</span><span class="week-strip__dots">{{ week_dots }}</span><span class="week-strip__count"><b>{{ week_hits }}</b> / 5일</span></div>
+<section class="term mission" aria-label="학습 진행 상황">
+<div class="term__bar"><span class="term__path">yerin@learning-log: ~</span><span class="term__now">{{ site.data.now.status | default: "공부 기록 중" }}</span></div>
+<div class="term__body">
+<p class="term__cmd">whoami</p>
+<h1 class="mission__title">안녕하세요, 개발 공부 중입니다</h1>
+<p class="mission__desc">개발을 처음 배우는 부트캠프 학습자입니다. 매일 배운 내용과 시행착오를 기록해서, 몇 달 뒤 다시 읽었을 때 "그때보다 늘었다"를 확인할 수 있는 블로그로 만들고 있습니다.</p>
 
+<p class="term__cmd">progress --bootcamp</p>
+<div class="readout">
+<p class="mission__day"><span class="mission__day-value">{{ day_number }}</span><span class="mission__day-unit">일차</span></p>
+<dl class="readout__kv">
+<div><dt>elapsed</dt><dd>{{ percent }}%</dd></div>
+<div><dt>remaining</dt><dd>D-{{ remaining_days }}</dd></div>
+<div><dt>total</dt><dd>{{ total_calendar_days }}d</dd></div>
+</dl>
+</div>
+<p class="asciibar" role="img" aria-label="전체 {{ total_calendar_days }}일 중 {{ percent }}% 진행"><span class="asciibar__on">{{ bar_on }}</span><span class="asciibar__off">{{ bar_off }}</span></p>
+<p class="mission__ends"><span>2026.08.26 start</span><span>2027.02.16 end</span></p>
+
+<p class="term__cmd">log --this-week</p>
+<div class="week-strip"><span class="week-strip__dots">{{ week_dots }}</span><span class="week-strip__count"><b>{{ week_hits }}</b>/5 days</span></div>
+
+<p class="term__cmd">cat goal.txt</p>
 <div class="goal info-tile--goal">
-<span class="goal__label">🎯 목표</span>
 <p class="goal__text">하루도 빠짐없이 기록하고, 막혔던 부분은 반드시 다시 정리하기</p>
+</div>
+<p class="term__cmd term__cmd--idle" aria-hidden="true"><span class="term__cursor"></span></p>
 </div>
 </section>
 
@@ -185,29 +188,29 @@ classes: home-page
 {% assign proj_posts = site.categories.Projects | default: empty_array %}
 {% assign db_items = site.data.database_links | default: empty_array %}
 
-<div class="section-head section-head--band"><h2>둘러보기</h2><span class="section-head__aside">세 섹션으로 나눠 기록하고 있어요</span></div>
+<div class="section-head section-head--band"><h2>둘러보기</h2><span class="section-head__aside">ls -l ~/</span></div>
 
-<nav class="index-grid" aria-label="섹션 바로가기">
-<a class="index-card is-cloud" href="{{ '/cloud/' | relative_url }}">
-<span class="index-card__icon" aria-hidden="true">☁️</span>
-<span class="index-card__top"><span class="index-card__name">Cloud</span><span class="index-card__count"><b>{{ cloud_posts.size }}</b> 편</span></span>
-<span class="index-card__desc">모듈별 일차 학습노트</span>
-{% if cloud_posts.size > 0 %}<span class="index-card__latest">최신 · {{ cloud_posts.first.title }}</span>{% endif %}
-<span class="index-card__cta">학습 로그 보기</span>
+<nav class="ls" aria-label="섹션 바로가기">
+<a class="ls__row is-cloud" href="{{ '/cloud/' | relative_url }}">
+<span class="ls__perm" aria-hidden="true">drwxr-xr-x</span>
+<span class="ls__name">cloud/</span>
+<span class="ls__count"><b>{{ cloud_posts.size }}</b> notes</span>
+<span class="ls__desc">모듈별 일차 학습노트</span>
+<span class="ls__latest">{% if cloud_posts.size > 0 %}{{ cloud_posts.first.date | date: "%m.%d" }} {{ cloud_posts.first.title }}{% endif %}</span>
 </a>
-<a class="index-card is-database" href="{{ '/database/' | relative_url }}">
-<span class="index-card__icon" aria-hidden="true">🗄️</span>
-<span class="index-card__top"><span class="index-card__name">Database</span><span class="index-card__count"><b>{{ db_items.size }}</b> 개</span></span>
-<span class="index-card__desc">문제와 풀이, 게임, 아티팩트</span>
-{% if db_items.size > 0 %}<span class="index-card__latest">최신 · {{ db_items.last.title }}</span>{% endif %}
-<span class="index-card__cta">자료 보기</span>
+<a class="ls__row is-database" href="{{ '/database/' | relative_url }}">
+<span class="ls__perm" aria-hidden="true">drwxr-xr-x</span>
+<span class="ls__name">database/</span>
+<span class="ls__count"><b>{{ db_items.size }}</b> items</span>
+<span class="ls__desc">문제와 풀이, 게임, 아티팩트</span>
+<span class="ls__latest">{% if db_items.size > 0 %}{{ db_items.last.title }}{% endif %}</span>
 </a>
-<a class="index-card is-projects" href="{{ '/projects/' | relative_url }}">
-<span class="index-card__icon" aria-hidden="true">🚀</span>
-<span class="index-card__top"><span class="index-card__name">Projects</span><span class="index-card__count"><b>{{ proj_posts.size }}</b> 편</span></span>
-<span class="index-card__desc">모듈별 결과물 6개와 연동기</span>
-{% if proj_posts.size > 0 %}<span class="index-card__latest">최신 · {{ proj_posts.first.title }}</span>{% endif %}
-<span class="index-card__cta">결과물 보기</span>
+<a class="ls__row is-projects" href="{{ '/projects/' | relative_url }}">
+<span class="ls__perm" aria-hidden="true">drwxr-xr-x</span>
+<span class="ls__name">projects/</span>
+<span class="ls__count"><b>{{ proj_posts.size }}</b> posts</span>
+<span class="ls__desc">모듈별 결과물 6개와 연동기</span>
+<span class="ls__latest">{% if proj_posts.size > 0 %}{{ proj_posts.first.date | date: "%m.%d" }} {{ proj_posts.first.project_name | default: proj_posts.first.title }}{% endif %}</span>
 </a>
 </nav>
 
@@ -234,12 +237,12 @@ classes: home-page
 
 <section class="panel gh-panel">
 <div class="gh-panel__item gh-panel__streak">
-<h3>🔥 연속 커밋</h3>
-<img src="https://streak-stats.demolab.com?user=paaaraaaeaaa&hide_border=true&background=00000000&stroke=272734&ring=A594FF&fire=FF8AC8&currStreakNum=F4F4F8&sideNums=F4F4F8&currStreakLabel=A594FF&sideLabels=B6B6C8&dates=80809A" data-src-light="https://streak-stats.demolab.com?user=paaaraaaeaaa&hide_border=true&background=00000000&stroke=E2E2EB&ring=6A55E0&fire=C22C80&currStreakNum=15151E&sideNums=15151E&currStreakLabel=6A55E0&sideLabels=4B4B60&dates=6E6E84" alt="GitHub 연속 기여 통계" loading="lazy" />
+<h3>streak</h3>
+<img src="https://streak-stats.demolab.com?user=paaaraaaeaaa&hide_border=true&background=00000000&stroke=30363D&ring=7EE787&fire=E3B341&currStreakNum=E6EDF3&sideNums=E6EDF3&currStreakLabel=7EE787&sideLabels=A9B4BF&dates=7D8590" data-src-light="https://streak-stats.demolab.com?user=paaaraaaeaaa&hide_border=true&background=00000000&stroke=D8DEE4&ring=1A7F37&fire=9A6700&currStreakNum=1F2328&sideNums=1F2328&currStreakLabel=1A7F37&sideLabels=464E57&dates=656D76" alt="GitHub 연속 기여 통계" loading="lazy" />
 </div>
 <div class="gh-panel__item">
-<h3>🌱 잔디밭</h3>
-<div class="gh-panel__chart"><img src="https://ghchart.rshah.org/5040C0/paaaraaaeaaa" alt="GitHub 기여 캘린더" loading="lazy" /></div>
+<h3>contributions</h3>
+<div class="gh-panel__chart"><img src="https://ghchart.rshah.org/1A7F37/paaaraaaeaaa" alt="GitHub 기여 캘린더" loading="lazy" /></div>
 </div>
 </section>
 

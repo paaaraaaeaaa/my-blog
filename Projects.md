@@ -22,7 +22,7 @@ classes: section-page
 {%- for p in daily_posts -%}{%- if p.module > current -%}{%- assign current = p.module -%}{%- endif -%}{%- endfor -%}
 
 <header class="page-intro is-projects">
-<span class="cat-label">Projects</span>
+<p class="term__cmd">cd ~/projects</p>
 <h1 class="page-intro__title">모듈마다 하나씩, 여섯 개의 결과물</h1>
 <p class="page-intro__desc">각 모듈이 끝날 때 팀 프로젝트 결과물이 하나씩 나옵니다. 기획부터 배포 이후의 트러블슈팅까지, 잘 풀린 것만큼 막혔던 지점도 그대로 남깁니다.</p>
 <p class="page-intro__stats"><span>결과물 <b>{{ main_posts.size }}</b> / 6</span><span>연동기 <b>{{ series_posts.size }}</b>편</span></p>
@@ -35,8 +35,8 @@ classes: section-page
 {%- assign key = i | append: "" -%}
 {%- assign project = main_posts | where_exp: "p", "p.module == i" | first -%}
 {%- assign mod_series = series_posts | where_exp: "p", "p.module == i" -%}
-{%- if project -%}{%- assign st = "done" -%}{%- assign st_label = "완료 ✓" -%}
-{%- elsif i == current -%}{%- assign st = "current" -%}{%- assign st_label = "지금 여기" -%}
+{%- if project -%}{%- assign st = "done" -%}{%- assign st_label = "done" -%}
+{%- elsif i == current -%}{%- assign st = "current" -%}{%- assign st_label = "running" -%}
 {%- else -%}{%- assign st = "upcoming" -%}{%- assign upcoming_count = upcoming_count | plus: 1 -%}{%- endif -%}
 {%- if st != "upcoming" -%}
 <li class="timeline__item is-{{ st }}">
@@ -49,7 +49,7 @@ classes: section-page
 {%- if project -%}
 <article class="proj-card{% if mod_series.size > 0 %} proj-card--split{% endif %}">
 <div class="proj-card__main">
-<span class="proj-card__mark" aria-hidden="true">{{ project.banner_emoji | default: "🚀" }}</span>
+<span class="proj-card__path">~/projects/{{ project.slug }}</span>
 <div class="proj-card__meta">{% if project.project_name %}<span class="proj-card__name">{{ project.project_name }}</span>{% endif %}<span>{{ project.date | date: "%Y.%m.%d" }} 공개</span></div>
 <a class="proj-card__title" href="{{ project.url | relative_url }}">{{ project.title }}</a>
 {% if project.excerpt %}<p class="proj-card__excerpt">{{ project.excerpt | strip_html | strip_newlines | truncate: 160 }}</p>{% endif %}
@@ -70,7 +70,7 @@ classes: section-page
 <ol class="chapter-list">
 {%- for post in chapters -%}
 <li><a class="chapter" href="{{ post.url | relative_url }}">
-<span class="chapter__num">{{ forloop.index }}</span>
+<span class="chapter__num">{{ forloop.index | prepend: "0" | slice: -2, 2 }}</span>
 <span class="chapter__body">
 <span class="chapter__top">{% if post.tags.size > 0 %}<span class="chapter__tag">{{ post.tags | first }}</span>{% endif %}<span class="chapter__date">{{ post.date | date: "%-m.%-d" }}</span></span>
 <span class="chapter__title">{{ post.title }}</span>
@@ -94,7 +94,7 @@ classes: section-page
 {%- if upcoming_count > 0 -%}
 <li class="timeline__item is-upcoming">
 <span class="timeline__marker" aria-hidden="true"></span>
-<div class="timeline__head"><span class="timeline__name">다음 정거장</span><span class="timeline__status">{{ upcoming_count }}개 모듈 남음</span></div>
+<div class="timeline__head"><span class="timeline__name">다음 정거장</span><span class="timeline__status">{{ upcoming_count }} queued</span></div>
 <div class="next-stops">
 {%- for i in (1..6) -%}
 {%- assign key = i | append: "" -%}
@@ -103,7 +103,7 @@ classes: section-page
 <div class="next-stop">
 <span class="next-stop__num">모듈 {{ i }}</span>
 <span class="next-stop__name">{{ site.data.modules[key] | default: "미정" }}</span>
-<span class="next-stop__note">결과물 곧 공개</span>
+<span class="next-stop__note">queued</span>
 </div>
 {%- endunless -%}
 {%- endfor -%}
