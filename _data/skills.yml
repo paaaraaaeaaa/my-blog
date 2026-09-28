@@ -14,6 +14,8 @@
   aliases: [마크다운, markdown, jekyll, blog, claude-md]
 - id: html
   aliases: [html, tag, 웹개발기초, attribute]
+- id: java
+  aliases: [java, jdk]
 - id: css
   aliases: [css, flexbox, grid, transition, animation, transform, hover, css modules, 레이아웃, 반응형웹, selector]
 - id: tailwind
