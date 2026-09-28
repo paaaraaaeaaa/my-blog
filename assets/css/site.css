@@ -359,7 +359,7 @@ a:visited { color: var(--c-signal); }
   text-align: left;
   border-bottom: 1px solid var(--c-line-strong);
 }
-.page__content th, .page__content td { padding: var(--s-3) var(--s-4); border-color: var(--c-line); }
+.page__content th, .page__content td { padding: var(--s-3) var(--s-4); border-color: var(--c-line); overflow-wrap: normal; }
 .page__content td { color: var(--c-text-2); border-bottom: 1px solid var(--c-line); }
 .page__content tbody tr:last-child td { border-bottom: 0; }
 .page__content tbody tr:hover td { background: var(--c-surface); }
