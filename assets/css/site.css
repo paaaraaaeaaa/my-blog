@@ -334,6 +334,71 @@ a:visited { color: var(--c-signal); }
   .img-zoom__img.is-zoomed { max-width: none; }
 }
 
+/* 게시글 안 "원본 코드 보기" 트리거 버튼 ({% include code-popup.html %}) */
+.code-popup-trigger {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0 var(--s-5);
+  padding: var(--s-2) var(--s-4);
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--r-sm);
+  background: var(--c-surface);
+  color: var(--c-signal);
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  cursor: pointer;
+}
+.code-popup-trigger:hover { border-color: var(--c-signal); background: var(--c-surface-2); }
+
+/* 원본 코드 팝업 (footer/custom.html이 트리거 클릭 시 연다) */
+.code-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--s-6);
+  background: color-mix(in srgb, var(--c-bg) 92%, transparent);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.code-popup[hidden] { display: none; }
+.code-popup__win {
+  width: 100%;
+  max-width: 46rem;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+.code-popup__actions { display: flex; align-items: center; gap: var(--s-2); flex: none; }
+.code-popup__actions .code-copy-btn { position: static; }
+.code-popup__close {
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--r-sm);
+  background: var(--c-surface);
+  color: var(--c-text-2);
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  padding: 2px var(--s-2);
+  cursor: pointer;
+}
+.code-popup__close:hover { color: var(--c-text); background: var(--c-surface-2); }
+.code-popup__body {
+  margin: 0;
+  padding: var(--s-5);
+  overflow: auto;
+  background: var(--c-code-bg) !important;
+  font-family: var(--font-mono);
+  font-size: .86rem;
+  line-height: 1.65;
+  color: var(--c-code-text);
+}
+@media (max-width: 640px) {
+  .code-popup { padding: var(--s-4); }
+  .code-popup__win { max-height: 90vh; }
+}
+
 /* 표: footer JS가 .table-scroll로 감싸서 좁은 화면에서 가로 스크롤 */
 .table-scroll {
   overflow-x: auto;

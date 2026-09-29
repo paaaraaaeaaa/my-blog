@@ -1,0 +1,7 @@
+{%- comment -%}
+  사용법: {% include code-popup.html dir="2026-09-29-m2-day2" file="a_controlflow/Application01.java" title="Application01.java" %}
+  실제 파일은 assets/code/<dir>/<file>에 미리 복사해둬야 한다 (원본 프로젝트 폴더는 exclude 되어 사이트에 발행되지 않음).
+  버튼을 누르면 footer/custom.html의 JS가 그 경로를 fetch해서 터미널 창 모양 팝업으로 보여준다.
+{%- endcomment -%}
+{%- assign cp_title = include.title | default: include.file -%}
+<button type="button" class="code-popup-trigger" data-src="{{ site.baseurl }}/assets/code/{{ include.dir }}/{{ include.file }}" data-title="{{ cp_title }}">./{{ cp_title }} 원본 보기</button>

@@ -74,3 +74,7 @@ exclude:
   - Gemfile.lock
   - vendor
   - node_modules
+  # IntelliJ 실습 프로젝트 원본(chap01-java-basic 등). .idea·out·.class까지 그대로 발행되는 걸 막는다.
+  # 게시글에 필요한 소스만 assets/code/에 복사해서 {% include code-popup.html %}로 보여준다.
+  - "chap*"
+  - notion

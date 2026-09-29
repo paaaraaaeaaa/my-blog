@@ -197,6 +197,117 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // 5-2. 게시글 원본 코드 팝업: {% include code-popup.html %}로 넣은 버튼을 누르면
+  //      assets/code/에 미리 복사해둔 실제 소스 파일을 fetch로 가져와 터미널 창 모양으로 보여줌
+  var codeTriggers = document.querySelectorAll('.page__content .code-popup-trigger');
+  if (codeTriggers.length > 0) {
+    var codeOverlay = document.createElement('div');
+    codeOverlay.className = 'code-popup';
+    codeOverlay.setAttribute('role', 'dialog');
+    codeOverlay.setAttribute('aria-modal', 'true');
+    codeOverlay.setAttribute('aria-label', '원본 코드 보기');
+    codeOverlay.hidden = true;
+
+    var codeWin = document.createElement('div');
+    codeWin.className = 'code-popup__win term';
+
+    var codeBar = document.createElement('div');
+    codeBar.className = 'term__bar';
+
+    var codeTitle = document.createElement('span');
+    codeTitle.className = 'term__now';
+
+    var codeActions = document.createElement('div');
+    codeActions.className = 'code-popup__actions';
+
+    var codeCopyBtn = document.createElement('button');
+    codeCopyBtn.type = 'button';
+    codeCopyBtn.className = 'code-copy-btn';
+    codeCopyBtn.textContent = '복사';
+
+    var codeCloseBtn = document.createElement('button');
+    codeCloseBtn.type = 'button';
+    codeCloseBtn.className = 'code-popup__close';
+    codeCloseBtn.textContent = '[esc] 닫기';
+
+    codeActions.appendChild(codeCopyBtn);
+    codeActions.appendChild(codeCloseBtn);
+    codeBar.appendChild(codeTitle);
+    codeBar.appendChild(codeActions);
+
+    var codePre = document.createElement('pre');
+    codePre.className = 'code-popup__body';
+    var codeBody = document.createElement('code');
+    codePre.appendChild(codeBody);
+
+    codeWin.appendChild(codeBar);
+    codeWin.appendChild(codePre);
+    codeOverlay.appendChild(codeWin);
+    document.body.appendChild(codeOverlay);
+
+    var codeLastTrigger = null;
+    var codeCache = {};
+
+    var closeCodePopup = function () {
+      codeOverlay.hidden = true;
+      document.body.style.overflow = '';
+      if (codeLastTrigger) { codeLastTrigger.focus(); codeLastTrigger = null; }
+    };
+
+    var openCodePopup = function (btn) {
+      codeLastTrigger = btn;
+      var src = btn.getAttribute('data-src');
+      var title = btn.getAttribute('data-title') || src;
+      codeTitle.textContent = title;
+      codeOverlay.hidden = false;
+      document.body.style.overflow = 'hidden';
+      codeCloseBtn.focus();
+
+      if (codeCache[src]) {
+        codeBody.textContent = codeCache[src];
+        return;
+      }
+      codeBody.textContent = '불러오는 중...';
+      fetch(src).then(function (res) {
+        if (!res.ok) throw new Error('not found');
+        return res.text();
+      }).then(function (text) {
+        codeCache[src] = text;
+        if (codeTitle.textContent === title) codeBody.textContent = text;
+      }).catch(function () {
+        codeBody.textContent = '코드를 불러오지 못했습니다: ' + src;
+      });
+    };
+
+    codeTriggers.forEach(function (btn) {
+      btn.addEventListener('click', function () { openCodePopup(btn); });
+    });
+
+    codeCopyBtn.addEventListener('click', function () {
+      var text = codeBody.textContent;
+      var done = function (ok) {
+        codeCopyBtn.textContent = ok ? '복사됨!' : '실패';
+        setTimeout(function () { codeCopyBtn.textContent = '복사'; }, 1500);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { done(true); }).catch(function () { done(false); });
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); done(true); } catch (e) { done(false); }
+        document.body.removeChild(ta);
+      }
+    });
+
+    codeCloseBtn.addEventListener('click', closeCodePopup);
+    codeOverlay.addEventListener('click', function (e) { if (e.target === codeOverlay) closeCodePopup(); });
+    document.addEventListener('keydown', function (e) {
+      if (!codeOverlay.hidden && e.key === 'Escape') closeCodePopup();
+    });
+  }
+
   // 6. 오늘 방문자 뱃지: 날짜별로 다른 page_id를 써서 그날그날 새로 세도록 함
   //    (주의) new Date().toISOString()은 항상 UTC 기준 날짜를 반환해서,
   //    한국 시간으로는 자정이 아니라 "오전 9시"에 날짜가 바뀌는 버그가 있었음.

@@ -221,6 +221,8 @@
 | `.readout` `.asciibar` | 홈 진행 상황 (큰 일차 숫자, key-value, █░ 막대) |
 | `.ls` > `.ls__row` | `ls -l` 형태의 섹션 바로가기 |
 | `.empty-note` | "아직 글이 없습니다" 안내 |
+| `.code-popup-trigger` | 게시글 안 "원본 코드 보기" 버튼(`{% include code-popup.html %}`) |
+| `.code-popup` (+ `__win` `__actions` `__close` `__body`) | 원본 코드 팝업(터미널 창 `.term` 재사용, `__body`는 코드 블록 색 사용) |
 
 ### 4.1 게시글 안에서 자동으로 적용되는 것 (`_includes/footer/custom.html`)
 
@@ -238,6 +240,7 @@
 | `type: practice` + `topic` | 시리즈 진행 표시: "N편 중 M번째" + 단계 칸, 문제풀이는 "문제 보기" 링크 |
 | 긴 글 | 한 화면 넘게 내리면 오른쪽 아래 맨 위로 버튼 |
 | ` ```mermaid ` | 토큰 색으로 그려진 다이어그램 |
+| `{% include code-popup.html dir="..." file="..." title="..." %}` | "원본 코드 보기" 버튼. 누르면 `assets/code/<dir>/<file>`을 fetch해서 터미널 창 팝업으로 보여줌(복사 버튼 포함) |
 
 ---
 
