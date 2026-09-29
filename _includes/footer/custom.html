@@ -197,8 +197,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // 5-2. 게시글 원본 코드 팝업: {% include code-popup.html %}로 넣은 버튼을 누르면
-  //      assets/code/에 미리 복사해둔 실제 소스 파일을 fetch로 가져와 터미널 창 모양으로 보여줌
+  // 5-2. 게시글 원본 코드 팝업: {% include code-popup.html dir="..." %}로 넣은 버튼을 누르면
+  //      assets/code/<dir>/ 트리를 폴더 → 파일 순으로 탐색하다가, 파일을 고르면 fetch로 가져와 보여줌
   var codeTriggers = document.querySelectorAll('.page__content .code-popup-trigger');
   if (codeTriggers.length > 0) {
     var codeOverlay = document.createElement('div');
@@ -214,11 +214,16 @@ document.addEventListener('DOMContentLoaded', function () {
     var codeBar = document.createElement('div');
     codeBar.className = 'term__bar';
 
-    var codeTitle = document.createElement('span');
-    codeTitle.className = 'term__now';
+    var codePath = document.createElement('span');
+    codePath.className = 'term__path';
 
     var codeActions = document.createElement('div');
     codeActions.className = 'code-popup__actions';
+
+    var codeBackBtn = document.createElement('button');
+    codeBackBtn.type = 'button';
+    codeBackBtn.className = 'code-popup__btn';
+    codeBackBtn.textContent = '← 목록';
 
     var codeCopyBtn = document.createElement('button');
     codeCopyBtn.type = 'button';
@@ -227,13 +232,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var codeCloseBtn = document.createElement('button');
     codeCloseBtn.type = 'button';
-    codeCloseBtn.className = 'code-popup__close';
+    codeCloseBtn.className = 'code-popup__btn';
     codeCloseBtn.textContent = '[esc] 닫기';
 
+    codeActions.appendChild(codeBackBtn);
     codeActions.appendChild(codeCopyBtn);
     codeActions.appendChild(codeCloseBtn);
-    codeBar.appendChild(codeTitle);
+    codeBar.appendChild(codePath);
     codeBar.appendChild(codeActions);
+
+    var codeList = document.createElement('div');
+    codeList.className = 'code-popup__list';
 
     var codePre = document.createElement('pre');
     codePre.className = 'code-popup__body';
@@ -241,12 +250,126 @@ document.addEventListener('DOMContentLoaded', function () {
     codePre.appendChild(codeBody);
 
     codeWin.appendChild(codeBar);
+    codeWin.appendChild(codeList);
     codeWin.appendChild(codePre);
     codeOverlay.appendChild(codeWin);
     document.body.appendChild(codeOverlay);
 
     var codeLastTrigger = null;
-    var codeCache = {};
+    var codeTreesByDir = {};
+    var codeTextCache = {};
+    var codeDir = '';
+    var codePathStack = [];
+
+    var buildTree = function (files) {
+      var root = {};
+      files.forEach(function (f) {
+        var parts = f.path.split('/');
+        var node = root;
+        for (var i = 0; i < parts.length - 1; i++) {
+          var seg = parts[i];
+          if (!node[seg]) node[seg] = {};
+          node = node[seg];
+        }
+        node[parts[parts.length - 1]] = f.url;
+      });
+      return root;
+    };
+
+    var getTree = function (dir) {
+      if (codeTreesByDir[dir]) return codeTreesByDir[dir];
+      var dataEl = document.querySelector('.code-popup-data[data-dir="' + dir + '"]');
+      var files = [];
+      try { files = JSON.parse((dataEl && dataEl.textContent) || '[]'); } catch (e) { files = []; }
+      var tree = buildTree(files);
+      codeTreesByDir[dir] = tree;
+      return tree;
+    };
+
+    var nodeAtPath = function (tree, pathStack) {
+      var node = tree;
+      for (var i = 0; i < pathStack.length; i++) { node = node[pathStack[i]] || {}; }
+      return node;
+    };
+
+    var showList = function () {
+      codePre.hidden = true;
+      codeList.hidden = false;
+      codeBackBtn.hidden = true;
+      codeCopyBtn.hidden = true;
+    };
+
+    var showFile = function () {
+      codePre.hidden = false;
+      codeList.hidden = true;
+      codeBackBtn.hidden = false;
+      codeCopyBtn.hidden = false;
+    };
+
+    var renderList = function () {
+      showList();
+      codePath.textContent = '~/' + codeDir + (codePathStack.length ? '/' + codePathStack.join('/') : '');
+      codeList.innerHTML = '';
+      var node = nodeAtPath(getTree(codeDir), codePathStack);
+
+      if (codePathStack.length > 0) {
+        var upRow = document.createElement('button');
+        upRow.type = 'button';
+        upRow.className = 'code-popup__row code-popup__row--up';
+        upRow.textContent = '../';
+        upRow.addEventListener('click', function () { codePathStack.pop(); renderList(); });
+        codeList.appendChild(upRow);
+      }
+
+      var names = Object.keys(node).sort();
+      names.forEach(function (name) {
+        var value = node[name];
+        var row = document.createElement('button');
+        row.type = 'button';
+        if (typeof value === 'string') {
+          row.className = 'code-popup__row code-popup__row--file';
+          row.textContent = name;
+          row.addEventListener('click', function () { openFile(name, value); });
+        } else {
+          row.className = 'code-popup__row code-popup__row--dir';
+          row.textContent = name + '/';
+          row.addEventListener('click', function () { codePathStack.push(name); renderList(); });
+        }
+        codeList.appendChild(row);
+      });
+
+      if (names.length === 0 && codePathStack.length === 0) {
+        var empty = document.createElement('p');
+        empty.className = 'code-popup__row';
+        empty.textContent = '표시할 파일이 없습니다.';
+        codeList.appendChild(empty);
+      }
+
+      // 폴더 이동/뒤로가기로 다시 그릴 때마다 이전 버튼이 DOM에서 사라지므로,
+      // 포커스가 body로 빠지지 않도록 목록의 첫 행으로 옮겨준다.
+      var firstRow = codeList.querySelector('button');
+      if (firstRow) firstRow.focus();
+    };
+
+    var openFile = function (name, url) {
+      showFile();
+      codePath.textContent = '~/' + codeDir + (codePathStack.length ? '/' + codePathStack.join('/') : '') + '/' + name;
+
+      if (codeTextCache[url]) {
+        codeBody.textContent = codeTextCache[url];
+        return;
+      }
+      codeBody.textContent = '불러오는 중...';
+      fetch(url).then(function (res) {
+        if (!res.ok) throw new Error('not found');
+        return res.text();
+      }).then(function (text) {
+        codeTextCache[url] = text;
+        if (codePath.textContent.slice(-1 * name.length) === name) codeBody.textContent = text;
+      }).catch(function () {
+        codeBody.textContent = '코드를 불러오지 못했습니다: ' + url;
+      });
+    };
 
     var closeCodePopup = function () {
       codeOverlay.hidden = true;
@@ -256,32 +379,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var openCodePopup = function (btn) {
       codeLastTrigger = btn;
-      var src = btn.getAttribute('data-src');
-      var title = btn.getAttribute('data-title') || src;
-      codeTitle.textContent = title;
+      codeDir = btn.getAttribute('data-dir');
+      codePathStack = [];
       codeOverlay.hidden = false;
       document.body.style.overflow = 'hidden';
+      renderList();
       codeCloseBtn.focus();
-
-      if (codeCache[src]) {
-        codeBody.textContent = codeCache[src];
-        return;
-      }
-      codeBody.textContent = '불러오는 중...';
-      fetch(src).then(function (res) {
-        if (!res.ok) throw new Error('not found');
-        return res.text();
-      }).then(function (text) {
-        codeCache[src] = text;
-        if (codeTitle.textContent === title) codeBody.textContent = text;
-      }).catch(function () {
-        codeBody.textContent = '코드를 불러오지 못했습니다: ' + src;
-      });
     };
 
     codeTriggers.forEach(function (btn) {
       btn.addEventListener('click', function () { openCodePopup(btn); });
     });
+
+    codeBackBtn.addEventListener('click', renderList);
 
     codeCopyBtn.addEventListener('click', function () {
       var text = codeBody.textContent;

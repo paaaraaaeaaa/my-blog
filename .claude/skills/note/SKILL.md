@@ -45,7 +45,8 @@ description: 배운 것을 일차 학습노트로 정리해서 블로그 Cloud �
    - 본문은 `CLAUDE.md` 6장 STAR 템플릿을 따른다.
    - `<style>`, 글자 크기 조절 코드, 인라인 `style="..."`는 **넣지 않는다.** (DESIGN.md 5장)
 4. 새 기술 태그를 처음 썼다면 `_data/skills.yml`에 아이콘을 추가할지 제안한다. (skillicons에 있는 기술일 때만)
-4-1. 오늘 실습한 원본 프로젝트(`chap0N-.../src/...`)가 있으면, 관련 있는 파일만 골라 `assets/code/YYYY-MM-DD-제목/`에 같은 하위 폴더 구조로 복사하고, 본문의 해당 코드 블록 바로 다음 줄에 `{% include code-popup.html dir="YYYY-MM-DD-제목" file="패키지/파일명.java" title="파일명.java" %}`를 넣는다.
+4-1. 오늘 실습한 원본 프로젝트(`chap0N-.../src/...`)가 있으면, 관련 있는 파일만 골라 `assets/code/YYYY-MM-DD-제목/`에 같은 하위 폴더 구조(예: `a_controlflow/Application01.java`)로 복사하고, 본문 도입부(패키지 구성을 소개하는 문단 다음)에 `{% include code-popup.html dir="YYYY-MM-DD-제목" %}`를 **글당 한 줄만** 넣는다.
+   (버튼을 누르면 그 날짜 폴더 전체가 폴더 → 파일 트리 팝업으로 뜨고, 파일을 고르면 내용을 보여준다. 코드 블록마다 따로 넣지 않는다.)
    (원본 프로젝트 폴더 자체는 `_config.yml`의 `exclude`에 `chap*`로 이미 막혀 있어 사이트에 그대로 발행되지 않는다. 그래서 필요한 파일만 이렇게 복사해서 보여준다.)
 5. `post-checker` 에이전트로 검사하고, 결과를 글과 함께 나에게 보여준다.
    내가 좋다고 하기 전에는 커밋하지 마.

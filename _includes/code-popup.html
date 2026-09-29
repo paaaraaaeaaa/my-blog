@@ -1,7 +1,12 @@
 {%- comment -%}
-  사용법: {% include code-popup.html dir="2026-09-29-m2-day2" file="a_controlflow/Application01.java" title="Application01.java" %}
-  실제 파일은 assets/code/<dir>/<file>에 미리 복사해둬야 한다 (원본 프로젝트 폴더는 exclude 되어 사이트에 발행되지 않음).
-  버튼을 누르면 footer/custom.html의 JS가 그 경로를 fetch해서 터미널 창 모양 팝업으로 보여준다.
+  사용법: {% include code-popup.html dir="2026-09-29-m2-day2" %}
+  글 하나에 버튼 1개만 넣는다. assets/code/<dir>/ 아래 모든 파일을 빌드 타임에 모아
+  JSON으로 함께 내보내고, 버튼을 누르면 footer/custom.html의 JS가 그 JSON으로
+  폴더 → 파일 트리를 그려서 터미널 창 팝업으로 보여준다(뒤로가기·복사 포함).
+  실제 파일은 assets/code/<dir>/ 아래에 폴더 구조 그대로 미리 복사해둬야 한다.
 {%- endcomment -%}
-{%- assign cp_title = include.title | default: include.file -%}
-<button type="button" class="code-popup-trigger" data-src="{{ site.baseurl }}/assets/code/{{ include.dir }}/{{ include.file }}" data-title="{{ cp_title }}">./{{ cp_title }} 원본 보기</button>
+{%- assign cp_label = include.label | default: "src" -%}
+{%- assign cp_prefix = "/assets/code/" | append: include.dir | append: "/" -%}
+{%- assign cp_first = true -%}
+<button type="button" class="code-popup-trigger" data-dir="{{ include.dir }}">./{{ cp_label }} 원본 보기</button>
+<script type="application/json" class="code-popup-data" data-dir="{{ include.dir }}">[{%- for f in site.static_files -%}{%- if f.path contains cp_prefix -%}{%- assign cp_rel = f.path | remove_first: cp_prefix -%}{%- unless cp_first -%},{%- endunless -%}{%- assign cp_first = false -%}{"path":{{ cp_rel | jsonify }},"url":{{ f.path | relative_url | jsonify }}}{%- endif -%}{%- endfor -%}]</script>

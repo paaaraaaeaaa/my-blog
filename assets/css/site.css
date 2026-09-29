@@ -373,7 +373,8 @@ a:visited { color: var(--c-signal); }
 }
 .code-popup__actions { display: flex; align-items: center; gap: var(--s-2); flex: none; }
 .code-popup__actions .code-copy-btn { position: static; }
-.code-popup__close {
+.code-popup__actions [hidden] { display: none; }
+.code-popup__btn {
   border: 1px solid var(--c-line-strong);
   border-radius: var(--r-sm);
   background: var(--c-surface);
@@ -383,7 +384,7 @@ a:visited { color: var(--c-signal); }
   padding: 2px var(--s-2);
   cursor: pointer;
 }
-.code-popup__close:hover { color: var(--c-text); background: var(--c-surface-2); }
+.code-popup__btn:hover { color: var(--c-text); background: var(--c-surface-2); }
 .code-popup__body {
   margin: 0;
   padding: var(--s-5);
@@ -394,6 +395,32 @@ a:visited { color: var(--c-signal); }
   line-height: 1.65;
   color: var(--c-code-text);
 }
+.code-popup__body[hidden] { display: none; }
+
+/* 원본 코드 팝업 안의 폴더·파일 목록 (ls -l 느낌, 코드 블록과 같은 어두운 톤) */
+.code-popup__list {
+  overflow: auto;
+  background: var(--c-code-bg);
+}
+.code-popup__list[hidden] { display: none; }
+.code-popup__row {
+  display: block;
+  width: 100%;
+  padding: var(--s-2) var(--s-5);
+  border: 0;
+  border-bottom: 1px solid var(--c-code-ui-line);
+  background: none;
+  color: var(--c-code-text);
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  text-align: left;
+  cursor: pointer;
+}
+.code-popup__row:hover { background: var(--c-code-ui-bg); }
+.code-popup__row--dir { color: var(--c-signal); font-weight: var(--fw-bold); }
+.code-popup__row--up { color: var(--c-code-ui-text); }
+p.code-popup__row { color: var(--c-code-ui-text); cursor: default; }
+p.code-popup__row:hover { background: none; }
 @media (max-width: 640px) {
   .code-popup { padding: var(--s-4); }
   .code-popup__win { max-height: 90vh; }
@@ -2116,6 +2143,8 @@ h1, h2, h3, h4 { letter-spacing: var(--ls-tight); }
 @media (max-width: 640px) {
   .term__body { padding: var(--s-4); }
   .term__path { display: none; }
+  /* 코드 팝업에서는 경로(term__path)가 지금 어느 폴더에 있는지 알려주는 유일한 정보라 계속 보여준다 */
+  .code-popup .term__path { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 }
 @media (prefers-reduced-motion: reduce) { .term__cursor { animation: none; } }
 
