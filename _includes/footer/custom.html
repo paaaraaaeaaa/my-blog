@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // 5-2. 게시글 원본 코드 팝업: {% include code-popup.html dir="..." %}로 넣은 버튼을 누르면
+  // 5-2. 게시글 원본 코드 팝업: code-popup include(_includes/code-popup.html)로 넣은 버튼을 누르면
   //      assets/code/<dir>/ 트리를 폴더 → 파일 순으로 탐색하다가, 파일을 고르면 fetch로 가져와 보여줌
   var codeTriggers = document.querySelectorAll('.page__content .code-popup-trigger');
   if (codeTriggers.length > 0) {
