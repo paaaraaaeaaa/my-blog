@@ -1368,7 +1368,9 @@ a.day:hover .day__summary { color: var(--c-text); }
   border-top: 2px solid color-mix(in srgb, var(--cat) 70%, transparent);
   border-radius: var(--r-md);
   background: var(--c-surface);
+  min-height: 13.5rem;   /* 제목 2줄 + 설명 2줄 높이. 둘째 줄에 혼자 남은 카드도 같은 크기로 */
 }
+@media (max-width: 640px) { .res-card { min-height: 0; } }   /* 1열에서는 맞출 카드가 없다 */
 .res-card:hover { border-color: color-mix(in srgb, var(--cat) 45%, var(--c-line)); border-top-color: var(--cat); transform: translateY(-2px); background: var(--c-surface-2); }
 .res-card__top { display: flex; align-items: center; gap: var(--s-2); }
 .res-card__favicon { width: 20px; height: 20px; border-radius: 5px; background: var(--c-surface-2); flex: none; }
