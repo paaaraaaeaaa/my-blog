@@ -112,3 +112,8 @@
   title: "JAVA 첫 수업"
   url: "https://claude.ai/artifact/SR2cZ5yojXtCy5QeTvSVMk"
   description: "Hello.java가 CPU에 도착하기까지"
+
+- category: "아티팩트"
+  title: "모듈2 · 우리 팀 식단 계산기"
+  url: "https://claude.ai/artifact/3dFBzhG3ZPBUPmGVBsF3dE"
+  description: "사칙연산 클래스를 나눠 맡고 Issue·PR로 합치는 팀 과제"
