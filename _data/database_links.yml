@@ -106,11 +106,6 @@
   description: "Skill과 Subagent, 컨텍스트 창으로 이해하기"
 
 - category: "수업 자료"
-  title: "모듈1 · 화면 설계를 에이전트 둘로 (Claude Code 실습)"
-  url: "https://claude.ai/artifact/DHbQKPTWfJgxB6MUdjj77G"
-  description: "실무의 화면 설계 과정을 에이전트 두 명으로 옮기기"
-
-- category: "수업 자료"
   title: "요구사항 정의"
   url: "https://ethereal-cyclamen-7c1.notion.site/git-3d4f3815c7bf81b7a247f5dd97cde09e"
   description: "에이전트와 함께 생각을 넓히고, git 으로 의견을 모아 기획 문서 네 장을 만든다."
