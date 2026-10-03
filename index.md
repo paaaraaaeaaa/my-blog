@@ -200,7 +200,7 @@ classes: home-page
 <a class="ls__row is-database" href="{{ '/database/' | relative_url }}">
 <span class="ls__name">database/</span>
 <span class="ls__count"><b>{{ db_items.size }}</b> items</span>
-<span class="ls__desc">문제와 풀이, 게임, 아티팩트</span>
+<span class="ls__desc">문제와 풀이, 게임, 수업 자료</span>
 <span class="ls__latest">{% if db_items.size > 0 %}{{ db_items.last.title }}{% endif %}</span>
 </a>
 <a class="ls__row is-projects" href="{{ '/projects/' | relative_url }}">

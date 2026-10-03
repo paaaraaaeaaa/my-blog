@@ -62,6 +62,13 @@
   description: "문제 링크를 클릭하면 문제를 확인할 수 있습니다."
 
 - category: "문제"
+  title: "Git 팀 협업 드릴"
+  module: 1
+  topics: ["Git & GitHub 팀 협업 드릴"]
+  url: "https://claude.ai/artifact/T1htGY89P5y9NCxC8U14nq"
+  description: "문제 링크를 클릭하면 문제를 확인할 수 있습니다."
+
+- category: "문제"
   title: "우리 팀 식단 계산기"
   module: 2
   topics: ["우리 팀 식단 계산기"]
@@ -88,32 +95,32 @@
 
 # =============================================================
 
-- category: "아티팩트"
-  title: "모듈1 · 기획과 바이브코딩"
+- category: "수업 자료"
+  title: "모듈1 · 아침에 을지대 가기 (알고리즘)"
   url: "https://claude.ai/public/artifacts/46b7a65b-d3fa-4928-827d-c880fa232cde"
   description: "아침에 을지대 가기로 배우는 프로그래밍적 사고와 알고리즘"
 
-- category: "아티팩트"
-  title: "모듈1 · 기획과 바이브코딩"
+- category: "수업 자료"
+  title: "모듈1 · Skill과 Subagent"
   url: "https://claude.ai/public/artifacts/72de39b1-fe4c-410e-bd61-ae606b268340"
   description: "Skill과 Subagent, 컨텍스트 창으로 이해하기"
 
-- category: "아티팩트"
-  title: "Claude Code 실습 · 모듈1 바이브코딩"
-  url: "https://claude.ai/public/artifacts/46b7a65b-d3fa-4928-827d-c880fa232cde"
+- category: "수업 자료"
+  title: "모듈1 · 화면 설계를 에이전트 둘로 (Claude Code 실습)"
+  url: "https://claude.ai/artifact/DHbQKPTWfJgxB6MUdjj77G"
   description: "실무의 화면 설계 과정을 에이전트 두 명으로 옮기기"
 
-- category: "아티팩트"
+- category: "수업 자료"
   title: "요구사항 정의"
   url: "https://ethereal-cyclamen-7c1.notion.site/git-3d4f3815c7bf81b7a247f5dd97cde09e"
   description: "에이전트와 함께 생각을 넓히고, git 으로 의견을 모아 기획 문서 네 장을 만든다."
 
-- category: "아티팩트"
+- category: "수업 자료"
   title: "JAVA 첫 수업"
   url: "https://claude.ai/artifact/SR2cZ5yojXtCy5QeTvSVMk"
   description: "Hello.java가 CPU에 도착하기까지"
 
-- category: "아티팩트"
-  title: "모듈2 · 우리 팀 식단 계산기"
-  url: "https://claude.ai/artifact/3dFBzhG3ZPBUPmGVBsF3dE"
-  description: "사칙연산 클래스를 나눠 맡고 Issue·PR로 합치는 팀 과제"
+- category: "수업 자료"
+  title: "모듈1 · Git & GitHub 이번 주에 배운 것"
+  url: "https://claude.ai/artifacts/latest/78450a56-3f74-4088-bfd4-fa934bd6b030"
+  description: "블로그를 올리기까지 쓴 Git 명령어 11개를 흐름과 실수 위주로 정리"
