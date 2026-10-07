@@ -162,7 +162,11 @@ classes: section-page
       c.classList.toggle('is-active', on);
       c.setAttribute('aria-pressed', on ? 'true' : 'false');
     });
-    sections.forEach(function (sec) { sec.hidden = key !== null && sec.getAttribute('data-sec') !== key; });
+    sections.forEach(function (sec) {
+      var was = sec.hidden;
+      sec.hidden = key !== null && sec.getAttribute('data-sec') !== key;
+      if (was && !sec.hidden && window.swapIn) window.swapIn(sec);
+    });
     document.body.classList.toggle('is-filtered', key !== null);
     if (reset) reset.disabled = key === null;
     if (status) {

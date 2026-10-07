@@ -137,7 +137,11 @@ classes: section-page
         t.classList.toggle('is-active', on);
         t.setAttribute('aria-selected', on ? 'true' : 'false');
       });
-      panels.forEach(function (p) { p.hidden = p.getAttribute('data-panel') !== target; });
+      panels.forEach(function (p) {
+        var was = p.hidden;
+        p.hidden = p.getAttribute('data-panel') !== target;
+        if (was && !p.hidden && window.swapIn) window.swapIn(p);
+      });
     });
   });
 })();

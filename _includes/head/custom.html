@@ -13,6 +13,29 @@
     document.documentElement.setAttribute('data-theme', t);
   })();
 </script>
+<script>
+  /* 부팅 화면: 세션에서 처음 여는 페이지에서만. CSS보다 먼저 클래스를 붙여 깜빡임을 막고, 2.2초가 지나면 무조건 걷는다 */
+  (function () {
+    try {
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (sessionStorage.getItem('booted')) return;
+      sessionStorage.setItem('booted', '1');
+    } catch (e) { return; }
+    var d = document.documentElement, t0 = Date.now(), left = false;
+    d.classList.add('is-booting');
+    function leave() {
+      if (left) return;
+      left = true;
+      d.classList.add('is-leaving');
+      setTimeout(function () {
+        d.classList.remove('is-booting', 'is-leaving');
+        document.dispatchEvent(new Event('boot:done'));
+      }, 300);
+    }
+    document.addEventListener('DOMContentLoaded', function () { setTimeout(leave, Math.max(0, 900 - (Date.now() - t0))); });
+    setTimeout(leave, 2200);
+  })();
+</script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

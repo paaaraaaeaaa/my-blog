@@ -15,6 +15,7 @@
   ];
   var PREVIEW = 3;               // 전체 탭에서 섹션별로 먼저 보여줄 개수
   var state = { q: '', tab: 'all', results: [] };
+  var lastMode = '';  // 결과 등장 효과: 빈 화면→결과, 탭 전환 때만 재생
 
   function norm(s) { return (s || '').toString().toLowerCase(); }
   function esc(s) {
@@ -91,12 +92,12 @@
     return highlight(text, terms);
   }
 
-  function item(r) {
+  function item(r, i) {
     var d = r.d;
     var meta = [];
     if (d.d) meta.push('<span>' + esc(d.d) + '</span>');
     (d.g || []).slice(0, 3).forEach(function (g) { meta.push('<span class="sr-item__tag">#' + esc(g) + '</span>'); });
-    return '<a class="sr-item is-' + d.s + '" href="' + esc(d.u) + '"' + (d.x ? ' target="_blank" rel="noopener"' : '') + '>' +
+    return '<a class="sr-item is-' + d.s + '" style="--i:' + Math.min(i || 0, 8) + '" href="' + esc(d.u) + '"' + (d.x ? ' target="_blank" rel="noopener"' : '') + '>' +
       '<span class="sr-item__kind">' + esc(d.k) + '</span>' +
       '<span class="sr-item__main">' +
         '<span class="sr-item__title">' + highlight(d.t, r.terms) + (d.x ? ' <span class="sr-item__ext">새 탭</span>' : '') + '</span>' +
@@ -126,6 +127,7 @@
       return;
     }
     if (!state.q.trim()) {
+      lastMode = '';
       box.innerHTML =
         '<div class="sr-empty">' +
           '<p class="sr-empty__title">무엇을 찾고 있나요?</p>' +
@@ -159,7 +161,10 @@
       var list = state.results.filter(function (r) { return r.d.s === state.tab; });
       body = '<section class="sr-group is-' + state.tab + '">' + list.map(item).join('') + '</section>';
     }
-    box.innerHTML = tabs + '<div class="sr-body">' + body + '</div>';
+    var mode = state.results.length ? 'r:' + state.tab : 'none';
+    var enter = mode !== lastMode;
+    lastMode = mode;
+    box.innerHTML = tabs + '<div class="sr-body' + (enter ? ' is-enter' : '') + '">' + body + '</div>';
   }
 
   function run(q) {
@@ -175,7 +180,9 @@
     var input = document.getElementById('search');
     var box = document.getElementById('results');
     if (!input || !box) return;
-    input.setAttribute('placeholder', '검색어를 입력하세요');
+    var PH = '$ grep -ri "검색어"';
+    input.setAttribute('aria-label', '검색');
+    input.setAttribute('placeholder', PH);
     input.setAttribute('autocomplete', 'off');
     var timer;
     input.addEventListener('input', function () {
@@ -208,6 +215,29 @@
       run(input.value);
       window.scrollTo(0, 0);
     });
+    // 검색창이 열리면 placeholder가 명령처럼 타이핑된다 (모션을 줄인 환경에서는 그대로)
+    var overlay = document.querySelector('.search-content');
+    var typer, wasOpen = false;
+    if (overlay && window.MutationObserver && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      new MutationObserver(function () {
+        var open = overlay.classList.contains('is--visible');
+        var opened = open && !wasOpen;
+        wasOpen = open;
+        if (!open) { clearInterval(typer); input.setAttribute('placeholder', PH); return; }
+        if (!opened || input.value) return;
+        clearInterval(typer);
+        var n = 0;
+        input.setAttribute('placeholder', '$');
+        typer = setInterval(function () {
+          n++;
+          input.setAttribute('placeholder', PH.slice(0, n));
+          if (n >= PH.length) clearInterval(typer);
+        }, 35);
+      }).observe(overlay, { attributes: true, attributeFilter: ['class'] });
+      var stopTyping = function () { clearInterval(typer); input.setAttribute('placeholder', PH); };
+      input.addEventListener('input', stopTyping);
+      input.addEventListener('compositionstart', stopTyping);
+    }
     // 돋보기를 누르거나 입력창에 들어가는 순간 데이터를 미리 불러온다
     var toggle = document.querySelector('.search__toggle');
     if (toggle) toggle.addEventListener('click', function () { ensureStore(render); });

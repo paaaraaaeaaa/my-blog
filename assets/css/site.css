@@ -2205,6 +2205,8 @@ h1, h2, h3, h4 { letter-spacing: var(--ls-tight); }
 @keyframes term-type { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
 @keyframes bar-grow  { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes bar-wipe  { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes boot-lines { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes theme-wipe { from { clip-path: circle(0 at var(--vt-x, 50%) var(--vt-y, 0)); } to { clip-path: circle(var(--vt-r, 150vmax) at var(--vt-x, 50%) var(--vt-y, 0)); } }
 @keyframes pop-in    { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: none; } }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -2247,6 +2249,47 @@ h1, h2, h3, h4 { letter-spacing: var(--ls-tight); }
   .problem:hover, .proj-card:hover, .stat--link:hover, .ls__row:hover, .day:hover { transform: translateY(-2px); }
   .stage:hover { transform: translateY(-1px); }
 
+  /* 페이지 전환: 상단바는 그대로 두고 본문만 겹쳐 바뀐다 (지원하지 않는 브라우저는 평소처럼 이동) */
+  @view-transition { navigation: auto; }
+  .masthead { view-transition-name: masthead; }
+  ::view-transition-group(root) { animation-duration: .25s; animation-timing-function: var(--ease); }
+
+  /* 탭·필터로 새로 보이는 영역 (JS가 swapIn으로 붙임) */
+  .swap-in { animation: reveal-up .4s var(--ease) backwards; }
+
+  /* 홈 last login 줄도 타이핑 */
+  .page__content .term__body > .term__meta { animation: term-type .6s steps(30, end) backwards; animation-delay: calc(var(--i, 0) * 100ms); }
+
+  /* 부팅 화면: 세션 첫 방문에서만 약 1초. 줄이 하나씩 찍히고 걷힌다 */
+  html.is-booting::before {
+    content: ""; position: fixed; inset: 0; z-index: 2000;
+    background: var(--c-bg);
+  }
+  html.is-booting::after {
+    content: "$ tail -f learning-log\A[ ok ] fonts\A[ ok ] notes\A[ ok ] theme" / "";
+    white-space: pre;
+    position: fixed; z-index: 2001;
+    left: max(var(--s-5), calc(50% - 10rem)); top: 50%;
+    margin-top: -3.2em;
+    font-family: var(--font-ui); font-size: var(--fs-sm); line-height: 1.7;
+    color: var(--c-text-2);
+    animation: boot-lines .8s steps(4, end) backwards;
+  }
+  html.is-booting.is-leaving::before, html.is-booting.is-leaving::after { opacity: 0; transition: opacity .3s var(--ease); }
+  /* 부팅 중에는 본문 애니메이션을 멈춰 두었다가, 걷히면 시작한다 */
+  html.is-booting body *, html.is-booting body *::before, html.is-booting body *::after { animation-play-state: paused !important; }
+
+  /* 테마 전환: 누른 자리에서 새 테마가 원형으로 퍼진다 (View Transitions 지원 시. 아니면 0.3초 색 전환) */
+  html.theme-wipe .masthead { view-transition-name: none; }
+  html.theme-wipe::view-transition-old(root), html.theme-wipe::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+  html.theme-wipe::view-transition-new(root) { animation: theme-wipe .55s var(--ease) backwards; }
+
+  /* 검색 결과: 빈 화면에서 결과가 처음 나오거나 탭을 바꿀 때만 시차 등장 */
+  .sr-body.is-enter .sr-item { animation: reveal-up .35s var(--ease) backwards; animation-delay: calc(var(--i, 0) * 40ms); }
+
+  /* 목차: 지금 읽는 항목 옆 선이 미끄러져 이동한다 */
+  .toc__marker.is-ready { transition: transform var(--dur-mid) var(--ease), opacity var(--dur-fast) var(--ease); }
+
   /* 누르면 눌린다 */
   .btn-line, .btn-solid, .chip--btn, .jump { transition: transform var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease); }
   .btn-line:hover, .btn-solid:hover, .chip--btn:hover, .jump:hover { transform: translateY(-1px); }
@@ -2264,3 +2307,19 @@ h1, h2, h3, h4 { letter-spacing: var(--ls-tight); }
   transform: scaleX(0); transform-origin: left;
   pointer-events: none;
 }
+.page__content .term__meta {
+  margin: 0 0 var(--s-3) !important;
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  color: var(--c-text-3);
+}
+.toc__menu { position: relative; }
+.toc__marker {
+  position: absolute; left: 0; top: 0;
+  width: 2px; height: 1px;
+  background: var(--c-signal);
+  transform-origin: 0 0;
+  opacity: 0;
+  pointer-events: none;
+}
+nav.toc.has-marker .toc__menu li.active > a { border-left-color: transparent !important; }

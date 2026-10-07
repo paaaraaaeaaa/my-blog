@@ -621,7 +621,64 @@ document.addEventListener('DOMContentLoaded', function () {
 <script>
 // 10. 모션: 스크롤 등장 · 터미널 순서 · 읽기 진행선 · 제목 디코드 (DESIGN.md 2.4)
 document.addEventListener('DOMContentLoaded', function () {
+  // 홈 last login: 지난 세션의 마지막 방문 시각 (세션 첫 페이지에서 기록)
+  var now = Date.now(), prev = null;
+  try {
+    prev = sessionStorage.getItem('prevVisit');
+    if (prev === null) {
+      prev = localStorage.getItem('lastVisit') || '';
+      sessionStorage.setItem('prevVisit', prev);
+      localStorage.setItem('lastVisit', String(now));
+    }
+  } catch (e) { prev = null; }
+  var ll = document.querySelector('[data-last-login]');
+  if (ll && prev === null) ll.hidden = true;
+  else if (ll) {
+    var ts = parseInt(prev, 10);
+    if (!ts) { ll.textContent = 'last login: first visit'; }
+    else {
+      var d = new Date(ts), z = function (n) { return (n < 10 ? '0' : '') + n; };
+      var mins = Math.max(0, Math.round((now - ts) / 60000));
+      var ago = mins < 60 ? mins + 'm' : mins < 1440 ? Math.floor(mins / 60) + 'h' : Math.floor(mins / 1440) + 'd';
+      ll.textContent = 'last login: ' + d.getFullYear() + '-' + z(d.getMonth() + 1) + '-' + z(d.getDate()) + ' ' + z(d.getHours()) + ':' + z(d.getMinutes()) + ' (' + ago + ' ago)';
+    }
+  }
+
+  // 목차 표시선: 지금 읽는 항목(스크롤 추적이 .active를 붙임) 옆으로 이동
+  var toc = document.querySelector('nav.toc'), menu = toc && toc.querySelector('.toc__menu');
+  if (menu && window.MutationObserver) {
+    var marker = document.createElement('span');
+    marker.className = 'toc__marker';
+    marker.setAttribute('aria-hidden', 'true');
+    menu.appendChild(marker);
+    var place = function () {
+      var act = menu.querySelectorAll('li.active > a');
+      var a = act[act.length - 1];
+      var m = menu.getBoundingClientRect(), r = a && a.getBoundingClientRect();
+      if (!a || !r.height) { marker.style.opacity = '0'; toc.classList.remove('has-marker'); return; }
+      marker.style.transform = 'translate(' + (r.left - m.left) + 'px,' + (r.top - m.top + menu.scrollTop) + 'px) scaleY(' + r.height + ')';
+      marker.style.opacity = '1';
+      toc.classList.add('has-marker');
+      if (!marker.classList.contains('is-ready')) requestAnimationFrame(function () { marker.classList.add('is-ready'); });
+    };
+    new MutationObserver(place).observe(menu, { attributes: true, attributeFilter: ['class'], subtree: true });
+    window.addEventListener('resize', place);
+    if (window.ResizeObserver) new ResizeObserver(place).observe(menu);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
+    place();
+  }
+
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  // 탭·필터로 영역이 새로 보일 때 호출 (cloud.md, Database.md)
+  window.swapIn = function (el) {
+    // 영역 전체가 한 번에 올라오므로, 안쪽 항목의 개별 등장은 끈다
+    el.querySelectorAll('.will-reveal').forEach(function (c) { c.classList.remove('will-reveal'); });
+    el.classList.remove('swap-in');
+    void el.offsetWidth;
+    el.classList.add('swap-in');
+    setTimeout(function () { el.classList.remove('swap-in'); }, 450);
+  };
 
   // 홈 터미널: 자식 순서대로 --i (한 줄씩 찍히게)
   document.querySelectorAll('.term__body').forEach(function (body) {
@@ -631,9 +688,16 @@ document.addEventListener('DOMContentLoaded', function () {
   // 스크롤 등장
   if ('IntersectionObserver' in window) {
     var SEL = '.row-list > li, .res-card, .problem, .stage, .day, .ls__row, .proj-card, .timeline__item, .module-stats .stat, .wdot, .page__content > h2';
+    // Database·Projects는 화면 밖으로 나갔다가 다시 들어올 때마다 다시 등장한다. 다른 페이지는 한 번만
+    var replay = /\/(database|projects)(\/|$)/i.test(location.pathname);
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+        if (e.isIntersecting) {
+          e.target.classList.add('is-in');
+          if (!replay) io.unobserve(e.target);
+        } else if (replay) {
+          e.target.classList.remove('is-in');
+        }
       });
     }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
     document.querySelectorAll(SEL).forEach(function (el) {
@@ -662,6 +726,10 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // 페이지 제목 디코드: 터미널 기호가 글자로 풀린다 (한 번, 0.6초)
+  var afterBoot = function (fn) {
+    if (document.documentElement.classList.contains('is-booting')) document.addEventListener('boot:done', fn, { once: true });
+    else fn();
+  };
   var glyphs = '01#$%&*/<>_+=';
   document.querySelectorAll('.page-intro__title, .mission__title').forEach(function (el) {
     var text = el.textContent;
@@ -678,7 +746,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (p < 1) requestAnimationFrame(step); else el.removeAttribute('aria-label');
     };
     var cs = parseFloat(getComputedStyle(el).animationDelay) * 1000 || 0;
-    setTimeout(function () { requestAnimationFrame(step); }, cs);
+    afterBoot(function () { setTimeout(function () { requestAnimationFrame(step); }, cs); });
   });
 });
 </script>
@@ -721,10 +789,32 @@ document.addEventListener('DOMContentLoaded', function () {
     document.dispatchEvent(new CustomEvent('themechange', { detail: { theme: theme } }));
   }
 
+  var wiping = false;
   document.addEventListener('click', function (e) {
-    if (!e.target.closest('.theme-toggle')) return;
+    var btn = e.target.closest('.theme-toggle');
+    if (!btn) return;
+    if (wiping) return;                       // 원형 전환 중 연타는 무시
+    var next = current() === 'light' ? 'dark' : 'light';
+    var calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (calm) { apply(next, true); return; }  // 모션을 줄인 환경: 즉시 바꾼다
+    if (document.startViewTransition) {
+      try {
+        // 누른 버튼 자리에서 원형으로 퍼지는 전환
+        var r = btn.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;
+        root.style.setProperty('--vt-x', x + 'px');
+        root.style.setProperty('--vt-y', y + 'px');
+        root.style.setProperty('--vt-r', Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y)) + 'px');
+        root.classList.add('theme-wipe');
+        wiping = true;
+        var vt = document.startViewTransition(function () { apply(next, true); });
+        var clean = function () { wiping = false; root.classList.remove('theme-wipe'); };
+        vt.ready.catch(function () {});
+        vt.finished.then(clean, clean);
+        return;
+      } catch (err) { wiping = false; root.classList.remove('theme-wipe'); }
+    }
     root.classList.add('theme-anim');
-    apply(current() === 'light' ? 'dark' : 'light', true);
+    apply(next, true);
     setTimeout(function () { root.classList.remove('theme-anim'); }, 350);
   });
 
