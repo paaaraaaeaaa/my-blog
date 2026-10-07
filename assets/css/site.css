@@ -2193,6 +2193,74 @@ h1, h2, h3, h4 { letter-spacing: var(--ls-tight); }
   .stages { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .page__content .timeline__item { padding-left: 1.75rem; }
 }
+
+/* =====================================================================
+   모션 — "로그가 찍히듯" 나타나고, 닿으면 반응한다 (DESIGN.md 2.4)
+   · 등장(reveal): JS가 .will-reveal을 붙이고, 화면에 들어오면 .is-in
+   · 터미널: 명령이 타이핑되고 막대가 차오른다
+   · 반응: hover 때 프롬프트 `>`가 나오고 카드가 2px 뜬다
+   · 모두 prefers-reduced-motion에서는 꺼진다
+   ===================================================================== */
+@keyframes reveal-up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes term-type { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes bar-grow  { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes bar-wipe  { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes pop-in    { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* 스크롤 등장 */
+  .will-reveal { opacity: 0; }
+  .will-reveal.is-in { opacity: 1; animation: reveal-up var(--dur-reveal) var(--ease) backwards; animation-delay: calc(var(--i, 0) * var(--stagger)); }
+  .wdot.will-reveal.is-in { animation-name: pop-in; }
+
+  /* 홈 터미널: 위에서 아래로 한 줄씩 찍힌다. 명령 줄은 타이핑 */
+  .term__body > * { animation: reveal-up .4s var(--ease) backwards; animation-delay: calc(var(--i, 0) * 100ms); }
+  .page__content .term__body > .term__cmd { animation: term-type .6s steps(18, end) backwards; animation-delay: calc(var(--i, 0) * 100ms); }
+  .asciibar__on { display: inline-block; animation: bar-wipe .8s var(--ease) .3s backwards; }
+  .asciibar__off { animation: reveal-up .4s var(--ease) .6s backwards; }
+
+  /* 진척 막대는 왼쪽에서 차오른다 */
+  .mbar__fill { transform-origin: left; animation: bar-grow .9s var(--ease) .25s backwards; }
+
+  /* 섹션 머리의 색 선이 그어진다 */
+  .page-intro::after { transform-origin: left; animation: bar-grow .7s var(--ease) .15s backwards; }
+
+  /* 글 읽기 진행선 (_includes/footer/custom.html이 만든다) */
+  .read-progress { transition: transform .1s linear; }
+
+  /* hover: 프롬프트 > 가 나오고 제목이 밀린다 */
+  .row__title { position: relative; transition: color var(--dur-fast) var(--ease), transform var(--dur-mid) var(--ease); }
+  .row__title::before {
+    content: ">";
+    position: absolute; left: -1.1em;
+    color: var(--c-signal);
+    opacity: 0; transform: translateX(-6px);
+    transition: opacity var(--dur-fast) var(--ease), transform var(--dur-mid) var(--ease);
+  }
+  .row:hover .row__title, .row:focus-visible .row__title { transform: translateX(.5em); }
+  .row:hover .row__title::before, .row:focus-visible .row__title::before { opacity: 1; transform: none; }
+
+  /* hover: 카드가 살짝 뜬다 */
+  .problem, .proj-card, .stat--link, .ls__row, .day, .stage {
+    transition: transform var(--dur-mid) var(--ease), border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+  }
+  .problem:hover, .proj-card:hover, .stat--link:hover, .ls__row:hover, .day:hover { transform: translateY(-2px); }
+  .stage:hover { transform: translateY(-1px); }
+
+  /* 누르면 눌린다 */
+  .btn-line, .btn-solid, .chip--btn, .jump { transition: transform var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease); }
+  .btn-line:hover, .btn-solid:hover, .chip--btn:hover, .jump:hover { transform: translateY(-1px); }
+  .btn-line:active, .btn-solid:active, .chip--btn:active, .jump:active { transform: translateY(1px); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+.read-progress {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  height: 2px;
+  background: var(--c-signal);
+  transform: scaleX(0); transform-origin: left;
+  pointer-events: none;
 }

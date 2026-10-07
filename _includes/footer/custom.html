@@ -619,6 +619,71 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 <script>
+// 10. 모션: 스크롤 등장 · 터미널 순서 · 읽기 진행선 · 제목 디코드 (DESIGN.md 2.4)
+document.addEventListener('DOMContentLoaded', function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  // 홈 터미널: 자식 순서대로 --i (한 줄씩 찍히게)
+  document.querySelectorAll('.term__body').forEach(function (body) {
+    Array.prototype.forEach.call(body.children, function (el, i) { el.style.setProperty('--i', Math.min(i, 6)); });
+  });
+
+  // 스크롤 등장
+  if ('IntersectionObserver' in window) {
+    var SEL = '.row-list > li, .res-card, .problem, .stage, .day, .ls__row, .proj-card, .timeline__item, .module-stats .stat, .wdot, .page__content > h2';
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
+    document.querySelectorAll(SEL).forEach(function (el) {
+      if (el.closest('.term__body')) return;
+      var sibs = el.parentElement ? Array.prototype.indexOf.call(el.parentElement.children, el) : 0;
+      el.style.setProperty('--i', Math.min(sibs, 8));
+      el.classList.add('will-reveal');
+      io.observe(el);
+    });
+  }
+
+  // 읽기 진행선 (게시글에서만)
+  if ({% if page.date %}true{% else %}false{% endif %} && document.querySelector('.page__content')) {
+    var bar = document.createElement('div');
+    bar.className = 'read-progress';
+    bar.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(bar);
+    var tick = false;
+    var update = function () {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(window.scrollY / max, 1) : 0) + ')';
+      tick = false;
+    };
+    window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(update); } }, { passive: true });
+    update();
+  }
+
+  // 페이지 제목 디코드: 터미널 기호가 글자로 풀린다 (한 번, 0.6초)
+  var glyphs = '01#$%&*/<>_+=';
+  document.querySelectorAll('.page-intro__title, .mission__title').forEach(function (el) {
+    var text = el.textContent;
+    if (!text.trim() || el.children.length) return;
+    el.setAttribute('aria-label', text);
+    var start = null, total = 600;
+    var step = function (t) {
+      if (start === null) start = t;
+      var p = Math.min((t - start) / total, 1), n = Math.floor(p * text.length), out = '';
+      for (var i = 0; i < text.length; i++) {
+        out += (i < n || text[i] === ' ') ? text[i] : glyphs[Math.floor(Math.random() * glyphs.length)];
+      }
+      el.textContent = out;
+      if (p < 1) requestAnimationFrame(step); else el.removeAttribute('aria-label');
+    };
+    var cs = parseFloat(getComputedStyle(el).animationDelay) * 1000 || 0;
+    setTimeout(function () { requestAnimationFrame(step); }, cs);
+  });
+});
+</script>
+
+<script>
 /* [my-blog] 라이트/다크 테마 전환. 색은 tokens.css, 규칙은 DESIGN.md "2.4 테마" */
 (function () {
   var root = document.documentElement;
