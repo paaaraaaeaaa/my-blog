@@ -85,7 +85,7 @@
 라이트 값은 흰 배경에서 **글자로 읽히도록(대비 4.5:1 이상)** 한 단계 진하다. 새 색 토큰은 반드시 두 블록에 모두 넣는다.
 
 테마를 바꾸면 함께 바뀌는 것(`_includes/footer/custom.html`):
-- `data-src-light` 속성이 있는 이미지(GitHub Streak, 기술 스택 아이콘)는 라이트용 주소로 교체
+- `data-src-light` 속성이 있는 이미지(GitHub Streak)는 라이트용 주소로 교체
 - 댓글(utterances)은 `github-light` / `github-dark`로 전환
 - Mermaid 다이어그램은 새 토큰 색으로 다시 그림
 - 기여 캘린더(ghchart)는 다크에서만 색 반전 필터
@@ -141,7 +141,7 @@
 |---|---|---|
 | 스크롤 등장 | 목록 행, 카드, 달력 칸, 스테이지, 타임라인, 통계 타일, 본문 `##` | 14px 아래에서 올라오며 나타남. 화면에 들어올 때 한 번만(Projects만 화면 밖으로 나갔다 다시 들어올 때마다 다시 재생). 태그(`/tags/`)·용어집(`/glossary/`) 목록은 등장 효과가 없다. 형제끼리 시차 |
 | 터미널 출력 | 홈 미션 창 | 줄이 100ms 간격(최대 6칸)으로 찍히고, `$ 명령`은 `steps()`로 타이핑. 진행 막대(`.pbar`)는 왼쪽에서 채워짐 |
-| 제목 디코드 | 섹션 제목, 홈 미션 제목 | `01#$%&` 기호가 0.6초 동안 글자로 풀림. 페이지당 한 번 |
+| 제목 디코드 | 섹션 제목 | `01#$%&` 기호가 0.6초 동안 글자로 풀림. 페이지당 한 번 |
 | 막대 | 모듈 진척 막대, 섹션 머리 색 선 | 왼쪽에서 차오름(`scaleX`) |
 | 읽기 진행선 | 게시글(날짜 있는 글) 맨 위 2px | 스크롤에 맞춰 `--c-signal` 선이 늘어남 |
 | hover | `.row` | 제목 앞에 `>`가 나오고 제목이 .5em 밀림 |
@@ -159,7 +159,7 @@
 규칙:
 - **무한 반복은 커서 하나.** 나머지는 한 번 재생되고 끝난다.
 - 움직이는 속성은 `transform` `opacity` `clip-path`뿐. `width`·`height`·`top` 등 레이아웃 속성은 애니메이션하지 않는다.
-- 페이지를 열 때 처음부터 재생되는 종류는 **3가지 이하**(홈: 터미널 출력·막대·제목 디코드). 스크롤 등장은 화면에 들어올 때 따로 재생된다. 한 번의 재생은 1.2초를 넘기지 않는다.
+- 페이지를 열 때 처음부터 재생되는 종류는 **3가지 이하**(홈: 터미널 출력·막대). 스크롤 등장은 화면에 들어올 때 따로 재생된다. 한 번의 재생은 1.2초를 넘기지 않는다.
 - 새 색·그림자·그라데이션을 모션 때문에 추가하지 않는다.
 - 부팅 화면은 `head/custom.html`이 `html.is-booting`을 먼저 붙여 깜빡임을 막는다. **2.2초(+페이드 0.3초 = 2.5초)가 지나면 무조건 걷고**, `prefers-reduced-motion`이거나 같은 세션의 두 번째 페이지부터는 아예 뜨지 않는다. 내용(글)을 가리는 시간을 늘리지 않는다 — 1.2초를 넘기지 않는다.
 - 등장 효과는 JS가 `.will-reveal`을 붙일 때만 숨긴다. JS가 꺼졌거나 `prefers-reduced-motion: reduce`면 모든 것이 처음부터 보인다.
@@ -175,14 +175,14 @@
 ├─────────────────────────────────────────────────────────┤
 │ Home / Cloud / 20일차                              views │  경로 (게시글·섹션 페이지)
 ├──────────┬───────────────────────────────┬──────────────┤
-│ 프로필    │ 본문 (게시글은 프로필 없이 전체 폭) │ 목차 / 홈 패널 │
+│ 프로필    │ 본문 (게시글은 프로필 없이 전체 폭) │ 게시글 목차 │
 │ (좌측)    │                               │ (게시글 목차만 sticky) │
 └──────────┴───────────────────────────────┴──────────────┘
 ```
 
 - 사이트 최대 폭 `--site-max-width`(1320px). 넓은 모니터에서 줄 길이가 끝없이 늘어나지 않게 한다.
 - 모든 글자는 **왼쪽 정렬**. 가운데 정렬은 빈 상태 안내문(`.empty-note`)뿐.
-- 1023px 이하에서는 1열. 홈의 오른쪽 패널은 맨 아래로 내려간다.
+- 1023px 이하에서는 1열. 홈 첫 구역(상태 창 + 방명록)도 1열로 쌓인다.
 
 ### 3.1 정보 구조: "모듈"이 모든 것을 잇는다
 
@@ -196,7 +196,7 @@
 
 | 페이지 | 구조 (위에서 아래로) |
 |---|---|
-| 홈 `index.md` | 가운데: 미션 창(맨 위 줄 `last login` + 오른쪽 오늘·누적 방문자 · 인사 · 진행(N일차, 4px 막대) · this week · goal) → 구분선 + **둘러보기** 띠(카테고리 색으로 물든 카드 3개) → 최근에 쓴 글 5편 → GitHub 잔디. 오른쪽: **방명록**(giscus, 6장) 맨 위 + **한눈에 보기**(수료까지 모듈 진척 6칸). 양쪽 패널은 화면을 따라다니되(sticky) 안쪽 스크롤은 없다. 패널이 화면보다 크면 JS가 `top`을 음수로 줘서 페이지를 내리는 동안 아래쪽까지 보인다(`footer/custom.html` "홈 양쪽 패널"). 방명록은 1280px 미만에서 GitHub 잔디 앞 본문으로 내려온다. 왼쪽 프로필 아래: **자주 쓴 태그**(자동, 최대 3줄, 누르면 `/tags/#태그`) · **기술 스택**(`_data/skills.yml`, 태그로 자동 5개) · **개념 용어집** 바로가기(`/glossary/`) — `_includes/home-tags.html` |
+| 홈 `index.md` | 오른쪽 패널이 없다. **첫 구역**(`.home-top`, 2열): 왼쪽 상태 창(맨 위 `last login` + 오른쪽 오늘·누적 방문자 · 일차 + 4px 진행 막대 · modules 6칸 · this week · goal)과 오른쪽 **방명록**(giscus, 6장). **둘째 구역부터**는 가운데+오른쪽을 합친 폭: **최근에 쓴 글 5편** → **둘러보기** 띠(카테고리 색으로 물든 카드 3개) → GitHub 잔디. 왼쪽 프로필은 화면을 따라다니되 안쪽 스크롤이 없다(패널이 화면보다 크면 JS가 `top`을 음수로 줘서 페이지를 내리는 동안 아래끝까지 보인다 — `footer/custom.html` "홈 왼쪽 프로필"). 프로필 아래에 **자주 쓴 태그**(최대 3줄, 누르면 `/tags/#태그`)와 **개념 용어집** 바로가기 — `_includes/home-tags.html`. 1023px 이하는 1열 |
 | Cloud `cloud.md` | 섹션 머리 → **모듈 스테이지 6칸**(클릭 시 전환) → 모듈 제목 + **통계 타일 4개**(기간·학습노트는 중립, 문제풀이는 핑크·결과물은 라임 링크 타일) → **주 단위 달력** |
 | Database `Database.md` | 섹션 머리 → **섹션 필터 칩**(하나만 선택, 같은 칩 다시 누르면 해제, 오른쪽 ↻ 전체로 초기화, `/database/#problems`처럼 주소로 바로 필터) → 🧩 문제와 풀이(문제 카드 + Lv 단계) → `_data/database_sections.yml` 순서대로 자료 섹션(아이콘·색·설명) → 거기 없는 분류는 기본 모양으로 맨 뒤 |
 | Projects `Projects.md` | 섹션 머리 → **모듈 타임라인**. 완료 = 2열 카드(왼쪽 결과물 요약, 오른쪽 연동기 상세), 진행 중 = 안내, 시작 전 모듈은 맨 아래 **다음 정거장** 한 줄로 |
@@ -243,8 +243,8 @@
 | `.steps` > `.step` (+ `__lv` `__title`) | 풀이 단계 목록 |
 | `.module-stats` > `.stat` / `.stat--link` / `.stat--muted` | 모듈 통계 타일. 링크 타일은 `is-섹션`색 |
 | `.jump-nav` > `.jump[data-filter]` + `.jump-reset` | 섹션 필터 칩 (단일 선택) + 초기화 버튼 |
-| `.mbars` > `.mbar.is-done/.is-current/.is-upcoming` | 모듈 진척 막대. 진행 중 막대는 `_data/module_schedule.yml` 날짜 비율, 없으면 빗금 |
-| `.section-head--band` | 홈에서 미션 패널과 아래 영역을 나누는 구분 머리 |
+| `.mbars` > `.mbar.is-done/.is-current/.is-upcoming` | 모듈 진척 막대(홈 상태 창 안, 링크 → `/projects/`). 진행 중 막대는 `_data/module_schedule.yml` 날짜 비율, 없으면 빗금 |
+| `.section-head--band` | 홈에서 첫 구역(상태 창·방명록)과 아래 영역을 나누는 구분 머리("최근에 쓴 글") |
 | `.res-section` (+ `__head` `__icon` `__title` `__desc` `__count`) | Database 자료 섹션 머리. `is-색이름`으로 톤 지정 |
 | `.res-grid` > `.res-card` | 자료 카드: 파비콘 + 도메인, 제목(카드 전체 클릭), 설명, 첨부파일 버튼 |
 | `.proj-card--split` > `.proj-card__main` + `.proj-card__side` | 결과물 2열 카드 |
@@ -261,10 +261,10 @@
 | `.proj-card` | Projects 대표 카드 |
 | `.project-hero` | 게시글 안 프로젝트 소개 박스 |
 | `.term` (+ `__bar` `__path` `__now` `__body` `__cmd` `__cursor`) | 터미널 창. 홈 미션 패널과 404에서 사용. `.term__cmd`는 앞에 `$ `가 자동으로 붙는다 |
-| `.mission__title` `.mission__desc` `.mission__day` (`-value` `-unit`) `.mission__ends` `.goal` (`.info-tile--goal`) `.term__cmd--idle` | 홈 미션 창 안의 제목·설명·큰 일차 숫자·시작/끝 날짜·목표 문장(오늘의 문장이 JS로 붙음)·맨 끝 커서 줄 |
+| `.mission__day` (`-value` `-unit`) `.mission__ends` `.goal` | 홈 상태 창 안의 큰 일차 숫자·시작/끝 날짜·목표 문장 |
 | `.readout` `.pbar` (+ `__fill`) | 홈 진행 상황 (큰 일차 숫자, key-value, 4px 얇은 막대. 막대는 `transform: scaleX`로 왼쪽에서 차오름) |
 | `.term__metarow` + `.term__visits` | 홈 미션 창 맨 위 한 줄: 왼쪽 `last login`, 오른쪽 오늘·누적 방문자 뱃지 |
-| `.mission__block` (+ `--row`) · `.mission__key` | 홈 미션 창 안의 구분선으로 나뉜 덩어리(진행 · this week · goal)와 그 작은 라벨 |
+| `.mission__block` (+ `--row` `--first`) · `.mission__key` (+ `--split`) | 홈 상태 창 안의 구분선으로 나뉜 덩어리(진행 · modules · this week · goal)와 그 작은 라벨. `--first`는 구분선이 없는 첫 덩어리, `--split`은 라벨 왼쪽·값 오른쪽 |
 | `.ls` > `.ls__row` | `ls -l` 형태의 섹션 바로가기 |
 | `.will-reveal` / `.is-in` | 스크롤 등장. JS가 붙이는 클래스라 직접 쓰지 않는다. `--i`로 시차 |
 | `.term__meta` | 터미널 창 맨 위 `last login` 줄 (`data-last-login`을 JS가 채움) |
@@ -278,10 +278,11 @@
 | `.code-popup` (+ `__win` `__actions` `__btn` `__list` `__row` `__body`) | 원본 코드 팝업. 터미널 창(`.term`) 재사용, 폴더→파일 트리를 `__list`/`__row`로 탐색하다가 파일을 고르면 `__body`(코드 블록 색)에 내용을 보여줌 |
 | `.code-popup__tabs` > `.code-popup__tab` (+ `__note`, `__mark`) | 코드 팝업에서 `.java` 옆에 `X.out.txt`(실행 결과)가 있으면 나타나는 `코드 / 실행 결과` 탭. `.out.txt`는 목록에 안 나오고 `.java` 행에 `+ 실행 결과` 표시가 붙는다 |
 | `.related-posts` | 글 하단 관련 글 묶음. 본문·목차가 float라 `clear: both`가 필요하다 (`.pagination`과 같은 이유) |
-| `.home-side` (+ `__head` `__tags`) | 홈 왼쪽 프로필 아래 바로가기. 태그는 글자만, 최대 3줄(`max-height: 5.4em`)에서 잘린다. 태그·기술 스택·용어집 링크를 담은 `_includes/home-tags.html`을 `_includes/sidebar-custom.html`이 홈(`home_side: true`)에서만 불러온다 |
+| `.home-side` (+ `__head` `__tags`) | 홈 왼쪽 프로필 아래 바로가기. 태그는 글자만, 최대 3줄(`max-height: 5.4em`)에서 잘린다. 태그·용어집 링크를 담은 `_includes/home-tags.html`을 `_includes/sidebar-custom.html`이 홈(`home_side: true`)에서만 불러온다 |
 | `.tag-cloud` (+ `__n`) · `.tag-more` · `.row-list--compact` | `/tags/` 태그 목록(상자 없는 글자, 고른 태그는 `.is-active`로 `--c-signal` 밑줄), 1편짜리 태그를 접는 `<details>`, 제목 옆에 짧은 `summary`만 흐리게 붙인 얇은 글 줄(`.row-list--compact`). 고른 태그 하나의 `.group`만 보이는 동작은 `[data-tag-view]`(footer JS), JS가 꺼지면 전부 펼쳐진다. 글 머리의 링크 칩은 `a.chip`(테마 링크색을 덮어씀) |
 | `.gloss-find` (+ `__prompt` `__input`) | `/glossary/` 걸러 보기 입력줄. `[data-gloss-find]`, `[data-gloss-item]`, `[data-gloss-group]` 속성을 `footer/custom.html`이 쓴다. 결과 개수는 `.jump-status`(`[data-gloss-status]`)에 표시 |
-| `.guestbook` (+ `--side` `--inline` `__hint` `__box` `__loading`) + `.guestbook-inline` | 홈 방명록. 터미널 창(`.term`)을 재사용하고 giscus 위젯이 들어온다(`_includes/guestbook.html`). `--side`는 ≥1280px에서 홈 오른쪽 패널 맨 위(`index.md`의 `<aside>` 안), `--inline`은 <1280px에서 본문 안. 보이는 쪽만 위젯을 불러온다 |
+| `.guestbook` (+ `__hint` `__box` `__loading`) | 홈 방명록. 터미널 창(`.term`)을 재사용하고 giscus 위젯이 들어온다(`_includes/guestbook.html`). 홈 첫 구역(`.home-top`)에서 상태 창 옆 칸을 차지하고, 위젯은 화면에 가까워질 때 불러온다. 반응(이모지)은 끈다 |
+| `.home-top` | 홈 첫 구역 2열 격자(상태 창 : 방명록 = 1.6 : 1, 방명록 칸 최소 18rem, 1023px 이하 1열). 두 칸의 높이가 같다(댓글이 쌓여 방명록이 길어지면 상태 창도 같이 늘어난다). 홈 전용 |
 
 ### 4.1 게시글 안에서 자동으로 적용되는 것 (`_includes/footer/custom.html`)
 
@@ -336,7 +337,7 @@
 | 기여 캘린더 (ghchart) | `index.md` | `1A7F37` — 라이트는 그대로, 다크는 CSS 필터로 반전 |
 | 댓글 (utterances) | `_config.yml` | `theme: "github-dark"` (라이트에서는 스크립트가 `github-light`로 전환) |
 | 방명록 (giscus) | `_config.yml` `giscus`, `_includes/guestbook.html` | `data-theme`: 다크 `dark` / 라이트 `light` (테마 전환 시 `themechange` 이벤트로 iframe에 전달). `category_id`가 비어 있으면 "준비 중" 안내만 보인다 |
-| 라이트 테마 위젯 | `index.md` | 각 `<img>`의 `data-src-light` (Streak: 라이트 토큰 색, skillicons: `theme=light`) |
+| 라이트 테마 위젯 | `index.md` | 각 `<img>`의 `data-src-light` (Streak: 라이트 토큰 색) |
 | 브라우저 테마색 | `_includes/head/custom.html` | `theme-color` = `--c-bg` |
 
 ---

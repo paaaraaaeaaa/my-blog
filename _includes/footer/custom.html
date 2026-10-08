@@ -798,7 +798,7 @@ document.addEventListener('DOMContentLoaded', function () {
     else fn();
   };
   var glyphs = '01#$%&*/<>_+=';
-  document.querySelectorAll('.page-intro__title, .mission__title').forEach(function (el) {
+  document.querySelectorAll('.page-intro__title').forEach(function (el) {
     var text = el.textContent;
     if (!text.trim() || el.children.length) return;
     el.setAttribute('aria-label', text);
@@ -911,10 +911,10 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 </script>
 <script>
-/* [my-blog] 홈 양쪽 패널 — 화면을 따라다니되 안쪽 스크롤은 없다.
+/* [my-blog] 홈 왼쪽 프로필 — 화면을 따라다니되 안쪽 스크롤은 없다.
    패널이 화면보다 크면 sticky 의 top 을 음수로 줘서, 페이지를 내리는 동안 패널의 아래쪽 끝까지 차례로 보이게 한다 */
 (function () {
-  var panels = [].slice.call(document.querySelectorAll('.home-page .sidebar.sticky, .home-page .home-aside'));
+  var panels = [].slice.call(document.querySelectorAll('.home-page .sidebar.sticky'));
   if (!panels.length) return;
   var GAP = 24;
   var fit = function () {
@@ -977,8 +977,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // 방명록: 화면 폭에 따라 side(왼쪽 프로필 아래)와 inline(본문 아래) 중 하나만 보인다.
-  // 보이는 쪽만, 화면에 가까워질 때 giscus 스크립트를 한 번 불러온다. 폭이 바뀌어 다른 쪽이 보이면 그때 불러온다.
+  // 방명록(홈 첫 구역): 화면에 가까워질 때 giscus 스크립트를 한 번 불러온다.
   var books = [].slice.call(document.querySelectorAll('[data-guestbook]'));
   if (books.length) {
     var themeName = function () { return document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark'; };
@@ -999,7 +998,7 @@ document.addEventListener('DOMContentLoaded', function () {
         'data-mapping': 'specific',
         'data-term': gb.getAttribute('data-term'),
         'data-strict': '0',
-        'data-reactions-enabled': '1',
+        'data-reactions-enabled': '0',
         'data-emit-metadata': '0',
         'data-input-position': 'top',
         'data-theme': themeName(),

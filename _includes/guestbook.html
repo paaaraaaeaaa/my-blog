@@ -1,17 +1,12 @@
 {%- comment -%}
   홈 방명록. giscus(GitHub Discussions)를 쓴다. 설정은 _config.yml 의 giscus 항목.
-  variant="side"   : 1280px 이상에서 왼쪽 프로필(이메일) 아래. _includes/sidebar-custom.html 이 넣는다(홈 front matter guestbook: true)
-  variant="inline" : 1280px 미만에서 본문 맨 아래(그 폭에서는 프로필이 좁아 giscus 입력창이 들어가지 않는다). index.md 가 넣는다
-  화면 폭에 맞는 쪽만 보이고, 위젯은 보이는 쪽만 불러온다(footer/custom.html).
+  홈 첫 구역(.home-top)에서 상태 창 옆 칸을 차지한다. 위젯은 화면에 가까워질 때 footer/custom.html 이 불러온다.
   category_id가 비어 있으면(Discussions 설정 전) 안내만 보여준다.
   스타일: .guestbook (site.css "20. …"), 터미널 창(.term)을 재사용한다.
 {%- endcomment -%}
-{%- assign gb_variant = include.variant | default: "inline" -%}
 {%- assign gc = site.giscus -%}
-{%- if gb_variant == "inline" -%}<div class="guestbook-inline">
-<div class="section-head"><h2>방명록</h2><span class="section-head__aside">cat guestbook.log</span></div>{%- endif -%}
 {%- if gc and gc.repo_id != "" and gc.category_id and gc.category_id != "" -%}
-<section class="term guestbook guestbook--{{ gb_variant }}" {% if gb_variant == "side" %}aria-label="방명록"{% endif %} data-guestbook
+<section class="term guestbook" aria-label="방명록" data-guestbook
   data-repo="{{ gc.repo }}" data-repo-id="{{ gc.repo_id }}"
   data-category="{{ gc.category }}" data-category-id="{{ gc.category_id }}"
   data-term="{{ gc.term | default: 'guestbook' }}">
@@ -24,9 +19,8 @@
 </div>
 </section>
 {%- else -%}
-<section class="term guestbook guestbook--{{ gb_variant }}" {% if gb_variant == "side" %}aria-label="방명록"{% endif %}>
+<section class="term guestbook" aria-label="방명록">
 <div class="term__bar"><span class="term__path">~/guestbook.log</span></div>
 <div class="term__body"><p class="guestbook__hint">방명록을 준비하고 있어요.</p></div>
 </section>
 {%- endif -%}
-{%- if gb_variant == "inline" -%}</div>{%- endif -%}
