@@ -714,7 +714,6 @@ nav.toc .toc__menu li.active > a {       /* 스크롤 추적: 지금 읽는 항�
 .is-danger   { --cat: var(--c-danger); }
 .is-database { --cat: var(--c-database); }
 .is-projects { --cat: var(--c-projects); }
-.is-glossary { --cat: var(--c-text-2); }
 
 /* 카테고리 표시: 색 점 + 이름 */
 .cat-label {

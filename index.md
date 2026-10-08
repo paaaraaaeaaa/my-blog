@@ -70,6 +70,10 @@ guestbook: true
 {%- endfor -%}
 </div>
 </div>
+<div class="home-panel__row">
+<span class="home-panel__label home-panel__label--split"><span>개념 용어집</span><a href="{{ '/glossary/' | relative_url }}">모두 보기</a></span>
+<span class="mbars__note">글에서 정리한 개념 카드를 한곳에</span>
+</div>
 {%- comment -%}
   기술 스택: _data/skills.yml 기준, 그 기술 태그가 붙은 "글 수"가 많은 순서로 최대 10개.
   (태그 개수로 세면 별칭이 많은 기술이 한 글에서 여러 번 세어지므로 글 단위로 센다)
