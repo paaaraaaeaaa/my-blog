@@ -230,8 +230,8 @@ a:visited { color: var(--c-signal); }
   word-break: keep-all;
   overflow-wrap: anywhere;
 }
-/* 한 줄 길이 제한은 게시글 본문에만 (홈·섹션 페이지는 자체 레이아웃) */
-.layout--single:not(.section-page):not(.home-page) .page__content > :is(p, ul, ol, blockquote, h2, h3, h4) { max-width: var(--measure); }
+/* 게시글은 왼쪽 프로필 없이 화면 폭을 채운다. 오른쪽 목차 자리(padding-inline-end)만 남긴다 — 한 줄 길이 제한(--measure)도 두지 않는다 */
+.layout--single:not(.section-page):not(.home-page) .page { float: none !important; width: 100% !important; }
 
 .page__content p, .page__content li { margin-bottom: var(--s-3); }
 .page__content li > ul, .page__content li > ol { margin-top: var(--s-2); }
@@ -2242,13 +2242,18 @@ a.chip:hover { color: var(--c-text) !important; }
 .gloss-find__input::placeholder { color: var(--c-text-3); }
 [data-gloss-group][hidden], [data-gloss-item][hidden] { display: none; }
 
-/* 방명록 (홈) — giscus가 들어오는 자리 */
-.guestbook { margin-bottom: var(--s-4); }
-.guestbook__hint { margin: 0 0 var(--s-3); font-size: var(--fs-sm); color: var(--c-text-2); }
-.guestbook__hint:last-child { margin-bottom: 0; }
-.guestbook__box { min-height: 6rem; }
-.guestbook__loading { font-family: var(--font-ui); font-size: var(--fs-sm); color: var(--c-text-3); }
+/* 방명록 (홈) — 터미널 창(.term)을 재사용한다. side = 왼쪽 프로필 이메일 아래(1280px 이상), inline = 그보다 좁은 화면의 본문 아래 */
+.guestbook { margin-top: var(--s-5); }
+.guestbook .term__cmd { margin: 0 0 var(--s-2); font-family: var(--font-ui); font-size: var(--fs-xs); color: var(--c-text-2); }
+.guestbook .term__body { padding: var(--s-3) var(--s-4) var(--s-4); }
+.guestbook .guestbook__hint { margin: 0 0 var(--s-3); font-size: var(--fs-xs); line-height: 1.6; color: var(--c-text-3); }
+.guestbook .guestbook__hint:last-child { margin-bottom: 0; }
+.guestbook__box { min-height: 5rem; }
+.guestbook__loading { font-family: var(--font-ui); font-size: var(--fs-xs); color: var(--c-text-3); }
 .guestbook__box .giscus, .guestbook__box .giscus-frame { width: 100%; }
+/* 프로필 폭이 300px이 되는 1280px 이상에서만 side. 그보다 좁으면 giscus 입력창이 너무 좁아 본문 안(inline)에 둔다 */
+@media (min-width: 1280px) { .guestbook-inline { display: none; } }
+@media (max-width: 1279px) { .guestbook--side { display: none; } }
 
 /* 코드 팝업: 코드 | 실행 결과 탭 (코드 블록과 같은 어두운 톤) */
 .code-popup__tabs { display: flex; flex: none; border-bottom: 1px solid var(--c-code-ui-line); background: var(--c-code-bg); }

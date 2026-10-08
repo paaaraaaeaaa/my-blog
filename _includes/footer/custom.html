@@ -930,15 +930,16 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // 방명록: 화면에 가까워질 때 giscus 스크립트를 한 번만 불러온다
-  var gb = document.querySelector('[data-guestbook]');
-  if (gb) {
-    var box = gb.querySelector('[data-guestbook-box]');
+  // 방명록: 화면 폭에 따라 side(왼쪽 프로필 아래)와 inline(본문 아래) 중 하나만 보인다.
+  // 보이는 쪽만, 화면에 가까워질 때 giscus 스크립트를 한 번 불러온다. 폭이 바뀌어 다른 쪽이 보이면 그때 불러온다.
+  var books = [].slice.call(document.querySelectorAll('[data-guestbook]'));
+  if (books.length) {
     var themeName = function () { return document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark'; };
-    var loaded = false;
-    var load = function () {
-      if (loaded) return;
-      loaded = true;
+    var isShown = function (el) { return el.getClientRects().length > 0; };
+    var loadBook = function (gb) {
+      if (gb.dataset.loaded) return;
+      gb.dataset.loaded = '1';
+      var box = gb.querySelector('[data-guestbook-box]');
       var s = document.createElement('script');
       s.src = 'https://giscus.app/client.js';
       s.async = true;
@@ -962,18 +963,29 @@ document.addEventListener('DOMContentLoaded', function () {
       box.textContent = '';
       box.appendChild(s);
     };
-    if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function (entries) {
-        if (entries.some(function (e) { return e.isIntersecting; })) { io.disconnect(); load(); }
-      }, { rootMargin: '300px 0px' });
-      io.observe(gb);
-    } else { load(); }
-    // iframe이 늦게 생기면 그 사이 바뀐 테마가 전달되지 않으므로, 생길 때 현재 테마를 한 번 보낸다
-    var sendTheme = function (theme) {
-      var frame = box.querySelector('iframe.giscus-frame');
-      if (frame && frame.contentWindow) frame.contentWindow.postMessage({ giscus: { setConfig: { theme: theme } } }, 'https://giscus.app');
+    var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting && isShown(e.target)) { io.unobserve(e.target); loadBook(e.target); }
+      });
+    }, { rootMargin: '300px 0px' }) : null;
+    var watchShown = function () {
+      books.forEach(function (gb) {
+        if (gb.dataset.loaded || !isShown(gb)) return;
+        if (io) { io.unobserve(gb); io.observe(gb); } else { loadBook(gb); }
+      });
     };
-    if (window.MutationObserver) {
+    watchShown();
+    window.addEventListener('resize', watchShown);
+
+    // 테마 전환: 떠 있는 giscus iframe 에 전달. iframe 이 늦게 생기면 생길 때 현재 테마를 한 번 보낸다
+    var sendTheme = function (theme) {
+      document.querySelectorAll('iframe.giscus-frame').forEach(function (frame) {
+        if (frame.contentWindow) frame.contentWindow.postMessage({ giscus: { setConfig: { theme: theme } } }, 'https://giscus.app');
+      });
+    };
+    books.forEach(function (gb) {
+      var box = gb.querySelector('[data-guestbook-box]');
+      if (!box || !window.MutationObserver) return;
       new MutationObserver(function () {
         var frame = box.querySelector('iframe.giscus-frame');
         if (frame && !frame.dataset.themed) {
@@ -981,13 +993,8 @@ document.addEventListener('DOMContentLoaded', function () {
           frame.addEventListener('load', function () { sendTheme(themeName()); });
         }
       }).observe(box, { childList: true, subtree: true });
-    }
-    document.addEventListener('themechange', function (e) {
-      var frame = box.querySelector('iframe.giscus-frame');
-      if (frame && frame.contentWindow) {
-        frame.contentWindow.postMessage({ giscus: { setConfig: { theme: e.detail.theme } } }, 'https://giscus.app');
-      }
     });
+    document.addEventListener('themechange', function (e) { sendTheme(e.detail.theme); });
   }
 })();
 </script>

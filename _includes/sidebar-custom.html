@@ -1,0 +1,5 @@
+{%- comment -%}
+  테마가 왼쪽 프로필(.sidebar) 맨 끝에 불러 주는 자리. 프로필의 이메일 줄 바로 아래가 된다.
+  front matter 에 guestbook: true 가 있는 페이지(홈)에서만 방명록을 넣는다.
+{%- endcomment -%}
+{%- if page.guestbook -%}{% include guestbook.html variant="side" %}{%- endif -%}

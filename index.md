@@ -3,6 +3,7 @@ layout: single
 title: 학습 노트
 author_profile: true
 classes: home-page
+guestbook: true
 ---
 
 {%- comment -%}
@@ -231,7 +232,7 @@ classes: home-page
 <p class="empty-note">아직 작성된 글이 없습니다.</p>
 {% endif %}
 
-{% include guestbook.html %}
+{% include guestbook.html variant="inline" %}
 
 <div class="section-head"><h2>GitHub 잔디</h2><span class="section-head__aside"><a href="https://github.com/paaaraaaeaaa" target="_blank" rel="noopener">github.com/paaaraaaeaaa</a></span></div>
 
