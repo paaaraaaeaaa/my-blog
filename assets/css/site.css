@@ -2225,13 +2225,13 @@ a.chip:hover { color: var(--c-text) !important; }
 .related-posts .section-head h2 { margin: 0; padding: 0; border: 0; font-size: var(--fs-lg); font-weight: var(--fw-heavy); }
 .related-posts .section-head h2::before { content: "## "; color: var(--c-text-3); font-weight: var(--fw-regular); }
 
-/* 홈 왼쪽(프로필 아래): 자주 쓴 태그 최대 4줄 + 용어집 바로가기 */
+/* 홈 왼쪽(프로필 아래): 자주 쓴 태그 최대 3줄 + 기술 스택 + 용어집 바로가기 */
 .home-side { margin-top: var(--s-5); padding-top: var(--s-4); border-top: 1px solid var(--c-line); font-family: var(--font-ui); }
 .home-side__head { display: flex; justify-content: space-between; gap: var(--s-2); margin: 0 0 var(--s-2); font-size: var(--fs-xs); color: var(--c-text-3); }
 .home-side__head:not(:first-child) { margin-top: var(--s-4); }
 .home-side__head a { color: var(--c-signal) !important; text-decoration: none !important; }
 .home-side__head a:hover { text-decoration: underline !important; text-underline-offset: 3px; }
-.home-side__tags { display: flex; flex-wrap: wrap; gap: 0 var(--s-3); max-height: 7.2em; overflow: hidden; font-size: var(--fs-xs); line-height: 1.8; }   /* 줄 높이 1.8em x 4줄. 넘치는 태그는 잘린다 */
+.home-side__tags { display: flex; flex-wrap: wrap; gap: 0 var(--s-3); max-height: 5.4em; overflow: hidden; font-size: var(--fs-xs); line-height: 1.8; }   /* 줄 높이 1.8em x 3줄. 넘치는 태그는 잘린다 */
 .home-side__tags a { color: var(--c-text-2) !important; text-decoration: none !important; white-space: nowrap; }
 .home-side__tags a:hover { color: var(--c-text) !important; }
 .home-side__tags a span { margin-left: 2px; color: var(--c-text-3); }
@@ -2267,6 +2267,9 @@ a.chip:hover { color: var(--c-text) !important; }
 /* 방명록 (홈) — 터미널 창(.term)을 재사용한다. side = 왼쪽 프로필 이메일 아래(1280px 이상), inline = 그보다 좁은 화면의 본문 아래 */
 .guestbook { margin-top: var(--s-5); }
 .home-aside .guestbook { margin: 0 0 var(--s-4); }
+/* 오른쪽 패널은 flex 세로 + max-height라 낮은 화면에서 방명록이 줄어 잘린다. 줄어들지 못하게 하고, 넘치면 패널 안쪽에서 스크롤 */
+.sidebar__right.sticky.home-aside { overflow-y: auto !important; overflow-x: hidden !important; scrollbar-width: thin; overscroll-behavior: contain; }
+.home-aside > * { flex-shrink: 0; }
 .guestbook .term__cmd { margin: 0 0 var(--s-2); font-family: var(--font-ui); font-size: var(--fs-xs); color: var(--c-text-2); }
 .guestbook .term__body { padding: var(--s-3) var(--s-4) var(--s-4); }
 .guestbook .guestbook__hint { margin: 0 0 var(--s-3); font-size: var(--fs-xs); line-height: 1.6; color: var(--c-text-3); }
