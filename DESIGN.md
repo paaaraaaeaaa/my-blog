@@ -274,6 +274,7 @@
 | `.code-popup-trigger` | 게시글 안 "원본 코드 보기" 버튼(`{% include code-popup.html dir="..." %}`, 글 하나에 1개) |
 | `.code-popup` (+ `__win` `__actions` `__btn` `__list` `__row` `__body`) | 원본 코드 팝업. 터미널 창(`.term`) 재사용, 폴더→파일 트리를 `__list`/`__row`로 탐색하다가 파일을 고르면 `__body`(코드 블록 색)에 내용을 보여줌 |
 | `.code-popup__tabs` > `.code-popup__tab` (+ `__note`, `__mark`) | 코드 팝업에서 `.java` 옆에 `X.out.txt`(실행 결과)가 있으면 나타나는 `코드 / 실행 결과` 탭. `.out.txt`는 목록에 안 나오고 `.java` 행에 `+ 실행 결과` 표시가 붙는다 |
+| `.related-posts` | 글 하단 관련 글 묶음. 본문·목차가 float라 `clear: both`가 필요하다 (`.pagination`과 같은 이유) |
 | `.tag-index` + `a.chip` | `/tags/` 맨 위 태그 목록. 칩이 앵커(`#태그`)로 이동하고 `.group:target`이 그 묶음 제목을 `--c-signal`로 강조. 링크로 쓰는 칩은 `a.chip`(테마 링크색을 덮어씀) |
 | `.gloss-find` (+ `__prompt` `__input`) | `/glossary/` 걸러 보기 입력줄. `[data-gloss-find]`, `[data-gloss-item]`, `[data-gloss-group]` 속성을 `footer/custom.html`이 쓴다. 결과 개수는 `.jump-status`(`[data-gloss-status]`)에 표시 |
 | `.guestbook` (+ `__hint` `__box` `__loading`) | 홈 방명록 패널. giscus 위젯이 들어오는 자리 (`_includes/guestbook.html`) |

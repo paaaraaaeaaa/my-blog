@@ -2210,6 +2210,11 @@ h1, h2, h3, h4 { letter-spacing: var(--ls-tight); }
 a.chip { color: var(--c-text-2) !important; text-decoration: none !important; }
 a.chip:hover { color: var(--c-text) !important; }
 
+/* 글 하단 관련 글: 본문·목차가 float라 비우지 않으면 본문 옆 좁은 틈으로 올라간다(이전/다음 글 .pagination과 같은 이유) */
+.related-posts { clear: both; }
+.related-posts .section-head h2 { margin: 0; padding: 0; border: 0; font-size: var(--fs-lg); font-weight: var(--fw-heavy); }
+.related-posts .section-head h2::before { content: "## "; color: var(--c-text-3); font-weight: var(--fw-regular); }
+
 /* 용어집 /glossary/ — 걸러 보기 입력줄 */
 .gloss-find {
   display: flex;

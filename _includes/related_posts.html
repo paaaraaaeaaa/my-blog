@@ -17,6 +17,7 @@
 {%- endfor -%}
 {%- if rel_rank.size > 0 -%}
 {%- assign rel_rank = rel_rank | sort | reverse -%}
+<div class="related-posts">
 <div class="section-head"><h2>관련 글</h2><span class="section-head__aside">같은 태그</span></div>
 <ul class="row-list">
 {%- for e in rel_rank limit: 3 -%}
@@ -32,5 +33,6 @@
 </a></li>
 {%- endfor -%}
 </ul>
+</div>
 {%- endif -%}
 {%- endif -%}
