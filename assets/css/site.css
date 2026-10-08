@@ -2198,13 +2198,24 @@ h1, h2, h3, h4 { letter-spacing: var(--ls-tight); }
    20. 태그 모아보기 · 용어집 · 방명록 · 코드 팝업 실행 결과
    (DESIGN.md 4장: .tag-index .gloss-find .guestbook .code-popup__tabs)
    --------------------------------------------------------------------- */
-/* 태그 모아보기 /tags/ — .group + .row-list 재사용, 앵커로 이동했을 때만 강조 */
+/* 태그 모아보기 /tags/ — .group + .row-list 재사용 */
 .page__content .group__title { margin: 0; padding: 0; border: 0; font-size: var(--fs-md); font-weight: var(--fw-bold); }
 .page__content .group__title::before { content: none; }
 .group { scroll-margin-top: calc(var(--fixed-offset, 0px) + var(--s-4)); }   /* 고정 상단바에 가리지 않게 */
-.group:target .group__title { color: var(--c-signal); }
-.group:target .group__key { border-color: var(--c-signal); color: var(--c-signal); }
-.tag-index { margin-bottom: var(--s-5); }
+/* 태그 모아보기 /tags/ — 태그는 상자 없는 글자 목록, 글은 고른 태그 하나만 얇은 줄로 */
+.tag-cloud { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-4); margin: 0 0 var(--s-4); font-family: var(--font-ui); font-size: var(--fs-sm); }
+.tag-cloud a { padding: 2px 0; color: var(--c-text-2) !important; text-decoration: none !important; }
+.tag-cloud a:hover { color: var(--c-text) !important; }
+.tag-cloud a.is-active { color: var(--c-signal) !important; text-decoration: underline !important; text-underline-offset: 4px; }
+.tag-cloud__n { margin-left: 3px; color: var(--c-text-3); font-size: var(--fs-xs); font-variant-numeric: tabular-nums; }
+.tag-more { margin-bottom: var(--s-4); }
+.tag-more summary { cursor: pointer; font-family: var(--font-ui); font-size: var(--fs-sm); color: var(--c-text-3); }
+.tag-more summary:hover { color: var(--c-text); }
+.tag-more[open] summary { margin-bottom: var(--s-3); }
+[data-tag-view] .group[hidden] { display: none; }   /* 테마가 section에 display를 줘서 hidden이 안 먹는다 */
+.row-list--compact .row { align-items: center; padding: var(--s-2) var(--s-3); }
+.row-list--compact .row__main { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 var(--s-3); }
+.row-list--compact .row__sub { margin: 0; color: var(--c-text-3); }
 /* 링크로 쓰는 칩: 테마의 본문 링크색(초록·밑줄)을 덮어쓴다 */
 a.chip { color: var(--c-text-2) !important; text-decoration: none !important; }
 a.chip:hover { color: var(--c-text) !important; }

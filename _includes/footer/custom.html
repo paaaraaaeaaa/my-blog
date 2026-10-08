@@ -912,6 +912,28 @@ document.addEventListener('DOMContentLoaded', function () {
 <script>
 /* [my-blog] 용어집 걸러 보기(/glossary/) · 홈 방명록(giscus) 불러오기와 테마 전환 */
 (function () {
+  // 태그 모아보기(/tags/): 주소의 #태그 하나의 글만 보여준다(없으면 가장 많이 쓴 태그). JS가 없으면 전부 보인다
+  var tagView = document.querySelector('[data-tag-view]');
+  if (tagView) {
+    var tagGroups = [].slice.call(tagView.querySelectorAll('.group'));
+    var tagLinks = [].slice.call(document.querySelectorAll('.tag-cloud a'));
+    var tagMore = document.querySelector('.tag-more');
+    var pickTag = function () {
+      var id = ''; try { id = decodeURIComponent(location.hash.slice(1)); } catch (e) {}
+      var cur = tagGroups.filter(function (g) { return g.id === id; })[0] || tagGroups[0];
+      if (!cur) return;
+      tagGroups.forEach(function (g) { g.hidden = g !== cur; });
+      tagLinks.forEach(function (a) {
+        var on = a.getAttribute('href') === '#' + cur.id;
+        a.classList.toggle('is-active', on);
+        if (on) { a.setAttribute('aria-current', 'true'); if (tagMore && tagMore.contains(a)) tagMore.open = true; }
+        else a.removeAttribute('aria-current');
+      });
+    };
+    window.addEventListener('hashchange', pickTag);
+    pickTag();
+  }
+
   // 용어집: 입력한 글자가 들어 있는 용어만 남긴다. 비어 있는 모듈 묶음은 함께 숨긴다
   var input = document.querySelector('[data-gloss-find]');
   if (input) {

@@ -200,7 +200,7 @@
 | Cloud `cloud.md` | 섹션 머리 → **모듈 스테이지 6칸**(클릭 시 전환) → 모듈 제목 + **통계 타일 4개**(기간·학습노트는 중립, 문제풀이는 핑크·결과물은 라임 링크 타일) → **주 단위 달력** |
 | Database `Database.md` | 섹션 머리 → **섹션 필터 칩**(하나만 선택, 같은 칩 다시 누르면 해제, 오른쪽 ↻ 전체로 초기화, `/database/#problems`처럼 주소로 바로 필터) → 🧩 문제와 풀이(문제 카드 + Lv 단계) → `_data/database_sections.yml` 순서대로 자료 섹션(아이콘·색·설명) → 거기 없는 분류는 기본 모양으로 맨 뒤 |
 | Projects `Projects.md` | 섹션 머리 → **모듈 타임라인**. 완료 = 2열 카드(왼쪽 결과물 요약, 오른쪽 연동기 상세), 진행 중 = 안내, 시작 전 모듈은 맨 아래 **다음 정거장** 한 줄로 |
-| 태그 `tags.md` (`/tags/`) | 머리 → 태그 칩 목록(많이 쓴 순, 앵커) → 태그별 `.group` + `.row-list`. 상단 탭에는 없고 글 머리·홈의 태그 칩으로 들어온다 |
+| 태그 `tags.md` (`/tags/`) | 머리 → 태그 글자 목록(2편 이상, 많이 쓴 순) + 1편짜리 접기 → 고른 태그(기본 가장 많이 쓴 태그) 하나의 `.group` + 얇은 `.row-list`. 상단 탭에는 없고 글 머리·홈의 태그 칩으로 들어온다 |
 | 용어집 `glossary.md` (`/glossary/`) | 머리 → 걸러 보기 입력줄 → 모듈별 `.group` + `.row-list`. 상단 탭에는 없고 홈 오른쪽 패널의 "개념 용어집 · 모두 보기" 링크로 들어온다. 글의 개념 카드(`- **용어**` + 하위 목록)를 빌드 때 자동 수집: 첫 하위 항목이 설명, 행을 누르면 그 글로 이동 |
 | 게시글 | 제목 → (선택) `#` 부제목 → 본문 → 이전/다음 → **관련 글**(같은 태그 최대 3편, 자동) → 댓글. 우측 목차(`##`부터) |
 
@@ -275,7 +275,7 @@
 | `.code-popup` (+ `__win` `__actions` `__btn` `__list` `__row` `__body`) | 원본 코드 팝업. 터미널 창(`.term`) 재사용, 폴더→파일 트리를 `__list`/`__row`로 탐색하다가 파일을 고르면 `__body`(코드 블록 색)에 내용을 보여줌 |
 | `.code-popup__tabs` > `.code-popup__tab` (+ `__note`, `__mark`) | 코드 팝업에서 `.java` 옆에 `X.out.txt`(실행 결과)가 있으면 나타나는 `코드 / 실행 결과` 탭. `.out.txt`는 목록에 안 나오고 `.java` 행에 `+ 실행 결과` 표시가 붙는다 |
 | `.related-posts` | 글 하단 관련 글 묶음. 본문·목차가 float라 `clear: both`가 필요하다 (`.pagination`과 같은 이유) |
-| `.tag-index` + `a.chip` | `/tags/` 맨 위 태그 목록. 칩이 앵커(`#태그`)로 이동하고 `.group:target`이 그 묶음 제목을 `--c-signal`로 강조. 링크로 쓰는 칩은 `a.chip`(테마 링크색을 덮어씀) |
+| `.tag-cloud` (+ `__n`) · `.tag-more` · `.row-list--compact` | `/tags/` 태그 목록(상자 없는 글자, 고른 태그는 `.is-active`로 `--c-signal` 밑줄), 1편짜리 태그를 접는 `<details>`, 제목 옆에 짧은 `summary`만 흐리게 붙인 얇은 글 줄(`.row-list--compact`). 고른 태그 하나의 `.group`만 보이는 동작은 `[data-tag-view]`(footer JS), JS가 꺼지면 전부 펼쳐진다. 글 머리의 링크 칩은 `a.chip`(테마 링크색을 덮어씀) |
 | `.gloss-find` (+ `__prompt` `__input`) | `/glossary/` 걸러 보기 입력줄. `[data-gloss-find]`, `[data-gloss-item]`, `[data-gloss-group]` 속성을 `footer/custom.html`이 쓴다. 결과 개수는 `.jump-status`(`[data-gloss-status]`)에 표시 |
 | `.guestbook` (+ `--side` `--inline` `__hint` `__box` `__loading`) + `.guestbook-inline` | 홈 방명록. 터미널 창(`.term`)을 재사용하고 giscus 위젯이 들어온다(`_includes/guestbook.html`). `--side`는 ≥1280px에서 프로필 아래(`_includes/sidebar-custom.html`, 홈 front matter `guestbook: true`), `--inline`은 <1280px에서 본문 안. 보이는 쪽만 위젯을 불러온다 |
 
