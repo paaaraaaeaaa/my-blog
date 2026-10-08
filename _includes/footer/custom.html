@@ -241,6 +241,25 @@ document.addEventListener('DOMContentLoaded', function () {
     codeBar.appendChild(codePath);
     codeBar.appendChild(codeActions);
 
+    // 코드 | 실행 결과 탭 (실행 결과 파일이 있는 .java 를 열었을 때만 보인다)
+    var codeTabs = document.createElement('div');
+    codeTabs.className = 'code-popup__tabs';
+    codeTabs.setAttribute('role', 'tablist');
+    codeTabs.hidden = true;
+    var codeTabCode = document.createElement('button');
+    var codeTabOut = document.createElement('button');
+    [[codeTabCode, '코드'], [codeTabOut, '실행 결과']].forEach(function (pair) {
+      pair[0].type = 'button';
+      pair[0].className = 'code-popup__tab';
+      pair[0].setAttribute('role', 'tab');
+      pair[0].textContent = pair[1];
+      codeTabs.appendChild(pair[0]);
+    });
+    var codeNote = document.createElement('p');
+    codeNote.className = 'code-popup__note';
+    codeNote.textContent = '한 번 실행한 결과예요. 난수·시간을 쓰는 코드는 실행할 때마다 달라질 수 있어요.';
+    codeNote.hidden = true;
+
     var codeList = document.createElement('div');
     codeList.className = 'code-popup__list';
 
@@ -250,6 +269,8 @@ document.addEventListener('DOMContentLoaded', function () {
     codePre.appendChild(codeBody);
 
     codeWin.appendChild(codeBar);
+    codeWin.appendChild(codeTabs);
+    codeWin.appendChild(codeNote);
     codeWin.appendChild(codeList);
     codeWin.appendChild(codePre);
     codeOverlay.appendChild(codeWin);
@@ -261,9 +282,17 @@ document.addEventListener('DOMContentLoaded', function () {
     var codeDir = '';
     var codePathStack = [];
 
-    var buildTree = function (files) {
+    // X.out.txt 는 X.java 의 "실행 결과" 파일이다. 목록에는 올리지 않고 X.java 에 붙인다.
+    var codeOutsByDir = {};
+    var OUT_SUFFIX = '.out.txt';
+
+    var buildTree = function (files, outs) {
       var root = {};
       files.forEach(function (f) {
+        if (f.path.slice(-OUT_SUFFIX.length) === OUT_SUFFIX) {
+          outs[f.path.slice(0, -OUT_SUFFIX.length) + '.java'] = f.url;
+          return;
+        }
         var parts = f.path.split('/');
         var node = root;
         for (var i = 0; i < parts.length - 1; i++) {
@@ -281,9 +310,17 @@ document.addEventListener('DOMContentLoaded', function () {
       var dataEl = document.querySelector('.code-popup-data[data-dir="' + dir + '"]');
       var files = [];
       try { files = JSON.parse((dataEl && dataEl.textContent) || '[]'); } catch (e) { files = []; }
-      var tree = buildTree(files);
+      var outs = {};
+      var tree = buildTree(files, outs);
       codeTreesByDir[dir] = tree;
+      codeOutsByDir[dir] = outs;
       return tree;
+    };
+
+    // 지금 폴더(codePathStack) 안 파일 name 의 실행 결과 주소 (없으면 '')
+    var outUrlFor = function (name) {
+      getTree(codeDir);
+      return (codeOutsByDir[codeDir] || {})[codePathStack.concat(name).join('/')] || '';
     };
 
     var nodeAtPath = function (tree, pathStack) {
@@ -297,6 +334,8 @@ document.addEventListener('DOMContentLoaded', function () {
       codeList.hidden = false;
       codeBackBtn.hidden = true;
       codeCopyBtn.hidden = true;
+      codeTabs.hidden = true;
+      codeNote.hidden = true;
     };
 
     var showFile = function () {
@@ -329,6 +368,13 @@ document.addEventListener('DOMContentLoaded', function () {
         if (typeof value === 'string') {
           row.className = 'code-popup__row code-popup__row--file';
           row.textContent = name;
+          var outUrl = outUrlFor(name);
+          if (outUrl) {
+            var mark = document.createElement('span');
+            mark.className = 'code-popup__mark';
+            mark.textContent = '+ 실행 결과';
+            row.appendChild(mark);
+          }
           row.addEventListener('click', function () { openFile(name, value); });
         } else {
           row.className = 'code-popup__row code-popup__row--dir';
@@ -351,11 +397,10 @@ document.addEventListener('DOMContentLoaded', function () {
       if (firstRow) firstRow.focus();
     };
 
-    var openFile = function (name, url) {
-      showFile();
-      codePath.textContent = '~/' + codeDir + (codePathStack.length ? '/' + codePathStack.join('/') : '') + '/' + name;
-
-      if (codeTextCache[url]) {
+    var codeLoadSeq = 0;
+    var loadCodeText = function (url, failMsg) {
+      var seq = ++codeLoadSeq;                    // 빨리 파일/탭을 바꿨을 때 늦게 온 응답이 덮어쓰지 않게
+      if (codeTextCache[url] !== undefined) {
         codeBody.textContent = codeTextCache[url];
         return;
       }
@@ -365,10 +410,31 @@ document.addEventListener('DOMContentLoaded', function () {
         return res.text();
       }).then(function (text) {
         codeTextCache[url] = text;
-        if (codePath.textContent.slice(-1 * name.length) === name) codeBody.textContent = text;
+        if (seq === codeLoadSeq) codeBody.textContent = text;
       }).catch(function () {
-        codeBody.textContent = '코드를 불러오지 못했습니다: ' + url;
+        if (seq === codeLoadSeq) codeBody.textContent = failMsg + url;
       });
+    };
+
+    var openFile = function (name, url) {
+      showFile();
+      codePath.textContent = '~/' + codeDir + (codePathStack.length ? '/' + codePathStack.join('/') : '') + '/' + name;
+      var outUrl = outUrlFor(name);
+
+      var pick = function (showOut) {
+        codeTabCode.classList.toggle('is-active', !showOut);
+        codeTabOut.classList.toggle('is-active', showOut);
+        codeTabCode.setAttribute('aria-selected', showOut ? 'false' : 'true');
+        codeTabOut.setAttribute('aria-selected', showOut ? 'true' : 'false');
+        codeNote.hidden = !showOut;
+        if (showOut) loadCodeText(outUrl, '실행 결과를 불러오지 못했습니다: ');
+        else loadCodeText(url, '코드를 불러오지 못했습니다: ');
+      };
+
+      codeTabs.hidden = !outUrl;
+      codeTabCode.onclick = function () { pick(false); };
+      codeTabOut.onclick = function () { pick(true); };
+      pick(false);
     };
 
     var closeCodePopup = function () {
@@ -841,5 +907,87 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   swapImages(current()); syncMeta(); syncButton(current());
+})();
+</script>
+<script>
+/* [my-blog] 용어집 걸러 보기(/glossary/) · 홈 방명록(giscus) 불러오기와 테마 전환 */
+(function () {
+  // 용어집: 입력한 글자가 들어 있는 용어만 남긴다. 비어 있는 모듈 묶음은 함께 숨긴다
+  var input = document.querySelector('[data-gloss-find]');
+  if (input) {
+    var items = [].slice.call(document.querySelectorAll('[data-gloss-item]'));
+    var groups = [].slice.call(document.querySelectorAll('[data-gloss-group]'));
+    var status = document.querySelector('[data-gloss-status]');
+    input.addEventListener('input', function () {
+      var raw = input.value.trim(), q = raw.toLowerCase(), shown = 0;
+      items.forEach(function (li) {
+        var hit = !q || li.textContent.toLowerCase().indexOf(q) !== -1;
+        li.hidden = !hit;
+        if (hit) shown++;
+      });
+      groups.forEach(function (g) { g.hidden = !g.querySelector('[data-gloss-item]:not([hidden])'); });
+      if (status) status.textContent = q ? ('"' + raw + '" ' + shown + '개') : '';
+    });
+  }
+
+  // 방명록: 화면에 가까워질 때 giscus 스크립트를 한 번만 불러온다
+  var gb = document.querySelector('[data-guestbook]');
+  if (gb) {
+    var box = gb.querySelector('[data-guestbook-box]');
+    var themeName = function () { return document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark'; };
+    var loaded = false;
+    var load = function () {
+      if (loaded) return;
+      loaded = true;
+      var s = document.createElement('script');
+      s.src = 'https://giscus.app/client.js';
+      s.async = true;
+      s.crossOrigin = 'anonymous';
+      var attrs = {
+        'data-repo': gb.getAttribute('data-repo'),
+        'data-repo-id': gb.getAttribute('data-repo-id'),
+        'data-category': gb.getAttribute('data-category'),
+        'data-category-id': gb.getAttribute('data-category-id'),
+        'data-mapping': 'specific',
+        'data-term': gb.getAttribute('data-term'),
+        'data-strict': '0',
+        'data-reactions-enabled': '1',
+        'data-emit-metadata': '0',
+        'data-input-position': 'top',
+        'data-theme': themeName(),
+        'data-lang': 'ko',
+        'data-loading': 'lazy'
+      };
+      Object.keys(attrs).forEach(function (k) { s.setAttribute(k, attrs[k]); });
+      box.textContent = '';
+      box.appendChild(s);
+    };
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        if (entries.some(function (e) { return e.isIntersecting; })) { io.disconnect(); load(); }
+      }, { rootMargin: '300px 0px' });
+      io.observe(gb);
+    } else { load(); }
+    // iframe이 늦게 생기면 그 사이 바뀐 테마가 전달되지 않으므로, 생길 때 현재 테마를 한 번 보낸다
+    var sendTheme = function (theme) {
+      var frame = box.querySelector('iframe.giscus-frame');
+      if (frame && frame.contentWindow) frame.contentWindow.postMessage({ giscus: { setConfig: { theme: theme } } }, 'https://giscus.app');
+    };
+    if (window.MutationObserver) {
+      new MutationObserver(function () {
+        var frame = box.querySelector('iframe.giscus-frame');
+        if (frame && !frame.dataset.themed) {
+          frame.dataset.themed = '1';
+          frame.addEventListener('load', function () { sendTheme(themeName()); });
+        }
+      }).observe(box, { childList: true, subtree: true });
+    }
+    document.addEventListener('themechange', function (e) {
+      var frame = box.querySelector('iframe.giscus-frame');
+      if (frame && frame.contentWindow) {
+        frame.contentWindow.postMessage({ giscus: { setConfig: { theme: e.detail.theme } } }, 'https://giscus.app');
+      }
+    });
+  }
 })();
 </script>

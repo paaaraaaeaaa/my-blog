@@ -1,0 +1,1 @@
+prop = {password=wanted, driver=cj.jdbc.driver.mysql, url=jdbc:mysql://localhost/menudb, username=wanted}

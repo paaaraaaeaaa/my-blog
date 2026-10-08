@@ -78,3 +78,12 @@ exclude:
   # 게시글에 필요한 소스만 assets/code/에 복사해서 {% include code-popup.html %}로 보여준다.
   - "chap*"
   - notion
+
+# 방명록(홈) — giscus. https://giscus.app 에서 category_id를 받아 채운다.
+# 준비: 저장소 Settings > Features > Discussions 켜기 → Discussions에 'Guestbook' 카테고리(Announcements 형식) 만들기 → giscus 앱 설치
+giscus:
+  repo: "paaaraaaeaaa/my-blog"
+  repo_id: "R_kgDOUGl-zA"
+  category: "Guestbook"
+  category_id: ""
+  term: "guestbook"

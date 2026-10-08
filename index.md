@@ -62,10 +62,10 @@ classes: home-page
 {%- for t in site.tags -%}{%- unless tag_hidden contains t[0] -%}{%- capture entry -%}{{ t[1].size | plus: 1000 }}|{{ t[0] }}{%- endcapture -%}{%- assign tag_rank = tag_rank | push: entry -%}{%- endunless -%}{%- endfor -%}
 {%- assign tag_rank = tag_rank | sort | reverse -%}
 <div class="home-panel__row">
-<span class="home-panel__label">자주 쓴 태그</span>
+<span class="home-panel__label home-panel__label--split"><span>자주 쓴 태그</span><a href="{{ '/tags/' | relative_url }}">모두 보기</a></span>
 <div class="chip-list">
 {%- for e in tag_rank limit: 8 -%}{%- assign parts = e | split: "|" -%}
-<button type="button" class="chip chip--btn" data-search="{{ parts[1] }}">{{ parts[1] }}<span class="chip__n">{{ parts[0] | minus: 1000 }}</span></button>
+<a class="chip chip--btn" href="{{ '/tags/' | relative_url }}#{{ parts[1] | slugify }}">{{ parts[1] }}<span class="chip__n">{{ parts[0] | minus: 1000 }}</span></a>
 {%- endfor -%}
 </div>
 </div>
@@ -230,6 +230,8 @@ classes: home-page
 {% else %}
 <p class="empty-note">아직 작성된 글이 없습니다.</p>
 {% endif %}
+
+{% include guestbook.html %}
 
 <div class="section-head"><h2>GitHub 잔디</h2><span class="section-head__aside"><a href="https://github.com/paaaraaaeaaa" target="_blank" rel="noopener">github.com/paaaraaaeaaa</a></span></div>
 

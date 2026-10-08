@@ -19,7 +19,7 @@
   <time class="post-meta__item" datetime="{{ document.date | date_to_xmlschema }}">{{ document.date | date: "%Y.%m.%d" }}</time>
   <span class="post-meta__item">읽는 데 {{ minutes }}분</span>
   {%- if document.tags.size > 0 -%}
-  <span class="post-meta__tags">{%- for t in document.tags limit: 5 -%}<button type="button" class="chip chip--btn" data-search="{{ t }}">#{{ t }}</button>{%- endfor -%}</span>
+  <span class="post-meta__tags">{%- for t in document.tags limit: 5 -%}<a class="chip chip--btn" href="{{ '/tags/' | relative_url }}#{{ t | slugify }}">#{{ t }}</a>{%- endfor -%}</span>
   {%- endif -%}
 </div>
 

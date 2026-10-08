@@ -1,0 +1,6 @@
+str1 = java
+str2 = java
+동등비교 : false
+동등비교 : true
+동등비교 : false
+equals() 활용 비교 : true

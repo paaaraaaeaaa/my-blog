@@ -1,0 +1,4 @@
+map = {one=Thu Oct 08 16:30:31 KST 2026, 12=banana}
+banana 값 출력하기 :banana
+map2 = {one=java, two=javascript, three=python}
+map2 = {one=java, two=javascript}

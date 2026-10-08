@@ -13,7 +13,7 @@
 
 174일 부트캠프를 **터미널에 남기는 작업 로그**로 표현한다. 개발자가 매일 보는 화면(터미널, GitHub)의 문법을 빌려서, 꾸밈 없이 정보가 바로 읽히게 한다.
 
-- 배경은 터미널 먹색(다크) / 흰색(라이트), 포인트는 **프롬프트 초록** 하나. 카테고리는 시안(Cloud)·마젠타(Database)·앰버(Projects).
+- 배경은 터미널 먹색(다크) / 흰색(라이트), 포인트는 **프롬프트 초록** 하나. 카테고리는 시안(Cloud)·마젠타(Database)·앰버(Projects). 상단 4번째 탭 Glossary는 카테고리가 아니라서 색 없이 기본 회색 점(`--c-text-3`)을 쓴다.
 - UI(제목·메뉴·라벨·숫자·날짜)는 **고정폭 글꼴**(`--font-ui`), 게시글 본문은 읽기 편한 **Pretendard**(`--font-sans`).
 - 터미널 문법을 표현 수단으로 쓴다: `$ 명령` 프롬프트, `## 제목` 기호, `[1/3]` `[done]` 대괄호, `./cloud` 경로, `ls -l` 목록, `█░` ASCII 막대, 깜빡이는 커서.
 
@@ -171,7 +171,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│ ◔ 예린님의 학습 노트                ● Cloud ● Database ● Projects │  상단바 (고정, 반투명)
+│ ◔ 예린님의 학습 노트        ● Cloud ● Database ● Projects ○ Glossary │  상단바 (고정, 반투명)
 ├─────────────────────────────────────────────────────────┤
 │ Home / Cloud / 20일차                              views │  경로 (게시글·섹션 페이지)
 ├──────────┬───────────────────────────────┬──────────────┤
@@ -196,11 +196,13 @@
 
 | 페이지 | 구조 (위에서 아래로) |
 |---|---|
-| 홈 `index.md` | 미션 패널(인사 · N일차 · D-day · 궤적 · **이번 주 기록 5칸** · 목표) → 구분선 + **둘러보기** 띠(카테고리 색으로 물든 카드 3개) → 최근에 쓴 글 5편 → GitHub 잔디. 오른쪽 패널: **수료까지 모듈 진척 6칸** · 방문자 · **자주 쓴 태그**(자동, 누르면 검색) · **기술 스택**(태그로 자동, `_data/skills.yml`) |
+| 홈 `index.md` | 미션 패널(인사 · N일차 · D-day · 궤적 · **이번 주 기록 5칸** · 목표) → 구분선 + **둘러보기** 띠(카테고리 색으로 물든 카드 3개) → 최근에 쓴 글 5편 → **방명록**(giscus, 6장) → GitHub 잔디. 오른쪽 패널: **수료까지 모듈 진척 6칸** · 방문자 · **자주 쓴 태그**(자동, 누르면 `/tags/#태그`로 이동, "모두 보기" 링크) · **기술 스택**(태그로 자동, `_data/skills.yml`) |
 | Cloud `cloud.md` | 섹션 머리 → **모듈 스테이지 6칸**(클릭 시 전환) → 모듈 제목 + **통계 타일 4개**(기간·학습노트는 중립, 문제풀이는 핑크·결과물은 라임 링크 타일) → **주 단위 달력** |
 | Database `Database.md` | 섹션 머리 → **섹션 필터 칩**(하나만 선택, 같은 칩 다시 누르면 해제, 오른쪽 ↻ 전체로 초기화, `/database/#problems`처럼 주소로 바로 필터) → 🧩 문제와 풀이(문제 카드 + Lv 단계) → `_data/database_sections.yml` 순서대로 자료 섹션(아이콘·색·설명) → 거기 없는 분류는 기본 모양으로 맨 뒤 |
 | Projects `Projects.md` | 섹션 머리 → **모듈 타임라인**. 완료 = 2열 카드(왼쪽 결과물 요약, 오른쪽 연동기 상세), 진행 중 = 안내, 시작 전 모듈은 맨 아래 **다음 정거장** 한 줄로 |
-| 게시글 | 제목 → (선택) `#` 부제목 → 본문 → 이전/다음 → 댓글. 우측 목차(`##`부터) |
+| 태그 `tags.md` (`/tags/`) | 머리 → 태그 칩 목록(많이 쓴 순, 앵커) → 태그별 `.group` + `.row-list`. 상단 탭에는 없고 글 머리·홈의 태그 칩으로 들어온다 |
+| 용어집 `glossary.md` (`/glossary/`, 상단 4번째 탭) | 머리 → 걸러 보기 입력줄 → 모듈별 `.group` + `.row-list`. 글의 개념 카드(`- **용어**` + 하위 목록)를 빌드 때 자동 수집: 첫 하위 항목이 설명, 행을 누르면 그 글로 이동 |
+| 게시글 | 제목 → (선택) `#` 부제목 → 본문 → 이전/다음 → **관련 글**(같은 태그 최대 3편, 자동) → 댓글. 우측 목차(`##`부터) |
 
 섹션 페이지(Cloud/Database/Projects)는 사이드바가 없으므로 본문이 사이트 폭 전체를 쓴다.
 
@@ -223,7 +225,7 @@
 
 | 클래스 | 설명 |
 |---|---|
-| `.is-cloud` `.is-database` `.is-projects` | 요소에 붙이면 `--cat` 색이 정해진다. 아래 컴포넌트들이 이 색을 쓴다 |
+| `.is-cloud` `.is-database` `.is-projects` (+ `.is-glossary`) | 요소에 붙이면 `--cat` 색이 정해진다. 아래 컴포넌트들이 이 색을 쓴다. `.is-glossary`는 카테고리 색이 아니라 모바일 메뉴(`.mnav`)의 글자 점에만 쓰는 중립색(`--c-text-2`) |
 | `.cat-label` | `[cloud]` 형태의 카테고리 표시 |
 | `.page-intro` (+ `__title` `__desc` `__stats`) | 섹션 페이지 머리. 밑줄 앞부분이 카테고리 색으로 빛남 |
 | `.section-head` (+ `__aside`) | `## 제목` + 오른쪽 보조 정보(명령어·주석) |
@@ -271,6 +273,10 @@
 | `.empty-note` | "아직 글이 없습니다" 안내 |
 | `.code-popup-trigger` | 게시글 안 "원본 코드 보기" 버튼(`{% include code-popup.html dir="..." %}`, 글 하나에 1개) |
 | `.code-popup` (+ `__win` `__actions` `__btn` `__list` `__row` `__body`) | 원본 코드 팝업. 터미널 창(`.term`) 재사용, 폴더→파일 트리를 `__list`/`__row`로 탐색하다가 파일을 고르면 `__body`(코드 블록 색)에 내용을 보여줌 |
+| `.code-popup__tabs` > `.code-popup__tab` (+ `__note`, `__mark`) | 코드 팝업에서 `.java` 옆에 `X.out.txt`(실행 결과)가 있으면 나타나는 `코드 / 실행 결과` 탭. `.out.txt`는 목록에 안 나오고 `.java` 행에 `+ 실행 결과` 표시가 붙는다 |
+| `.tag-index` + `a.chip` | `/tags/` 맨 위 태그 목록. 칩이 앵커(`#태그`)로 이동하고 `.group:target`이 그 묶음 제목을 `--c-signal`로 강조. 링크로 쓰는 칩은 `a.chip`(테마 링크색을 덮어씀) |
+| `.gloss-find` (+ `__prompt` `__input`) | `/glossary/` 걸러 보기 입력줄. `[data-gloss-find]`, `[data-gloss-item]`, `[data-gloss-group]` 속성을 `footer/custom.html`이 쓴다. 결과 개수는 `.jump-status`(`[data-gloss-status]`)에 표시 |
+| `.guestbook` (+ `__hint` `__box` `__loading`) | 홈 방명록 패널. giscus 위젯이 들어오는 자리 (`_includes/guestbook.html`) |
 
 ### 4.1 게시글 안에서 자동으로 적용되는 것 (`_includes/footer/custom.html`)
 
@@ -284,11 +290,12 @@
 | 표 | 가로 스크롤 틀로 감싸짐 |
 | 글 안의 `#` 부제목 | 목차에서 제외 (`_includes/toc.html`이 `##`부터 목차로 만듦) |
 | 코드 블록 언어 (```bash) | 오른쪽 위 언어 라벨 |
-| 글 front matter | 제목 아래 정보줄: 모듈 · 날짜 · 읽는 시간 · 태그(누르면 검색) — `_includes/page__meta.html` |
+| 글 front matter | 제목 아래 정보줄: 모듈 · 날짜 · 읽는 시간 · 태그(누르면 `/tags/#태그`) — `_includes/page__meta.html` |
 | `type: practice` + `topic` | 시리즈 진행 표시: "N편 중 M번째" + 단계 칸, 문제풀이는 "문제 보기" 링크 |
 | 긴 글 | 한 화면 넘게 내리면 오른쪽 아래 맨 위로 버튼 |
 | ` ```mermaid ` | 토큰 색으로 그려진 다이어그램 |
-| `{% include code-popup.html dir="..." %}` | "원본 코드 보기" 버튼. 누르면 `assets/code/<dir>/` 전체를 폴더→파일 트리로 보여주고, 파일을 고르면 fetch해서 터미널 창 팝업에 표시(뒤로가기·복사 포함) |
+| `{% include code-popup.html dir="..." %}` | "원본 코드 보기" 버튼. 누르면 `assets/code/<dir>/` 전체를 폴더→파일 트리로 보여주고, 파일을 고르면 fetch해서 터미널 창 팝업에 표시(뒤로가기·복사 포함). `X.java` 옆에 `X.out.txt`(한 번 실행한 결과)가 있으면 `코드 / 실행 결과` 탭이 생기고, `.out.txt`는 목록에서 숨는다 |
+| 글 하단 (이전/다음 글 아래) | `_includes/related_posts.html`: 겹치는 태그가 많은 글 최대 3편(`_data/tag_rules.yml`의 분류성 태그는 점수에서 제외). 겹치는 태그가 없으면 그리지 않는다 |
 
 ---
 
@@ -323,6 +330,7 @@
 | GitHub Streak | `index.md` | `ring` `currStreakLabel` = signal, `fire` = projects 앰버, 숫자 = text |
 | 기여 캘린더 (ghchart) | `index.md` | `1A7F37` — 라이트는 그대로, 다크는 CSS 필터로 반전 |
 | 댓글 (utterances) | `_config.yml` | `theme: "github-dark"` (라이트에서는 스크립트가 `github-light`로 전환) |
+| 방명록 (giscus) | `_config.yml` `giscus`, `_includes/guestbook.html` | `data-theme`: 다크 `dark` / 라이트 `light` (테마 전환 시 `themechange` 이벤트로 iframe에 전달). `category_id`가 비어 있으면 "준비 중" 안내만 보인다 |
 | 라이트 테마 위젯 | `index.md` | 각 `<img>`의 `data-src-light` (Streak: 라이트 토큰 색, skillicons: `theme=light`) |
 | 브라우저 테마색 | `_includes/head/custom.html` | `theme-color` = `--c-bg` |
 

@@ -1,0 +1,6 @@
+non-static 변수 값 확인 : 0
+static 변수 값 확인 : 0
+non-static 변수 값 확인 : 1
+static 변수 값 확인 : 1
+st2 = non-static 변수 값 확인 : 0
+st2 = static 변수 값 확인 : 1

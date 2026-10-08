@@ -1,0 +1,4 @@
+main() 시작됨!
+매개변수 있는 생성자 동작함!
+member = Member{id='user01', pwd='pass01', name='raccoon', age=20, gender=남, hobby=[탁구, 야구]}
+main() 종료됨!

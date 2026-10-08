@@ -1,0 +1,8 @@
+list = [apple, 1, 123.123, true, Thu Oct 08 16:30:20 KST 2026]
+list.size() = 5
+1번 공간에 있는 값 = 123.123
+list = [apple, banana, 1, 123.123, true, Thu Oct 08 16:30:20 KST 2026]
+list = [apple, banana, 123.123, true, Thu Oct 08 16:30:20 KST 2026]
+=================================================
+strings = [a, c, b, d]
+strings = [a, b, c, d]

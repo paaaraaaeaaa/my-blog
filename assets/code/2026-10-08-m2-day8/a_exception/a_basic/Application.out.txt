@@ -1,0 +1,3 @@
+프로그램 시작...
+Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index 6 out of bounds for length 5
+	at com.wanted.a_exception.a_basic.Application.main(Application.java:18)

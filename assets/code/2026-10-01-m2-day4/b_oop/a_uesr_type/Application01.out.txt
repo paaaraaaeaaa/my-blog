@@ -1,0 +1,3 @@
+member 의 이름 : null
+member 의 나이  : 0
+member.id = user02

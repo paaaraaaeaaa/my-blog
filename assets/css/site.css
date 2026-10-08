@@ -714,6 +714,7 @@ nav.toc .toc__menu li.active > a {       /* 스크롤 추적: 지금 읽는 항�
 .is-danger   { --cat: var(--c-danger); }
 .is-database { --cat: var(--c-database); }
 .is-projects { --cat: var(--c-projects); }
+.is-glossary { --cat: var(--c-text-2); }
 
 /* 카테고리 표시: 색 점 + 이름 */
 .cat-label {
@@ -2193,6 +2194,75 @@ h1, h2, h3, h4 { letter-spacing: var(--ls-tight); }
   .stages { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .page__content .timeline__item { padding-left: 1.75rem; }
 }
+
+/* ---------------------------------------------------------------------
+   20. 태그 모아보기 · 용어집 · 방명록 · 코드 팝업 실행 결과
+   (DESIGN.md 4장: .tag-index .gloss-find .guestbook .code-popup__tabs)
+   --------------------------------------------------------------------- */
+/* 태그 모아보기 /tags/ — .group + .row-list 재사용, 앵커로 이동했을 때만 강조 */
+.page__content .group__title { margin: 0; padding: 0; border: 0; font-size: var(--fs-md); font-weight: var(--fw-bold); }
+.page__content .group__title::before { content: none; }
+.group { scroll-margin-top: calc(var(--fixed-offset, 0px) + var(--s-4)); }   /* 고정 상단바에 가리지 않게 */
+.group:target .group__title { color: var(--c-signal); }
+.group:target .group__key { border-color: var(--c-signal); color: var(--c-signal); }
+.tag-index { margin-bottom: var(--s-5); }
+/* 링크로 쓰는 칩: 테마의 본문 링크색(초록·밑줄)을 덮어쓴다 */
+a.chip { color: var(--c-text-2) !important; text-decoration: none !important; }
+a.chip:hover { color: var(--c-text) !important; }
+
+/* 용어집 /glossary/ — 걸러 보기 입력줄 */
+.gloss-find {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  margin: var(--s-5) 0 var(--s-2);
+  padding: var(--s-2) var(--s-3);
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--r-md);
+  background: var(--c-surface);
+}
+.gloss-find:focus-within { border-color: var(--c-signal); outline: 2px solid var(--c-signal); outline-offset: 1px; }
+.gloss-find__prompt { flex: none; font-family: var(--font-ui); font-size: var(--fs-sm); color: var(--c-signal); }
+.gloss-find__input {
+  flex: 1;
+  min-width: 0;
+  padding: var(--s-1) 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--c-text);
+  font-family: var(--font-ui);
+  font-size: var(--fs-base);
+}
+.gloss-find__input::placeholder { color: var(--c-text-3); }
+[data-gloss-group][hidden], [data-gloss-item][hidden] { display: none; }
+
+/* 방명록 (홈) — giscus가 들어오는 자리 */
+.guestbook { margin-bottom: var(--s-4); }
+.guestbook__hint { margin: 0 0 var(--s-3); font-size: var(--fs-sm); color: var(--c-text-2); }
+.guestbook__hint:last-child { margin-bottom: 0; }
+.guestbook__box { min-height: 6rem; }
+.guestbook__loading { font-family: var(--font-ui); font-size: var(--fs-sm); color: var(--c-text-3); }
+.guestbook__box .giscus, .guestbook__box .giscus-frame { width: 100%; }
+
+/* 코드 팝업: 코드 | 실행 결과 탭 (코드 블록과 같은 어두운 톤) */
+.code-popup__tabs { display: flex; flex: none; border-bottom: 1px solid var(--c-code-ui-line); background: var(--c-code-bg); }
+.code-popup__tabs[hidden] { display: none; }
+.code-popup__tab {
+  padding: var(--s-2) var(--s-5);
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: var(--c-code-ui-text);
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  cursor: pointer;
+}
+.code-popup__tab:hover { color: var(--c-code-text); }
+.code-popup__tab.is-active { color: var(--c-code-text); border-bottom-color: var(--c-signal); }
+.code-popup__note { flex: none; margin: 0; padding: var(--s-2) var(--s-5); border-bottom: 1px solid var(--c-code-ui-line); background: var(--c-code-bg); color: var(--c-code-ui-text); font-family: var(--font-ui); font-size: var(--fs-xs); }
+.code-popup__note[hidden] { display: none; }
+.code-popup__mark { margin-left: var(--s-2); color: var(--c-code-ui-text); font-size: var(--fs-xs); font-weight: var(--fw-regular); }
 
 /* =====================================================================
    모션 — "로그가 찍히듯" 나타나고, 닿으면 반응한다 (DESIGN.md 2.4)

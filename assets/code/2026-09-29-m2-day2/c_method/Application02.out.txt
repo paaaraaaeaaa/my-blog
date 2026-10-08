@@ -1,0 +1,5 @@
+main() 시작됨!
+methodA() 호출됨!
+methodB() 호출됨!
+methodA() 종료됨!
+main() 종료됨!

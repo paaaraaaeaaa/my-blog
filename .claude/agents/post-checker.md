@@ -32,6 +32,8 @@ tools: Read, Grep, Glob
 - 코드 블록(```)에 언어가 적혀 있는가 (```bash, ```html …). 없으면 언어 라벨·문법 색이 안 붙는다
 - Mermaid 코드 블록이 있으면 `mermaid: true`가 있는가
 - 이미지 경로가 `{{ site.baseurl }}/assets/...` 형식인가
+- `{% include code-popup.html dir="..." %}`가 있으면 `assets/code/<dir>/` 폴더가 있고, `main`이 있는 `.java`마다 같은 폴더에 `X.out.txt`(실행 결과)가 있는가 (입력이 필요한 프로그램은 제외). 본문이 말하는 출력과 `.out.txt` 내용이 어긋나지 않는가
+- 개념 카드(`- **용어**`)의 첫 하위 항목이 한 줄 정의인가 — 그 줄이 `/glossary/` 용어집에 그대로 보인다
 
 ### 3. 내용 (💬 참고)
 - CLAUDE.md 8장 최종 체크리스트 중 빠진 항목 (STAR, "더 학습하면 좋은 개념", 공식 문서 링크 등)

@@ -1,0 +1,7 @@
+monster1.name = 성원몬
+monster1.hp = 50
+monster2.name = 피카츄!
+monster2.hp = -200
+삐빅... 오류 발생!잘못된 값이 탐지되어 hp 를 0으로 강제합니다.
+monster3.name = 갸라도스
+monster3.hp = 0

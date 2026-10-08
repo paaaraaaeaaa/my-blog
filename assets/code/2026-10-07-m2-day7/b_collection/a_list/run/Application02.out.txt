@@ -1,0 +1,11 @@
+bookList = [BookDTO{no=1, title='홍길동전', author='허균', price=50000}, BookDTO{no=2, title='목민심서', author='정약용', price=45000}, BookDTO{no=3, title='삼국지', author='유비', price=30000}, BookDTO{no=4, title='마법천자문', author='손오공', price=20000}, BookDTO{no=5, title='삼국유사', author='일연', price=58000}]
+1번째 책 : BookDTO{no=1, title='홍길동전', author='허균', price=50000}
+2번째 책 : BookDTO{no=2, title='목민심서', author='정약용', price=45000}
+3번째 책 : BookDTO{no=3, title='삼국지', author='유비', price=30000}
+4번째 책 : BookDTO{no=4, title='마법천자문', author='손오공', price=20000}
+5번째 책 : BookDTO{no=5, title='삼국유사', author='일연', price=58000}
+1번째 책 : BookDTO{no=1, title='홍길동전', author='허균', price=50000}
+2번째 책 : BookDTO{no=2, title='목민심서', author='정약용', price=45000}
+3번째 책 : BookDTO{no=3, title='삼국지', author='유비', price=30000}
+4번째 책 : BookDTO{no=4, title='마법천자문', author='손오공', price=20000}
+5번째 책 : BookDTO{no=5, title='삼국유사', author='일연', price=58000}
