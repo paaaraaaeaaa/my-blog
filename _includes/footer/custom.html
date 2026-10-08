@@ -754,8 +754,8 @@ document.addEventListener('DOMContentLoaded', function () {
   // 스크롤 등장
   if ('IntersectionObserver' in window) {
     var SEL = '.row-list > li, .res-card, .problem, .stage, .day, .ls__row, .proj-card, .timeline__item, .module-stats .stat, .wdot, .page__content > h2';
-    // Database·Projects는 화면 밖으로 나갔다가 다시 들어올 때마다 다시 등장한다. 다른 페이지는 한 번만
-    var replay = /\/(database|projects)(\/|$)/i.test(location.pathname);
+    // Projects만 화면 밖으로 나갔다가 다시 들어올 때마다 다시 등장한다. 다른 페이지(Database 포함)는 한 번만
+    var replay = /\/projects(\/|$)/i.test(location.pathname);
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (e.isIntersecting) {
@@ -767,7 +767,8 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
     document.querySelectorAll(SEL).forEach(function (el) {
-      if (el.closest('.term__body')) return;
+      // 태그·용어집 목록은 등장 효과 없이 바로 보인다(태그를 바꾸거나 걸러 보기를 지울 때 다시 나타나지 않게)
+      if (el.closest('.term__body, [data-tag-view], [data-gloss-group]')) return;
       var sibs = el.parentElement ? Array.prototype.indexOf.call(el.parentElement.children, el) : 0;
       el.style.setProperty('--i', Math.min(sibs, 8));
       el.classList.add('will-reveal');
