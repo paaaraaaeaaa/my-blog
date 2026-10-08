@@ -3,7 +3,7 @@ layout: single
 title: 학습 노트
 author_profile: true
 classes: home-page
-guestbook: true
+home_side: true
 ---
 
 {%- comment -%}
@@ -12,7 +12,8 @@ guestbook: true
 {%- endcomment -%}
 
 <aside class="sidebar__right sticky home-aside">
-<section class="home-panel" aria-label="방문자와 기술 스택">
+{% include guestbook.html variant="side" %}
+<section class="home-panel" aria-label="모듈 진척과 방문자">
 <h2 class="home-panel__title">한눈에 보기</h2>
 {%- comment -%}
   수료까지 모듈 진척: 완료 = Projects 결과물 글이 있는 모듈 / 진행 중 = 학습노트가 있고 결과물이 아직 없는 첫 모듈.
@@ -56,46 +57,6 @@ guestbook: true
 <img src="https://visitor-badge.laobi.icu/badge?page_id=paaaraaaeaaa.my-blog&left_color=161B22&right_color=238636" alt="누적 방문자 수" />
 </div>
 </div>
-{%- comment -%} 자주 쓴 태그: 글 tags를 세서 상위 8개 (_data/tag_rules.yml의 분류성 태그는 제외). 누르면 검색창이 열린다 {%- endcomment -%}
-{%- assign empty_array = "" | split: "," -%}
-{%- assign tag_rank = "" | split: "," -%}
-{%- assign tag_hidden = site.data.tag_rules.hidden_in_ranking | default: empty_array -%}
-{%- for t in site.tags -%}{%- unless tag_hidden contains t[0] -%}{%- capture entry -%}{{ t[1].size | plus: 1000 }}|{{ t[0] }}{%- endcapture -%}{%- assign tag_rank = tag_rank | push: entry -%}{%- endunless -%}{%- endfor -%}
-{%- assign tag_rank = tag_rank | sort | reverse -%}
-<div class="home-panel__row">
-<span class="home-panel__label home-panel__label--split"><span>자주 쓴 태그</span><a href="{{ '/tags/' | relative_url }}">모두 보기</a></span>
-<div class="chip-list">
-{%- for e in tag_rank limit: 8 -%}{%- assign parts = e | split: "|" -%}
-<a class="chip chip--btn" href="{{ '/tags/' | relative_url }}#{{ parts[1] | slugify }}">{{ parts[1] }}<span class="chip__n">{{ parts[0] | minus: 1000 }}</span></a>
-{%- endfor -%}
-</div>
-</div>
-<div class="home-panel__row">
-<span class="home-panel__label home-panel__label--split"><span>개념 용어집</span><a href="{{ '/glossary/' | relative_url }}">모두 보기</a></span>
-<span class="mbars__note">글에서 정리한 개념 카드를 한곳에</span>
-</div>
-{%- comment -%}
-  기술 스택: _data/skills.yml 기준, 그 기술 태그가 붙은 "글 수"가 많은 순서로 최대 10개.
-  (태그 개수로 세면 별칭이 많은 기술이 한 글에서 여러 번 세어지므로 글 단위로 센다)
-{%- endcomment -%}
-{%- assign skill_rank = "" | split: "," -%}
-{%- for sk in site.data.skills -%}
-{%- assign n = 0 -%}
-{%- for p in site.posts -%}
-{%- assign hit = false -%}
-{%- for t in p.tags -%}{%- assign td = t | downcase -%}{%- if sk.aliases contains td -%}{%- assign hit = true -%}{%- break -%}{%- endif -%}{%- endfor -%}
-{%- if hit -%}{%- assign n = n | plus: 1 -%}{%- endif -%}
-{%- endfor -%}
-{%- if n > 0 or sk.always -%}{%- capture entry -%}{{ n | plus: 1000 }}|{{ sk.id }}{%- endcapture -%}{%- assign skill_rank = skill_rank | push: entry -%}{%- endif -%}
-{%- endfor -%}
-{%- assign skill_rank = skill_rank | sort | reverse -%}
-{%- assign skill_ids = "" | split: "," -%}
-{%- for e in skill_rank limit: 10 -%}{%- assign parts = e | split: "|" -%}{%- assign skill_ids = skill_ids | push: parts[1] -%}{%- endfor -%}
-<div class="home-panel__row">
-<span class="home-panel__label home-panel__label--split"><span>기술 스택</span><b>많이 쓴 순 {{ skill_ids.size }}개</b></span>
-<img class="home-panel__stack" src="https://skillicons.dev/icons?i={{ skill_ids | join: ',' }}&theme=dark&perline=5" data-src-light="https://skillicons.dev/icons?i={{ skill_ids | join: ',' }}&theme=light&perline=5" alt="{{ skill_ids | join: ', ' }}" loading="lazy" />
-</div>
-<button type="button" id="copy-link-btn" class="btn-line">copy link</button>
 </section>
 </aside>
 

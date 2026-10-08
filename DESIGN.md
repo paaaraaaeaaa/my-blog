@@ -196,12 +196,12 @@
 
 | 페이지 | 구조 (위에서 아래로) |
 |---|---|
-| 홈 `index.md` | 미션 패널(인사 · N일차 · D-day · 궤적 · **이번 주 기록 5칸** · 목표) → 구분선 + **둘러보기** 띠(카테고리 색으로 물든 카드 3개) → 최근에 쓴 글 5편 → GitHub 잔디. **방명록**(giscus, 6장)은 1280px 이상에서 왼쪽 프로필 이메일 아래, 그보다 좁으면 GitHub 잔디 앞 본문에 놓인다. 오른쪽 패널: **수료까지 모듈 진척 6칸** · 방문자 · **자주 쓴 태그**(자동, 누르면 `/tags/#태그`로 이동, "모두 보기" 링크) · **개념 용어집** 바로가기(`/glossary/`) · **기술 스택**(태그로 자동, `_data/skills.yml`) |
+| 홈 `index.md` | 미션 패널(인사 · N일차 · D-day · 궤적 · **이번 주 기록 5칸** · 목표) → 구분선 + **둘러보기** 띠(카테고리 색으로 물든 카드 3개) → 최근에 쓴 글 5편 → GitHub 잔디. **방명록**(giscus, 6장)은 1280px 이상에서 오른쪽 패널 맨 위, 그보다 좁으면 GitHub 잔디 앞 본문에 놓인다. 오른쪽 패널: **수료까지 모듈 진척 6칸** · 방문자 · **방명록**(giscus)은 맨 위. 왼쪽 프로필 아래에 **자주 쓴 태그**(자동, 최대 4줄, 누르면 `/tags/#태그`로 이동)·**기술 스택**(`_data/skills.yml`, 태그로 자동)·**개념 용어집** 바로가기(`/glossary/`)가 있다(`_includes/home-tags.html`). 오른쪽 패널은 방명록 + **한눈에 보기**(모듈 진척 · 방문자) · **기술 스택**(태그로 자동, `_data/skills.yml`) |
 | Cloud `cloud.md` | 섹션 머리 → **모듈 스테이지 6칸**(클릭 시 전환) → 모듈 제목 + **통계 타일 4개**(기간·학습노트는 중립, 문제풀이는 핑크·결과물은 라임 링크 타일) → **주 단위 달력** |
 | Database `Database.md` | 섹션 머리 → **섹션 필터 칩**(하나만 선택, 같은 칩 다시 누르면 해제, 오른쪽 ↻ 전체로 초기화, `/database/#problems`처럼 주소로 바로 필터) → 🧩 문제와 풀이(문제 카드 + Lv 단계) → `_data/database_sections.yml` 순서대로 자료 섹션(아이콘·색·설명) → 거기 없는 분류는 기본 모양으로 맨 뒤 |
 | Projects `Projects.md` | 섹션 머리 → **모듈 타임라인**. 완료 = 2열 카드(왼쪽 결과물 요약, 오른쪽 연동기 상세), 진행 중 = 안내, 시작 전 모듈은 맨 아래 **다음 정거장** 한 줄로 |
 | 태그 `tags.md` (`/tags/`) | 머리 → 태그 글자 목록(2편 이상, 많이 쓴 순) + 1편짜리 접기 → 고른 태그(기본 가장 많이 쓴 태그) 하나의 `.group` + 얇은 `.row-list`. 상단 탭에는 없고 글 머리·홈의 태그 칩으로 들어온다 |
-| 용어집 `glossary.md` (`/glossary/`) | 머리 → 걸러 보기 입력줄 → 모듈별 `.group` + `.row-list`. 상단 탭에는 없고 홈 오른쪽 패널의 "개념 용어집 · 모두 보기" 링크로 들어온다. 글의 개념 카드(`- **용어**` + 하위 목록)를 빌드 때 자동 수집: 첫 하위 항목이 설명, 행을 누르면 그 글로 이동 |
+| 용어집 `glossary.md` (`/glossary/`) | 머리 → 걸러 보기 입력줄 → 모듈별 `.group` + `.row-list`. 상단 탭에는 없고 홈 왼쪽 프로필 아래의 "개념 용어집 · 모두 보기" 링크로 들어온다. 글의 개념 카드(`- **용어**` + 하위 목록)를 빌드 때 자동 수집: 첫 하위 항목이 설명, 행을 누르면 그 글로 이동 |
 | 게시글 | 제목 → (선택) `#` 부제목 → 본문 → 이전/다음 → **관련 글**(같은 태그 최대 3편, 자동) → 댓글. 우측 목차(`##`부터) |
 
 섹션 페이지(Cloud/Database/Projects)는 사이드바가 없으므로 본문이 사이트 폭 전체를 쓴다.
@@ -275,9 +275,10 @@
 | `.code-popup` (+ `__win` `__actions` `__btn` `__list` `__row` `__body`) | 원본 코드 팝업. 터미널 창(`.term`) 재사용, 폴더→파일 트리를 `__list`/`__row`로 탐색하다가 파일을 고르면 `__body`(코드 블록 색)에 내용을 보여줌 |
 | `.code-popup__tabs` > `.code-popup__tab` (+ `__note`, `__mark`) | 코드 팝업에서 `.java` 옆에 `X.out.txt`(실행 결과)가 있으면 나타나는 `코드 / 실행 결과` 탭. `.out.txt`는 목록에 안 나오고 `.java` 행에 `+ 실행 결과` 표시가 붙는다 |
 | `.related-posts` | 글 하단 관련 글 묶음. 본문·목차가 float라 `clear: both`가 필요하다 (`.pagination`과 같은 이유) |
+| `.home-side` (+ `__head` `__tags`) | 홈 왼쪽 프로필 아래 바로가기. 태그는 글자만, 최대 4줄(`max-height: 7.2em`)에서 잘린다. 태그·기술 스택·용어집 링크를 담은 `_includes/home-tags.html`을 `_includes/sidebar-custom.html`이 홈(`home_side: true`)에서만 불러온다 |
 | `.tag-cloud` (+ `__n`) · `.tag-more` · `.row-list--compact` | `/tags/` 태그 목록(상자 없는 글자, 고른 태그는 `.is-active`로 `--c-signal` 밑줄), 1편짜리 태그를 접는 `<details>`, 제목 옆에 짧은 `summary`만 흐리게 붙인 얇은 글 줄(`.row-list--compact`). 고른 태그 하나의 `.group`만 보이는 동작은 `[data-tag-view]`(footer JS), JS가 꺼지면 전부 펼쳐진다. 글 머리의 링크 칩은 `a.chip`(테마 링크색을 덮어씀) |
 | `.gloss-find` (+ `__prompt` `__input`) | `/glossary/` 걸러 보기 입력줄. `[data-gloss-find]`, `[data-gloss-item]`, `[data-gloss-group]` 속성을 `footer/custom.html`이 쓴다. 결과 개수는 `.jump-status`(`[data-gloss-status]`)에 표시 |
-| `.guestbook` (+ `--side` `--inline` `__hint` `__box` `__loading`) + `.guestbook-inline` | 홈 방명록. 터미널 창(`.term`)을 재사용하고 giscus 위젯이 들어온다(`_includes/guestbook.html`). `--side`는 ≥1280px에서 프로필 아래(`_includes/sidebar-custom.html`, 홈 front matter `guestbook: true`), `--inline`은 <1280px에서 본문 안. 보이는 쪽만 위젯을 불러온다 |
+| `.guestbook` (+ `--side` `--inline` `__hint` `__box` `__loading`) + `.guestbook-inline` | 홈 방명록. 터미널 창(`.term`)을 재사용하고 giscus 위젯이 들어온다(`_includes/guestbook.html`). `--side`는 ≥1280px에서 홈 오른쪽 패널 맨 위(`index.md`의 `<aside>` 안), `--inline`은 <1280px에서 본문 안. 보이는 쪽만 위젯을 불러온다 |
 
 ### 4.1 게시글 안에서 자동으로 적용되는 것 (`_includes/footer/custom.html`)
 
