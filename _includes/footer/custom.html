@@ -911,6 +911,30 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 </script>
 <script>
+/* [my-blog] 홈 양쪽 패널 — 화면을 따라다니되 안쪽 스크롤은 없다.
+   패널이 화면보다 크면 sticky 의 top 을 음수로 줘서, 페이지를 내리는 동안 패널의 아래쪽 끝까지 차례로 보이게 한다 */
+(function () {
+  var panels = [].slice.call(document.querySelectorAll('.home-page .sidebar.sticky, .home-page .home-aside'));
+  if (!panels.length) return;
+  var GAP = 24;
+  var fit = function () {
+    var offset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--fixed-offset')) || 0;
+    panels.forEach(function (p) {
+      var normal = offset + GAP;                                   // 평소 위치(상단바 아래)
+      var bottomFit = window.innerHeight - p.offsetHeight - GAP;   // 패널 아래끝이 화면 아래끝에 닿는 위치
+      p.style.setProperty('top', Math.min(normal, bottomFit) + 'px', 'important');
+    });
+  };
+  fit();
+  window.addEventListener('resize', fit);
+  window.addEventListener('load', fit);
+  if (window.ResizeObserver) {            // 방명록(giscus)이 늦게 커지거나 글이 쌓여 높이가 바뀌어도 다시 맞춘다
+    var ro = new ResizeObserver(fit);
+    panels.forEach(function (p) { ro.observe(p); });
+  }
+})();
+</script>
+<script>
 /* [my-blog] 용어집 걸러 보기(/glossary/) · 홈 방명록(giscus) 불러오기와 테마 전환 */
 (function () {
   // 태그 모아보기(/tags/): 주소의 #태그 하나의 글만 보여준다(없으면 가장 많이 쓴 태그). JS가 없으면 전부 보인다

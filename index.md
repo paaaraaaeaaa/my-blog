@@ -11,7 +11,7 @@ home_side: true
   순서: 미션 패널(진행 상황) → 섹션 바로가기 → 최근 글 → GitHub 활동
 {%- endcomment -%}
 
-<aside class="sidebar__right home-aside">
+<aside class="sidebar__right sticky home-aside">
 {% include guestbook.html variant="side" %}
 <section class="home-panel" aria-label="모듈 진척">
 <h2 class="home-panel__title">한눈에 보기</h2>
