@@ -2031,17 +2031,6 @@ h1, h2, h3, h4 { letter-spacing: var(--ls-tight); }
 .readout__kv div { display: flex; flex-direction: column; gap: 2px; }
 .readout__kv dt { font-size: var(--fs-xs); color: var(--c-text-3); }
 .readout__kv dd { margin: 0; font-size: var(--fs-md); font-weight: var(--fw-bold); color: var(--c-text); font-variant-numeric: tabular-nums; }
-.page__content .asciibar {
-  margin: 0 !important;
-  font-family: var(--font-ui);
-  font-size: clamp(.7rem, 2.6vw, 1.4rem);
-  line-height: 1.2;
-  letter-spacing: 0;
-  white-space: nowrap;
-  overflow: hidden;
-}
-.asciibar__on { color: var(--c-signal); }
-.asciibar__off { color: var(--c-line-strong); }
 .page__content .mission__ends { font-family: var(--font-ui); margin-top: var(--s-1) !important; }
 .week-strip { margin-top: 0; padding: 0; border: 0; background: none; gap: var(--s-4); }
 .wdot { border-radius: var(--r-sm); border-style: solid; font-family: var(--font-ui); }
@@ -2225,6 +2214,22 @@ a.chip:hover { color: var(--c-text) !important; }
 .related-posts .section-head h2 { margin: 0; padding: 0; border: 0; font-size: var(--fs-lg); font-weight: var(--fw-heavy); }
 .related-posts .section-head h2::before { content: "## "; color: var(--c-text-3); font-weight: var(--fw-regular); }
 
+/* 홈 미션 창 정리: last login 줄(오른쪽에 방문자) · 얇은 진행 막대 · 구분선으로 나뉜 세 덩어리 */
+.term__metarow { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-1) var(--s-4); margin-bottom: var(--s-5); }
+.page__content .term__metarow .term__meta { margin: 0 !important; }
+.page__content .term__visits { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3); margin: 0 !important; font-family: var(--font-ui); font-size: var(--fs-xs); color: var(--c-text-3); }
+.term__visits span { display: inline-flex; align-items: center; gap: var(--s-1); }
+.term__visits img { display: block; height: 18px; width: auto; max-width: 100%; }
+.mission__block { margin-top: var(--s-5); padding-top: var(--s-4); border-top: 1px solid var(--c-line); }
+.mission__block--row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-2) var(--s-4); }
+.mission__key { display: block; font-family: var(--font-ui); font-size: var(--fs-xs); color: var(--c-text-3); }
+.mission__block .readout { margin-bottom: var(--s-3); }
+.pbar { height: 4px; border-radius: var(--r-sm); background: var(--c-line); overflow: hidden; }
+.pbar__fill { display: block; height: 100%; background: var(--c-signal); }
+.page__content .mission__ends { display: flex; justify-content: space-between; margin-top: var(--s-2) !important; font-size: var(--fs-xs); color: var(--c-text-3); }
+.mission__block .goal { margin-top: var(--s-2); }
+.mission__block .week-strip { margin: 0; }
+
 /* 홈 왼쪽(프로필 아래): 자주 쓴 태그 최대 3줄 + 기술 스택 + 용어집 바로가기 */
 .home-side { margin-top: var(--s-5); padding-top: var(--s-4); border-top: 1px solid var(--c-line); font-family: var(--font-ui); }
 .home-side__head { display: flex; justify-content: space-between; gap: var(--s-2); margin: 0 0 var(--s-2); font-size: var(--fs-xs); color: var(--c-text-3); }
@@ -2267,9 +2272,6 @@ a.chip:hover { color: var(--c-text) !important; }
 /* 방명록 (홈) — 터미널 창(.term)을 재사용한다. side = 왼쪽 프로필 이메일 아래(1280px 이상), inline = 그보다 좁은 화면의 본문 아래 */
 .guestbook { margin-top: var(--s-5); }
 .home-aside .guestbook { margin: 0 0 var(--s-4); }
-/* 오른쪽 패널은 flex 세로 + max-height라 낮은 화면에서 방명록이 줄어 잘린다. 줄어들지 못하게 하고, 넘치면 패널 안쪽에서 스크롤 */
-.sidebar__right.sticky.home-aside { overflow-y: auto !important; overflow-x: hidden !important; scrollbar-width: thin; overscroll-behavior: contain; }
-.home-aside > * { flex-shrink: 0; }
 .guestbook .term__cmd { margin: 0 0 var(--s-2); font-family: var(--font-ui); font-size: var(--fs-xs); color: var(--c-text-2); }
 .guestbook .term__body { padding: var(--s-3) var(--s-4) var(--s-4); }
 .guestbook .guestbook__hint { margin: 0 0 var(--s-3); font-size: var(--fs-xs); line-height: 1.6; color: var(--c-text-3); }
@@ -2310,7 +2312,6 @@ a.chip:hover { color: var(--c-text) !important; }
 @keyframes reveal-up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 @keyframes term-type { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
 @keyframes bar-grow  { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-@keyframes bar-wipe  { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
 @keyframes boot-lines { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
 @keyframes theme-wipe { from { clip-path: circle(0 at var(--vt-x, 50%) var(--vt-y, 0)); } to { clip-path: circle(var(--vt-r, 150vmax) at var(--vt-x, 50%) var(--vt-y, 0)); } }
 @keyframes pop-in    { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: none; } }
@@ -2324,8 +2325,7 @@ a.chip:hover { color: var(--c-text) !important; }
   /* 홈 터미널: 위에서 아래로 한 줄씩 찍힌다. 명령 줄은 타이핑 */
   .term__body > * { animation: reveal-up .4s var(--ease) backwards; animation-delay: calc(var(--i, 0) * 100ms); }
   .page__content .term__body > .term__cmd { animation: term-type .6s steps(18, end) backwards; animation-delay: calc(var(--i, 0) * 100ms); }
-  .asciibar__on { display: inline-block; animation: bar-wipe .8s var(--ease) .3s backwards; }
-  .asciibar__off { animation: reveal-up .4s var(--ease) .6s backwards; }
+  .pbar__fill { transform-origin: left; animation: bar-grow .9s var(--ease) .25s backwards; }
 
   /* 진척 막대는 왼쪽에서 차오른다 */
   .mbar__fill { transform-origin: left; animation: bar-grow .9s var(--ease) .25s backwards; }
@@ -2364,7 +2364,7 @@ a.chip:hover { color: var(--c-text) !important; }
   .swap-in { animation: reveal-up .4s var(--ease) backwards; }
 
   /* 홈 last login 줄도 타이핑 */
-  .page__content .term__body > .term__meta { animation: term-type .6s steps(30, end) backwards; animation-delay: calc(var(--i, 0) * 100ms); }
+  .page__content .term__metarow .term__meta { animation: term-type .6s steps(30, end) backwards; animation-delay: calc(var(--i, 0) * 100ms); }
 
   /* 부팅 화면: 세션 첫 방문에서만 약 1초. 줄이 하나씩 찍히고 걷힌다 */
   html.is-booting::before {

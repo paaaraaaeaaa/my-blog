@@ -11,9 +11,9 @@ home_side: true
   순서: 미션 패널(진행 상황) → 섹션 바로가기 → 최근 글 → GitHub 활동
 {%- endcomment -%}
 
-<aside class="sidebar__right sticky home-aside">
+<aside class="sidebar__right home-aside">
 {% include guestbook.html variant="side" %}
-<section class="home-panel" aria-label="모듈 진척과 방문자">
+<section class="home-panel" aria-label="모듈 진척">
 <h2 class="home-panel__title">한눈에 보기</h2>
 {%- comment -%}
   수료까지 모듈 진척: 완료 = Projects 결과물 글이 있는 모듈 / 진행 중 = 학습노트가 있고 결과물이 아직 없는 첫 모듈.
@@ -46,16 +46,6 @@ home_side: true
 <span class="home-panel__label home-panel__label--split"><span>수료까지 모듈 진척</span><b>{{ mp_done }} / 6 완료</b></span>
 <a class="mbars" href="{{ '/projects/' | relative_url }}" aria-label="모듈 진척: 6개 중 {{ mp_done }}개 완료">{{ mp_bars }}</a>
 {%- if mp_current > 0 -%}{%- assign ck = mp_current | append: "" -%}<span class="mbars__note">지금 모듈 {{ mp_current }} · {{ site.data.modules[ck] }}</span>{%- else -%}{%- assign nk = mp_done | plus: 1 | append: "" -%}{%- if mp_done < 6 -%}<span class="mbars__note">다음 모듈 {{ nk }} · {{ site.data.modules[nk] }}</span>{%- endif -%}{%- endif -%}
-</div>
-<div class="home-panel__row home-panel__row--split">
-<div>
-<span class="home-panel__label">오늘 방문자</span>
-<img id="visitor-today-badge" alt="오늘 방문자 수" />
-</div>
-<div>
-<span class="home-panel__label">누적 방문자</span>
-<img src="https://visitor-badge.laobi.icu/badge?page_id=paaaraaaeaaa.my-blog&left_color=161B22&right_color=238636" alt="누적 방문자 수" />
-</div>
 </div>
 </section>
 </aside>
@@ -95,11 +85,6 @@ home_side: true
 {% if remaining_days < 0 %}{% assign remaining_days = 0 %}{% endif %}
 {% assign span_sec = end_ts | minus: start_ts %}
 
-{%- comment -%} 진행 막대: 30칸 ASCII. 채운 칸 수 = 진행률 × 30 {%- endcomment -%}
-{%- assign bar_cells = 30 -%}
-{%- assign bar_fill = percent | times: bar_cells | divided_by: 100 -%}
-{%- capture bar_on -%}{%- for i in (1..bar_cells) -%}{%- if i <= bar_fill -%}█{%- endif -%}{%- endfor -%}{%- endcapture -%}
-{%- capture bar_off -%}{%- for i in (1..bar_cells) -%}{%- if i > bar_fill -%}░{%- endif -%}{%- endfor -%}{%- endcapture -%}
 {%- comment -%} 이번 주 기록: 빌드 시점 기준 이번 주 월~금에 학습노트가 있으면 채운 점 {%- endcomment -%}
 {%- assign today_u = site.time | date: "%u" | plus: 0 -%}
 {%- assign today_str = site.time | date: "%Y-%m-%d" -%}
@@ -121,29 +106,36 @@ home_side: true
 <section class="term mission" aria-label="학습 진행 상황">
 <div class="term__bar"><span class="term__path">yerin@learning-log: ~</span><span class="term__now">{{ site.data.now.status | default: "공부 기록 중" }}</span></div>
 <div class="term__body">
+<div class="term__metarow">
 <p class="term__meta" data-last-login>last login: --</p>
+<p class="term__visits"><span>오늘 <img id="visitor-today-badge" alt="오늘 방문자 수" /></span><span>누적 <img src="https://visitor-badge.laobi.icu/badge?page_id=paaaraaaeaaa.my-blog&left_color=161B22&right_color=238636" alt="누적 방문자 수" /></span></p>
+</div>
 <p class="term__cmd">whoami</p>
 <h1 class="mission__title">안녕하세요, 개발 공부 중입니다</h1>
 <p class="mission__desc">개발을 처음 배우는 부트캠프 학습자입니다. 매일 배운 내용과 시행착오를 기록해서, 몇 달 뒤 다시 읽었을 때 "그때보다 늘었다"를 확인할 수 있는 블로그로 만들고 있습니다.</p>
 
-<p class="term__cmd">progress --bootcamp</p>
+<div class="mission__block">
 <div class="readout">
 <p class="mission__day"><span class="mission__day-value">{{ day_number }}</span><span class="mission__day-unit">일차</span></p>
 <dl class="readout__kv">
 <div><dt>elapsed</dt><dd>{{ percent }}%</dd></div>
 <div><dt>remaining</dt><dd>D-{{ remaining_days }}</dd></div>
-<div><dt>total</dt><dd>{{ total_calendar_days }}d</dd></div>
 </dl>
 </div>
-<p class="asciibar" role="img" aria-label="전체 {{ total_calendar_days }}일 중 {{ percent }}% 진행"><span class="asciibar__on">{{ bar_on }}</span><span class="asciibar__off">{{ bar_off }}</span></p>
+<div class="pbar" role="img" aria-label="전체 {{ total_calendar_days }}일 중 {{ percent }}% 진행"><span class="pbar__fill" style="width: {{ percent }}%;"></span></div>
 <p class="mission__ends"><span>2026.08.26 start</span><span>2027.02.16 end</span></p>
+</div>
 
-<p class="term__cmd">log --this-week</p>
+<div class="mission__block mission__block--row">
+<span class="mission__key">this week</span>
 <div class="week-strip"><span class="week-strip__dots">{{ week_dots }}</span><span class="week-strip__count"><b>{{ week_hits }}</b>/5 days</span></div>
+</div>
 
-<p class="term__cmd">cat goal.txt</p>
+<div class="mission__block">
+<span class="mission__key">goal</span>
 <div class="goal info-tile--goal">
 <p class="goal__text">하루도 빠짐없이 기록하고, 막혔던 부분은 반드시 다시 정리하기</p>
+</div>
 </div>
 <p class="term__cmd term__cmd--idle" aria-hidden="true"><span class="term__cursor"></span></p>
 </div>
