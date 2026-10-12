@@ -124,3 +124,8 @@
   title: "기획 나침반"
   url: "https://claude.ai/artifact/DHbQKPTWfJgxB6MUdjj77G"
   description: "요구사항 정의부터 화면 프로토타입까지, 에이전트와 함께하는 3단계 기획 과정"
+
+- category: "아티팩트"
+  title: "데이터베이스는 왜 필요할까? JVM 메모리와 데이터 수명"
+  url: "https://claude.ai/artifact/F49HUztyDnjxtbMEaYqyW3"
+  description: "JVM 메모리는 종료되면 사라진다는 것을 보며, 파일 저장의 한계와 데이터베이스가 필요한 이유를 정리"
