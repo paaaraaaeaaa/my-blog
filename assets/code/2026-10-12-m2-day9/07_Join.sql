@@ -46,3 +46,8 @@ select
     uap.provider as '소셜 로그인 제공자'
 from users as u right join user_auth_providers as uap
 on u.user_id = uap.user_id;
+
+-- null 
+-- null 값은 실제로 null 이 값으로서 들어있는 것이 아닌 비어있는 공간을 의미한다.
+-- 따라서 ex) where user_name = null 비교식은 불가하다.
+-- user_name is null 이렇게 비교해야 한다.
