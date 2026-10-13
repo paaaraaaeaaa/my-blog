@@ -85,7 +85,7 @@
 라이트 값은 흰 배경에서 **글자로 읽히도록(대비 4.5:1 이상)** 한 단계 진하다. 새 색 토큰은 반드시 두 블록에 모두 넣는다.
 
 테마를 바꾸면 함께 바뀌는 것(`_includes/footer/custom.html`):
-- `data-src-light` 속성이 있는 이미지(GitHub Streak)는 라이트용 주소로 교체
+- `data-src-light` 속성이 있는 이미지(GitHub Streak, 기술 스택 아이콘)는 라이트용 주소로 교체
 - 댓글(utterances)은 `github-light` / `github-dark`로 전환
 - Mermaid 다이어그램은 새 토큰 색으로 다시 그림
 - 기여 캘린더(ghchart)는 다크에서만 색 반전 필터
@@ -196,7 +196,7 @@
 
 | 페이지 | 구조 (위에서 아래로) |
 |---|---|
-| 홈 `index.md` | 오른쪽 패널이 없다. **첫 구역**(`.home-top`, 2열): 왼쪽 상태 창(맨 위 `last login` + 오른쪽 오늘·누적 방문자 · 일차 + 4px 진행 막대 · modules 6칸 · this week · goal)과 오른쪽 **방명록**(giscus, 6장). **둘째 구역부터**는 가운데+오른쪽을 합친 폭: **최근에 쓴 글 5편** → **둘러보기** 띠(카테고리 색으로 물든 카드 3개) → GitHub 잔디. 왼쪽 프로필은 화면을 따라다니되 안쪽 스크롤이 없다(패널이 화면보다 크면 JS가 `top`을 음수로 줘서 페이지를 내리는 동안 아래끝까지 보인다 — `footer/custom.html` "홈 왼쪽 프로필"). 프로필 아래에 **자주 쓴 태그**(최대 3줄, 누르면 `/tags/#태그`)와 **개념 용어집** 바로가기 — `_includes/home-tags.html`. 1023px 이하는 1열 |
+| 홈 `index.md` | 오른쪽 패널이 없다. **첫 구역**(`.home-top`, 2열): 왼쪽 상태 창(맨 위 `last login` + 오른쪽 오늘·누적 방문자 · 일차 + 4px 진행 막대 · modules 6칸 · this week · goal)과 오른쪽 **방명록**(giscus, 6장). **둘째 구역부터**는 가운데+오른쪽을 합친 폭: **최근에 쓴 글 5편** → **둘러보기** 띠(카테고리 색으로 물든 카드 3개) → GitHub 잔디. 왼쪽 프로필은 화면을 따라다니되 안쪽 스크롤이 없다(패널이 화면보다 크면 JS가 `top`을 음수로 줘서 페이지를 내리는 동안 아래끝까지 보인다 — `footer/custom.html` "홈 왼쪽 프로필"). 프로필 아래에 **자주 쓴 태그**(최대 3줄, 누르면 `/tags/#태그`), **기술 스택** 아이콘(글 수 많은 순 최대 5개), **개념 용어집** 바로가기 — `_includes/home-tags.html`. 1023px 이하는 1열 |
 | Cloud `cloud.md` | 섹션 머리 → **모듈 스테이지 6칸**(클릭 시 전환) → 모듈 제목 + **통계 타일 4개**(기간·학습노트는 중립, 문제풀이는 핑크·결과물은 라임 링크 타일) → **주 단위 달력** |
 | Database `Database.md` | 섹션 머리 → **섹션 필터 칩**(하나만 선택, 같은 칩 다시 누르면 해제, 오른쪽 ↻ 전체로 초기화, `/database/#problems`처럼 주소로 바로 필터) → 🧩 문제와 풀이(문제 카드 + Lv 단계) → `_data/database_sections.yml` 순서대로 자료 섹션(아이콘·색·설명) → 거기 없는 분류는 기본 모양으로 맨 뒤 |
 | Projects `Projects.md` | 섹션 머리 → **모듈 타임라인**. 완료 = 2열 카드(왼쪽 결과물 요약, 오른쪽 연동기 상세), 진행 중 = 안내, 시작 전 모듈은 맨 아래 **다음 정거장** 한 줄로 |
@@ -278,7 +278,7 @@
 | `.code-popup` (+ `__win` `__actions` `__btn` `__list` `__row` `__body`) | 원본 코드 팝업. 터미널 창(`.term`) 재사용, 폴더→파일 트리를 `__list`/`__row`로 탐색하다가 파일을 고르면 `__body`(코드 블록 색)에 내용을 보여줌 |
 | `.code-popup__tabs` > `.code-popup__tab` (+ `__note`, `__mark`) | 코드 팝업에서 `.java` 옆에 `X.out.txt`(실행 결과)가 있으면 나타나는 `코드 / 실행 결과` 탭. `.out.txt`는 목록에 안 나오고 `.java` 행에 `+ 실행 결과` 표시가 붙는다 |
 | `.related-posts` | 글 하단 관련 글 묶음. 본문·목차가 float라 `clear: both`가 필요하다 (`.pagination`과 같은 이유) |
-| `.home-side` (+ `__head` `__tags`) | 홈 왼쪽 프로필 아래 바로가기. 태그는 글자만, 최대 3줄(`max-height: 5.4em`)에서 잘린다. 태그·용어집 링크를 담은 `_includes/home-tags.html`을 `_includes/sidebar-custom.html`이 홈(`home_side: true`)에서만 불러온다 |
+| `.home-side` (+ `__head` `__tags` `__stack`) | 홈 왼쪽 프로필 아래 바로가기. 태그는 글자만, 최대 3줄(`max-height: 5.4em`)에서 잘린다. `__stack`은 `_data/skills.yml` 기준 글 수가 많은 기술 아이콘 최대 5개(skillicons 이미지). 태그·기술 스택·용어집 링크를 담은 `_includes/home-tags.html`을 `_includes/sidebar-custom.html`이 홈(`home_side: true`)에서만 불러온다 |
 | `.tag-cloud` (+ `__n`) · `.tag-more` · `.row-list--compact` | `/tags/` 태그 목록(상자 없는 글자, 고른 태그는 `.is-active`로 `--c-signal` 밑줄), 1편짜리 태그를 접는 `<details>`, 제목 옆에 짧은 `summary`만 흐리게 붙인 얇은 글 줄(`.row-list--compact`). 고른 태그 하나의 `.group`만 보이는 동작은 `[data-tag-view]`(footer JS), JS가 꺼지면 전부 펼쳐진다. 글 머리의 링크 칩은 `a.chip`(테마 링크색을 덮어씀) |
 | `.gloss-find` (+ `__prompt` `__input`) | `/glossary/` 걸러 보기 입력줄. `[data-gloss-find]`, `[data-gloss-item]`, `[data-gloss-group]` 속성을 `footer/custom.html`이 쓴다. 결과 개수는 `.jump-status`(`[data-gloss-status]`)에 표시 |
 | `.guestbook` (+ `__hint` `__box` `__loading`) | 홈 방명록. 터미널 창(`.term`)을 재사용하고 giscus 위젯이 들어온다(`_includes/guestbook.html`). 홈 첫 구역(`.home-top`)에서 상태 창 옆 칸을 차지하고, 위젯은 화면에 가까워질 때 불러온다. 반응(이모지)은 끈다 |
@@ -337,7 +337,7 @@
 | 기여 캘린더 (ghchart) | `index.md` | `1A7F37` — 라이트는 그대로, 다크는 CSS 필터로 반전 |
 | 댓글 (utterances) | `_config.yml` | `theme: "github-dark"` (라이트에서는 스크립트가 `github-light`로 전환) |
 | 방명록 (giscus) | `_config.yml` `giscus`, `_includes/guestbook.html` | `data-theme`: 다크 `dark` / 라이트 `light` (테마 전환 시 `themechange` 이벤트로 iframe에 전달). `category_id`가 비어 있으면 "준비 중" 안내만 보인다 |
-| 라이트 테마 위젯 | `index.md` | 각 `<img>`의 `data-src-light` (Streak: 라이트 토큰 색) |
+| 라이트 테마 위젯 | `index.md`, `_includes/home-tags.html` | 각 `<img>`의 `data-src-light` (Streak: 라이트 토큰 색, skillicons: `theme=light`) |
 | 브라우저 테마색 | `_includes/head/custom.html` | `theme-color` = `--c-bg` |
 
 ---

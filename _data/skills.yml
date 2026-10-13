@@ -30,6 +30,8 @@
   aliases: [nodejs, node.js, nodemailer, smtp]
 - id: postgres
   aliases: [postgresql, postgres, drizzle orm]
+- id: mysql
+  aliases: [mysql, sql, ddl, dml, transaction, join, groupby]
 - id: supabase
   aliases: [supabase]
 - id: vercel

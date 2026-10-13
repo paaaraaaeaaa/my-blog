@@ -183,7 +183,7 @@ mermaid: true
 | Database에 자료 추가 | `database_links.yml`에 `category` `title` `url`(또는 `file`) `description` |
 | 문제에 풀이 글 연결 | `database_links.yml`의 문제 항목 `topics`에 풀이 글의 `topic` 값 추가 |
 | Database에 새 섹션 추가 | `database_links.yml`에 새 `category`를 쓰고, `database_sections.yml`에 `name` `emoji` `tone` `desc` 한 줄 |
-| 기술 스택 아이콘 추가 | `skills.yml`에 skillicons `id`와 태그 `aliases` (그 태그가 붙은 글 수 순으로 최대 10개) |
+| 기술 스택 아이콘 추가 | `skills.yml`에 skillicons `id`와 태그 `aliases` (그 태그가 붙은 글 수 순으로 최대 5개) |
 | 자주 쓴 태그에서 빼기 | `tag_rules.yml`의 `hidden_in_ranking` |
 | 모듈 진척 막대를 날짜로 채우기 | `module_schedule.yml`에 `start` `end` |
 | 홈 🔥 상태 문구 바꾸기 | `now.yml`의 `status` |
