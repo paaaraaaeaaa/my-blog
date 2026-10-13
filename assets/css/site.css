@@ -2187,6 +2187,7 @@ a.chip:hover { color: var(--c-text) !important; }
 .home-side__tags a { color: var(--c-text-2) !important; text-decoration: none !important; white-space: nowrap; }
 .home-side__tags a:hover { color: var(--c-text) !important; }
 .home-side__tags a span { margin-left: 2px; color: var(--c-text-3); }
+.home-side__tags--terms { max-height: 3.6em; }   /* 줄 높이 1.8em x 2줄. 넘치는 용어는 잘린다 */
 .home-side__stack { display: block; width: 100%; height: auto; margin-bottom: var(--s-1); }
 
 /* 용어집 /glossary/ — 걸러 보기 입력줄 */

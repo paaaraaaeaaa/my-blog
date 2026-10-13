@@ -1,5 +1,5 @@
 {%- comment -%}
-  홈 왼쪽 프로필 아래: 자주 쓴 태그(최대 3줄) + 기술 스택 + 개념 용어집 바로가기.
+  홈 왼쪽 프로필 아래: 자주 쓴 태그(최대 3줄) + 기술 스택 + 개념 용어집(최근 용어 2줄 + 바로가기).
   자주 쓴 태그 = 글 tags를 센 상위. _data/tag_rules.yml 의 분류성 태그는 뺀다. 넘치는 줄은 CSS가 3줄에서 자른다.
   누르면 /tags/#태그. 스타일: site.css "20." .home-side
 {%- endcomment -%}
@@ -34,5 +34,39 @@
 {%- for e in skill_rank limit: 5 -%}{%- assign parts = e | split: "|" -%}{%- assign skill_ids = skill_ids | push: parts[1] -%}{%- endfor -%}
 <p class="home-side__head"><span>기술 스택</span><span>많이 쓴 순 {{ skill_ids.size }}개</span></p>
 <img class="home-side__stack" src="https://skillicons.dev/icons?i={{ skill_ids | join: ',' }}&theme=dark&perline=5" data-src-light="https://skillicons.dev/icons?i={{ skill_ids | join: ',' }}&theme=light&perline=5" alt="{{ skill_ids | join: ', ' }}" loading="lazy" />
+{%- comment -%}
+  개념 용어집 미리보기: 가장 최근 글의 개념 카드 용어부터 최대 12개를 모으고, CSS가 2줄에서 자른다. 같은 용어는 한 번만.
+  추출 방식은 glossary.md와 같다(개념 카드 = <li><strong>용어</strong> 바로 뒤에 <ul>). 누르면 그 용어를 설명한 글로 이동.
+{%- endcomment -%}
+{%- assign gl_terms = "" | split: "," -%}
+{%- assign gl_seen = "|" -%}
+{%- assign gl_posts = site.posts | sort: "date" | reverse -%}
+{%- for post in gl_posts -%}
+{%- if gl_terms.size >= 12 -%}{%- break -%}{%- endif -%}
+{%- assign gl_chunks = post.content | split: "<li><strong>" -%}
+{%- for chunk in gl_chunks offset: 1 -%}
+{%- assign gl_halves = chunk | split: "</strong>" -%}
+{%- assign gl_rest = gl_halves[1] | strip -%}
+{%- assign gl_head = gl_rest | slice: 0, 4 -%}
+{%- if gl_head == "<ul>" -%}
+{%- assign gl_term = gl_halves[0] | strip_html | strip | replace: "|", "/" -%}
+{%- capture gl_key -%}|{{ gl_term }}|{%- endcapture -%}
+{%- if gl_term != "" and gl_terms.size < 12 -%}
+{%- unless gl_seen contains gl_key -%}
+{%- capture gl_seen -%}{{ gl_seen }}{{ gl_term }}|{%- endcapture -%}
+{%- capture gl_entry -%}{{ gl_term }}|{{ post.url }}{%- endcapture -%}
+{%- assign gl_terms = gl_terms | push: gl_entry -%}
+{%- endunless -%}
+{%- endif -%}
+{%- endif -%}
+{%- endfor -%}
+{%- endfor -%}
+{%- if gl_terms.size > 0 -%}
 <p class="home-side__head"><span>개념 용어집</span><a href="{{ '/glossary/' | relative_url }}">모두 보기</a></p>
+<nav class="home-side__tags home-side__tags--terms" aria-label="최근 개념 용어">
+{%- for e in gl_terms -%}{%- assign gp = e | split: "|" -%}
+<a href="{{ gp[1] | relative_url }}" title="{{ gp[0] | escape }}">{{ gp[0] | split: " (" | first | truncate: 16 }}</a>
+{%- endfor -%}
+</nav>
+{%- endif -%}
 </section>
