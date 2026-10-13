@@ -250,7 +250,7 @@
 | `.proj-card--split` > `.proj-card__main` + `.proj-card__side` | 결과물 2열 카드 |
 | `.chapter-list` > `.chapter` | 연동기 챕터 (번호 원 + 세로선) |
 | `.next-stops` > `.next-stop` | 시작 전 모듈 모음 |
-| `.week-strip` > `.wdot` | 홈 이번 주 기록 점 |
+| `.week-strip` > `.wdot` | 홈 이번 주 기록 점(월~금). 글을 쓴 요일(`.is-on`)은 `<a class="wdot">`로 그날 학습노트에 연결되고(같은 날 글이 여럿이면 첫 글), 안 쓴 요일은 `<span>`. 링크는 hover 1px 뜸, 키보드 포커스 링 있음. 점은 빌드 때 그려 두지만, 보는 사람의 오늘이 속한 주가 다르면 `footer/custom.html`의 "this week" 스크립트가 `.week-strip[data-week-posts]`(글 날짜→주소)·`[data-week-off]`(휴일)로 월~금을 다시 그린다 |
 | `.chip--btn[data-search]` | 누르면 검색창이 열리며 그 단어로 검색 |
 | `.sr-*` | 검색 결과 (탭, 그룹, 항목) |
 | `.theme-toggle` | 상단바 라이트/다크 전환 버튼 (`_includes/masthead.html`) |

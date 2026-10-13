@@ -1044,3 +1044,56 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 })();
 </script>
+
+<script>
+// 홈 "this week": 빌드 때 그려 둔 점이 지난주일 수 있으니, 보는 사람의 오늘 날짜로 이번 주(월~금)를 다시 맞춘다.
+// 데이터는 index.md의 .week-strip[data-week-*]에 들어 있다. 같은 주면 손대지 않고 오늘 표시만 바로잡는다.
+document.addEventListener('DOMContentLoaded', function () {
+  var strip = document.querySelector('.week-strip[data-week-posts]');
+  if (!strip) return;
+  var dots = strip.querySelector('.week-strip__dots');
+  var countEl = strip.querySelector('.week-strip__count b');
+  if (!dots) return;
+  var posts = {}, off = {};
+  try {
+    JSON.parse(strip.getAttribute('data-week-posts')).forEach(function (p) { if (!posts[p[0]]) posts[p[0]] = p[1]; });
+    JSON.parse(strip.getAttribute('data-week-off')).forEach(function (h) { off[h] = true; });
+  } catch (e) { return; }
+
+  var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+  var ymd = function (d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); };
+  var now = new Date();
+  var todayStr = ymd(now);
+  var mon = new Date(now.getFullYear(), now.getMonth(), now.getDate() - ((now.getDay() + 6) % 7));
+
+  if (ymd(mon) === strip.getAttribute('data-week-mon')) {
+    Array.prototype.forEach.call(dots.children, function (el) {
+      el.classList.toggle('is-today', (el.getAttribute('title') || '').slice(0, 10) === todayStr);
+    });
+    return;
+  }
+
+  var labels = ['월', '화', '수', '목', '금'];
+  var hits = 0;
+  dots.textContent = '';
+  labels.forEach(function (label, i) {
+    var day = new Date(mon.getFullYear(), mon.getMonth(), mon.getDate() + i);
+    var cell = ymd(day);
+    var url = posts[cell];
+    var el = document.createElement(url ? 'a' : 'span');
+    var cls = 'wdot';
+    if (url) { cls += ' is-on'; hits++; }
+    if (cell === todayStr) cls += ' is-today';
+    if (off[cell]) cls += ' is-off';
+    el.className = cls;
+    el.title = cell + (url ? ' 기록함' : (off[cell] ? ' 휴일' : ''));
+    el.textContent = label;
+    if (url) {
+      el.href = url;
+      el.setAttribute('aria-label', label + ' ' + cell + ' 학습노트 보기');
+    }
+    dots.appendChild(el);
+  });
+  if (countEl) countEl.textContent = hits;
+});
+</script>

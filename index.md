@@ -86,12 +86,17 @@ home_side: true
 {%- for d in (1..5) -%}
 {%- assign off = d | minus: 1 | times: 86400 -%}
 {%- assign cell = week_mon | plus: off | date: "%Y-%m-%d" -%}
-{%- assign hit = false -%}
-{%- for p in cloud_daily_all -%}{%- assign pd = p.date | date: "%Y-%m-%d" -%}{%- if pd == cell -%}{%- assign hit = true -%}{%- endif -%}{%- endfor -%}
+{%- assign hit = false -%}{%- assign hit_url = "" -%}
+{%- for p in cloud_daily_all -%}{%- assign pd = p.date | date: "%Y-%m-%d" -%}{%- if pd == cell and hit == false -%}{%- assign hit = true -%}{%- assign hit_url = p.url | relative_url -%}{%- endif -%}{%- endfor -%}
 {%- if hit -%}{%- assign week_hits = week_hits | plus: 1 -%}{%- endif -%}
-<span class="wdot{% if hit %} is-on{% endif %}{% if cell == today_str %} is-today{% endif %}{% if site.data.holidays contains cell %} is-off{% endif %}" title="{{ cell }}{% if hit %} 기록함{% elsif site.data.holidays contains cell %} 휴일{% endif %}">{{ labels[forloop.index0] }}</span>
+{%- capture wdot_cls -%}wdot{% if hit %} is-on{% endif %}{% if cell == today_str %} is-today{% endif %}{% if site.data.holidays contains cell %} is-off{% endif %}{%- endcapture -%}
+{%- capture wdot_title -%}{{ cell }}{% if hit %} 기록함{% elsif site.data.holidays contains cell %} 휴일{% endif %}{%- endcapture -%}
+{%- if hit -%}<a class="{{ wdot_cls }}" href="{{ hit_url }}" title="{{ wdot_title }}" aria-label="{{ labels[forloop.index0] }} {{ cell }} 학습노트 보기">{{ labels[forloop.index0] }}</a>{%- else -%}<span class="{{ wdot_cls }}" title="{{ wdot_title }}">{{ labels[forloop.index0] }}</span>{%- endif -%}
 {%- endfor -%}
 {%- endcapture -%}
+{%- comment -%} 보는 사람의 오늘 날짜로 JS가 이번 주 점을 다시 그리기 위한 데이터(글 날짜→주소, 휴일) {%- endcomment -%}
+{%- capture week_posts_json -%}[{%- for p in cloud_daily_all -%}["{{ p.date | date: '%Y-%m-%d' }}","{{ p.url | relative_url }}"]{% unless forloop.last %},{% endunless %}{%- endfor -%}]{%- endcapture -%}
+{%- capture week_off_json -%}[{%- for h in site.data.holidays -%}"{{ h }}"{% unless forloop.last %},{% endunless %}{%- endfor -%}]{%- endcapture -%}
 <h1 class="visually-hidden">김예린의 학습 노트</h1>
 <div class="home-top">
 <section class="term mission" aria-label="학습 진행 상황">
@@ -121,7 +126,7 @@ home_side: true
 
 <div class="mission__block mission__block--row">
 <span class="mission__key">this week</span>
-<div class="week-strip"><span class="week-strip__dots">{{ week_dots }}</span><span class="week-strip__count"><b>{{ week_hits }}</b>/5 days</span></div>
+<div class="week-strip" data-week-mon="{{ week_mon | date: '%Y-%m-%d' }}" data-week-posts='{{ week_posts_json }}' data-week-off='{{ week_off_json }}'><span class="week-strip__dots">{{ week_dots }}</span><span class="week-strip__count"><b>{{ week_hits }}</b>/5 days</span></div>
 </div>
 <div class="mission__block">
 <span class="mission__key">goal</span>
