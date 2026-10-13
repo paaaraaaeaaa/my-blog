@@ -1934,8 +1934,8 @@ h1, h2, h3, h4 { letter-spacing: var(--ls-tight); }
   font-size: var(--fs-xs);
   color: var(--c-text-3);
 }
-.term__now { color: var(--c-signal); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.term__now::before { content: "● "; }
+.term__now { color: var(--c-text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }   /* 글자는 보조색(라이트에서 초록은 대비 4.5:1 미만), 점만 초록 */
+.term__now::before { content: "● "; color: var(--c-signal); }
 .term__body { padding: var(--s-5) var(--s-6) var(--s-5); }
 .page__content .term__cmd {
   margin: var(--s-6) 0 var(--s-2) !important;
@@ -2109,6 +2109,7 @@ a.wdot:focus-visible { outline: 2px solid var(--c-signal); outline-offset: 2px; 
   .search-content .search-input { height: 3.25rem; font-size: var(--fs-md) !important; }
   .module-stats { grid-template-columns: minmax(0, 1fr); }
   .week-strip__count { margin-left: 0; }
+  .wdot { width: 2.5rem; height: 2.5rem; }   /* 눌러지는 점이라 모바일 터치 대상으로 키운다 */
   .stages { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .page__content .timeline__item { padding-left: 1.75rem; }
 }
@@ -2146,7 +2147,7 @@ a.chip:hover { color: var(--c-text) !important; }
 
 /* 홈 첫 구역: 상태 창 + 방명록 2열. 둘째 구역부터는 오른쪽 패널이 없으므로 가운데가 그 자리까지 쓴다 */
 .home-page .page { padding-inline-end: 0 !important; }
-.home-top { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(18rem, 1fr); gap: var(--s-5); align-items: stretch; }
+.home-top { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(18rem, 1fr); gap: var(--s-5); align-items: start; }
 .home-top > .term { margin: 0; }
 .home-top > .guestbook { display: flex; flex-direction: column; }
 .home-top > .guestbook .term__body { flex: 1; }
@@ -2187,6 +2188,7 @@ a.chip:hover { color: var(--c-text) !important; }
 .home-side__tags a { color: var(--c-text-2) !important; text-decoration: none !important; white-space: nowrap; }
 .home-side__tags a:hover { color: var(--c-text) !important; }
 .home-side__tags a span { margin-left: 2px; color: var(--c-text-3); }
+.home-side__tags--terms a::before { content: "· "; color: var(--c-text-3); }   /* 여러 단어 용어(풀 테이블 스캔)가 따로 읽히지 않게 */
 .home-side__tags--terms { max-height: 3.6em; }   /* 줄 높이 1.8em x 2줄. 넘치는 용어는 잘린다 */
 /* 1열(1023px 이하): 프로필 소개만 맨 위에 두고, 태그·기술 스택·용어집은 본문 뒤로 보낸다. 그래야 첫 화면에 N일차 상태 창이 보인다.
    .sidebar 상자를 없애서(display: contents) 안의 두 덩어리를 #main 의 순서 정렬(order)에 참여시킨다 */

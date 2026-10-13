@@ -251,7 +251,7 @@
 | `.proj-card--split` > `.proj-card__main` + `.proj-card__side` | 결과물 2열 카드 |
 | `.chapter-list` > `.chapter` | 연동기 챕터 (번호 원 + 세로선) |
 | `.next-stops` > `.next-stop` | 시작 전 모듈 모음 |
-| `.week-strip` > `.wdot` | 홈 이번 주 기록 점(월~금). 글을 쓴 요일(`.is-on`)은 `<a class="wdot">`로 그날 학습노트에 연결되고(같은 날 글이 여럿이면 첫 글), 안 쓴 요일은 `<span>`. 링크는 hover 1px 뜸, 키보드 포커스 링 있음. 점은 빌드 때 그려 두지만, 보는 사람의 오늘이 속한 주가 다르면 `footer/custom.html`의 "this week" 스크립트가 `.week-strip[data-week-posts]`(글 날짜→주소)·`[data-week-off]`(휴일)로 월~금을 다시 그린다 |
+| `.week-strip` > `.wdot` | 홈 이번 주 기록 점(월~금). 글을 쓴 요일(`.is-on`)은 `<a class="wdot">`로 그날 학습노트에 연결되고(같은 날 글이 여럿이면 첫 글), 안 쓴 요일은 `<span>`. 링크는 hover 1px 뜸, 키보드 포커스 링 있음. 640px 이하에서는 터치하기 쉽게 점이 2.5rem으로 커진다. 점은 빌드 때 그려 두지만, 보는 사람의 오늘이 속한 주가 다르면 `footer/custom.html`의 "this week" 스크립트가 `.week-strip[data-week-posts]`(글 날짜→주소)·`[data-week-off]`(휴일)로 월~금을 다시 그린다 |
 | `.chip--btn[data-search]` | 누르면 검색창이 열리며 그 단어로 검색 |
 | `.sr-*` | 검색 결과 (탭, 그룹, 항목) |
 | `.theme-toggle` | 상단바 라이트/다크 전환 버튼 (`_includes/masthead.html`) |
@@ -261,7 +261,7 @@
 | `.proj-slot` | 진행 중인 모듈의 빈 결과물 자리 |
 | `.proj-card` | Projects 대표 카드 |
 | `.project-hero` | 게시글 안 프로젝트 소개 박스 |
-| `.term` (+ `__bar` `__path` `__now` `__body` `__cmd` `__cursor`) | 터미널 창. 홈 미션 패널과 404에서 사용. `.term__cmd`는 앞에 `$ `가 자동으로 붙는다 |
+| `.term` (+ `__bar` `__path` `__now` `__body` `__cmd` `__cursor`) | 터미널 창. 홈 미션 패널·방명록과 404에서 사용. `__now`(제목줄 오른쪽 상태 문구)는 글자를 보조색(`--c-text-2`)으로 쓰고 앞의 `●` 점만 `--c-signal`로 칠한다(라이트에서 초록 글자는 대비 4.5:1 미만이라서). `.term__cmd`는 앞에 `$ `가 자동으로 붙는다 |
 | `.mission__day` (`-value` `-unit`) `.mission__ends` `.goal` | 홈 상태 창 안의 큰 일차 숫자·시작/끝 날짜·목표 문장 |
 | `.readout` `.pbar` (+ `__fill`) | 홈 진행 상황 (큰 일차 숫자, key-value, 4px 얇은 막대. 막대는 `transform: scaleX`로 왼쪽에서 차오름) |
 | `.term__metarow` + `.term__visits` | 홈 미션 창 맨 위 한 줄: 왼쪽 `last login`, 오른쪽 오늘·누적 방문자 뱃지 |
@@ -279,11 +279,11 @@
 | `.code-popup` (+ `__win` `__actions` `__btn` `__list` `__row` `__body`) | 원본 코드 팝업. 터미널 창(`.term`) 재사용, 폴더→파일 트리를 `__list`/`__row`로 탐색하다가 파일을 고르면 `__body`(코드 블록 색)에 내용을 보여줌 |
 | `.code-popup__tabs` > `.code-popup__tab` (+ `__note`, `__mark`) | 코드 팝업에서 `.java` 옆에 `X.out.txt`(실행 결과)가 있으면 나타나는 `코드 / 실행 결과` 탭. `.out.txt`는 목록에 안 나오고 `.java` 행에 `+ 실행 결과` 표시가 붙는다 |
 | `.related-posts` | 글 하단 관련 글 묶음. 본문·목차가 float라 `clear: both`가 필요하다 (`.pagination`과 같은 이유) |
-| `.home-side` (+ `__head` `__tags` `__tags--terms` `__stack`) | 홈 왼쪽 프로필 아래 바로가기. 태그는 글자만, 최대 3줄(`max-height: 5.4em`)에서 잘린다. `__tags--terms`는 개념 용어집 미리보기로, 가장 최근 글의 용어를 같은 글자 목록으로 보여주되 2줄(`max-height: 3.6em`)에서 잘리고 누르면 그 용어를 설명한 글로 간다(중복 용어는 한 번만). `__stack`은 `_data/skills.yml` 기준 글 수가 많은 기술 아이콘 최대 5개(skillicons 이미지, 1열에서는 `max-width: 17.5rem`). 1023px 이하에서는 `.sidebar`를 `display: contents`로 풀어 프로필 소개 → 본문 → `.home-side`(태그·기술 스택·용어집) 순서로 `order` 정렬한다(눈에 보이는 순서만 바뀌고 탭·읽기 순서는 DOM 순서인 프로필 → 태그 → 본문이다. 이 폭에서는 `display: contents`라 아래 "홈 왼쪽 프로필" sticky 계산은 의미가 없다). 태그·기술 스택·용어집 링크를 담은 `_includes/home-tags.html`을 `_includes/sidebar-custom.html`이 홈(`home_side: true`)에서만 불러온다 |
+| `.home-side` (+ `__head` `__tags` `__tags--terms` `__stack`) | 홈 왼쪽 프로필 아래 바로가기. 태그는 글자만, 최대 3줄(`max-height: 5.4em`)에서 잘린다. `__tags--terms`는 개념 용어집 미리보기로(용어 앞에 `· `를 붙여 여러 단어 용어가 따로 읽히지 않게 한다), 가장 최근 글의 용어를 같은 글자 목록으로 보여주되 2줄(`max-height: 3.6em`)에서 잘리고 누르면 그 용어를 설명한 글로 간다(중복 용어는 한 번만). `__stack`은 `_data/skills.yml` 기준 글 수가 많은 기술 아이콘 최대 5개(skillicons 이미지, 1열에서는 `max-width: 17.5rem`). 1023px 이하에서는 `.sidebar`를 `display: contents`로 풀어 프로필 소개 → 본문 → `.home-side`(태그·기술 스택·용어집) 순서로 `order` 정렬한다(눈에 보이는 순서만 바뀌고 탭·읽기 순서는 DOM 순서인 프로필 → 태그 → 본문이다. 이 폭에서는 `display: contents`라 아래 "홈 왼쪽 프로필" sticky 계산은 의미가 없다). 태그·기술 스택·용어집 링크를 담은 `_includes/home-tags.html`을 `_includes/sidebar-custom.html`이 홈(`home_side: true`)에서만 불러온다 |
 | `.tag-cloud` (+ `__n`) · `.tag-more` · `.row-list--compact` | `/tags/` 태그 목록(상자 없는 글자, 고른 태그는 `.is-active`로 `--c-signal` 밑줄), 1편짜리 태그를 접는 `<details>`, 제목 옆에 짧은 `summary`만 흐리게 붙인 얇은 글 줄(`.row-list--compact`). 고른 태그 하나의 `.group`만 보이는 동작은 `[data-tag-view]`(footer JS), JS가 꺼지면 전부 펼쳐진다. 글 머리의 링크 칩은 `a.chip`(테마 링크색을 덮어씀) |
 | `.gloss-find` (+ `__prompt` `__input`) | `/glossary/` 걸러 보기 입력줄. `[data-gloss-find]`, `[data-gloss-item]`, `[data-gloss-group]` 속성을 `footer/custom.html`이 쓴다. 결과 개수는 `.jump-status`(`[data-gloss-status]`)에 표시 |
 | `.guestbook` (+ `__hint` `__box` `__loading`) | 홈 방명록. 터미널 창(`.term`)을 재사용하고 giscus 위젯이 들어온다(`_includes/guestbook.html`). 홈 첫 구역(`.home-top`)에서 상태 창 옆 칸을 차지하고, 위젯은 화면에 가까워질 때 불러온다. 반응(이모지)은 끈다. giscus iframe 안의 모양은 사이트 CSS가 닿지 않아서 `assets/css/giscus-dark.css`·`giscus-light.css`(giscus 기본 테마 + 모양만 더함)로 정한다: 입력창은 2줄 높이로 고정, 댓글 목록(`.gsc-timeline`)은 `max-height: 16rem`에서 안쪽 스크롤 |
-| `.home-top` | 홈 첫 구역 2열 격자(상태 창 : 방명록 = 1.6 : 1, 방명록 칸 최소 18rem, 1023px 이하 1열). 두 칸의 높이가 같다(댓글이 쌓여 방명록이 길어지면 상태 창도 같이 늘어난다). 홈 전용 |
+| `.home-top` | 홈 첫 구역 2열 격자(상태 창 : 방명록 = 1.6 : 1, 방명록 칸 최소 18rem, 1023px 이하 1열). 두 칸은 각자 내용 높이만 쓴다(`align-items: start`). 방명록이 짧아도 상태 창 높이에 맞춰 늘리지 않아 빈 공간이 생기지 않고, 댓글 목록은 안쪽 스크롤로 높이가 제한된다. 홈 전용 |
 
 ### 4.1 게시글 안에서 자동으로 적용되는 것 (`_includes/footer/custom.html`)
 
