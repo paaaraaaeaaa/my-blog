@@ -153,7 +153,7 @@ home_side: true
 {% assign cat_key = cat | downcase %}
 <li><a class="row row--recent is-{{ cat_key }}" href="{{ post.url | relative_url }}">
 <span class="row__date">{{ post.date | date: "%Y.%m.%d" }}</span>
-<span class="row__main"><span class="row__title">{{ post.title }}</span><span class="row__sub">{{ post.excerpt | strip_html | strip_newlines | truncate: 90 }}</span></span>
+<span class="row__main"><span class="row__title">{{ post.title }}</span><span class="row__sub">{{ post.summary | default: post.excerpt | strip_html | strip_newlines | truncate: 90 }}</span></span>
 <span class="row__aside"><span class="cat-label">{{ cat | default: "글" }}</span></span>
 </a></li>
 {% endfor %}

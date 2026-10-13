@@ -2188,6 +2188,16 @@ a.chip:hover { color: var(--c-text) !important; }
 .home-side__tags a:hover { color: var(--c-text) !important; }
 .home-side__tags a span { margin-left: 2px; color: var(--c-text-3); }
 .home-side__tags--terms { max-height: 3.6em; }   /* 줄 높이 1.8em x 2줄. 넘치는 용어는 잘린다 */
+/* 1열(1023px 이하): 프로필 소개만 맨 위에 두고, 태그·기술 스택·용어집은 본문 뒤로 보낸다. 그래야 첫 화면에 N일차 상태 창이 보인다.
+   .sidebar 상자를 없애서(display: contents) 안의 두 덩어리를 #main 의 순서 정렬(order)에 참여시킨다 */
+@media (max-width: 1023px) {
+  .home-page #main { display: flex; flex-direction: column; }
+  .home-page .sidebar.sticky { display: contents; }
+  .home-page .sidebar .h-card { order: 0; }
+  .home-page article.page { order: 1; }
+  .home-page .home-side { order: 2; margin-top: var(--s-6); }
+  .home-side__stack { max-width: 17.5rem; }   /* 가로 전체로 늘어나 아이콘이 80px씩 되지 않게 */
+}
 .home-side__stack { display: block; width: 100%; height: auto; margin-bottom: var(--s-1); }
 
 /* 용어집 /glossary/ — 걸러 보기 입력줄 */
