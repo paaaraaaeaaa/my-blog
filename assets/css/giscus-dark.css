@@ -1,0 +1,19 @@
+/* 방명록(giscus) 테마 — giscus 기본 dark 테마에 모양만 더한다. 색은 건드리지 않는다.
+   giscus가 iframe 안에서 불러오는 파일이라 사이트 CSS(tokens.css, site.css)와는 별개다.
+   바꾸면 _includes/footer/custom.html 의 방명록 테마 주소(giscus-dark/light.css)와 DESIGN.md 4장 .guestbook 행을 같이 본다. */
+@import url("https://giscus.app/themes/dark.css");
+
+/* 입력창: 두 줄 높이로 고정 (한 줄 1.25rem x 2 + 안쪽 여백 1rem + 테두리 2px) */
+.gsc-comment-box-textarea {
+  min-height: 0;
+  height: calc(2.5rem + 1rem + 2px);
+  max-height: calc(2.5rem + 1rem + 2px);
+  resize: none;
+}
+
+/* 댓글 목록: 입력창과 머리글은 그대로 두고 목록만 안에서 스크롤 */
+.gsc-timeline {
+  max-height: 16rem;
+  overflow-y: auto;
+  padding-inline-end: .5rem;
+}

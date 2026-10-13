@@ -87,6 +87,7 @@
 테마를 바꾸면 함께 바뀌는 것(`_includes/footer/custom.html`):
 - `data-src-light` 속성이 있는 이미지(GitHub Streak, 기술 스택 아이콘)는 라이트용 주소로 교체
 - 댓글(utterances)은 `github-light` / `github-dark`로 전환
+- 방명록(giscus)은 `giscus-light.css` / `giscus-dark.css`로 전환
 - Mermaid 다이어그램은 새 토큰 색으로 다시 그림
 - 기여 캘린더(ghchart)는 다크에서만 색 반전 필터
 - 전환은 누른 자리에서 퍼지는 원형 와이프(2.4). View Transitions 미지원 브라우저에서만 0.3초 색 전환(`.theme-anim`)을 폴백으로 쓰고, 모션 줄임 환경은 즉시 바뀐다
@@ -281,7 +282,7 @@
 | `.home-side` (+ `__head` `__tags` `__tags--terms` `__stack`) | 홈 왼쪽 프로필 아래 바로가기. 태그는 글자만, 최대 3줄(`max-height: 5.4em`)에서 잘린다. `__tags--terms`는 개념 용어집 미리보기로, 가장 최근 글의 용어를 같은 글자 목록으로 보여주되 2줄(`max-height: 3.6em`)에서 잘리고 누르면 그 용어를 설명한 글로 간다(중복 용어는 한 번만). `__stack`은 `_data/skills.yml` 기준 글 수가 많은 기술 아이콘 최대 5개(skillicons 이미지). 태그·기술 스택·용어집 링크를 담은 `_includes/home-tags.html`을 `_includes/sidebar-custom.html`이 홈(`home_side: true`)에서만 불러온다 |
 | `.tag-cloud` (+ `__n`) · `.tag-more` · `.row-list--compact` | `/tags/` 태그 목록(상자 없는 글자, 고른 태그는 `.is-active`로 `--c-signal` 밑줄), 1편짜리 태그를 접는 `<details>`, 제목 옆에 짧은 `summary`만 흐리게 붙인 얇은 글 줄(`.row-list--compact`). 고른 태그 하나의 `.group`만 보이는 동작은 `[data-tag-view]`(footer JS), JS가 꺼지면 전부 펼쳐진다. 글 머리의 링크 칩은 `a.chip`(테마 링크색을 덮어씀) |
 | `.gloss-find` (+ `__prompt` `__input`) | `/glossary/` 걸러 보기 입력줄. `[data-gloss-find]`, `[data-gloss-item]`, `[data-gloss-group]` 속성을 `footer/custom.html`이 쓴다. 결과 개수는 `.jump-status`(`[data-gloss-status]`)에 표시 |
-| `.guestbook` (+ `__hint` `__box` `__loading`) | 홈 방명록. 터미널 창(`.term`)을 재사용하고 giscus 위젯이 들어온다(`_includes/guestbook.html`). 홈 첫 구역(`.home-top`)에서 상태 창 옆 칸을 차지하고, 위젯은 화면에 가까워질 때 불러온다. 반응(이모지)은 끈다 |
+| `.guestbook` (+ `__hint` `__box` `__loading`) | 홈 방명록. 터미널 창(`.term`)을 재사용하고 giscus 위젯이 들어온다(`_includes/guestbook.html`). 홈 첫 구역(`.home-top`)에서 상태 창 옆 칸을 차지하고, 위젯은 화면에 가까워질 때 불러온다. 반응(이모지)은 끈다. giscus iframe 안의 모양은 사이트 CSS가 닿지 않아서 `assets/css/giscus-dark.css`·`giscus-light.css`(giscus 기본 테마 + 모양만 더함)로 정한다: 입력창은 2줄 높이로 고정, 댓글 목록(`.gsc-timeline`)은 `max-height: 16rem`에서 안쪽 스크롤 |
 | `.home-top` | 홈 첫 구역 2열 격자(상태 창 : 방명록 = 1.6 : 1, 방명록 칸 최소 18rem, 1023px 이하 1열). 두 칸의 높이가 같다(댓글이 쌓여 방명록이 길어지면 상태 창도 같이 늘어난다). 홈 전용 |
 
 ### 4.1 게시글 안에서 자동으로 적용되는 것 (`_includes/footer/custom.html`)
@@ -336,7 +337,7 @@
 | GitHub Streak | `index.md` | `ring` `currStreakLabel` = signal, `fire` = projects 앰버, 숫자 = text |
 | 기여 캘린더 (ghchart) | `index.md` | `1A7F37` — 라이트는 그대로, 다크는 CSS 필터로 반전 |
 | 댓글 (utterances) | `_config.yml` | `theme: "github-dark"` (라이트에서는 스크립트가 `github-light`로 전환) |
-| 방명록 (giscus) | `_config.yml` `giscus`, `_includes/guestbook.html` | `data-theme`: 다크 `dark` / 라이트 `light` (테마 전환 시 `themechange` 이벤트로 iframe에 전달). `category_id`가 비어 있으면 "준비 중" 안내만 보인다 |
+| 방명록 (giscus) | `_config.yml` `giscus`, `_includes/guestbook.html` | `data-theme`: 다크 `assets/css/giscus-dark.css` / 라이트 `giscus-light.css`의 절대 주소(테마 전환 시 `themechange` 이벤트로 iframe에 전달). 두 파일은 색을 바꾸지 않고 giscus 기본 테마를 `@import`한 뒤 모양만 더한다. giscus는 https로 공개된 CSS만 불러오므로 로컬 미리보기(`jekyll serve`)에서는 이 모양이 적용되지 않을 수 있고, 배포된 주소에서 두 테마를 눈으로 확인한다. `category_id`가 비어 있으면 "준비 중" 안내만 보인다 |
 | 라이트 테마 위젯 | `index.md`, `_includes/home-tags.html` | 각 `<img>`의 `data-src-light` (Streak: 라이트 토큰 색, skillicons: `theme=light`) |
 | 브라우저 테마색 | `_includes/head/custom.html` | `theme-color` = `--c-bg` |
 
