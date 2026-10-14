@@ -75,6 +75,13 @@
   url: "https://claude.ai/artifact/3dFBzhG3ZPBUPmGVBsF3dE"
   description: "문제 링크를 클릭하면 문제를 확인할 수 있습니다."
 
+- category: "문제"
+  title: "SELECT 실습 문제"
+  module: 2
+  topics: ["SELECT 실습 문제"]
+  url: "https://claude.ai/artifact/VzQE1yXCHveXfzqxCr9ndd?sk=KBFkEO9iexKnsCH_0H8YBQ"
+  description: "문제 링크를 클릭하면 문제를 확인할 수 있습니다."
+
 
 # =============================================================================
 
