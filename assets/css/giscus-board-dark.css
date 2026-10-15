@@ -1,0 +1,10 @@
+/* 방명록 전체 보기(/guestbook/) giscus 테마 — giscus-dark.css 와 같되, 댓글 목록의 안쪽 스크롤 제한이 없다.
+   입력창은 3줄 높이. 색은 건드리지 않는다. 바꾸면 giscus-dark.css 와 DESIGN.md 4장 .guestbook--wide 행을 같이 본다. */
+@import url("https://giscus.app/themes/dark.css");
+
+.gsc-comment-box-textarea {
+  min-height: 0;
+  height: calc(3.75rem + 1rem + 2px);
+  max-height: calc(3.75rem + 1rem + 2px);
+  resize: none;
+}

@@ -982,7 +982,8 @@ document.addEventListener('DOMContentLoaded', function () {
   if (books.length) {
     var themeName = function () { return document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark'; };
     // giscus 는 테마 이름 대신 CSS 주소를 받을 수 있다. 입력창 2줄·댓글 스크롤은 assets/css/giscus-dark|light.css 가 정한다
-    var themeUrl = function (name) { return '{{ "/assets/css/giscus-" | absolute_url }}' + (name === 'light' ? 'light' : 'dark') + '.css'; };
+    // /guestbook/(data-guestbook-wide)은 스크롤 제한 없는 giscus-board-*.css
+    var themeUrl = function (name, wide) { return '{{ "/assets/css/giscus-" | absolute_url }}' + (wide ? 'board-' : '') + (name === 'light' ? 'light' : 'dark') + '.css'; };
     var isShown = function (el) { return el.getClientRects().length > 0; };
     var loadBook = function (gb) {
       if (gb.dataset.loaded) return;
@@ -1003,7 +1004,7 @@ document.addEventListener('DOMContentLoaded', function () {
         'data-reactions-enabled': '0',
         'data-emit-metadata': '0',
         'data-input-position': 'top',
-        'data-theme': themeUrl(themeName()),
+        'data-theme': themeUrl(themeName(), gb.hasAttribute('data-guestbook-wide')),
         'data-lang': 'ko',
         'data-loading': 'lazy'
       };
@@ -1028,7 +1029,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // 테마 전환: 떠 있는 giscus iframe 에 전달. iframe 이 늦게 생기면 생길 때 현재 테마를 한 번 보낸다
     var sendTheme = function (theme) {
       document.querySelectorAll('iframe.giscus-frame').forEach(function (frame) {
-        if (frame.contentWindow) frame.contentWindow.postMessage({ giscus: { setConfig: { theme: themeUrl(theme) } } }, 'https://giscus.app');
+        if (frame.contentWindow) frame.contentWindow.postMessage({ giscus: { setConfig: { theme: themeUrl(theme, !!frame.closest('[data-guestbook-wide]')) } } }, 'https://giscus.app');
       });
     };
     books.forEach(function (gb) {
