@@ -21,6 +21,7 @@ public class Application02 {
         Connection con = getConnection();
         Statement stmt = null;
         ResultSet rset = null;
+
         Scanner sc = new Scanner(System.in);
         System.out.print("메뉴 이름 입력 : ");
         String menuName = sc.nextLine();
