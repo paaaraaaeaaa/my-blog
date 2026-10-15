@@ -2241,8 +2241,16 @@ a.chip:hover { color: var(--c-text) !important; }
 .guestbook__loading { font-family: var(--font-ui); font-size: var(--fs-xs); color: var(--c-text-3); }
 .guestbook__box .giscus, .guestbook__box .giscus-frame { width: 100%; }
 .guestbook__more { font-family: var(--font-ui); color: var(--c-signal); }
-/* /guestbook/ 전체 보기: 본문 폭을 다 쓰되 줄 길이는 읽기 좋게 제한, 목록이 길어도 자르지 않는다 */
-.guestbook--wide { max-width: 52rem; }
+/* /guestbook/ 전체 보기: 목록이 길어도 자르지 않는다 */
+.guestbook--wide { min-width: 0; }
+/* /guestbook/ 2열: 방명록 | 안내·둘러보기. 1023px 이하 1열 */
+.board { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(16rem, 1fr); gap: var(--s-6); align-items: start; }
+.board > .term { margin: 0; }
+.board-side .section-head:first-child { margin-top: 0; }
+.board-side__note { padding: var(--s-4); }
+.board-side__note ul { margin: 0; padding-inline-start: 1.2em; font-size: var(--fs-sm); line-height: 1.7; color: var(--c-text-2); }
+.board-side .row { grid-template-columns: 6rem minmax(0, 1fr); }
+@media (max-width: 1023px) { .board { grid-template-columns: minmax(0, 1fr); } }
 .guestbook--wide .guestbook__box { min-height: 12rem; }
 
 /* 코드 팝업: 코드 | 실행 결과 탭 (코드 블록과 같은 어두운 톤) */

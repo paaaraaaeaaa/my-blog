@@ -203,7 +203,7 @@
 | Projects `Projects.md` | 섹션 머리 → **모듈 타임라인**. 완료 = 2열 카드(왼쪽 결과물 요약, 오른쪽 연동기 상세), 진행 중 = 안내, 시작 전 모듈은 맨 아래 **다음 정거장** 한 줄로 |
 | 태그 `tags.md` (`/tags/`) | 머리 → 태그 글자 목록(2편 이상, 많이 쓴 순) + 1편짜리 접기 → 고른 태그(기본 가장 많이 쓴 태그) 하나의 `.group` + 얇은 `.row-list`. 상단 탭에는 없고 글 머리·홈의 태그 칩으로 들어온다 |
 | 용어집 `glossary.md` (`/glossary/`) | 머리 → 걸러 보기 입력줄 → 모듈별 `.group` + `.row-list`. 상단 탭에는 없고 홈 왼쪽 프로필 아래의 "개념 용어집 · 모두 보기" 링크로 들어온다. 글의 개념 카드(`- **용어**` + 하위 목록)를 빌드 때 자동 수집: 첫 하위 항목이 설명, 행을 누르면 그 글로 이동 |
-| 방명록 `guestbook.md` (`/guestbook/`) | 머리(`.page-intro`) → 넓은 방명록(`.guestbook--wide`, 같은 giscus 스레드). 상단 탭에는 없고 홈 방명록의 `./guestbook 전체 보기` 링크로 들어온다 |
+| 방명록 `guestbook.md` (`/guestbook/`) | 머리(`.page-intro`) → 2열(`.board`): 넓은 방명록(`.guestbook--wide`, 같은 giscus 스레드) + 오른쪽 안내·둘러보기(`.board-side`). 상단 탭에는 없고 홈 방명록의 `./guestbook 전체 보기` 링크로 들어온다 |
 | 게시글 | 제목 → (선택) `#` 부제목 → 본문 → 이전/다음 → **관련 글**(같은 태그 최대 3편, 자동) → 댓글. 우측 목차(`##`부터) |
 
 섹션 페이지(Cloud/Database/Projects)는 사이드바가 없으므로 본문이 사이트 폭 전체를 쓴다.
@@ -285,7 +285,7 @@
 | `.tag-cloud` (+ `__n`) · `.tag-more` · `.row-list--compact` | `/tags/` 태그 목록(상자 없는 글자, 고른 태그는 `.is-active`로 `--c-signal` 밑줄), 1편짜리 태그를 접는 `<details>`, 제목 옆에 짧은 `summary`만 흐리게 붙인 얇은 글 줄(`.row-list--compact`). 고른 태그 하나의 `.group`만 보이는 동작은 `[data-tag-view]`(footer JS), JS가 꺼지면 전부 펼쳐진다. 글 머리의 링크 칩은 `a.chip`(테마 링크색을 덮어씀) |
 | `.gloss-find` (+ `__prompt` `__input`) | `/glossary/` 걸러 보기 입력줄. `[data-gloss-find]`, `[data-gloss-item]`, `[data-gloss-group]` 속성을 `footer/custom.html`이 쓴다. 결과 개수는 `.jump-status`(`[data-gloss-status]`)에 표시 |
 | `.guestbook` (+ `__hint` `__box` `__loading`) | 홈 방명록. 터미널 창(`.term`)을 재사용하고 giscus 위젯이 들어온다(`_includes/guestbook.html`). 홈 첫 구역(`.home-top`)에서 상태 창 옆 칸을 차지하고, 위젯은 화면에 가까워질 때 불러온다. 반응(이모지)은 끈다. giscus iframe 안의 모양은 사이트 CSS가 닿지 않아서 `assets/css/giscus-dark.css`·`giscus-light.css`(giscus 기본 테마 + 모양만 더함)로 정한다: 입력창은 2줄 높이로 고정, 댓글 목록(`.gsc-timeline`)은 `max-height: 16rem`에서 안쪽 스크롤 |
-| `.guestbook--wide` · `.guestbook__more` | `/guestbook/` 전체 보기 방명록(`include guestbook.html wide=true`). 최대 폭 52rem, 위젯 최소 높이 12rem. giscus 테마는 댓글 목록 스크롤 제한이 없는 `assets/css/giscus-board-dark.css`·`giscus-board-light.css`(입력창 3줄)를 쓴다. `__more`는 홈 방명록의 전체 보기 링크 |
+| `.guestbook--wide` · `.guestbook__more` | `/guestbook/` 전체 보기 방명록(`include guestbook.html wide=true`). 위젯 최소 높이 12rem. 바깥 `.board` 2열 격자(방명록 : `.board-side` = 1.6 : 1, 오른쪽 칸 최소 16rem, 1023px 이하 1열)의 왼쪽 칸이고, 오른쪽 `.board-side`는 안내(`.panel`) + 둘러보기(`.row-list`). giscus 테마는 댓글 목록 스크롤 제한이 없는 `assets/css/giscus-board-dark.css`·`giscus-board-light.css`(입력창 3줄)를 쓴다. `__more`는 홈 방명록의 전체 보기 링크 |
 | `.home-top` | 홈 첫 구역 2열 격자(상태 창 : 방명록 = 1.6 : 1, 방명록 칸 최소 18rem, 1023px 이하 1열). 두 칸은 각자 내용 높이만 쓴다(`align-items: start`). 방명록이 짧아도 상태 창 높이에 맞춰 늘리지 않아 빈 공간이 생기지 않고, 댓글 목록은 안쪽 스크롤로 높이가 제한된다. 홈 전용 |
 
 ### 4.1 게시글 안에서 자동으로 적용되는 것 (`_includes/footer/custom.html`)
