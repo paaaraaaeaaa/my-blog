@@ -1335,6 +1335,10 @@ a.day:hover .day__summary { color: var(--c-text); }
 .problem__title { font-size: var(--fs-md); font-weight: var(--fw-heavy); line-height: 1.4; color: var(--c-text); }
 .problem__head .btn-line { flex: none; padding: var(--s-1) var(--s-3); font-size: var(--fs-xs); }
 .problem--unlinked { border-style: dashed; }
+/* 문제와 풀이 섹션 안: 모듈 칩(.jump[data-mod])과 모듈 묶음(.group) */
+.jump-nav--sub { margin: var(--s-4) 0 0; }
+.is-filtered .jump-nav--sub .jump:not(.is-active), .jump-nav--sub .jump:not(.is-active) { opacity: 1; }   /* 위쪽 섹션 칩처럼 흐려지지 않게: 눌린 칩은 테두리로 구분 */
+.res-section .group[hidden] { display: none; }   /* 테마가 display를 줘서 hidden이 안 먹는다 */
 .page__content .problem__empty { margin: var(--s-3) 0 0 !important; font-size: var(--fs-sm); color: var(--c-text-3); }
 
 /* 풀이 단계: 왼쪽 세로선이 단계를 잇는다 */

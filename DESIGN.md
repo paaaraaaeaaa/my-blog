@@ -199,7 +199,7 @@
 |---|---|
 | 홈 `index.md` | 오른쪽 패널이 없다. **첫 구역**(`.home-top`, 2열): 왼쪽 상태 창(맨 위 `last login` + 오른쪽 오늘·누적 방문자 · 일차 + 4px 진행 막대 · modules 6칸 · this week · goal)과 오른쪽 **방명록**(giscus, 6장). **둘째 구역부터**는 가운데+오른쪽을 합친 폭: **최근에 쓴 글 5편**(한 줄 설명은 `summary`, 없으면 `excerpt`) → **둘러보기** 띠(카테고리 색으로 물든 카드 3개) → GitHub 잔디. 왼쪽 프로필은 화면을 따라다니되 안쪽 스크롤이 없다(패널이 화면보다 크면 JS가 `top`을 음수로 줘서 페이지를 내리는 동안 아래끝까지 보인다 — `footer/custom.html` "홈 왼쪽 프로필"). 프로필 아래에 **자주 쓴 태그**(최대 3줄, 누르면 `/tags/#태그`), **기술 스택** 아이콘(글 수 많은 순 최대 5개), **개념 용어집**(최근 글의 용어 최대 2줄 + 모두 보기) 바로가기 — `_includes/home-tags.html`. 1023px 이하는 1열이고, 이때 프로필 소개만 맨 위에 남고 태그·기술 스택·용어집은 본문 맨 뒤로 간다 |
 | Cloud `cloud.md` | 섹션 머리 → **모듈 스테이지 6칸**(클릭 시 전환) → 모듈 제목 + **통계 타일 4개**(기간·학습노트는 중립, 문제풀이는 핑크·결과물은 라임 링크 타일) → **주 단위 달력** |
-| Database `Database.md` | 섹션 머리 → **섹션 필터 칩**(하나만 선택, 같은 칩 다시 누르면 해제, 오른쪽 ↻ 전체로 초기화, `/database/#problems`처럼 주소로 바로 필터) → 🧩 문제와 풀이(문제 카드 + Lv 단계) → `_data/database_sections.yml` 순서대로 자료 섹션(아이콘·색·설명) → 거기 없는 분류는 기본 모양으로 맨 뒤 |
+| Database `Database.md` | 섹션 머리 → **섹션 필터 칩**(하나만 선택, 같은 칩 다시 누르면 해제, 오른쪽 ↻ 전체로 초기화, `/database/#problems`처럼 주소로 바로 필터) → 🧩 문제와 풀이(**모듈 칩** → 모듈별 `.group` 묶음 안에 문제 카드 + Lv 단계; `/database/#problems-m2`처럼 주소로 그 모듈만 열기) → `_data/database_sections.yml` 순서대로 자료 섹션(아이콘·색·설명) → 거기 없는 분류는 기본 모양으로 맨 뒤 |
 | Projects `Projects.md` | 섹션 머리 → **모듈 타임라인**. 완료 = 2열 카드(왼쪽 결과물 요약, 오른쪽 연동기 상세), 진행 중 = 안내, 시작 전 모듈은 맨 아래 **다음 정거장** 한 줄로 |
 | 태그 `tags.md` (`/tags/`) | 머리 → 태그 글자 목록(2편 이상, 많이 쓴 순) + 1편짜리 접기 → 고른 태그(기본 가장 많이 쓴 태그) 하나의 `.group` + 얇은 `.row-list`. 상단 탭에는 없고 글 머리·홈의 태그 칩으로 들어온다 |
 | 용어집 `glossary.md` (`/glossary/`) | 머리 → 걸러 보기 입력줄 → 모듈별 `.group` + `.row-list`. 상단 탭에는 없고 홈 왼쪽 프로필 아래의 "개념 용어집 · 모두 보기" 링크로 들어온다. 글의 개념 카드(`- **용어**` + 하위 목록)를 빌드 때 자동 수집: 첫 하위 항목이 설명, 행을 누르면 그 글로 이동 |
@@ -234,7 +234,7 @@
 | `.section-head` (+ `__aside`) | `## 제목` + 오른쪽 보조 정보(명령어·주석) |
 | `.row-list` > `li` > `a.row` | **기본 목록.** `.row__date` `.row__main`(`.row__title` `.row__sub`) `.row__aside` |
 | `.row--numbered` + `.row__num` | 순서가 있는 시리즈(1편, 2편…)에만 |
-| `.group` (+ `__head` `__key` `__title` `__count`) | 모듈/주제/분류 묶음 머리 |
+| `.group` (+ `__head` `__key` `__title` `__count`) | 모듈/주제/분류 묶음 머리. Database 문제와 풀이에서도 모듈 묶음에 쓴다(`data-mod`, 모듈 번호 1~6과 "모듈 없음"만 그려진다) |
 | `.tabs` > `.tab.is-active` (+ `.tab__count`), `.tab-panel` | 탭 전환 |
 | `.panel` | 선으로 구분된 어두운 면 |
 | `.chip-list` > `.chip` | 태그, 키워드 (색 없음) |
@@ -245,7 +245,7 @@
 | `.problem-list` > `.problem` (+ `.problem--unlinked`) | 문제 카드 |
 | `.steps` > `.step` (+ `__lv` `__title`) | 풀이 단계 목록 |
 | `.module-stats` > `.stat` / `.stat--link` / `.stat--muted` | 모듈 통계 타일. 링크 타일은 `is-섹션`색 |
-| `.jump-nav` > `.jump[data-filter]` + `.jump-reset` | 섹션 필터 칩 (단일 선택) + 초기화 버튼 |
+| `.jump-nav` > `.jump[data-filter]` + `.jump-reset` | 섹션 필터 칩 (단일 선택) + 초기화 버튼. `.jump-nav--sub` > `.jump[data-mod]`는 "문제와 풀이" 안의 모듈 칩(단일 선택, 같은 칩 다시 누르면 해제, 숫자는 그 모듈의 문제 카드 수). 위쪽 섹션 칩이나 ↻을 누르면 모듈 걸러 보기도 풀리고, 모듈 칩을 켜면 ↻도 켜진다. Cloud 모듈 통계 타일의 문제풀이 링크는 `#problems-m모듈번호`로 연결한다 |
 | `.mbars` > `.mbar.is-done/.is-current/.is-upcoming` | 모듈 진척 막대(홈 상태 창 안, 링크 → `/projects/`). 진행 중 막대는 `_data/module_schedule.yml` 날짜 비율, 없으면 빗금 |
 | `.section-head--band` | 홈에서 첫 구역(상태 창·방명록)과 아래 영역을 나누는 구분 머리("최근에 쓴 글") |
 | `.res-section` (+ `__head` `__icon` `__title` `__desc` `__count`) | Database 자료 섹션 머리. `is-색이름`으로 톤 지정 |

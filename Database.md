@@ -10,6 +10,7 @@ classes: section-page
   - 항목: _data/database_links.yml
   - "문제" 항목의 topics 값과 같은 topic을 가진 풀이 글(Cloud, type: practice)이 문제 카드 아래에 자동 연결된다
   - 어떤 문제에도 연결되지 않은 풀이 topic은 "문제 링크 미등록" 카드로 표시된다
+  - 문제와 풀이는 module 번호별 .group으로 묶이고, 모듈 칩(.jump[data-mod])으로 하나만 걸러 볼 수 있다. /database/#problems-m2 로 바로 열 수 있다
   스타일: assets/css/site.css "12. Database"
 {%- endcomment -%}
 
@@ -57,16 +58,61 @@ classes: section-page
 <span class="res-section__count">문제 {{ problems.size }}개 · 풀이 {{ practice_posts.size }}편</span>
 </div>
 
+{%- assign all_topics = practice_posts | sort: "date" | map: "topic" | uniq -%}
+{%- assign mod_list = "1,2,3,4,5,6,0" | split: "," -%}
+
+<nav class="jump-nav jump-nav--sub" aria-label="모듈 골라 보기">
+{%- for ms in mod_list -%}
+{%- assign m = ms | plus: 0 -%}
+{%- if m > 0 -%}
+{%- assign m_probs = problems | where_exp: "p", "p.module == m" -%}
+{%- assign m_posts = practice_posts | where_exp: "p", "p.module == m" -%}
+{%- else -%}
+{%- assign m_probs = problems | where_exp: "p", "p.module == nil" -%}
+{%- assign m_posts = practice_posts | where_exp: "p", "p.module == nil" -%}
+{%- endif -%}
+{%- if m_probs.size > 0 or m_posts.size > 0 -%}
+{%- assign cards = m_probs.size -%}
+{%- for t in all_topics -%}
+{%- assign needle = "|" | append: t | append: "|" -%}
+{%- unless linked_topics contains needle -%}
+{%- assign tsols = practice_posts | where: "topic", t -%}
+{%- assign tm = tsols.first.module | default: 0 -%}
+{%- if tm == m -%}{%- assign cards = cards | plus: 1 -%}{%- endif -%}
+{%- endunless -%}
+{%- endfor -%}
+<button type="button" class="jump is-database" data-mod="{{ m }}" data-label="{% if m > 0 %}모듈 {{ m }}{% else %}모듈 없음{% endif %}" aria-pressed="false">{% if m > 0 %}모듈 {{ m }}{% else %}모듈 없음{% endif %}<b>{{ cards }}</b></button>
+{%- endif -%}
+{%- endfor -%}
+</nav>
+
+{%- for ms in mod_list -%}
+{%- assign m = ms | plus: 0 -%}
+{%- assign mkey = m | append: "" -%}
+{%- if m > 0 -%}
+{%- assign m_probs = problems | where_exp: "p", "p.module == m" -%}
+{%- assign m_posts = practice_posts | where_exp: "p", "p.module == m" -%}
+{%- else -%}
+{%- assign m_probs = problems | where_exp: "p", "p.module == nil" -%}
+{%- assign m_posts = practice_posts | where_exp: "p", "p.module == nil" -%}
+{%- endif -%}
+{%- if m_probs.size > 0 or m_posts.size > 0 -%}
+<div class="group" data-mod="{{ m }}">
+<div class="group__head">
+<span class="group__key">{% if m > 0 %}M{{ m }}{% else %}--{% endif %}</span>
+<h3 class="group__title">{% if m > 0 %}{{ site.data.modules[mkey] | default: "모듈" }}{% else %}모듈 없음{% endif %}</h3>
+<span class="group__count">문제 {{ m_probs.size }}개 · 풀이 {{ m_posts.size }}편</span>
+</div>
+
 <div class="problem-list">
-{%- assign problems_by_module = problems | sort: "module" -%}
-{%- for pb in problems_by_module -%}
+{%- for pb in m_probs -%}
 {%- assign sols = empty_array -%}
 {%- for t in pb.topics -%}{%- assign found = practice_posts | where: "topic", t -%}{%- assign sols = sols | concat: found -%}{%- endfor -%}
 {%- assign sols = sols | sort: "date" | sort: "level_order" -%}
 <article class="problem">
 <div class="problem__head">
 <div class="problem__info">
-<span class="problem__meta">{% if pb.module %}모듈 {{ pb.module }}{% endif %}{% if sols.size > 0 %}<span>풀이 {{ sols.size }}편</span><span>{{ sols.first.date | date: "%-m.%-d" }} 풀이</span>{% endif %}</span>
+<span class="problem__meta">{% if sols.size > 0 %}<span>풀이 {{ sols.size }}편</span><span>{{ sols.first.date | date: "%-m.%-d" }} 풀이</span>{% else %}<span>풀이 없음</span>{% endif %}</span>
 <span class="problem__title">{{ pb.title }}</span>
 </div>
 {%- if pb.url -%}<a class="btn-line" href="{{ pb.url }}" target="_blank" rel="noopener noreferrer">문제 열기</a>{%- endif -%}
@@ -90,15 +136,16 @@ classes: section-page
 </article>
 {%- endfor -%}
 
-{%- assign all_topics = practice_posts | sort: "date" | map: "topic" | uniq -%}
 {%- for t in all_topics -%}
 {%- assign needle = "|" | append: t | append: "|" -%}
 {%- unless linked_topics contains needle -%}
 {%- assign sols = practice_posts | where: "topic", t | sort: "level_order" -%}
+{%- assign tm = sols.first.module | default: 0 -%}
+{%- if tm == m -%}
 <article class="problem problem--unlinked">
 <div class="problem__head">
 <div class="problem__info">
-<span class="problem__meta">{% if sols.first.module %}모듈 {{ sols.first.module }}{% endif %}<span>풀이 {{ sols.size }}편</span><span>문제 링크 미등록</span></span>
+<span class="problem__meta"><span>풀이 {{ sols.size }}편</span><span>문제 링크 미등록</span></span>
 <span class="problem__title">{{ t }}</span>
 </div>
 </div>
@@ -108,9 +155,13 @@ classes: section-page
 {%- endfor -%}
 </ol>
 </article>
+{%- endif -%}
 {%- endunless -%}
 {%- endfor -%}
 </div>
+</div>
+{%- endif -%}
+{%- endfor -%}
 </section>
 
 {%- for name in section_names -%}
@@ -185,5 +236,54 @@ classes: section-page
   // 다른 페이지에서 /database/#problems 로 들어오면 그 섹션만 보여준다
   var hash = location.hash.replace('#', '');
   if (hash && document.querySelector('[data-sec="' + hash + '"]')) apply(hash);
+})();
+/* 모듈 걸러 보기(문제와 풀이 섹션 안): 칩 하나만 선택, 같은 칩을 다시 누르면 해제.
+   /database/#problems-m2 처럼 들어오면 문제 섹션을 열고 모듈 2만 보여준다 */
+(function () {
+  var chips = document.querySelectorAll('.jump[data-mod]');
+  var groups = document.querySelectorAll('.group[data-mod]');
+  if (!chips.length) return;
+  var active = null;
+  var reset = document.querySelector('[data-filter-reset]');
+  var status = document.querySelector('.jump-status');
+  function setMod(m, writeHash) {
+    active = m;
+    chips.forEach(function (c) {
+      var on = c.getAttribute('data-mod') === m;
+      c.classList.toggle('is-active', on);
+      c.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    groups.forEach(function (g) {
+      var was = g.hidden;
+      g.hidden = m !== null && g.getAttribute('data-mod') !== m;
+      if (was && !g.hidden && window.swapIn) window.swapIn(g);
+    });
+    if (reset) reset.disabled = m === null && !document.body.classList.contains('is-filtered');
+    if (status && (m !== null || writeHash)) {
+      var chip = m !== null && document.querySelector('.jump[data-mod="' + m + '"]');
+      var top = document.querySelector('.jump[data-filter].is-active');
+      status.textContent = chip ? '‘' + chip.getAttribute('data-label') + '’ 문제만 보는 중이에요. 같은 칩이나 ↻ 전체를 누르면 다시 모두 보여요.'
+        : (top ? '‘' + top.getAttribute('data-label') + '’ 섹션만 보는 중이에요. 같은 칩이나 ↻ 전체를 누르면 다시 모두 보여요.' : '');
+    }
+    if (writeHash && history.replaceState) history.replaceState(null, '', m !== null ? '#problems-m' + m : '#problems');
+  }
+  chips.forEach(function (c) {
+    c.addEventListener('click', function () {
+      var m = c.getAttribute('data-mod');
+      setMod(active === m ? null : m, true);
+    });
+  });
+  // 위쪽 섹션 칩·전체 초기화를 누르면 모듈 걸러 보기도 풀린다
+  document.querySelectorAll('.jump[data-filter], [data-filter-reset]').forEach(function (b) {
+    b.addEventListener('click', function () { setMod(null, false); });
+  });
+  var mm = /^problems-m(\d+)$/.exec(location.hash.replace('#', ''));
+  if (mm && document.querySelector('.jump[data-mod="' + mm[1] + '"]')) {
+    var pc = document.querySelector('.jump[data-filter="problems"]');
+    if (pc && !pc.classList.contains('is-active')) pc.click();
+    setMod(mm[1], true);
+    var sec = document.getElementById('problems');
+    if (sec && sec.scrollIntoView) sec.scrollIntoView({ block: 'start' });
+  }
 })();
 </script>

@@ -66,7 +66,7 @@ classes: section-page
 <span class="stat__value">{{ mod_posts.size }}<small>편</small></span>
 </div>
 {%- if mod_practice.size > 0 -%}
-<a class="stat stat--link is-database" href="{{ '/database/' | relative_url }}#problems">
+<a class="stat stat--link is-database" href="{{ '/database/' | relative_url }}#problems-m{{ i }}">
 <span class="stat__body"><span class="stat__label">문제풀이</span><span class="stat__value">{{ mod_practice.size }}<small>편</small></span></span>
 <span class="stat__cta">cd ../database →</span>
 </a>
