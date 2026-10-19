@@ -199,7 +199,7 @@
 |---|---|
 | 홈 `index.md` | 오른쪽 패널이 없다. **첫 구역**(`.home-top`, 2열): 왼쪽 상태 창(맨 위 `last login` + 오른쪽 오늘·누적 방문자 · 일차 + 4px 진행 막대 · modules 6칸 · this week · goal)과 오른쪽 **방명록**(giscus, 6장). **둘째 구역부터**는 가운데+오른쪽을 합친 폭: **최근에 쓴 글 5편**(한 줄 설명은 `summary`, 없으면 `excerpt`) → **둘러보기** 띠(카테고리 색으로 물든 카드 3개) → GitHub 잔디. 왼쪽 프로필은 화면을 따라다니되 안쪽 스크롤이 없다(패널이 화면보다 크면 JS가 `top`을 음수로 줘서 페이지를 내리는 동안 아래끝까지 보인다 — `footer/custom.html` "홈 왼쪽 프로필"). 프로필 아래에 **자주 쓴 태그**(최대 3줄, 누르면 `/tags/#태그`), **기술 스택** 아이콘(글 수 많은 순 최대 5개), **개념 용어집**(최근 글의 용어 최대 2줄 + 모두 보기) 바로가기 — `_includes/home-tags.html`. 1023px 이하는 1열이고, 이때 프로필 소개만 맨 위에 남고 태그·기술 스택·용어집은 본문 맨 뒤로 간다 |
 | Cloud `cloud.md` | 섹션 머리 → **모듈 스테이지 6칸**(클릭 시 전환) → 모듈 제목 + **통계 타일 4개**(기간·학습노트는 중립, 문제풀이는 핑크·결과물은 라임 링크 타일) → **주 단위 달력** |
-| Database `Database.md` | 섹션 머리 → **섹션 필터 칩**(하나만 선택, 같은 칩 다시 누르면 해제, 오른쪽 ↻ 전체로 초기화, `/database/#problems`처럼 주소로 바로 필터) → 🧩 문제와 풀이(**모듈 칩** → 모듈별 `.group` 묶음 안에 문제 카드 + Lv 단계; `/database/#problems-m2`처럼 주소로 그 모듈만 열기) → `_data/database_sections.yml` 순서대로 자료 섹션(아이콘·색·설명) → 거기 없는 분류는 기본 모양으로 맨 뒤 |
+| Database `Database.md` | 섹션 머리 → **섹션 필터 칩**(하나만 선택, 같은 칩 다시 누르면 해제, 오른쪽 ↻ 전체로 초기화, `/database/#problems`처럼 주소로 바로 필터) → 문제와 풀이(**모듈 칩** → 모듈별 `.group` 묶음 안에 문제 카드 + Lv 단계; `/database/#problems-m2`처럼 주소로 그 모듈만 열기) → `_data/database_sections.yml` 순서대로 자료 섹션(아이콘·색·설명, 자료에 `module`이 있으면 모듈별 `.group`으로 묶임) → 거기 없는 분류는 기본 모양으로 맨 뒤 |
 | Projects `Projects.md` | 섹션 머리 → **모듈 타임라인**. 완료 = 2열 카드(왼쪽 결과물 요약, 오른쪽 연동기 상세), 진행 중 = 안내, 시작 전 모듈은 맨 아래 **다음 정거장** 한 줄로 |
 | 태그 `tags.md` (`/tags/`) | 머리 → 태그 글자 목록(2편 이상, 많이 쓴 순) + 1편짜리 접기 → 고른 태그(기본 가장 많이 쓴 태그) 하나의 `.group` + 얇은 `.row-list`. 상단 탭에는 없고 글 머리·홈의 태그 칩으로 들어온다 |
 | 용어집 `glossary.md` (`/glossary/`) | 머리 → 걸러 보기 입력줄 → 모듈별 `.group` + `.row-list`. 상단 탭에는 없고 홈 왼쪽 프로필 아래의 "개념 용어집 · 모두 보기" 링크로 들어온다. 글의 개념 카드(`- **용어**` + 하위 목록)를 빌드 때 자동 수집: 첫 하위 항목이 설명, 행을 누르면 그 글로 이동 |
@@ -217,7 +217,7 @@
 | Projects 결과물 | `categories: [Projects]`, `module: N` (type 없음) | `project_name`, `banner_emoji`, `live_url`, `tags` |
 | Projects 연동기 | `type: practice`, `module: N`, `topic`, `level_order` | `tags` (첫 번째가 칩으로 표시) |
 | Database 문제 (yml) | `category: "문제"`, `title`, `url` | `module`, `topics: ["풀이 글의 topic"]` |
-| Database 자료 (yml) | `category`, `title`, `url` 또는 `file` | `description`. 새 category는 `_data/database_sections.yml`에 `name`·`emoji`·`tone`·`desc` 한 줄 추가 |
+| Database 자료 (yml) | `category`, `title`, `url` 또는 `file` | `description`, `module`(적은 자료가 하나라도 있는 섹션은 모듈별 `.group` 묶음 + 맨 뒤 "모듈 없음", 하나도 없으면 묶음 없이 그리드 하나). 새 category는 `_data/database_sections.yml`에 `name`·`emoji`·`tone`·`desc` 한 줄 추가 |
 
 ---
 

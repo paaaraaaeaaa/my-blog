@@ -10,7 +10,8 @@
 # - file        : 레포에 직접 올린 첨부파일 경로 (선택) — 예: /assets/files/git-cheatsheet.pdf
 #                 url과 file 둘 다 적으면 버튼이 두 개 다 나옴. 최소 하나는 있어야 함.
 # - description : 카드 안 설명 문구 (선택)
-# - module      : (문제 전용) 몇 번째 모듈의 문제인지 숫자 (선택)
+# - module      : 몇 번째 모듈의 문제·자료인지 숫자 (선택). 문제는 모듈 칩/묶음에, 아티팩트 같은 자료는 섹션 안 모듈 묶음에 쓰인다.
+#                 모듈과 상관없는 자료(게임 등)는 적지 않으면 묶음 없이 그대로 나온다.
 # - topics      : (문제 전용) 이 문제를 푼 풀이 글들의 front matter "topic" 값 목록.
 #                 여기 적힌 topic의 글(type: practice, Cloud)이 문제 카드 아래 풀이 목록으로 자동 연결됨.
 #                 예: topics: ["화면 보고 HTML 만들기"]
@@ -82,6 +83,13 @@
   url: "https://claude.ai/artifact/VzQE1yXCHveXfzqxCr9ndd?sk=KBFkEO9iexKnsCH_0H8YBQ"
   description: "문제 링크를 클릭하면 문제를 확인할 수 있습니다."
 
+- category: "문제"
+  title: "JOIN 실습 문제"
+  module: 2
+  topics: ["JOIN 실습 문제"]
+  url: "https://claude.ai/artifact/PHRLP23KADoD3ysG7jCKNc?sk=8vDrR9bhXKAjKsY3TNXeeA"
+  description: "문제 링크를 클릭하면 문제를 확인할 수 있습니다."
+
 
 # =============================================================================
 
@@ -104,35 +112,42 @@
 
 - category: "아티팩트"
   title: "모듈1 · 아침에 을지대 가기 (알고리즘)"
+  module: 1
   url: "https://claude.ai/public/artifacts/46b7a65b-d3fa-4928-827d-c880fa232cde"
   description: "아침에 을지대 가기로 배우는 프로그래밍적 사고와 알고리즘"
 
 - category: "아티팩트"
   title: "모듈1 · Skill과 Subagent"
+  module: 1
   url: "https://claude.ai/public/artifacts/72de39b1-fe4c-410e-bd61-ae606b268340"
   description: "Skill과 Subagent, 컨텍스트 창으로 이해하기"
 
 - category: "아티팩트"
   title: "요구사항 정의"
+  module: 1
   url: "https://ethereal-cyclamen-7c1.notion.site/git-3d4f3815c7bf81b7a247f5dd97cde09e"
   description: "에이전트와 함께 생각을 넓히고, git 으로 의견을 모아 기획 문서 네 장을 만든다."
 
 - category: "아티팩트"
   title: "JAVA 첫 수업"
+  module: 2
   url: "https://claude.ai/artifact/SR2cZ5yojXtCy5QeTvSVMk"
   description: "Hello.java가 CPU에 도착하기까지"
 
 - category: "아티팩트"
   title: "모듈1 · Git & GitHub 이번 주에 배운 것"
+  module: 1
   url: "https://claude.ai/artifacts/latest/78450a56-3f74-4088-bfd4-fa934bd6b030"
   description: "블로그를 올리기까지 쓴 Git 명령어 11개를 흐름과 실수 위주로 정리"
 
 - category: "아티팩트"
   title: "기획 나침반"
+  module: 1
   url: "https://claude.ai/artifact/DHbQKPTWfJgxB6MUdjj77G"
   description: "요구사항 정의부터 화면 프로토타입까지, 에이전트와 함께하는 3단계 기획 과정"
 
 - category: "아티팩트"
   title: "데이터베이스는 왜 필요할까? JVM 메모리와 데이터 수명"
+  module: 2
   url: "https://claude.ai/artifact/F49HUztyDnjxtbMEaYqyW3"
   description: "JVM 메모리는 종료되면 사라진다는 것을 보며, 파일 저장의 한계와 데이터베이스가 필요한 이유를 정리"

@@ -173,8 +173,25 @@ classes: section-page
 <div class="res-section__titles"><h2 class="res-section__title">{{ name }}</h2>{% if def.desc %}<span class="res-section__desc">{{ def.desc }}</span>{% endif %}</div>
 <span class="res-section__count">{{ items.size }}개</span>
 </div>
+{%- assign with_mod = items | where_exp: "i", "i.module" -%}
+{%- if with_mod.size > 0 -%}{%- assign glist = mod_list -%}{%- else -%}{%- assign glist = "-1" | split: "," -%}{%- endif -%}
+{%- for gs in glist -%}
+{%- assign gm = gs | plus: 0 -%}
+{%- if gm == -1 -%}{%- assign gitems = items -%}
+{%- elsif gm > 0 -%}{%- assign gitems = items | where_exp: "i", "i.module == gm" -%}
+{%- else -%}{%- assign gitems = items | where_exp: "i", "i.module == nil" -%}{%- endif -%}
+{%- if gitems.size > 0 -%}
+{%- if gm != -1 -%}
+{%- assign gkey = gm | append: "" -%}
+<div class="group">
+<div class="group__head">
+<span class="group__key">{% if gm > 0 %}M{{ gm }}{% else %}--{% endif %}</span>
+<h3 class="group__title">{% if gm > 0 %}{{ site.data.modules[gkey] | default: "모듈" }}{% else %}모듈 없음{% endif %}</h3>
+<span class="group__count">{{ gitems.size }}개</span>
+</div>
+{%- endif -%}
 <div class="res-grid">
-{%- for item in items -%}
+{%- for item in gitems -%}
 {%- if item.url -%}{%- assign host = item.url | split: "//" | last | split: "/" | first | remove: "www." -%}{%- else -%}{%- assign host = "첨부파일" -%}{%- endif -%}
 <article class="res-card">
 <div class="res-card__top">
@@ -194,6 +211,11 @@ classes: section-page
 </article>
 {%- endfor -%}
 </div>
+{%- if gm != -1 -%}
+</div>
+{%- endif -%}
+{%- endif -%}
+{%- endfor -%}
 </section>
 {%- endif -%}
 {%- endfor -%}
