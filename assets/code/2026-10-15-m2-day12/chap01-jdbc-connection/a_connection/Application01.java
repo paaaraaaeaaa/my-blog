@@ -26,8 +26,8 @@ public class Application01 {
             // 통해서 연결 객체를 만들게 된다.
             con = DriverManager.getConnection(
                     "jdbc:mysql://localhost/menudb",
-                    "wanted",
-                    "wanted"
+                    "user",
+                    "password"
             );
 
             // 출력 시 값이 나오면 menudb 접근 가능
