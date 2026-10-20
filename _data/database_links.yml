@@ -151,3 +151,9 @@
   module: 2
   url: "https://claude.ai/artifact/F49HUztyDnjxtbMEaYqyW3"
   description: "JVM 메모리는 종료되면 사라진다는 것을 보며, 파일 저장의 한계와 데이터베이스가 필요한 이유를 정리"
+
+- category: "아티팩트"
+  title: "[통합 팀 과제] 기획부터 JDBC MVC 구현까지"
+  module: 2
+  url: "https://claude.ai/artifact/Thtkr2WJAXuRc5GpUrxL2F"
+  description: "Git·MySQL·JDBC·MVC를 한 프로젝트에 모아, 기획부터 DB 모델링과 콘솔 프로그램 구현까지 팀으로 진행하는 과제 안내"
