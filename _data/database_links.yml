@@ -157,3 +157,15 @@
   module: 2
   url: "https://claude.ai/artifact/Thtkr2WJAXuRc5GpUrxL2F"
   description: "Git·MySQL·JDBC·MVC를 한 프로젝트에 모아, 기획부터 DB 모델링과 콘솔 프로그램 구현까지 팀으로 진행하는 과제 안내"
+
+- category: "아티팩트"
+  title: "Servlet 들어가기 1편: Web Server와 WAS"
+  module: 2
+  url: "https://claude.ai/artifact/T2bZwdXPus4fXfW1n39pSw"
+  description: "콘솔 프로그램과 웹 애플리케이션의 차이부터 Web Server와 WAS의 역할, 요청 처리 흐름까지 정리"
+
+- category: "아티팩트"
+  title: "Servlet 들어가기 2편: Servlet의 역할"
+  module: 2
+  url: "https://claude.ai/artifact/HCAqijpbEXoPyfhaTbfyGx"
+  description: "서블릿이 무엇이고 서블릿 컨테이너가 객체 생성·URL 매핑·스레드 배정을 어떻게 맡는지, 생명주기 메서드 정리"
