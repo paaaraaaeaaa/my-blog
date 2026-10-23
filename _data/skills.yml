@@ -15,7 +15,7 @@
 - id: html
   aliases: [html, tag, 웹개발기초, attribute]
 - id: java
-  aliases: [java, jdk, jdbc, servlet, forward, redirect, http]
+  aliases: [java, jdk, jdbc, servlet, forward, redirect, http, cookie, session, filter]
 - id: css
   aliases: [css, flexbox, grid, transition, animation, transform, hover, css modules, 레이아웃, 반응형웹, selector]
 - id: tailwind
