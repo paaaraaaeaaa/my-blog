@@ -956,6 +956,16 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     };
     window.addEventListener('hashchange', pickTag);
+    // 테마의 부드러운 스크롤(smooth-scroll)이 #링크 클릭을 가로채 pushState만 하고 hashchange를 일으키지 않는다.
+    // 그래서 태그 링크는 클릭을 여기서 끝내고 주소를 직접 바꾼 뒤 바로 다시 고른다.
+    tagLinks.forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        location.hash = a.getAttribute('href');
+        pickTag();
+      });
+    });
     pickTag();
   }
 
