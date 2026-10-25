@@ -273,3 +273,11 @@
   module: 2
   url: "https://claude.ai/artifact/PvgUDvnaGRUsuCaPt3wbw1"
   description: "서블릿 앞뒤에서 인코딩·로그인 확인·요청 기록을 맡는 Filter의 원리와, 요청 하나가 1~5편의 전 과정을 거치는 흐름"
+
+- category: "아티팩트"
+  title: "사원 관리 시스템 실습 (JDBC·Servlet 복습)"
+  series: "복습 과제"
+  short: "사원 관리 시스템 실습"
+  module: 2
+  url: "https://claude.ai/artifact/3nbAtniJ6G85gwD1pNEzAj?sk=m2OgIPnpZjoBJ23w_NPw-Q"
+  description: "JDBC·Servlet·JSP로 사원 CRUD 웹앱을 처음부터 만들며 forward/redirect와 세션 메시지 흐름을 복습합니다."
