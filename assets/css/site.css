@@ -1270,26 +1270,6 @@ a.day:hover .day__summary { color: var(--c-text); }
 .jump:hover { border-color: color-mix(in srgb, var(--cat) 55%, var(--c-line)); background: var(--c-surface-2); }
 .jump.is-active { border-color: var(--cat); background: color-mix(in srgb, var(--cat) 16%, var(--c-surface)); box-shadow: 0 0 0 1px var(--cat) inset; }
 .jump.is-active b { background: var(--cat); color: var(--c-bg); }
-.is-filtered .jump:not(.is-active) { opacity: .55; }
-.is-filtered .jump:not(.is-active):hover { opacity: 1; }
-.jump-reset {
-  margin-left: auto;
-  display: inline-flex; align-items: center; gap: var(--s-1);
-  padding: var(--s-2) var(--s-4);
-  border: 1px solid var(--c-line-strong);
-  border-radius: var(--r-pill);
-  background: transparent;
-  color: var(--c-text);
-  font: inherit;
-  font-size: var(--fs-sm);
-  font-weight: var(--fw-bold);
-  cursor: pointer;
-  transition: opacity var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
-}
-.jump-reset svg { transition: transform .4s var(--ease); }
-.jump-reset:hover:not(:disabled) { border-color: var(--c-signal); color: var(--c-signal); }
-.jump-reset:hover:not(:disabled) svg { transform: rotate(-180deg); }
-.jump-reset:disabled { opacity: .35; cursor: default; }
 .page__content .jump-status { min-height: 1.4em; margin: var(--s-2) 0 0 !important; font-size: var(--fs-xs); color: var(--c-text-3); }
 .res-section[hidden] { display: none; }
 .is-filtered .res-section { margin-top: var(--s-5); }
@@ -1351,9 +1331,8 @@ a.day:hover .day__summary { color: var(--c-text); }
 .problem__title { font-size: var(--fs-md); font-weight: var(--fw-heavy); line-height: 1.4; color: var(--c-text); }
 .problem__head .btn-line { flex: none; padding: var(--s-1) var(--s-3); font-size: var(--fs-xs); }
 .problem--unlinked { border-style: dashed; }
-/* 문제와 풀이 섹션 안: 모듈 칩(.jump[data-mod])과 모듈 묶음(.group) */
+/* 문제와 풀이·아티팩트 섹션 안: 모듈 칩(.jump[data-mod], .jump[data-smod-chip])과 모듈 묶음(.group) */
 .jump-nav--sub { margin: var(--s-4) 0 0; }
-.is-filtered .jump-nav--sub .jump:not(.is-active), .jump-nav--sub .jump:not(.is-active) { opacity: 1; }   /* 위쪽 섹션 칩처럼 흐려지지 않게: 눌린 칩은 테두리로 구분 */
 .res-section .group[hidden] { display: none; }   /* 테마가 display를 줘서 hidden이 안 먹는다 */
 .res-section .res-section__head + .group { margin-top: 0; }   /* 섹션 머리 바로 뒤 첫 묶음은 머리 여백만 쓴다 */
 /* 자료 시리즈 묶음: 같은 주제 자료를 접는 <details> 머리 + 얇은 .row-list로 보여준다 (시리즈가 있는 자료 섹션에서만) */
@@ -1926,7 +1905,7 @@ div.highlighter-rouge { position: relative; }
    --------------------------------------------------------------------- */
 h1, h2, h3, h4, h5, h6,
 .masthead, .greedy-nav, .breadcrumbs, .page__meta, .toc, .nav__title,
-.btn-line, .btn-solid, .chip, .jump, .jump-reset, .tab, .stage, .stat__label, .stat__value, .stat__cta,
+.btn-line, .btn-solid, .chip, .jump, .tab, .stage, .stat__label, .stat__value, .stat__cta,
 .row__date, .row__num, .cat-label, .section-head__aside, .group__key, .group__count,
 .day__n, .day__date, .week__label, .week-grid__head,
 .post-meta, .series-bar, .page-intro__stats, .module-panel__eyebrow,

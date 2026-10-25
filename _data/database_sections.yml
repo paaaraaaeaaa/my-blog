@@ -1,30 +1,33 @@
 # _data/database_sections.yml
-# Database 페이지의 "문제" 외 섹션(게임, 아티팩트, …)을 어떤 순서·아이콘·색으로 보여줄지 정합니다.
+# Database 페이지의 섹션을 어떤 순서·색으로 보여줄지 정합니다. 위에 있을수록 앞(칩 순서 = 화면 순서)이고,
+# 처음 열리는 섹션은 맨 위 항목입니다. 전체 보기는 없고 한 번에 한 섹션만 보입니다.
 # database_links.yml에 새 category를 쓰면, 여기 한 줄을 추가하는 것만으로 섹션 모양이 정해집니다.
-# 여기 없는 category도 자동으로 맨 뒤에 기본 모양(📁, 라일락)으로 표시되니 빠뜨려도 깨지지 않아요.
+# 여기 없는 category도 자동으로 맨 뒤에 기본 모양으로 표시되니 빠뜨려도 깨지지 않아요.
 #
-# - name  : database_links.yml의 category 값과 똑같이
+# - name  : database_links.yml의 category 값과 똑같이.
+#           이름이 "문제"인 항목은 문제와 풀이 섹션이 들어갈 자리다(순서·색·설명만 정한다).
 # - emoji : 섹션 아이콘 (지금 화면에는 그려지지 않는다. 디자인 원칙상 UI 이모지 아이콘을 쓰지 않는다)
 # - tone  : database | signal | success | danger (tokens.css 색 이름).
 #           cloud(시안)·projects·warning(앰버)은 다른 탭의 색과 겹쳐서 쓰지 않는다.
 # - desc  : 섹션 한 줄 설명
-
-- name: "게임"
-  emoji: "🎮"
-  tone: "success"
-  desc: "브라우저에서 바로 하는 CSS 연습 게임"
 
 - name: "아티팩트"
   emoji: "🗂️"
   tone: "database"   # Projects 탭의 앰버(warning)와 겹치지 않게 Database 페이지 색을 쓴다
   desc: "수업과 실습에서 정리한 산출물"
 
+- name: "문제"
+  emoji: "📝"
+  tone: "database"
+  desc: "받은 문제와 레벨별 풀이를 한 카드에 묶었어요"
+
+- name: "게임"
+  emoji: "🎮"
+  tone: "success"
+  desc: "브라우저에서 바로 하는 CSS 연습 게임"
+
 # 앞으로 추가할 섹션 예시 (필요할 때 주석 해제)
 # - name: "치트시트"
 #   emoji: "📌"
-#   tone: "cloud"
-#   desc: "자주 찾아보는 명령어·문법 정리"
-# - name: "참고 링크"
-#   emoji: "🔖"
 #   tone: "signal"
-#   desc: "공식 문서와 좋은 글 모음"
+#   desc: "자주 찾아보는 명령어·문법 정리"

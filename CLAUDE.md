@@ -508,7 +508,7 @@ mermaid: true
 | 명령 | 하는 일 | 만드는·고치는 파일 |
 |------|---------|------------------|
 | `/learn` | 질문으로 배우기 (답 대신 한 걸음씩) | 없음 |
-| `/note` | 일차 학습노트 | `_posts/Cloud/학습노트/` |
+| `/note` | 일차 학습노트 (`C:\Lecture`를 같이 쓰라고 하면 `assets/code/lecture/` 원본 코드도 갱신) | `_posts/Cloud/학습노트/`, (`assets/code/lecture/`, `_data/lecture_sources.yml`) |
 | `/practice <링크>` | 문제풀이 devlog + 문제 카드 연결 | `_posts/Cloud/문제풀이/`, `_data/database_links.yml` |
 | `/project` | 모듈 결과물 회고 | `_posts/Projects/` |
 | `/series` | 결과물의 연동기 한 편 | `_posts/Projects/` (`type: practice`) |
