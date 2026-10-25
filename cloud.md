@@ -85,6 +85,25 @@ classes: section-page
 {%- endif -%}
 </div>
 
+{%- comment -%} 원본 코드: _data/lecture_sources.yml 에서 이 모듈 것을 모아 행 목록으로. 버튼은 코드 팝업(code-popup.html, trigger=false 로 데이터만)을 연다 {%- endcomment -%}
+{%- assign srcs = site.data.lecture_sources | default: empty_array | where: "module", i -%}
+{%- if srcs.size > 0 -%}
+<div class="src-links">
+<p class="src-links__head"><span class="src-links__title">원본 코드</span><span class="src-links__note">수업 실습 폴더. 누르면 파일 목록이 열립니다.</span></p>
+<ul class="row-list row-list--compact">
+{%- for s in srcs -%}
+{%- assign s_prefix = "/assets/code/lecture/" | append: s.dir | append: "/" -%}
+{%- assign s_files = site.static_files | where_exp: "f", "f.path contains s_prefix" -%}
+<li><button type="button" class="row code-popup-trigger" aria-haspopup="dialog" data-dir="lecture/{{ s.dir }}"><span class="row__date">{{ s.dir }}</span><span class="row__main"><span class="row__title">{{ s.title }}</span><span class="row__sub">{{ s.desc }}</span></span><span class="row__aside">{{ s_files.size }}개 파일 ▸</span></button></li>
+{%- endfor -%}
+</ul>
+{%- for s in srcs -%}
+{%- assign s_dir = "lecture/" | append: s.dir -%}
+{%- include code-popup.html dir=s_dir trigger=false -%}
+{%- endfor -%}
+</div>
+{%- endif -%}
+
 {%- if mod_posts.size == 0 -%}
 <p class="empty-note">모듈 {{ i }}은 아직 시작 전입니다. 첫 학습노트를 쓰면 이곳에 주 단위 달력이 생깁니다.</p>
 {%- else -%}

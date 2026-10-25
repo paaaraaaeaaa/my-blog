@@ -1,0 +1,43 @@
+# _data/lecture_sources.yml
+# Cloud 모듈 패널의 "원본 코드" 목록입니다. 항목을 누르면 코드 팝업(폴더 → 파일 트리)이 열립니다.
+# 실제 파일은 `scripts/sync-lecture.ps1` 로 C:\Lecture 에서 assets/code/lecture/<dir>/ 로 복사합니다.
+#
+# - dir    : C:\Lecture 아래 폴더 이름 = assets/code/lecture/ 아래 폴더 이름 (sync 스크립트의 $courses 와 같아야 함)
+# - module : 이 폴더를 배운 모듈 번호. 그 모듈의 Cloud 패널에 나타난다
+# - title  : 목록 제목
+# - desc   : 한 줄 설명
+
+- dir: "01_Git"
+  module: 1
+  title: "Git 실습 저장소"
+  desc: "브랜치·클론 실습 (blog-plan, branch-test, Clone-Test, GitGui-Test)"
+
+- dir: "01_HTML"
+  module: 1
+  title: "HTML 태그 샘플"
+  desc: "글자·목록·표·영역·이미지·미디어·하이퍼링크·폼 태그 예제"
+
+- dir: "02_CSS"
+  module: 1
+  title: "CSS 실습"
+  desc: "선택자·우선순위, flex·grid, Tailwind 적용 전후 비교"
+
+- dir: "03_JAVA"
+  module: 2
+  title: "Java 기초부터 예외·파일 입출력까지"
+  desc: "chap01 기본 문법 ~ chap05 예외·파일 입출력, 03_project(객체지향 프로젝트)"
+
+- dir: "04_MySQL"
+  module: 2
+  title: "SQL 실습"
+  desc: "select·order by·where·group by·join·subquery·ddl·dml 연습 쿼리"
+
+- dir: "05_JDBC"
+  module: 2
+  title: "JDBC"
+  desc: "connection, statement, CRUD(MVC) 3단계 프로젝트. 설정 파일(.properties)의 비밀번호는 가려 두었다"
+
+- dir: "06_Servlet"
+  module: 2
+  title: "Servlet"
+  desc: "chap01-servlet: 라이프사이클·요청 파라미터·응답·forward/redirect·쿠키·세션·필터"

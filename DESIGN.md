@@ -198,7 +198,7 @@
 | 페이지 | 구조 (위에서 아래로) |
 |---|---|
 | 홈 `index.md` | 오른쪽 패널이 없다. **첫 구역**(`.home-top`, 2열): 왼쪽 상태 창(맨 위 `last login` + 오른쪽 오늘·누적 방문자 · 일차 + 4px 진행 막대 · modules 6칸 · this week · goal)과 오른쪽 **방명록**(giscus, 6장). **둘째 구역부터**는 가운데+오른쪽을 합친 폭: **최근에 쓴 글 5편**(한 줄 설명은 `summary`, 없으면 `excerpt`) → **둘러보기** 띠(카테고리 색으로 물든 카드 3개) → GitHub 잔디. 왼쪽 프로필은 화면을 따라다니되 안쪽 스크롤이 없다(패널이 화면보다 크면 JS가 `top`을 음수로 줘서 페이지를 내리는 동안 아래끝까지 보인다 — `footer/custom.html` "홈 왼쪽 프로필"). 프로필 아래에 **자주 쓴 태그**(최대 3줄, 누르면 `/tags/#태그`), **기술 스택** 아이콘(글 수 많은 순 최대 5개), **개념 용어집**(최근 글의 용어 최대 2줄 + 모두 보기) 바로가기 — `_includes/home-tags.html`. 1023px 이하는 1열이고, 이때 프로필 소개만 맨 위에 남고 태그·기술 스택·용어집은 본문 맨 뒤로 간다 |
-| Cloud `cloud.md` | 섹션 머리 → **모듈 스테이지 6칸**(클릭 시 전환) → 모듈 제목 + **통계 타일 4개**(기간·학습노트는 중립, 문제풀이는 핑크·결과물은 라임 링크 타일) → **주 단위 달력** |
+| Cloud `cloud.md` | 섹션 머리 → **모듈 스테이지 6칸**(클릭 시 전환) → 모듈 제목 + **통계 타일 4개**(기간·학습노트는 중립, 문제풀이는 핑크·결과물은 라임 링크 타일) → (그 모듈에 `_data/lecture_sources.yml` 항목이 있으면) **원본 코드 목록** → **주 단위 달력** |
 | Database `Database.md` | 섹션 머리 → **섹션 필터 칩**(하나만 선택, 같은 칩 다시 누르면 해제, 오른쪽 ↻ 전체로 초기화, `/database/#problems`처럼 주소로 바로 필터) → 문제와 풀이(**모듈 칩** → 모듈별 `.group` 묶음 안에 문제 카드 + Lv 단계; `/database/#problems-m2`처럼 주소로 그 모듈만 열기) → `_data/database_sections.yml` 순서대로 자료 섹션(아이콘·색·설명, 자료에 `module`이 있으면 모듈별 `.group`으로 묶임. 자료에 `series`가 있으면 섹션 머리 아래에 **주제 칩 + 걸러 보기 입력줄**이 붙고, 모듈 묶음 없이 카드 대신 접는 **시리즈 묶음 + 행 목록**을 모듈 순서로 나열) → 거기 없는 분류는 기본 모양으로 맨 뒤 |
 | Projects `Projects.md` | 섹션 머리 → **모듈 타임라인**. 완료 = 2열 카드(왼쪽 결과물 요약, 오른쪽 연동기 상세), 진행 중 = 안내, 시작 전 모듈은 맨 아래 **다음 정거장** 한 줄로 |
 | 태그 `tags.md` (`/tags/`) | 머리 → 태그 글자 목록(2편 이상, 많이 쓴 순) + 1편짜리 접기 → 고른 태그(기본 가장 많이 쓴 태그) 하나의 `.group` + 얇은 `.row-list`. 상단 탭에는 없고 글 머리·홈의 태그 칩으로 들어온다 |
@@ -216,6 +216,7 @@
 | Cloud 문제풀이 | `type: practice`, `module: N`, `topic`, `level_order` | 제목을 `Lv1 · 제목` 형식으로 쓰면 단계 라벨이 자동 분리됨 |
 | Projects 결과물 | `categories: [Projects]`, `module: N` (type 없음) | `project_name`, `banner_emoji`, `live_url`, `tags` |
 | Projects 연동기 | `type: practice`, `module: N`, `topic`, `level_order` | `tags` (첫 번째가 칩으로 표시) |
+| Cloud 원본 코드 (yml) | `dir`, `module`, `title`, `desc` (`_data/lecture_sources.yml`) | `dir`은 `C:\Lecture` 아래 폴더 이름이자 `assets/code/lecture/` 아래 폴더 이름. 파일은 `scripts/sync-lecture.ps1`로 텍스트 파일만 복사(이미지·jar 제외, 비밀번호 줄은 가림) |
 | Database 문제 (yml) | `category: "문제"`, `title`, `url` | `module`, `topics: ["풀이 글의 topic"]` |
 | Database 자료 (yml) | `category`, `title`, `url` 또는 `file` | `description`, `module`(적은 자료가 하나라도 있는 섹션은 모듈별 `.group` 묶음 + 맨 뒤 "모듈 없음", 하나도 없으면 묶음 없이 그리드 하나), `series`·`num`·`short`(섹션에 `series`가 하나라도 있으면 카드 격자 대신 시리즈 묶음 + 행 목록으로 나온다. 같은 `series`는 yml에 적은 순서대로, `num`은 번호, `short`는 묶음 안에서 보일 짧은 제목). 새 category는 `_data/database_sections.yml`에 `name`·`emoji`·`tone`·`desc` 한 줄 추가 |
 
@@ -248,6 +249,7 @@
 | `.jump-nav` > `.jump[data-filter]` + `.jump-reset` | 섹션 필터 칩 (단일 선택) + 초기화 버튼. `.jump-nav--sub` > `.jump[data-mod]`는 "문제와 풀이" 안의 모듈 칩(단일 선택, 같은 칩 다시 누르면 해제, 숫자는 그 모듈의 문제 카드 수). 위쪽 섹션 칩이나 ↻을 누르면 모듈 걸러 보기도 풀리고, 모듈 칩을 켜면 ↻도 켜진다. Cloud 모듈 통계 타일의 문제풀이 링크는 `#problems-m모듈번호`로 연결한다 |
 | `.mbars` > `.mbar.is-done/.is-current/.is-upcoming` | 모듈 진척 막대(홈 상태 창 안, 링크 → `/projects/`). 진행 중 막대는 `_data/module_schedule.yml` 날짜 비율, 없으면 빗금 |
 | `.section-head--band` | 홈에서 첫 구역(상태 창·방명록)과 아래 영역을 나누는 구분 머리("최근에 쓴 글") |
+| `.src-links` (+ `__head` `__title` `__note`) · `.row.code-popup-trigger` | Cloud 모듈 패널의 "원본 코드" 목록. `.row-list--compact`를 재사용하고, 행 전체가 코드 팝업을 여는 버튼이다(`code-popup.html`을 `trigger=false`로 불러 데이터만 내보내고, 버튼은 `class="row code-popup-trigger" data-dir="lecture/<폴더>"`로 직접 만든다). 새 컴포넌트를 만들지 않고 `.row`의 버튼 변형만 `site.css` "11. Cloud"에 둔다. 왼쪽 폴더 이름 · 제목 + 설명 · 오른쪽 `N개 파일 ▸` |
 | `.res-section` (+ `__head` `__title` `__desc` `__count`) | Database 자료 섹션 머리. `is-색이름`으로 톤 지정. 첫 섹션(`--first`)을 뺀 섹션은 위에 `--c-line` 구분선이 있어 섹션끼리 갈라 보인다(하나만 골라 보는 중에는 선 없음). 다른 카테고리 탭의 색(Cloud 시안·Projects 앰버)은 톤으로 쓰지 않는다. 아티팩트는 `database` 톤 |
 | `.res-grid` > `.res-card` | 자료 카드: 파비콘 + 도메인, 제목(카드 전체 클릭), 설명, 첨부파일 버튼. `series`가 없는 자료 섹션(게임 등)에서 쓴다 |
 | `.series-list` > `.series` (+ `__head` `__name` `__mod` `__count`, `.series--single`) | 자료 시리즈 묶음. 자료에 `series`가 있는 섹션에서 쓴다(모듈 `.group` 없이 시리즈를 모듈 순서로 나열하고, 모듈은 머리의 `M2` 글자로만 표시). 2개 이상이면 `<details class="series">`(`▸ 이름 · M2 · N개`로 접힘)이고 가장 최근 모듈의 시리즈만 `open`, 하나뿐이면 접지 않는 `.series--single`(모듈은 행 오른쪽 `M1 · open ↗`). 안에는 `.row-list.row-list--series` > `a.row`(번호 `.row__num`은 `num`이 있을 때만, 원·상자 없이 글자로 · 제목 + 설명 · `open ↗`)를 재사용한다. Projects 타임라인·연동기와 겹치지 않도록 세로 색 선, 번호 원·상자, 앰버색을 쓰지 않는다. 카드를 쓰지 않는 이유: 20개 가까운 자료를 카드로 늘어놓으면 한 장씩 구분이 안 되고, `.row`는 제목과 설명을 한눈에 스캔하게 해 준다 |
@@ -279,7 +281,7 @@
 | `html.theme-wipe` | 테마 전환 원형 와이프 중에만 붙는 클래스 (JS) |
 | `.read-progress` | 게시글 맨 위 읽기 진행선 (JS가 만듦) |
 | `.empty-note` | "아직 글이 없습니다" 안내 |
-| `.code-popup-trigger` | 게시글 안 "원본 코드 보기" 버튼(`{% include code-popup.html dir="..." %}`, 글 하나에 1개) |
+| `.code-popup-trigger` | "원본 코드 보기" 버튼. 게시글 안(`{% include code-popup.html dir="..." %}`, 글 하나에 1개)과 Cloud 모듈 패널의 `.src-links` 행(`.row.code-popup-trigger`)이 같은 팝업·JS를 쓴다 |
 | `.code-popup` (+ `__win` `__actions` `__btn` `__list` `__row` `__body`) | 원본 코드 팝업. 터미널 창(`.term`) 재사용, 폴더→파일 트리를 `__list`/`__row`로 탐색하다가 파일을 고르면 `__body`(코드 블록 색)에 내용을 보여줌 |
 | `.code-popup__tabs` > `.code-popup__tab` (+ `__note`, `__mark`) | 코드 팝업에서 `.java` 옆에 `X.out.txt`(실행 결과)가 있으면 나타나는 `코드 / 실행 결과` 탭. `.out.txt`는 목록에 안 나오고 `.java` 행에 `+ 실행 결과` 표시가 붙는다 |
 | `.related-posts` | 글 하단 관련 글 묶음. 본문·목차가 float라 `clear: both`가 필요하다 (`.pagination`과 같은 이유) |

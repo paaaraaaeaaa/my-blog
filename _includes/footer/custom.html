@@ -265,6 +265,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var codePre = document.createElement('pre');
     codePre.className = 'code-popup__body';
+    codePre.tabIndex = 0;   // 키보드로 긴 코드를 스크롤할 수 있게
     var codeBody = document.createElement('code');
     codePre.appendChild(codeBody);
 
@@ -418,6 +419,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var openFile = function (name, url) {
       showFile();
+      codeBackBtn.focus();   // 눌렀던 목록 행이 숨겨지므로 포커스가 문서 맨 앞으로 빠지지 않게 옮긴다
       codePath.textContent = '~/' + codeDir + (codePathStack.length ? '/' + codePathStack.join('/') : '') + '/' + name;
       var outUrl = outUrlFor(name);
 

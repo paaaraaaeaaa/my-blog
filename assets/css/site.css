@@ -1112,6 +1112,28 @@ nav.toc .toc__menu li.active > a {       /* 스크롤 추적: 지금 읽는 항�
   margin: var(--s-1) 0 0; padding: 0; border: 0;
   font-size: var(--fs-xl);
 }
+/* 모듈 패널 안 "원본 코드": .row-list--compact 를 재사용하고, 행 전체가 코드 팝업을 여는 버튼(.row.code-popup-trigger) */
+.src-links { margin: 0 0 var(--s-6); }
+.page__content .src-links__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-1) var(--s-3); margin: 0 0 var(--s-2) !important; }
+.src-links__title { font-family: var(--font-ui); font-size: var(--fs-base); font-weight: var(--fw-bold); color: var(--c-text); }
+.src-links__note { font-size: var(--fs-xs); color: var(--c-text-3); }
+.src-links .row__date { font-family: var(--font-ui); }
+.row.code-popup-trigger {
+  display: grid;
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-bottom: 1px solid var(--c-line);
+  border-radius: 0;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.row.code-popup-trigger:hover { background: var(--c-surface); border-color: var(--c-line); }
+.row.code-popup-trigger:focus-visible { outline: 2px solid var(--c-signal); outline-offset: -2px; }
+.row.code-popup-trigger .row__aside { font-family: var(--font-ui); font-size: var(--fs-xs); color: var(--c-text-3); white-space: nowrap; transition: color var(--dur-fast) var(--ease); }
+.row.code-popup-trigger:hover .row__aside, .row.code-popup-trigger:focus-visible .row__aside { color: var(--c-signal); }
 .module-stats {
   display: grid;
   grid-template-columns: minmax(0, .8fr) minmax(0, .8fr) minmax(0, 1.2fr) minmax(0, 1.2fr);

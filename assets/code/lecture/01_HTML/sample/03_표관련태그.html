@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--
+    표를 만드는 태그는
+    table, tr, th, td가 있다.
+    table: 기본적인 표를 생성
+    tr: 표의 행을 나타내는 태그
+    th: 표의 제목을 나타내는 태그
+    td: 표에 들어갈 데이터를 나타내는 태그
+    -->
+    <table border="2">
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+        </tr>
+    </table>
+    <hr>
+    <table border="2">
+        <tr>
+            <th>메뉴 이름</th>
+            <th>메뉴 가격</th>
+            <th>판매 상태</th>
+        </tr>
+        <tr>
+            <td>짬뽕</td>
+            <td>13000</td>
+            <td>Y</td>
+        </tr>
+        <tr>
+            <td>계란볶음밥</td>
+            <td>8000</td>
+            <td>Y</td>
+        </tr>
+        <tr>
+            <td>마라탕</td>
+            <td>12000</td>
+            <td>Y</td>
+        </tr>
+    </table>
+    <hr>
+    <!--
+        td 태그의 속성을 이용해서 행과 열을 합칠 수 있다.
+        colspan: 열 합치기
+        rowspan: 행 합치기
+    -->
+    <table border="2">
+        <caption>회원 이력서</caption>
+        <tr>
+            <td colspan="2" rowspan="2" width="130px" height="150px">사진</td>
+            <td width="80px">이름</td>
+            <td width="200px"></td>
+        </tr>
+        <tr>
+            <td>연락처</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>주소</td>
+            <td colspan="3"></td>
+        </tr>
+    </table>
+</body>
+</html>

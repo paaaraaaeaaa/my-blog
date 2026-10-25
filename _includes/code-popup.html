@@ -5,8 +5,14 @@
   폴더 → 파일 트리를 그려서 터미널 창 팝업으로 보여준다(뒤로가기·복사 포함).
   실제 파일은 assets/code/<dir>/ 아래에 폴더 구조 그대로 미리 복사해둬야 한다.
 {%- endcomment -%}
+{%- comment -%}
+  trigger=false 를 주면 버튼 없이 데이터(JSON)만 내보낸다. 버튼을 직접 만드는 곳(Cloud 모듈 패널의 "원본 코드" 목록)에서 쓴다.
+  그 버튼은 class="code-popup-trigger" data-dir="<dir>" 만 맞으면 같은 팝업이 열린다.
+{%- endcomment -%}
 {%- assign cp_label = include.label | default: "src" -%}
 {%- assign cp_prefix = "/assets/code/" | append: include.dir | append: "/" -%}
 {%- assign cp_first = true -%}
+{%- unless include.trigger == false -%}
 <button type="button" class="code-popup-trigger" data-dir="{{ include.dir }}">./{{ cp_label }} 원본 보기</button>
+{%- endunless -%}
 <script type="application/json" class="code-popup-data" data-dir="{{ include.dir }}">[{%- for f in site.static_files -%}{%- if f.path contains cp_prefix -%}{%- assign cp_rel = f.path | remove_first: cp_prefix -%}{%- unless cp_first -%},{%- endunless -%}{%- assign cp_first = false -%}{"path":{{ cp_rel | jsonify }},"url":{{ f.path | relative_url | jsonify }}}{%- endif -%}{%- endfor -%}]</script>

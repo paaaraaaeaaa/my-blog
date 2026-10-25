@@ -1,0 +1,27 @@
+<?xml version = "1.0" encoding="UTF-8" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<!--
+    XML 이란? 확장 마크업 언어의 축약어이다.
+    또한 DOCTYPE 을 properties 로 하게 된다면 해당 파일은 properties 처럼 사용할 수 있게 된다.
+-->
+<properties>
+    
+    <entry key="findMenuByMenuName">
+
+        SELECT
+            *
+        FROM
+            TBL_MENU
+        WHERE
+            MENU_NAME = ?
+
+    </entry>
+    
+    <entry key="modifyMenuPriceByMenuName">
+
+        UPDATE TBL_MENU
+        SET MENU_PRICE = ?
+        WHERE MENU_NAME = ?
+
+    </entry>
+</properties>

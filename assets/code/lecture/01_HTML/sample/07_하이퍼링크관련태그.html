@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--
+        링크 기능은 웹 문서가 다른 문서와 구분이 되는 가장 큰 핵심 기능이다.
+        클릭을 통해 다른 파일로 이동하여 사용자의 사용 편의성을 제공한다.
+        1. 텍스트를 클릭해서 이동
+        2. 버튼을 클릭해서 이동
+        3. 이미지를 클릭해서 이동
+    -->
+    
+    <h1 id="title">하이퍼링크 관련 태그</h1>
+    <h3>a 태그를 활용한 테스트</h3>
+    <p>a 태그(anchor)의 href 속성으로 링크를 만들 수 있다.</p>
+    <!--ul>li*3>a-->
+    <ul>
+        <li><a href="01_글자관련태그.html">글자관련 태그</a></li>
+        <li><a href="02_목록관련태그.html">목록관련 태그</a></li>
+        <li><a href="03_표관련태그.html">표 관련 태그</a></li>
+    </ul>
+    <h3>네트워크가 연결되면 실서비스에도 접근 가능</h3>
+    <p>a태그의 target 속성</p>
+    <ul>
+        <li><a href="https://dyryoo316.github.io/my-blog/" target="_blank">류다 블로그</a></li>
+        <li><a href="https://yoosoo2217.github.io/my-blog/" target="_self">유수 블로그</a></li>
+        <li><a href="https://yang7493.github.io/my-blog/">양다 블로그</a></li>
+    </ul>
+    <h3>img 태그와 a 태그를 결합해 사용</h3>
+    <!--
+        부모 태그, 자식 태그
+    -->
+    <a href="https://www.naver.com">
+        <img src="sample/sample/image/flower5.PNG">
+    </a>
+
+    <h3>한 페이지 내부에서 점프하는 앵커 만들기</h3>
+    <!--
+        목차 기능 만들기
+        id 속성은 고유의 key와 같다.
+        a 태그에서 href 속성에 #id값을 넣게 되면 해당 key를 가지고 있는 태그 쪽으로 이동하게 된다.
+    -->
+    <ul>
+        <li><a href="#index1">목차 1</a></li>
+        <li><a href="#index2">목차 2</a></li>
+        <li><a href="#index3">목차 3</a></li>
+    </ul>
+    <hr>
+    <h4 id="index1">목차 1번 영역</h4>
+    <pre>
+            안녕하세요누구세요만나서반갑자만안녕히가세요
+            네맞아요
+            아닌데요
+            응아니야
+            니가뭘알아
+    </pre>
+    <hr>
+    <hr>
+    <h4 id="index2">목차 2번 영역</h4>
+    <pre>
+            안녕하세요누구세요만나서반갑자만안녕히가세요
+            네맞아요
+            아닌데요
+            응아니야
+            니가뭘알아
+    </pre>
+    <hr>
+    <hr>
+    <h4 id="index3">목차 3번 영역</h4>
+    <pre>
+            안녕하세요누구세요만나서반갑자만안녕히가세요
+            네맞아요
+            아닌데요
+            응아니야
+            니가뭘알아
+    </pre>
+    <hr>
+    <a href="#title">
+        <h3>메인으로</h3>
+    </a>
+
+</body>
+</html>
