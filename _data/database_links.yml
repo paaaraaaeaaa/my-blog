@@ -15,7 +15,7 @@
 # - series      : (자료 전용, 선택) 같은 주제의 자료를 묶는 이름. 예: "Servlet 들어가기". 섹션 안에 series가 하나라도 있으면
 #                 그 섹션은 카드 격자 대신 "시리즈 묶음(접기) + 행 목록"으로 나오고, 시리즈 이름이 주제 칩이 된다.
 #                 같은 series의 자료는 이 파일에 적힌 순서대로 번호 매기듯 나열된다.
-# - no          : (선택) 시리즈 안의 번호(1, 2, ...). 없으면 "·"로 표시된다.
+# - num         : (선택) 시리즈 안의 번호(1, 2, ...). 없으면 번호 칸 없이 제목부터 나온다.
 # - short       : (선택) 시리즈 묶음 안에서 보일 짧은 제목. 없으면 title을 그대로 쓴다. (검색에는 title이 쓰인다)
 # - topics      : (문제 전용) 이 문제를 푼 풀이 글들의 front matter "topic" 값 목록.
 #                 여기 적힌 topic의 글(type: practice, Cloud)이 문제 카드 아래 풀이 목록으로 자동 연결됨.
@@ -134,7 +134,7 @@
 - category: "아티팩트"
   title: "요구사항 정의"
   series: "기획"
-  no: 1
+  num: 1
   module: 1
   url: "https://ethereal-cyclamen-7c1.notion.site/git-3d4f3815c7bf81b7a247f5dd97cde09e"
   description: "에이전트와 함께 생각을 넓히고, git 으로 의견을 모아 기획 문서 네 장을 만든다."
@@ -157,7 +157,7 @@
 - category: "아티팩트"
   title: "기획 나침반"
   series: "기획"
-  no: 2
+  num: 2
   module: 1
   url: "https://claude.ai/artifact/DHbQKPTWfJgxB6MUdjj77G"
   description: "요구사항 정의부터 화면 프로토타입까지, 에이전트와 함께하는 3단계 기획 과정"
@@ -180,7 +180,7 @@
 - category: "아티팩트"
   title: "Servlet 들어가기 1편: Web Server와 WAS"
   series: "Servlet 들어가기"
-  no: 1
+  num: 1
   short: "Web Server와 WAS"
   module: 2
   url: "https://claude.ai/artifact/T2bZwdXPus4fXfW1n39pSw"
@@ -189,7 +189,7 @@
 - category: "아티팩트"
   title: "Servlet 들어가기 2편: Servlet의 역할"
   series: "Servlet 들어가기"
-  no: 2
+  num: 2
   short: "Servlet의 역할"
   module: 2
   url: "https://claude.ai/artifact/HCAqijpbEXoPyfhaTbfyGx"
@@ -205,7 +205,7 @@
 - category: "아티팩트"
   title: "DB 설계 1 · 설계의 필요성과 요구사항 분석"
   series: "데이터베이스"
-  no: 1
+  num: 1
   short: "DB 설계 · 설계의 필요성과 요구사항 분석"
   module: 2
   url: "https://claude.ai/artifact/TNHwRV8pmPaj5v42cAVb8M"
@@ -214,7 +214,7 @@
 - category: "아티팩트"
   title: "DB 설계 2 · 개념적 모델링"
   series: "데이터베이스"
-  no: 2
+  num: 2
   short: "DB 설계 · 개념적 모델링"
   module: 2
   url: "https://claude.ai/artifact/JqSoUJgDt9dXgaio9MQ3W4"
@@ -223,7 +223,7 @@
 - category: "아티팩트"
   title: "DB 설계 3 · 속성과 식별자"
   series: "데이터베이스"
-  no: 3
+  num: 3
   short: "DB 설계 · 속성과 식별자"
   module: 2
   url: "https://claude.ai/artifact/LiM1yF2tGuu8C5Gg3pbsJc"
@@ -232,7 +232,7 @@
 - category: "아티팩트"
   title: "DB 설계 4 · 정규화 실험실"
   series: "데이터베이스"
-  no: 4
+  num: 4
   short: "DB 설계 · 정규화 실험실"
   module: 2
   url: "https://claude.ai/artifact/MJiS3SKHgy1FHPVh6c2CF8"
@@ -241,7 +241,7 @@
 - category: "아티팩트"
   title: "DB 설계 5 · 물리적 모델링"
   series: "데이터베이스"
-  no: 5
+  num: 5
   short: "DB 설계 · 물리적 모델링"
   module: 2
   url: "https://claude.ai/artifact/XP9FDSNJ4mQ8Mc2wNXeZit"
@@ -250,7 +250,7 @@
 - category: "아티팩트"
   title: "Servlet 들어가기 3편: HTTP와 GET, POST"
   series: "Servlet 들어가기"
-  no: 3
+  num: 3
   short: "HTTP와 GET, POST"
   module: 2
   url: "https://claude.ai/artifact/5mPntNnHniJgxTmsuSYky7"
@@ -259,7 +259,7 @@
 - category: "아티팩트"
   title: "Servlet 들어가기 4편: Cookie와 Session"
   series: "Servlet 들어가기"
-  no: 4
+  num: 4
   short: "Cookie와 Session"
   module: 2
   url: "https://claude.ai/artifact/6JpRW6faY5p2HkZ8rmUagF"
@@ -268,7 +268,7 @@
 - category: "아티팩트"
   title: "Servlet 들어가기 5편: Filter와 요청 하나의 여행"
   series: "Servlet 들어가기"
-  no: 5
+  num: 5
   short: "Filter와 요청 하나의 여행"
   module: 2
   url: "https://claude.ai/artifact/PvgUDvnaGRUsuCaPt3wbw1"

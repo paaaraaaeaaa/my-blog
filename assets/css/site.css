@@ -1274,16 +1274,10 @@ a.day:hover .day__summary { color: var(--c-text); }
 #problems, .res-section { scroll-margin-top: calc(var(--fixed-offset) + var(--s-4)); }
 
 /* 자료 섹션 (게임, 아티팩트, 앞으로 추가될 섹션 공통) */
-.res-section { margin-top: var(--s-7); }
-.res-section--first { margin-top: var(--s-5); }
+.res-section { margin-top: var(--s-7); padding-top: var(--s-6); border-top: 1px solid var(--c-line); }   /* 섹션과 섹션 사이를 선으로 가른다 */
+.res-section--first { margin-top: var(--s-5); padding-top: 0; border-top: 0; }
+.is-filtered .res-section { padding-top: 0; border-top: 0; }   /* 하나만 골라 보는 중에는 선이 필요 없다 */
 .res-section__head { display: flex; align-items: center; gap: var(--s-3); margin-bottom: var(--s-4); }
-.res-section__icon {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 2.75rem; height: 2.75rem; flex: none;
-  border-radius: var(--r-pill);
-  background: color-mix(in srgb, var(--cat) 15%, transparent);
-  font-size: 1.35rem; line-height: 1;
-}
 .res-section__titles { display: flex; flex-direction: column; min-width: 0; }
 .page__content .res-section__title { margin: 0; padding: 0; border: 0; font-size: var(--fs-lg); }
 .res-section__desc { font-size: var(--fs-sm); color: var(--c-text-3); }
@@ -1342,8 +1336,8 @@ a.day:hover .day__summary { color: var(--c-text); }
 .res-section .res-section__head + .group { margin-top: 0; }   /* 섹션 머리 바로 뒤 첫 묶음은 머리 여백만 쓴다 */
 /* 자료 시리즈 묶음: 같은 주제 자료를 접는 <details> 머리 + 얇은 .row-list로 보여준다 (시리즈가 있는 자료 섹션에서만) */
 .res-section .jump-nav--sub + .gloss-find { margin-top: var(--s-4); }
-.series-list { display: flex; flex-direction: column; gap: var(--s-4); }
-.series { padding-left: var(--s-4); border-left: 2px solid color-mix(in srgb, var(--cat, var(--c-signal)) 70%, transparent); }
+.series-list { display: flex; flex-direction: column; gap: var(--s-5); }
+.series-list + .series-list { margin-top: var(--s-5); }   /* 시리즈 목록은 모듈마다 하나씩 나오지만 한 덩어리로 보이게 같은 간격 */
 .series[hidden], .series-list [hidden] { display: none; }
 .series__head {
   display: flex;
@@ -1370,10 +1364,17 @@ a.day:hover .day__summary { color: var(--c-text); }
 .series[open] > .series__head::before { transform: rotate(90deg); }
 .series__head:hover .series__name { color: var(--c-signal); }
 .series__head:focus-visible { outline: 2px solid var(--c-signal); outline-offset: 2px; }
+.series__mod { font-size: var(--fs-xs); font-weight: var(--fw-regular); color: var(--c-text-3); font-variant-numeric: tabular-nums; }
 .series__count { margin-left: auto; font-size: var(--fs-sm); font-weight: var(--fw-regular); color: var(--c-text-3); font-variant-numeric: tabular-nums; }
 .series[open] > .series__head { margin-bottom: var(--s-1); }
 .row-list--series .row__sub { white-space: normal; }
-.row-list--series .row__aside { font-family: var(--font-ui); font-size: var(--fs-xs); font-weight: var(--fw-bold); color: var(--cat, var(--c-signal)); white-space: nowrap; }
+/* 번호는 원이나 상자 없이 글자로만(Projects 연동기의 번호 표시와 겹치지 않게). 번호가 없는 자료는 번호 칸 없이 제목부터 시작 */
+.row-list--series .row { grid-template-columns: minmax(0, 1fr) auto; }
+.row-list--series .row--numbered { grid-template-columns: 2rem minmax(0, 1fr) auto; }
+.row-list--series .row__num { width: auto; height: auto; border: 0; border-radius: 0; justify-content: flex-start; font-family: var(--font-ui); font-size: var(--fs-sm); font-weight: var(--fw-regular); color: var(--c-text-3); }
+@media (max-width: 640px) { .row-list--series .row--numbered .row__aside { grid-column: auto; } }   /* 좁은 화면에서도 번호 유무와 상관없이 open ↗가 오른쪽에 남게 */
+.row-list--series .row__aside { font-family: var(--font-ui); font-size: var(--fs-xs); font-weight: var(--fw-regular); color: var(--c-text-3); white-space: nowrap; transition: color var(--dur-fast) var(--ease); }
+.row-list--series .row:hover .row__aside { color: var(--c-signal); }
 .page__content .problem__empty { margin: var(--s-3) 0 0 !important; font-size: var(--fs-sm); color: var(--c-text-3); }
 
 /* 풀이 단계: 왼쪽 세로선이 단계를 잇는다 */

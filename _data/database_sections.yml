@@ -4,8 +4,9 @@
 # 여기 없는 category도 자동으로 맨 뒤에 기본 모양(📁, 라일락)으로 표시되니 빠뜨려도 깨지지 않아요.
 #
 # - name  : database_links.yml의 category 값과 똑같이
-# - emoji : 섹션 아이콘
-# - tone  : cloud | database | projects | signal | success | warning | danger (tokens.css 색 이름)
+# - emoji : 섹션 아이콘 (지금 화면에는 그려지지 않는다. 디자인 원칙상 UI 이모지 아이콘을 쓰지 않는다)
+# - tone  : database | signal | success | danger (tokens.css 색 이름).
+#           cloud(시안)·projects·warning(앰버)은 다른 탭의 색과 겹쳐서 쓰지 않는다.
 # - desc  : 섹션 한 줄 설명
 
 - name: "게임"
@@ -15,7 +16,7 @@
 
 - name: "아티팩트"
   emoji: "🗂️"
-  tone: "warning"
+  tone: "database"   # Projects 탭의 앰버(warning)와 겹치지 않게 Database 페이지 색을 쓴다
   desc: "수업과 실습에서 정리한 산출물"
 
 # 앞으로 추가할 섹션 예시 (필요할 때 주석 해제)

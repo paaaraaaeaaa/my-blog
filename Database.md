@@ -201,7 +201,8 @@ classes: section-page
 {%- elsif gm > 0 -%}{%- assign gitems = items | where_exp: "i", "i.module == gm" -%}
 {%- else -%}{%- assign gitems = items | where_exp: "i", "i.module == nil" -%}{%- endif -%}
 {%- if gitems.size > 0 -%}
-{%- if gm != -1 -%}
+{%- if gm != -1 and has_series == false -%}
+{%- comment -%} 시리즈가 있는 섹션은 모듈 묶음(.group) 없이 시리즈를 모듈 순서로 나열한다. 모듈은 시리즈 머리의 M2 표기로만 남긴다 {%- endcomment -%}
 {%- assign gkey = gm | append: "" -%}
 <div class="group">
 <div class="group__head">
@@ -215,15 +216,16 @@ classes: section-page
 {%- assign sgroups = gitems | group_by: "series" -%}
 <div class="series-list">
 {%- for sg in sgroups -%}
+{%- assign smod = sg.items.first.module -%}
 {%- if sg.items.size > 1 and sg.name and sg.name != "" -%}
 <details class="series" data-series="{{ sg.name }}"{% if gm == -1 or gm == latest_m %} open{% endif %}>
-<summary class="series__head"><span class="series__name">{{ sg.name }}</span><span class="series__count">{{ sg.items.size }}개</span></summary>
+<summary class="series__head"><span class="series__name">{{ sg.name }}</span>{% if smod %}<span class="series__mod">M{{ smod }}</span>{% endif %}<span class="series__count">{{ sg.items.size }}개</span></summary>
 {%- else -%}
 <div class="series series--single" data-series="{{ sg.name }}">
 {%- endif -%}
 <ul class="row-list row-list--series">
 {%- for item in sg.items -%}
-<li data-series-item><a class="row row--numbered" href="{% if item.url %}{{ item.url }}{% else %}{{ item.file | relative_url }}{% endif %}" target="_blank" rel="noopener noreferrer"><span class="row__num">{{ item.no | default: "·" }}</span><span class="row__main"><span class="row__title">{{ item.short | default: item.title }}</span>{% if item.description %}<span class="row__sub">{{ item.description }}</span>{% endif %}</span><span class="row__aside" aria-hidden="true">open ↗</span></a></li>
+<li data-series-item><a class="row{% if item.num %} row--numbered{% endif %}" href="{% if item.url %}{{ item.url }}{% else %}{{ item.file | relative_url }}{% endif %}" target="_blank" rel="noopener noreferrer">{% if item.num %}<span class="row__num">{{ item.num }}</span>{% endif %}<span class="row__main"><span class="row__title">{{ item.short | default: item.title }}</span>{% if item.description %}<span class="row__sub">{{ item.description }}</span>{% endif %}</span><span class="row__aside" aria-hidden="true">{% if sg.items.size == 1 and smod %}M{{ smod }} · {% endif %}open ↗</span></a></li>
 {%- endfor -%}
 </ul>
 {%- if sg.items.size > 1 and sg.name and sg.name != "" -%}</details>{%- else -%}</div>{%- endif -%}
@@ -252,7 +254,7 @@ classes: section-page
 {%- endfor -%}
 </div>
 {%- endif -%}
-{%- if gm != -1 -%}
+{%- if gm != -1 and has_series == false -%}
 </div>
 {%- endif -%}
 {%- endif -%}
