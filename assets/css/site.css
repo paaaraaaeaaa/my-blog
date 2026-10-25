@@ -1349,8 +1349,8 @@ a.day:hover .day__summary { color: var(--c-text); }
   list-style: none;
   user-select: none;
   font-family: var(--font-ui);
-  font-size: var(--fs-base);
-  font-weight: var(--fw-bold);
+  font-size: var(--fs-md);
+  font-weight: var(--fw-heavy);
   color: var(--c-text);
 }
 .series__head::-webkit-details-marker { display: none; }
@@ -1365,15 +1365,18 @@ a.day:hover .day__summary { color: var(--c-text); }
 .series[open] > .series__head::before { transform: rotate(90deg); }
 .series__head:hover .series__name { color: var(--c-signal); }
 .series__head:focus-visible { outline: 2px solid var(--c-signal); outline-offset: 2px; }
-.series__mod { font-size: var(--fs-xs); font-weight: var(--fw-regular); color: var(--c-text-3); font-variant-numeric: tabular-nums; }
+.series__mod { font-size: var(--fs-xs); font-weight: var(--fw-regular); color: var(--c-text-2); font-variant-numeric: tabular-nums; }
 .series__count { margin-left: auto; font-size: var(--fs-sm); font-weight: var(--fw-regular); color: var(--c-text-3); font-variant-numeric: tabular-nums; }
 .series[open] > .series__head { margin-bottom: var(--s-1); }
+/* 묶음 안의 행은 머리보다 한 칸 안쪽으로: 어디까지가 한 시리즈인지 보이게 (한 줄짜리 .series--single은 들여쓰지 않는다) */
+details.series > .row-list--series { margin-left: var(--s-4) !important; }
+@media (max-width: 640px) { details.series > .row-list--series { margin-left: var(--s-2) !important; } }
 .row-list--series .row__sub { white-space: normal; }
-/* 번호는 원이나 상자 없이 글자로만(Projects 연동기의 번호 표시와 겹치지 않게). 번호가 없는 자료는 번호 칸 없이 제목부터 시작 */
+/* 번호는 원이나 상자 없이 글자로만(Projects 연동기의 번호 표시와 겹치지 않게). 시리즈에 번호가 하나도 없을 때만 번호 칸 없이 제목부터 시작(하나라도 있으면 모든 행에 번호 칸) */
 .row-list--series .row { grid-template-columns: minmax(0, 1fr) auto; }
 .row-list--series .row--numbered { grid-template-columns: 2rem minmax(0, 1fr) auto; }
 .row-list--series .row__num { width: auto; height: auto; border: 0; border-radius: 0; justify-content: flex-start; font-family: var(--font-ui); font-size: var(--fs-sm); font-weight: var(--fw-regular); color: var(--c-text-3); }
-@media (max-width: 640px) { .row-list--series .row--numbered .row__aside { grid-column: auto; } }   /* 좁은 화면에서도 번호 유무와 상관없이 open ↗가 오른쪽에 남게 */
+@media (max-width: 640px) { .row-list--series .row { column-gap: var(--s-2); } .row-list--series .row--numbered .row__aside { grid-column: auto; } }   /* 좁은 화면에서도 번호 유무와 상관없이 open ↗가 오른쪽에 남게 */
 .row-list--series .row__aside { font-family: var(--font-ui); font-size: var(--fs-xs); font-weight: var(--fw-regular); color: var(--c-text-3); white-space: nowrap; transition: color var(--dur-fast) var(--ease); }
 .row-list--series .row:hover .row__aside { color: var(--c-signal); }
 .page__content .problem__empty { margin: var(--s-3) 0 0 !important; font-size: var(--fs-sm); color: var(--c-text-3); }

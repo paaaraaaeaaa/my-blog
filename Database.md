@@ -224,6 +224,7 @@ classes: section-page
 <div class="series-list">
 {%- for sg in sgroups -%}
 {%- assign smod = sg.items.first.module -%}
+{%- assign sg_num = sg.items | where_exp: "i", "i.num" -%}
 {%- if sg.items.size > 1 and sg.name and sg.name != "" -%}
 <details class="series" data-series="{{ sg.name }}" data-smod="{{ smod | default: 0 }}"{% if gm == -1 or gm == latest_m %} open{% endif %}>
 <summary class="series__head"><span class="series__name">{{ sg.name }}</span>{% if smod %}<span class="series__mod">M{{ smod }}</span>{% endif %}<span class="series__count">{{ sg.items.size }}개</span></summary>
@@ -232,7 +233,7 @@ classes: section-page
 {%- endif -%}
 <ul class="row-list row-list--series">
 {%- for item in sg.items -%}
-<li data-series-item><a class="row{% if item.num %} row--numbered{% endif %}" href="{% if item.url %}{{ item.url }}{% else %}{{ item.file | relative_url }}{% endif %}" target="_blank" rel="noopener noreferrer">{% if item.num %}<span class="row__num">{{ item.num }}</span>{% endif %}<span class="row__main"><span class="row__title">{{ item.short | default: item.title }}</span>{% if item.description %}<span class="row__sub">{{ item.description }}</span>{% endif %}</span><span class="row__aside" aria-hidden="true">{% if sg.items.size == 1 and smod %}M{{ smod }} · {% endif %}open ↗</span></a></li>
+<li data-series-item><a class="row{% if sg_num.size > 0 %} row--numbered{% endif %}" href="{% if item.url %}{{ item.url }}{% else %}{{ item.file | relative_url }}{% endif %}" target="_blank" rel="noopener noreferrer">{% if sg_num.size > 0 %}<span class="row__num">{{ item.num }}</span>{% endif %}<span class="row__main"><span class="row__title">{{ item.short | default: item.title }}</span>{% if item.description %}<span class="row__sub">{{ item.description }}</span>{% endif %}</span><span class="row__aside" aria-hidden="true">{% if sg.items.size == 1 and smod %}M{{ smod }} · {% endif %}open ↗</span></a></li>
 {%- endfor -%}
 </ul>
 {%- if sg.items.size > 1 and sg.name and sg.name != "" -%}</details>{%- else -%}</div>{%- endif -%}
