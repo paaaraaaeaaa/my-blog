@@ -199,7 +199,7 @@
 |---|---|
 | 홈 `index.md` | 오른쪽 패널이 없다. **첫 구역**(`.home-top`, 2열): 왼쪽 상태 창(맨 위 `last login` + 오른쪽 오늘·누적 방문자 · 일차 + 4px 진행 막대 · modules 6칸 · this week · goal)과 오른쪽 **방명록**(giscus, 6장). **둘째 구역부터**는 가운데+오른쪽을 합친 폭: **최근에 쓴 글 5편**(한 줄 설명은 `summary`, 없으면 `excerpt`) → **둘러보기** 띠(카테고리 색으로 물든 카드 3개) → GitHub 잔디. 왼쪽 프로필은 화면을 따라다니되 안쪽 스크롤이 없다(패널이 화면보다 크면 JS가 `top`을 음수로 줘서 페이지를 내리는 동안 아래끝까지 보인다 — `footer/custom.html` "홈 왼쪽 프로필"). 프로필 아래에 **자주 쓴 태그**(최대 3줄, 누르면 `/tags/#태그`), **기술 스택** 아이콘(글 수 많은 순 최대 5개), **개념 용어집**(최근 글의 용어 최대 2줄 + 모두 보기) 바로가기 — `_includes/home-tags.html`. 1023px 이하는 1열이고, 이때 프로필 소개만 맨 위에 남고 태그·기술 스택·용어집은 본문 맨 뒤로 간다 |
 | Cloud `cloud.md` | 섹션 머리 → **모듈 스테이지 6칸**(클릭 시 전환) → 모듈 제목 + **통계 타일 4개**(기간·학습노트는 중립, 문제풀이는 핑크·결과물은 라임 링크 타일) → **주 단위 달력** |
-| Database `Database.md` | 섹션 머리 → **섹션 필터 칩**(하나만 선택, 같은 칩 다시 누르면 해제, 오른쪽 ↻ 전체로 초기화, `/database/#problems`처럼 주소로 바로 필터) → 문제와 풀이(**모듈 칩** → 모듈별 `.group` 묶음 안에 문제 카드 + Lv 단계; `/database/#problems-m2`처럼 주소로 그 모듈만 열기) → `_data/database_sections.yml` 순서대로 자료 섹션(아이콘·색·설명, 자료에 `module`이 있으면 모듈별 `.group`으로 묶임) → 거기 없는 분류는 기본 모양으로 맨 뒤 |
+| Database `Database.md` | 섹션 머리 → **섹션 필터 칩**(하나만 선택, 같은 칩 다시 누르면 해제, 오른쪽 ↻ 전체로 초기화, `/database/#problems`처럼 주소로 바로 필터) → 문제와 풀이(**모듈 칩** → 모듈별 `.group` 묶음 안에 문제 카드 + Lv 단계; `/database/#problems-m2`처럼 주소로 그 모듈만 열기) → `_data/database_sections.yml` 순서대로 자료 섹션(아이콘·색·설명, 자료에 `module`이 있으면 모듈별 `.group`으로 묶임. 자료에 `series`가 있으면 섹션 머리 아래에 **주제 칩 + 걸러 보기 입력줄**이 붙고, `.group` 안은 카드 대신 접는 **시리즈 묶음 + 행 목록**) → 거기 없는 분류는 기본 모양으로 맨 뒤 |
 | Projects `Projects.md` | 섹션 머리 → **모듈 타임라인**. 완료 = 2열 카드(왼쪽 결과물 요약, 오른쪽 연동기 상세), 진행 중 = 안내, 시작 전 모듈은 맨 아래 **다음 정거장** 한 줄로 |
 | 태그 `tags.md` (`/tags/`) | 머리 → 태그 글자 목록(2편 이상, 많이 쓴 순) + 1편짜리 접기 → 고른 태그(기본 가장 많이 쓴 태그) 하나의 `.group` + 얇은 `.row-list`. 상단 탭에는 없고 글 머리·홈의 태그 칩으로 들어온다 |
 | 용어집 `glossary.md` (`/glossary/`) | 머리 → 걸러 보기 입력줄 → 모듈별 `.group` + `.row-list`. 상단 탭에는 없고 홈 왼쪽 프로필 아래의 "개념 용어집 · 모두 보기" 링크로 들어온다. 글의 개념 카드(`- **용어**` + 하위 목록)를 빌드 때 자동 수집: 첫 하위 항목이 설명, 행을 누르면 그 글로 이동 |
@@ -217,7 +217,7 @@
 | Projects 결과물 | `categories: [Projects]`, `module: N` (type 없음) | `project_name`, `banner_emoji`, `live_url`, `tags` |
 | Projects 연동기 | `type: practice`, `module: N`, `topic`, `level_order` | `tags` (첫 번째가 칩으로 표시) |
 | Database 문제 (yml) | `category: "문제"`, `title`, `url` | `module`, `topics: ["풀이 글의 topic"]` |
-| Database 자료 (yml) | `category`, `title`, `url` 또는 `file` | `description`, `module`(적은 자료가 하나라도 있는 섹션은 모듈별 `.group` 묶음 + 맨 뒤 "모듈 없음", 하나도 없으면 묶음 없이 그리드 하나). 새 category는 `_data/database_sections.yml`에 `name`·`emoji`·`tone`·`desc` 한 줄 추가 |
+| Database 자료 (yml) | `category`, `title`, `url` 또는 `file` | `description`, `module`(적은 자료가 하나라도 있는 섹션은 모듈별 `.group` 묶음 + 맨 뒤 "모듈 없음", 하나도 없으면 묶음 없이 그리드 하나), `series`·`no`·`short`(섹션에 `series`가 하나라도 있으면 카드 격자 대신 시리즈 묶음 + 행 목록으로 나온다. 같은 `series`는 yml에 적은 순서대로, `no`는 번호, `short`는 묶음 안에서 보일 짧은 제목). 새 category는 `_data/database_sections.yml`에 `name`·`emoji`·`tone`·`desc` 한 줄 추가 |
 
 ---
 
@@ -249,7 +249,9 @@
 | `.mbars` > `.mbar.is-done/.is-current/.is-upcoming` | 모듈 진척 막대(홈 상태 창 안, 링크 → `/projects/`). 진행 중 막대는 `_data/module_schedule.yml` 날짜 비율, 없으면 빗금 |
 | `.section-head--band` | 홈에서 첫 구역(상태 창·방명록)과 아래 영역을 나누는 구분 머리("최근에 쓴 글") |
 | `.res-section` (+ `__head` `__icon` `__title` `__desc` `__count`) | Database 자료 섹션 머리. `is-색이름`으로 톤 지정 |
-| `.res-grid` > `.res-card` | 자료 카드: 파비콘 + 도메인, 제목(카드 전체 클릭), 설명, 첨부파일 버튼 |
+| `.res-grid` > `.res-card` | 자료 카드: 파비콘 + 도메인, 제목(카드 전체 클릭), 설명, 첨부파일 버튼. `series`가 없는 자료 섹션(게임 등)에서 쓴다 |
+| `.series-list` > `.series` (+ `__head` `__name` `__count`, `.series--single`) | 자료 시리즈 묶음. 자료에 `series`가 있는 섹션에서 `.group`(모듈) 안에 쓴다. 2개 이상이면 `<details class="series">`(왼쪽 카테고리색 선 + `▸ 이름 · N개`로 접힘)이고 가장 최근 모듈의 시리즈만 `open`, 하나뿐이면 접지 않는 `.series--single`. 안에는 `.row-list.row-list--series` > `a.row.row--numbered`(번호 `.row__num` · 제목 + 설명 · `open ↗`)를 재사용한다. 카드를 쓰지 않는 이유: 20개 가까운 자료를 카드로 늘어놓으면 한 장씩 구분이 안 되고, `.row`는 번호와 제목을 한눈에 스캔하게 해 준다 |
+| `.jump-nav--sub` > `.jump[data-series-chip]` + `.gloss-find[data-series-find]` | 시리즈가 있는 자료 섹션의 주제 칩(단일 선택, 같은 칩을 다시 누르면 해제, 숫자는 그 시리즈의 자료 수)과 걸러 보기 입력줄(`/glossary/`의 `.gloss-find` 재사용). 거르는 동안 맞는 시리즈는 펼치고, 풀면 원래 접힘 상태로 돌아간다. 검색 범위는 제목·설명이다. 위쪽 섹션 칩이나 ↻을 누르면 함께 풀린다(↻이 새로 켜지지는 않는다). 자료가 하나뿐인 시리즈(`.series--single`)는 이름 줄 없이 행만 보이고, 이름은 주제 칩으로 알 수 있다. 동작은 `Database.md`의 인라인 스크립트 |
 | `.proj-card--split` > `.proj-card__main` + `.proj-card__side` | 결과물 2열 카드 |
 | `.chapter-list` > `.chapter` | 연동기 챕터 (번호 원 + 세로선) |
 | `.next-stops` > `.next-stop` | 시작 전 모듈 모음 |

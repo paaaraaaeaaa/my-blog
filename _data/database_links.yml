@@ -12,6 +12,11 @@
 # - description : 카드 안 설명 문구 (선택)
 # - module      : 몇 번째 모듈의 문제·자료인지 숫자 (선택). 문제는 모듈 칩/묶음에, 아티팩트 같은 자료는 섹션 안 모듈 묶음에 쓰인다.
 #                 모듈과 상관없는 자료(게임 등)는 적지 않으면 묶음 없이 그대로 나온다.
+# - series      : (자료 전용, 선택) 같은 주제의 자료를 묶는 이름. 예: "Servlet 들어가기". 섹션 안에 series가 하나라도 있으면
+#                 그 섹션은 카드 격자 대신 "시리즈 묶음(접기) + 행 목록"으로 나오고, 시리즈 이름이 주제 칩이 된다.
+#                 같은 series의 자료는 이 파일에 적힌 순서대로 번호 매기듯 나열된다.
+# - no          : (선택) 시리즈 안의 번호(1, 2, ...). 없으면 "·"로 표시된다.
+# - short       : (선택) 시리즈 묶음 안에서 보일 짧은 제목. 없으면 title을 그대로 쓴다. (검색에는 title이 쓰인다)
 # - topics      : (문제 전용) 이 문제를 푼 풀이 글들의 front matter "topic" 값 목록.
 #                 여기 적힌 topic의 글(type: practice, Cloud)이 문제 카드 아래 풀이 목록으로 자동 연결됨.
 #                 예: topics: ["화면 보고 HTML 만들기"]
@@ -112,66 +117,159 @@
 
 - category: "아티팩트"
   title: "모듈1 · 아침에 을지대 가기 (알고리즘)"
+  series: "알고리즘"
+  short: "아침에 을지대 가기"
   module: 1
   url: "https://claude.ai/public/artifacts/46b7a65b-d3fa-4928-827d-c880fa232cde"
   description: "아침에 을지대 가기로 배우는 프로그래밍적 사고와 알고리즘"
 
 - category: "아티팩트"
   title: "모듈1 · Skill과 Subagent"
+  series: "AI 도구"
+  short: "Skill과 Subagent"
   module: 1
   url: "https://claude.ai/public/artifacts/72de39b1-fe4c-410e-bd61-ae606b268340"
   description: "Skill과 Subagent, 컨텍스트 창으로 이해하기"
 
 - category: "아티팩트"
   title: "요구사항 정의"
+  series: "기획"
+  no: 1
   module: 1
   url: "https://ethereal-cyclamen-7c1.notion.site/git-3d4f3815c7bf81b7a247f5dd97cde09e"
   description: "에이전트와 함께 생각을 넓히고, git 으로 의견을 모아 기획 문서 네 장을 만든다."
 
 - category: "아티팩트"
   title: "JAVA 첫 수업"
+  series: "Java"
   module: 2
   url: "https://claude.ai/artifact/SR2cZ5yojXtCy5QeTvSVMk"
   description: "Hello.java가 CPU에 도착하기까지"
 
 - category: "아티팩트"
   title: "모듈1 · Git & GitHub 이번 주에 배운 것"
+  series: "Git"
+  short: "Git & GitHub 이번 주에 배운 것"
   module: 1
   url: "https://claude.ai/artifacts/latest/78450a56-3f74-4088-bfd4-fa934bd6b030"
   description: "블로그를 올리기까지 쓴 Git 명령어 11개를 흐름과 실수 위주로 정리"
 
 - category: "아티팩트"
   title: "기획 나침반"
+  series: "기획"
+  no: 2
   module: 1
   url: "https://claude.ai/artifact/DHbQKPTWfJgxB6MUdjj77G"
   description: "요구사항 정의부터 화면 프로토타입까지, 에이전트와 함께하는 3단계 기획 과정"
 
 - category: "아티팩트"
   title: "데이터베이스는 왜 필요할까? JVM 메모리와 데이터 수명"
+  series: "데이터베이스"
+  short: "왜 필요할까? JVM 메모리와 데이터 수명"
   module: 2
   url: "https://claude.ai/artifact/F49HUztyDnjxtbMEaYqyW3"
   description: "JVM 메모리는 종료되면 사라진다는 것을 보며, 파일 저장의 한계와 데이터베이스가 필요한 이유를 정리"
 
 - category: "아티팩트"
   title: "[통합 팀 과제] 기획부터 JDBC MVC 구현까지"
+  series: "JDBC·MVC"
   module: 2
   url: "https://claude.ai/artifact/Thtkr2WJAXuRc5GpUrxL2F"
   description: "Git·MySQL·JDBC·MVC를 한 프로젝트에 모아, 기획부터 DB 모델링과 콘솔 프로그램 구현까지 팀으로 진행하는 과제 안내"
 
 - category: "아티팩트"
   title: "Servlet 들어가기 1편: Web Server와 WAS"
+  series: "Servlet 들어가기"
+  no: 1
+  short: "Web Server와 WAS"
   module: 2
   url: "https://claude.ai/artifact/T2bZwdXPus4fXfW1n39pSw"
   description: "콘솔 프로그램과 웹 애플리케이션의 차이부터 Web Server와 WAS의 역할, 요청 처리 흐름까지 정리"
 
 - category: "아티팩트"
   title: "Servlet 들어가기 2편: Servlet의 역할"
+  series: "Servlet 들어가기"
+  no: 2
+  short: "Servlet의 역할"
   module: 2
   url: "https://claude.ai/artifact/HCAqijpbEXoPyfhaTbfyGx"
   description: "서블릿이 무엇이고 서블릿 컨테이너가 객체 생성·URL 매핑·스레드 배정을 어떻게 맡는지, 생명주기 메서드 정리"
 
 - category: "아티팩트"
   title: "MVC 식당: 패키지 책임 따라가기"
+  series: "JDBC·MVC"
   module: 2
   url: "https://claude.ai/artifact/MPkknZmHtbYtPrZvhTTpC7"
   description: "MVC 구조를 식당에 빗대어 View·Controller·service·dao·dto 패키지가 맡은 책임과 호출 흐름을 따라가며 정리"
+
+- category: "아티팩트"
+  title: "DB 설계 1 · 설계의 필요성과 요구사항 분석"
+  series: "데이터베이스"
+  no: 1
+  short: "DB 설계 · 설계의 필요성과 요구사항 분석"
+  module: 2
+  url: "https://claude.ai/artifact/TNHwRV8pmPaj5v42cAVb8M"
+  description: "데이터베이스 설계가 필요한 이유와 4단계 설계 절차, 요구사항 분석·제약조건·데이터 사전 작성법"
+
+- category: "아티팩트"
+  title: "DB 설계 2 · 개념적 모델링"
+  series: "데이터베이스"
+  no: 2
+  short: "DB 설계 · 개념적 모델링"
+  module: 2
+  url: "https://claude.ai/artifact/JqSoUJgDt9dXgaio9MQ3W4"
+  description: "관계선 한 줄에 담긴 업무 규칙. 엔티티와 관계 도출, 카디널리티·필수성, ERD 표기법, 품질 검토를 menudb 예시로 정리"
+
+- category: "아티팩트"
+  title: "DB 설계 3 · 속성과 식별자"
+  series: "데이터베이스"
+  no: 3
+  short: "DB 설계 · 속성과 식별자"
+  module: 2
+  url: "https://claude.ai/artifact/LiM1yF2tGuu8C5Gg3pbsJc"
+  description: "논리적 모델링에서 속성의 분류·도메인·NULL 허용 기준과 기본키·대체키·외래키 설계법"
+
+- category: "아티팩트"
+  title: "DB 설계 4 · 정규화 실험실"
+  series: "데이터베이스"
+  no: 4
+  short: "DB 설계 · 정규화 실험실"
+  module: 2
+  url: "https://claude.ai/artifact/MJiS3SKHgy1FHPVh6c2CF8"
+  description: "수강신청 데이터를 비정규형부터 제3정규형까지 나누며, 단계마다 어떤 문제가 사라지는지 직접 실험"
+
+- category: "아티팩트"
+  title: "DB 설계 5 · 물리적 모델링"
+  series: "데이터베이스"
+  no: 5
+  short: "DB 설계 · 물리적 모델링"
+  module: 2
+  url: "https://claude.ai/artifact/XP9FDSNJ4mQ8Mc2wNXeZit"
+  description: "MySQL 8.0 명명 규칙·데이터 타입·키 설계와, 부모 행을 지울 때 외래키 옵션(CASCADE, SET NULL, RESTRICT)이 어떻게 다른지 비교"
+
+- category: "아티팩트"
+  title: "Servlet 들어가기 3편: HTTP와 GET, POST"
+  series: "Servlet 들어가기"
+  no: 3
+  short: "HTTP와 GET, POST"
+  module: 2
+  url: "https://claude.ai/artifact/5mPntNnHniJgxTmsuSYky7"
+  description: "HTTP 메시지 구조와 GET·POST의 차이, 리다이렉트와 포워드를 쉬운 비유로 정리"
+
+- category: "아티팩트"
+  title: "Servlet 들어가기 4편: Cookie와 Session"
+  series: "Servlet 들어가기"
+  no: 4
+  short: "Cookie와 Session"
+  module: 2
+  url: "https://claude.ai/artifact/6JpRW6faY5p2HkZ8rmUagF"
+  description: "HTTP의 무상태 문제를 풀기 위한 쿠키와 세션의 저장 위치·차이, 둘이 함께 동작하는 원리"
+
+- category: "아티팩트"
+  title: "Servlet 들어가기 5편: Filter와 요청 하나의 여행"
+  series: "Servlet 들어가기"
+  no: 5
+  short: "Filter와 요청 하나의 여행"
+  module: 2
+  url: "https://claude.ai/artifact/PvgUDvnaGRUsuCaPt3wbw1"
+  description: "서블릿 앞뒤에서 인코딩·로그인 확인·요청 기록을 맡는 Filter의 원리와, 요청 하나가 1~5편의 전 과정을 거치는 흐름"

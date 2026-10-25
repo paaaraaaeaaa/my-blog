@@ -1338,8 +1338,42 @@ a.day:hover .day__summary { color: var(--c-text); }
 /* 문제와 풀이 섹션 안: 모듈 칩(.jump[data-mod])과 모듈 묶음(.group) */
 .jump-nav--sub { margin: var(--s-4) 0 0; }
 .is-filtered .jump-nav--sub .jump:not(.is-active), .jump-nav--sub .jump:not(.is-active) { opacity: 1; }   /* 위쪽 섹션 칩처럼 흐려지지 않게: 눌린 칩은 테두리로 구분 */
-.res-section .group[hidden] { display: none; }
-.res-section .res-section__head + .group { margin-top: 0; }   /* 섹션 머리 바로 뒤 첫 묶음은 머리 여백만 쓴다 */   /* 테마가 display를 줘서 hidden이 안 먹는다 */
+.res-section .group[hidden] { display: none; }   /* 테마가 display를 줘서 hidden이 안 먹는다 */
+.res-section .res-section__head + .group { margin-top: 0; }   /* 섹션 머리 바로 뒤 첫 묶음은 머리 여백만 쓴다 */
+/* 자료 시리즈 묶음: 같은 주제 자료를 접는 <details> 머리 + 얇은 .row-list로 보여준다 (시리즈가 있는 자료 섹션에서만) */
+.res-section .jump-nav--sub + .gloss-find { margin-top: var(--s-4); }
+.series-list { display: flex; flex-direction: column; gap: var(--s-4); }
+.series { padding-left: var(--s-4); border-left: 2px solid color-mix(in srgb, var(--cat, var(--c-signal)) 70%, transparent); }
+.series[hidden], .series-list [hidden] { display: none; }
+.series__head {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-2) 0;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  font-family: var(--font-ui);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-bold);
+  color: var(--c-text);
+}
+.series__head::-webkit-details-marker { display: none; }
+.series__head::before {
+  content: "";
+  flex: none;
+  width: 0; height: 0;
+  border-left: 5px solid var(--c-text-3);
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+}
+.series[open] > .series__head::before { transform: rotate(90deg); }
+.series__head:hover .series__name { color: var(--c-signal); }
+.series__head:focus-visible { outline: 2px solid var(--c-signal); outline-offset: 2px; }
+.series__count { margin-left: auto; font-size: var(--fs-sm); font-weight: var(--fw-regular); color: var(--c-text-3); font-variant-numeric: tabular-nums; }
+.series[open] > .series__head { margin-bottom: var(--s-1); }
+.row-list--series .row__sub { white-space: normal; }
+.row-list--series .row__aside { font-family: var(--font-ui); font-size: var(--fs-xs); font-weight: var(--fw-bold); color: var(--cat, var(--c-signal)); white-space: nowrap; }
 .page__content .problem__empty { margin: var(--s-3) 0 0 !important; font-size: var(--fs-sm); color: var(--c-text-3); }
 
 /* 풀이 단계: 왼쪽 세로선이 단계를 잇는다 */

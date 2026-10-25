@@ -168,12 +168,32 @@ classes: section-page
 {%- assign items = others | where: "category", name -%}
 {%- if items.size > 0 -%}
 {%- assign def = section_defs | where: "name", name | first -%}
-<section class="res-section is-{{ def.tone | default: 'signal' }}" id="sec-{{ forloop.index }}" data-sec="sec-{{ forloop.index }}">
+{%- assign series_items = items | where_exp: "i", "i.series" -%}
+{%- assign has_series = false -%}
+{%- if series_items.size > 0 -%}{%- assign has_series = true -%}{%- endif -%}
+<section class="res-section is-{{ def.tone | default: 'signal' }}" id="sec-{{ forloop.index }}" data-sec="sec-{{ forloop.index }}"{% if has_series %} data-series-sec{% endif %}>
 <div class="res-section__head">
 <div class="res-section__titles"><h2 class="res-section__title">{{ name }}</h2>{% if def.desc %}<span class="res-section__desc">{{ def.desc }}</span>{% endif %}</div>
 <span class="res-section__count">{{ items.size }}개</span>
 </div>
+{%- if has_series -%}
+{%- comment -%} 시리즈(series)가 있는 섹션: 주제 칩 + 걸러 보기 입력줄. 칩은 series 이름, 숫자는 그 시리즈의 자료 수 {%- endcomment -%}
+{%- assign all_series = items | group_by: "series" -%}
+<nav class="jump-nav jump-nav--sub" aria-label="{{ name }} 주제 골라 보기">
+{%- for sg in all_series -%}
+{%- if sg.name != nil and sg.name != "" -%}
+<button type="button" class="jump" data-series-chip="{{ sg.name }}" aria-pressed="false">{{ sg.name }}<b>{{ sg.items.size }}</b></button>
+{%- endif -%}
+{%- endfor -%}
+</nav>
+<label class="gloss-find" for="series-find-{{ forloop.index }}">
+<span class="gloss-find__prompt" aria-hidden="true">$ grep -i</span>
+<input id="series-find-{{ forloop.index }}" class="gloss-find__input" type="search" placeholder="제목이나 설명으로 걸러 보기" aria-label="제목이나 설명으로 걸러 보기" autocomplete="off" data-series-find>
+</label>
+<p class="jump-status" aria-live="polite" data-series-status></p>
+{%- endif -%}
 {%- assign with_mod = items | where_exp: "i", "i.module" -%}
+{%- assign latest_m = with_mod | map: "module" | sort | last -%}
 {%- if with_mod.size > 0 -%}{%- assign glist = mod_list -%}{%- else -%}{%- assign glist = "-1" | split: "," -%}{%- endif -%}
 {%- for gs in glist -%}
 {%- assign gm = gs | plus: 0 -%}
@@ -190,6 +210,26 @@ classes: section-page
 <span class="group__count">{{ gitems.size }}개</span>
 </div>
 {%- endif -%}
+{%- if has_series -%}
+{%- comment -%} 시리즈 묶음: 2개 이상이면 접는 <details>, 하나뿐이면 접지 않는 한 줄. 가장 최근 모듈의 시리즈만 펼쳐 둔다 {%- endcomment -%}
+{%- assign sgroups = gitems | group_by: "series" -%}
+<div class="series-list">
+{%- for sg in sgroups -%}
+{%- if sg.items.size > 1 and sg.name and sg.name != "" -%}
+<details class="series" data-series="{{ sg.name }}"{% if gm == -1 or gm == latest_m %} open{% endif %}>
+<summary class="series__head"><span class="series__name">{{ sg.name }}</span><span class="series__count">{{ sg.items.size }}개</span></summary>
+{%- else -%}
+<div class="series series--single" data-series="{{ sg.name }}">
+{%- endif -%}
+<ul class="row-list row-list--series">
+{%- for item in sg.items -%}
+<li data-series-item><a class="row row--numbered" href="{% if item.url %}{{ item.url }}{% else %}{{ item.file | relative_url }}{% endif %}" target="_blank" rel="noopener noreferrer"><span class="row__num">{{ item.no | default: "·" }}</span><span class="row__main"><span class="row__title">{{ item.short | default: item.title }}</span>{% if item.description %}<span class="row__sub">{{ item.description }}</span>{% endif %}</span><span class="row__aside" aria-hidden="true">open ↗</span></a></li>
+{%- endfor -%}
+</ul>
+{%- if sg.items.size > 1 and sg.name and sg.name != "" -%}</details>{%- else -%}</div>{%- endif -%}
+{%- endfor -%}
+</div>
+{%- else -%}
 <div class="res-grid">
 {%- for item in gitems -%}
 {%- if item.url -%}{%- assign host = item.url | split: "//" | last | split: "/" | first | remove: "www." -%}{%- else -%}{%- assign host = "첨부파일" -%}{%- endif -%}
@@ -211,6 +251,7 @@ classes: section-page
 </article>
 {%- endfor -%}
 </div>
+{%- endif -%}
 {%- if gm != -1 -%}
 </div>
 {%- endif -%}
@@ -307,5 +348,75 @@ classes: section-page
     var sec = document.getElementById('problems');
     if (sec && sec.scrollIntoView) sec.scrollIntoView({ block: 'start' });
   }
+})();
+/* 시리즈가 있는 자료 섹션 걸러 보기: 주제 칩 하나 + 입력줄. 거르는 동안 맞는 시리즈는 펼치고, 풀면 원래 접힘 상태로 돌린다 */
+(function () {
+  document.querySelectorAll('[data-series-sec]').forEach(function (sec) {
+    var chips = sec.querySelectorAll('[data-series-chip]');
+    var input = sec.querySelector('[data-series-find]');
+    var status = sec.querySelector('[data-series-status]');
+    var blocks = sec.querySelectorAll('.series');
+    var groups = sec.querySelectorAll('.group');
+    var active = null;
+    var filtering = false;
+    function run() {
+      var q = input ? input.value.trim().toLowerCase() : '';
+      var now = active !== null || q !== '';
+      if (now && !filtering) {
+        blocks.forEach(function (b) { if (b.tagName === 'DETAILS') b.setAttribute('data-was-open', b.open ? '1' : '0'); });
+      }
+      var total = 0;
+      blocks.forEach(function (b) {
+        var scope = active === null || b.getAttribute('data-series') === active;
+        var shown = 0;
+        b.querySelectorAll('[data-series-item]').forEach(function (li) {
+          var t = li.querySelector('.row__title');
+          var d = li.querySelector('.row__sub');
+          var text = ((t ? t.textContent : '') + ' ' + (d ? d.textContent : '')).toLowerCase();
+          var hit = scope && (q === '' || text.indexOf(q) !== -1);
+          li.hidden = !hit;
+          if (hit) shown++;
+        });
+        b.hidden = shown === 0;
+        total += shown;
+        if (b.tagName === 'DETAILS') {
+          if (now) b.open = shown > 0;
+          else if (filtering) b.open = b.getAttribute('data-was-open') === '1';
+        }
+      });
+      groups.forEach(function (g) {
+        var was = g.hidden;
+        g.hidden = !g.querySelector('.series:not([hidden])');
+        if (was && !g.hidden && window.swapIn) window.swapIn(g);
+      });
+      filtering = now;
+      if (status) {
+        status.textContent = !now ? '' : (total ? (active !== null ? '‘' + active + '’ ' : '') + total + '개 보는 중이에요. 같은 칩을 다시 누르면 모두 보여요.' : '맞는 자료가 없어요.');
+      }
+    }
+    chips.forEach(function (c) {
+      c.addEventListener('click', function () {
+        var key = c.getAttribute('data-series-chip');
+        active = active === key ? null : key;
+        chips.forEach(function (x) {
+          var on = x.getAttribute('data-series-chip') === active;
+          x.classList.toggle('is-active', on);
+          x.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+        run();
+      });
+    });
+    if (input) input.addEventListener('input', run);
+    // 위쪽 섹션 칩·전체 초기화(↻)를 누르면 이 걸러 보기도 함께 풀린다
+    document.querySelectorAll('.jump[data-filter], [data-filter-reset]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (active === null && (!input || input.value === '')) return;
+        active = null;
+        if (input) input.value = '';
+        chips.forEach(function (x) { x.classList.remove('is-active'); x.setAttribute('aria-pressed', 'false'); });
+        run();
+      });
+    });
+  });
 })();
 </script>

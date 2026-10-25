@@ -21,6 +21,7 @@ description: 게임, 아티팩트, 치트시트 같은 자료 링크를 Database
      description: "<이게 무엇이고 언제 쓰는지 한 문장. '링크를 클릭하면…' 같은 안내 문구는 쓰지 않는다>"
    ```
    - 레포에 올린 파일이면 `url` 대신 `file: /assets/files/<파일명>` (파일은 `assets/files/`에 둔다).
+   - 같은 주제의 자료가 이미 있으면(예: "Servlet 들어가기 N편") 같은 `series` 이름을 쓰고 `no`(번호)·`short`(묶음 안 짧은 제목)를 단다. 그 섹션에서 `series`가 쓰이고 있다면 새 자료에도 `series`를 적는다. 같은 series는 yml에서 가까이, 번호 순서대로 둔다.
 4. **새 섹션**이 필요하면 `_data/database_sections.yml`에도 한 줄 추가한다.
 
    ```yaml
