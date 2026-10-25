@@ -169,3 +169,9 @@
   module: 2
   url: "https://claude.ai/artifact/HCAqijpbEXoPyfhaTbfyGx"
   description: "서블릿이 무엇이고 서블릿 컨테이너가 객체 생성·URL 매핑·스레드 배정을 어떻게 맡는지, 생명주기 메서드 정리"
+
+- category: "아티팩트"
+  title: "MVC 식당: 패키지 책임 따라가기"
+  module: 2
+  url: "https://claude.ai/artifact/MPkknZmHtbYtPrZvhTTpC7"
+  description: "MVC 구조를 식당에 빗대어 View·Controller·service·dao·dto 패키지가 맡은 책임과 호출 흐름을 따라가며 정리"
