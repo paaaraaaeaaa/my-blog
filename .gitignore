@@ -1,9 +1,37 @@
+# Jekyll 빌드 산출물·캐시
 _site/
 .sass-cache/
 .jekyll-cache/
 .jekyll-metadata
+.bundle/
 vendor/
 _tmp_build/
+
+# 로컬 전용: Claude Code 설정·스킬·에이전트, 수업 Notion 원본 내려받기
+.claude/
+DOCUMENTS/
+
+# IntelliJ 실습 프로젝트 원본. 블로그에는 필요한 파일만 assets/code/ 로 복사해서 보여준다
+/chap*/
+.idea/
+*.iml
+out/
+build/
+.gradle/
+*.class
+*.jar
+
+# 에디터·OS가 만드는 파일
+.vscode/
+.DS_Store
+Thumbs.db
+
+# 비밀값
+.env
+.env.*
+*.pem
+*.key
+
+# 이전부터 있던 항목
 profile.png/
 og-banner.png/
-.claude/
