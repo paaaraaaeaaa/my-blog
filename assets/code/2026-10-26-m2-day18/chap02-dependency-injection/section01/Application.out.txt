@@ -1,0 +1,7 @@
+Exception in thread "main" org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'paymentServiceField' available
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeanDefinition(DefaultListableBeanFactory.java:971)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getMergedLocalBeanDefinition(AbstractBeanFactory.java:1369)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:296)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1305)
+	at com.wanted.di.section01.Application.main(Application.java:23)
