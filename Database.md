@@ -221,23 +221,39 @@ classes: section-page
 {%- if has_series -%}
 {%- comment -%} 시리즈 묶음: 2개 이상이면 접는 <details>, 하나뿐이면 접지 않는 한 줄. 가장 최근 모듈의 시리즈만 펼쳐 둔다. 모듈 묶음 머리 없이 모듈은 M2 글자로만 표시 {%- endcomment -%}
 {%- assign sgroups = gitems | group_by: "series" -%}
+{%- comment -%} 폴더(2개 이상 묶음)를 먼저, 한 개짜리 자료는 맨 뒤 "단일 자료" 한 묶음으로 모은다. 폴더와 파일이 섞여 보이지 않게 {%- endcomment -%}
 <div class="series-list">
+{%- assign loose_n = 0 -%}
 {%- for sg in sgroups -%}
+{%- if sg.items.size > 1 and sg.name and sg.name != "" -%}
 {%- assign smod = sg.items.first.module -%}
 {%- assign sg_num = sg.items | where_exp: "i", "i.num" -%}
-{%- if sg.items.size > 1 and sg.name and sg.name != "" -%}
 <details class="series" data-series="{{ sg.name }}" data-smod="{{ smod | default: 0 }}"{% if gm == -1 or gm == latest_m %} open{% endif %}>
 <summary class="series__head"><span class="series__name">{{ sg.name }}</span>{% if smod %}<span class="series__mod">M{{ smod }}</span>{% endif %}<span class="series__count">{{ sg.items.size }}개</span></summary>
-{%- else -%}
-<div class="series series--single" data-series="{{ sg.name }}" data-smod="{{ smod | default: 0 }}">
-{%- endif -%}
 <ul class="row-list row-list--series">
 {%- for item in sg.items -%}
-<li data-series-item><a class="row{% if sg_num.size > 0 %} row--numbered{% endif %}" href="{% if item.url %}{{ item.url }}{% else %}{{ item.file | relative_url }}{% endif %}" target="_blank" rel="noopener noreferrer">{% if sg_num.size > 0 %}<span class="row__num">{{ item.num }}</span>{% endif %}<span class="row__main"><span class="row__title">{{ item.short | default: item.title }}</span>{% if item.description %}<span class="row__sub">{{ item.description }}</span>{% endif %}</span><span class="row__aside" aria-hidden="true">{% if sg.items.size == 1 and smod %}M{{ smod }} · {% endif %}open ↗</span></a></li>
+<li data-series-item><a class="row{% if sg_num.size > 0 %} row--numbered{% endif %}" href="{% if item.url %}{{ item.url }}{% else %}{{ item.file | relative_url }}{% endif %}" target="_blank" rel="noopener noreferrer">{% if sg_num.size > 0 %}<span class="row__num{% unless item.num %} row__num--none{% endunless %}"{% unless item.num %} aria-hidden="true"{% endunless %}>{% if item.num %}{{ item.num }}{% else %}-{% endif %}</span>{% endif %}<span class="row__main"><span class="row__title">{{ item.short | default: item.title }}</span>{% if item.description %}<span class="row__sub">{{ item.description }}</span>{% endif %}</span><span class="row__aside" aria-hidden="true">open ↗</span></a></li>
 {%- endfor -%}
 </ul>
-{%- if sg.items.size > 1 and sg.name and sg.name != "" -%}</details>{%- else -%}</div>{%- endif -%}
+</details>
+{%- else -%}
+{%- assign loose_n = loose_n | plus: sg.items.size -%}
+{%- endif -%}
 {%- endfor -%}
+{%- if loose_n > 0 -%}
+<div class="series series--loose" data-series="" data-smod="{{ gm | at_least: 0 }}">
+<div class="series__head series__head--static"><span class="series__name">단일 자료</span>{% if gm > 0 %}<span class="series__mod">M{{ gm }}</span>{% endif %}<span class="series__count">{{ loose_n }}개</span></div>
+<ul class="row-list row-list--series">
+{%- for sg in sgroups -%}
+{%- unless sg.items.size > 1 and sg.name and sg.name != "" -%}
+{%- for item in sg.items -%}
+<li data-series-item data-smod="{{ item.module | default: 0 }}"><a class="row" href="{% if item.url %}{{ item.url }}{% else %}{{ item.file | relative_url }}{% endif %}" target="_blank" rel="noopener noreferrer"><span class="row__main"><span class="row__title">{{ item.short | default: item.title }}</span>{% if item.description %}<span class="row__sub">{{ item.description }}</span>{% endif %}</span><span class="row__aside" aria-hidden="true">open ↗</span></a></li>
+{%- endfor -%}
+{%- endunless -%}
+{%- endfor -%}
+</ul>
+</div>
+{%- endif -%}
 </div>
 {%- else -%}
 <div class="res-grid">
@@ -357,9 +373,9 @@ classes: section-page
       }
       var total = 0;
       blocks.forEach(function (b) {
-        var scope = activeMod === null || b.getAttribute('data-smod') === activeMod;
         var shown = 0;
         b.querySelectorAll('[data-series-item]').forEach(function (li) {
+          var scope = activeMod === null || (li.getAttribute('data-smod') || b.getAttribute('data-smod')) === activeMod;   /* 단일 자료 묶음은 자료마다 모듈이 달라서 줄마다 본다 */
           var t = li.querySelector('.row__title');
           var d = li.querySelector('.row__sub');
           var text = ((t ? t.textContent : '') + ' ' + (d ? d.textContent : '')).toLowerCase();

@@ -449,7 +449,6 @@ p.code-popup__row:hover { background: none; }
   color: var(--c-text);
   font-weight: var(--fw-bold);
   text-align: left;
-  border-bottom: 1px solid var(--c-line-strong);
 }
 .page__content th, .page__content td { padding: var(--s-3) var(--s-4); border-color: var(--c-line); overflow-wrap: normal; }
 .page__content td { color: var(--c-text-2); border-bottom: 1px solid var(--c-line); }
@@ -1344,7 +1343,9 @@ a.day:hover .day__summary { color: var(--c-text); }
   display: flex;
   align-items: center;
   gap: var(--s-3);
-  padding: var(--s-2) 0;
+  padding: var(--s-3);
+  border-top: 1px solid var(--c-line-strong);
+  background: var(--c-surface);   /* 폴더 머리는 위 선과 면 색으로 행과 갈라 보이게 */
   cursor: pointer;
   list-style: none;
   user-select: none;
@@ -1353,31 +1354,37 @@ a.day:hover .day__summary { color: var(--c-text); }
   font-weight: var(--fw-heavy);
   color: var(--c-text);
 }
+.series__head--static { cursor: default; }
+.series__head--static .series__name::after { content: none; }   /* 단일 자료는 폴더가 아니라서 슬래시가 없다 */
+.series__name { min-width: 0; overflow-wrap: anywhere; }   /* 긴 이름이 좁은 화면에서 넘치지 않게 */
+.series__name::after { content: "/"; margin-left: 1px; color: var(--c-text-3); font-weight: var(--fw-regular); }   /* ls 에서 폴더 뒤에 붙는 슬래시 */
 .series__head::-webkit-details-marker { display: none; }
 .series__head::before {
   content: "";
   flex: none;
   width: 0; height: 0;
-  border-left: 5px solid var(--c-text-3);
-  border-top: 4px solid transparent;
-  border-bottom: 4px solid transparent;
+  border-left: 6px solid var(--c-text-2);
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
 }
+.series__head--static::before { display: none; }   /* 접히지 않는 머리에는 화살표가 없다 */
 .series[open] > .series__head::before { transform: rotate(90deg); }
-.series__head:hover .series__name { color: var(--c-signal); }
+summary.series__head:hover .series__name { color: var(--c-signal); }   /* 접히는 머리만 눌러 볼 수 있다 */
 .series__head:focus-visible { outline: 2px solid var(--c-signal); outline-offset: 2px; }
-.series__mod { font-size: var(--fs-xs); font-weight: var(--fw-regular); color: var(--c-text-2); font-variant-numeric: tabular-nums; }
+.series__mod { font-size: var(--fs-sm); font-weight: var(--fw-regular); color: var(--c-text-2); font-variant-numeric: tabular-nums; }
 .series__count { margin-left: auto; font-size: var(--fs-sm); font-weight: var(--fw-regular); color: var(--c-text-3); font-variant-numeric: tabular-nums; }
-.series[open] > .series__head { margin-bottom: var(--s-1); }
-/* 묶음 안의 행은 머리보다 한 칸 안쪽으로: 어디까지가 한 시리즈인지 보이게 (한 줄짜리 .series--single은 들여쓰지 않는다) */
+.series[open] > .series__head { margin-bottom: 0; }
+/* 묶음 안의 행은 머리보다 한 칸 안쪽으로: 어디까지가 한 시리즈인지 보이게 (단일 자료 묶음 .series--loose는 들여쓰지 않는다) */
 details.series > .row-list--series { margin-left: var(--s-4) !important; }
 @media (max-width: 640px) { details.series > .row-list--series { margin-left: var(--s-2) !important; } }
 .row-list--series .row__sub { white-space: normal; }
+.row-list--series .row__num--none { color: var(--c-line-strong); }   /* 번호 없는 행은 빈 칸 대신 - 로 자리를 지킨다 (장식이라 흐리게) */
 /* 번호는 원이나 상자 없이 글자로만(Projects 연동기의 번호 표시와 겹치지 않게). 시리즈에 번호가 하나도 없을 때만 번호 칸 없이 제목부터 시작(하나라도 있으면 모든 행에 번호 칸) */
 .row-list--series .row { grid-template-columns: minmax(0, 1fr) auto; }
 .row-list--series .row--numbered { grid-template-columns: 2rem minmax(0, 1fr) auto; }
 .row-list--series .row__num { width: auto; height: auto; border: 0; border-radius: 0; justify-content: flex-start; font-family: var(--font-ui); font-size: var(--fs-sm); font-weight: var(--fw-regular); color: var(--c-text-3); }
 @media (max-width: 640px) { .row-list--series .row { column-gap: var(--s-2); } .row-list--series .row--numbered .row__aside { grid-column: auto; } }   /* 좁은 화면에서도 번호 유무와 상관없이 open ↗가 오른쪽에 남게 */
-.row-list--series .row__aside { font-family: var(--font-ui); font-size: var(--fs-xs); font-weight: var(--fw-regular); color: var(--c-text-3); white-space: nowrap; transition: color var(--dur-fast) var(--ease); }
+.row-list--series .row__aside { font-family: var(--font-ui); font-size: var(--fs-sm); font-weight: var(--fw-regular); color: var(--c-text-2); white-space: nowrap; transition: color var(--dur-fast) var(--ease); }
 .row-list--series .row:hover .row__aside { color: var(--c-signal); }
 .page__content .problem__empty { margin: var(--s-3) 0 0 !important; font-size: var(--fs-sm); color: var(--c-text-3); }
 
