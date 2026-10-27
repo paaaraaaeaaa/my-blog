@@ -89,12 +89,13 @@ classes: section-page
 {%- assign srcs = site.data.lecture_sources | default: empty_array | where: "module", i -%}
 {%- if srcs.size > 0 -%}
 <div class="src-links">
-<p class="src-links__head"><span class="src-links__title">원본 코드</span><span class="src-links__note">수업 실습 폴더. 누르면 파일 목록이 열립니다.</span></p>
+<p class="src-links__head"><span class="src-links__title">원본 코드</span><span class="src-links__note">수업 폴더별 수업 기간. 누르면 파일 목록이 열립니다.</span></p>
 <ul class="row-list row-list--compact">
 {%- for s in srcs -%}
 {%- assign s_prefix = "/assets/code/lecture/" | append: s.dir | append: "/" -%}
 {%- assign s_files = site.static_files | where_exp: "f", "f.path contains s_prefix" -%}
-<li><button type="button" class="row code-popup-trigger" aria-haspopup="dialog" data-dir="lecture/{{ s.dir }}"><span class="row__date">{{ s.dir }}</span><span class="row__main"><span class="row__title">{{ s.title }}</span><span class="row__sub">{{ s.desc }}</span></span><span class="row__aside">{{ s_files.size }}개 파일 ▸</span></button></li>
+{%- assign s_range = site.data.lecture_dates[s.dir] -%}
+<li><button type="button" class="row code-popup-trigger" aria-haspopup="dialog" data-dir="lecture/{{ s.dir }}" title="{{ s.desc | escape }}"><span class="row__date">{{ s.dir }}</span><span class="row__main"><span class="row__title">{{ s.title }}</span></span><span class="row__aside">{% if s_range %}{{ s_range.start | date: "%-m.%-d" }}{% if s_range.end != s_range.start %} – {{ s_range.end | date: "%-m.%-d" }}{% endif %} · {% endif %}{{ s_files.size }}개 ▸</span></button></li>
 {%- endfor -%}
 </ul>
 {%- for s in srcs -%}
