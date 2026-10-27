@@ -45,4 +45,4 @@
 - dir: "07_Spring-Core"
   module: 2
   title: "Spring Core"
-  desc: "chap01 IoC 컨테이너(@Configuration·@Bean·Scope), chap02 의존성 주입(@ComponentScan, 필드·세터·생성자 주입)"
+  desc: "chap01 IoC 컨테이너(@Configuration·@Bean·Scope), chap02 의존성 주입(@ComponentScan, 필드·세터·생성자 주입), chap03 AOP(@Aspect·Advice·Pointcut)"
