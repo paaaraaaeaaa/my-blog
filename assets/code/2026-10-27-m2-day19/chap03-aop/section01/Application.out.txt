@@ -1,0 +1,29 @@
+==============AOP 적용 전================
+[테스트 1] 회원 가입
+[로그] 회원 가입 시작: user@example.com
+회원 정보 저장 완료: user@example.com
+[로그] 회원 가입 성공: user@example.com
+[성능] 회원 가입 처리 시간: 4ms
+=================
+[테스트 2] 회원 조회
+[로그] 회원 조회 시작: user@example.com
+[로그] 회원 조회 성공: user@example.com
+[성능] 회원 조회 처리 시간: 0ms
+조회 된 회원 = MemberDTO(email=user@example.com, password=pass0123, name=홍길동, phone=010-1111-1111, role=USER)
+=================
+[테스트 3] 비밀번호 변경
+[로그] 비밀번호 변경 시작: user@example.com
+[로그] 비밀번호 변경 성공: user@example.com
+[성능] 비밀번호 변경 처리 시간: 0ms
+=================
+[테스트 4] 회원 탈퇴
+[로그] 회원 탈퇴 시작: user@example.com
+[로그] 회원 탈퇴 성공: user@example.com
+[성능] 회원 탈퇴 처리 시간: 1ms
+=================
+[테스트 5] 존재하지 않는 회원 조회
+[로그] 회원 조회 시작: user@example.com
+[로그] 회원 조회 실패: 존재하지 않는 회원입니다: user@example.com
+[성능] 회원 조회 처리 시간: 0ms
+예외 발생!! : 존재하지 않는 회원입니다: user@example.com
+==============AOP 적용 전================
