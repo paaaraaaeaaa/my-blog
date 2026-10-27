@@ -288,3 +288,11 @@
   module: 2
   url: "https://claude.ai/artifact/3nbAtniJ6G85gwD1pNEzAj?sk=m2OgIPnpZjoBJ23w_NPw-Q"
   description: "JDBC·Servlet·JSP로 사원 CRUD 웹앱을 처음부터 만들며 forward/redirect와 세션 메시지 흐름을 복습합니다."
+
+- category: "아티팩트"
+  title: "Spring AOP 용어 지도"
+  series: "Spring Core"
+  short: "AOP 용어 지도"
+  module: 2
+  url: "https://claude.ai/artifact/Ly2g4QiMa7SnnkdUANrXR3?sk=_vEUCyQzobo9uqFFsMQIGg"
+  description: "Aspect·Advice·Pointcut·JoinPoint·Weaving·Proxy를 회원 관리 예제와 Pointcut 실험실로 한눈에 정리한 AOP 용어 지도입니다."
