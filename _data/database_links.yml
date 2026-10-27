@@ -95,6 +95,13 @@
   url: "https://claude.ai/artifact/PHRLP23KADoD3ysG7jCKNc?sk=8vDrR9bhXKAjKsY3TNXeeA"
   description: "문제 링크를 클릭하면 문제를 확인할 수 있습니다."
 
+- category: "문제"
+  title: "사원 관리 시스템 실습"
+  module: 2
+  topics: ["사원 관리 시스템 실습"]
+  url: "https://claude.ai/artifact/3nbAtniJ6G85gwD1pNEzAj?sk=m2OgIPnpZjoBJ23w_NPw-Q"
+  description: "문제 링크를 클릭하면 문제를 확인할 수 있습니다."
+
 
 # =============================================================================
 
