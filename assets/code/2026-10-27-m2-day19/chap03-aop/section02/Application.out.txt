@@ -2,38 +2,33 @@
 [테스트 1] 회원 가입
 [Before 로그] registerMember 메서드 실행 시작 됨, 매개변수 : MemberDTO(email=user@example.com, password=pass0123, name=홍길동, phone=010-1111-1111, role=USER) , 
 회원 정보 저장 완료: user@example.com
-[성능] 회원 가입 처리 시간: 0ms
 [AfterReturn 로그] registerMember 메소드 정상 종료, 종료 시 반환값 : null
 [After 로그] registerMember 메서드 실행 완료!
-[Around 성능 측정] registerMember 메서드 실행 시간 : 7(ms)
+[Around 성능 측정] registerMember 메서드 실행 시간 : 5(ms)
 =================
 [테스트 2] 회원 조회
 [Before 로그] getMember 메서드 실행 시작 됨, 매개변수 : user@example.com , 
-[성능] 회원 조회 처리 시간: 0ms
 [AfterReturn 로그] getMember 메소드 정상 종료, 종료 시 반환값 : MemberDTO(email=user@example.com, password=pass0123, name=홍길동, phone=010-1111-1111, role=USER)
 [After 로그] getMember 메서드 실행 완료!
-[Around 성능 측정] getMember 메서드 실행 시간 : 2(ms)
+[Around 성능 측정] getMember 메서드 실행 시간 : 1(ms)
 조회 된 회원 = MemberDTO(email=user@example.com, password=pass0123, name=홍길동, phone=010-1111-1111, role=USER)
 =================
 [테스트 3] 비밀번호 변경
 [Before 로그] updatePassword 메서드 실행 시작 됨, 매개변수 : user@example.com , pass0123 , pass0234 , 
-[성능] 비밀번호 변경 처리 시간: 0ms
 [AfterReturn 로그] updatePassword 메소드 정상 종료, 종료 시 반환값 : null
 [After 로그] updatePassword 메서드 실행 완료!
 [Around 성능 측정] updatePassword 메서드 실행 시간 : 1(ms)
 =================
 [테스트 4] 회원 탈퇴
 [Before 로그] deleteMember 메서드 실행 시작 됨, 매개변수 : user@example.com , 
-[성능] 회원 탈퇴 처리 시간: 0ms
 [AfterReturn 로그] deleteMember 메소드 정상 종료, 종료 시 반환값 : null
 [After 로그] deleteMember 메서드 실행 완료!
-[Around 성능 측정] deleteMember 메서드 실행 시간 : 0(ms)
+[Around 성능 측정] deleteMember 메서드 실행 시간 : 1(ms)
 =================
 [테스트 5] 존재하지 않는 회원 조회
 [Before 로그] getMember 메서드 실행 시작 됨, 매개변수 : user@example.com , 
-[성능] 회원 조회 처리 시간: 0ms
 [AfterThrowing 로그] getMember 메소드 실행 중 예외 발생 : 존재하지 않는 회원입니다: user@example.com
 [After 로그] getMember 메서드 실행 완료!
-[Around 성능 측정] getMember 메서드 실행 시간 : 1(ms)
+[Around 성능 측정] getMember 메서드 실행 시간 : 0(ms)
 예외 발생!! : java.lang.IllegalArgumentException: 존재하지 않는 회원입니다: user@example.com
 ==============AOP 적용 후================
