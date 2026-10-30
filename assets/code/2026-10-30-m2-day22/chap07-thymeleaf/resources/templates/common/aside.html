@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <!--
+      th:fragment="조각 이름(매개변수1, 매개변수2)"
+      fragment를 불러오는 쪽에서 전달한 값을 매개변수 이름으로 꺼내 사용할 수 있다.
+      (lecture/fragment.html 에서 asideFragment(${test1}, ${test2})로 호출)
+  -->
+  <aside th:fragment="asideFragment(parameter, parameter1)" class="aside">
+      <ul>
+          <li th:text="${parameter}"></li>
+          <li th:text="${parameter1}"></li>
+      </ul>
+  </aside>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">	<!-- 타임리프 활용하기(네임스키마 문법 추가) -->
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" type="text/css" th:href="@{ /css/common.css }" />
+</head>
+<body>
+    <h1 align="center">기타</h1>
+
+    <h2>th:with</h2>
+    <h3>지역 변수를 지정해서 쓸 수 있다.</h3>
+    <th:block th:with="start = ${ selectCriteria.startPage }, last = ${ selectCriteria.endPage }">
+        <th:block th:each="p : ${ #numbers.sequence(start, last) }">
+            <!-- eq(==), ne(!=), gt(>), lt(<), ge(>=), le(<=) 처럼 비교 연산자를 문자로도 쓸 수 있다. 현재 페이지 버튼만 비활성화 -->
+            <th:block th:if="${ selectCriteria.pageNo eq p }">
+                <button th:text="${ p }" disabled></button>
+            </th:block>
+            <th:block th:if="${ selectCriteria.pageNo ne p }">
+                <button th:text="${ p }"></button>
+            </th:block>
+        </th:block>
+    </th:block>
+
+    <h2>SpringEL</h2>
+    <h3>
+        변수 표현식 ${...}은 SpringEL이라는 스프링에서 제공하는 표현식을 사용할 수 있다.
+        (SpringEL은 런타임 시 메서드 호출 및 기본 문자열 템플릿 등의 기능을 제공한다.)
+        단순한 변수가 아닌 Object, List, Map같은 객체를 사용하기 위해 활용할 수 있다.
+    </h3>
+    <!--
+        .필드명, ['필드명'], .getter() 세 가지 방식 모두 내부적으로 getter를 호출한다.
+        필드가 private이므로 해당 클래스에 getter가 없으면 세 가지 방식 모두 에러가 발생한다.
+    -->
+    <p>Object</p>
+    <ul>
+        <li th:text="${ member.name }"></li>
+        <li th:text="${ member['age'] }"></li>
+        <li th:text="${ member.getGender() }"></li>
+    </ul>
+    <p>List</p>
+    <ul>
+        <li th:text="${ memberList[1].name }"></li>
+        <li th:text="${ memberList[1]['age'] }"></li>
+        <li th:text="${ memberList[1].getGender() }"></li>
+        <li th:text="${ memberList.get(1).getGender() }"></li><!-- get()방식을 사용시에는 뒤에 getter나 필드명 둘 중 아무거나 써도 된다. -->
+        <li th:text="${ memberList.get(1).address }"></li>
+    </ul>
+    <p>Map</p>
+    <ul>
+        <li th:text="${ memberMap['m03'].name }"></li>
+        <li th:text="${ memberMap['m03']['age'] }"></li>
+        <li th:text="${ memberMap['m03'].getGender() }"></li>
+    </ul>
+    <!-- Map을 th:each로 반복하면 각 요소는 Map.Entry이며 key, value로 꺼낼 수 있다. -->
+    <ul>
+        <li th:each="entry : ${ memberMap }" th:text="|${ entry.key } : ${ entry.value.name }|"></li>
+    </ul>
+
+    <h2>security 인증 정보 여부</h2>
+    <h3>타임리프에서 시큐리티 적용 시 로그인 여부에 따라 보여줄 영역을 다르게 처리할 수 있다.</h3>
+    <!--
+        sec:authorize는 Spring Security를 적용한 이후에 사용할 수 있는 문법이다.
+        (현재 프로젝트에는 Security가 없어 sec 속성을 해석하지 못하므로 두 문장이 모두 출력되어 예제는 주석 처리했다.)
+
+        사용하려면 아래 설정이 필요하다.
+        1. build.gradle 의존성 추가
+           implementation 'org.springframework.boot:spring-boot-starter-security'
+           implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+        2. html 태그에 네임스페이스 추가
+           <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    -->
+    <!--/*
+    <th:block sec:authorize="isAuthenticated()">로그인 했음</th:block>
+    <th:block sec:authorize="isAnonymous()">로그인 하지 않음</th:block>
+    */-->
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h3 th:text="${message}"></h3>
+    <!-- th:each 는 java 의 for 문이라고 생각하면 좋다. -->
+    <div th:each="file : ${files}">
+        <img th:src="${file}" width="300" height="300">
+    </div>
+</body>
+</html>

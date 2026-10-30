@@ -50,4 +50,4 @@
 - dir: "08_Spring-Web-MVC"
   module: 2
   title: "Spring Web MVC"
-  desc: "chap01 요청 매핑(@RequestMapping·@GetMapping·@PostMapping·@PathVariable), chap02 핸들러 메서드 파라미터(WebRequest·@RequestParam·@ModelAttribute), chap03 뷰 반환(String·ModelAndView·redirect), chap04 예외 처리(@ExceptionHandler·@ControllerAdvice), chap05 인터셉터(HandlerInterceptor)"
+  desc: "chap01 요청 매핑(@RequestMapping·@GetMapping·@PostMapping·@PathVariable), chap02 핸들러 메서드 파라미터(WebRequest·@RequestParam·@ModelAttribute), chap03 뷰 반환(String·ModelAndView·redirect), chap04 예외 처리(@ExceptionHandler·@ControllerAdvice), chap05 인터셉터(HandlerInterceptor), chap06 파일 업로드(MultipartFile·리소스 핸들러), chap07 타임리프(표현식·제어문·fragment)"
