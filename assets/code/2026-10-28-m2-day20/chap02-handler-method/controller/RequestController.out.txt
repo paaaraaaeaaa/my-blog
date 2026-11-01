@@ -1,0 +1,200 @@
+============================================================
+[index.html의 버튼 네 개로 각 화면 열기]
+실행 환경: Spring Boot 4.1.2 내장 Tomcat, http://localhost:8080
+요청은 브라우저 대신 스크립트로 보냈다. > 는 보낸 요청, < 는 받은 응답이다. HTML 본문은 <body> 안쪽만(주석 제외) 옮겼다.
+============================================================
+
+--- 1) "파라미터 전달" ---
+> GET /request/regist
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+
+(templates/request/regist.html 폼: name, price 입력칸 + categoryCode select(식사 1·음료 2·디저트 3). 본문 생략)
+
+[서버 콘솔]
+(출력 없음)
+
+--- 2) "@RequestParam 이용" ---
+> GET /request/modify
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+
+(templates/request/modify.html 폼 두 개. 본문 생략)
+
+[서버 콘솔]
+(출력 없음)
+
+--- 3) "@ModelAttribute 이용" ---
+> GET /request/search
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+
+(templates/request/search.html 검색 폼. 본문 생략)
+
+[서버 콘솔]
+(출력 없음)
+
+--- 4) "@RequestBody 이용" ---
+> GET /request/body
+
+< HTTP/1.1 404
+< Content-Type: text/html;charset=UTF-8
+
+(Spring Boot 기본 오류 페이지 Whitelabel Error Page HTML)
+There was an unexpected error (type=Not Found, status=404).
+
+[서버 콘솔]
+(출력 없음)
+
+============================================================
+[1. WebRequest — regist.html 폼 제출]
+============================================================
+
+--- 1) 폼 그대로 제출 (select가 있어 categoryCode도 같이 간다) ---
+> POST /request/regist
+> Content-Type: application/x-www-form-urlencoded
+>
+> name=latte&price=5000&categoryCode=2
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+
+<h1>메뉴 등록 성공!💯💯💯</h1>
+<h3>latte을(를) 신규 메뉴 목록2번 카테고리에5000 원으로 등록했습니다!</h3>
+
+[서버 콘솔]
+(출력 없음)
+
+--- 2) 글의 curl처럼 name, price만 보냄 ---
+> POST /request/regist
+> Content-Type: application/x-www-form-urlencoded
+>
+> name=latte&price=5000
+
+< HTTP/1.1 500
+< Content-Type: text/html;charset=UTF-8
+
+(Spring Boot 기본 오류 페이지 Whitelabel Error Page HTML)
+There was an unexpected error (type=Internal Server Error, status=500).
+
+[서버 콘솔]
+ERROR o.a.c.c.C.[.[.[/].[dispatcherServlet] : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NumberFormatException: Cannot parse null string] with root cause
+java.lang.NumberFormatException: Cannot parse null string
+	at java.base/java.lang.Integer.parseInt(Integer.java:624)
+	at java.base/java.lang.Integer.parseInt(Integer.java:778)
+	at com.wanted.chap02handlermethod.RequestController.registMenu(RequestController.java:26)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+		... (Spring·Tomcat 내부 호출 41줄 생략)
+
+--- 3) 한글 이름 라떼 — 브라우저처럼 UTF-8로 URL 인코딩해서 보냄 ---
+> POST /request/regist
+> Content-Type: application/x-www-form-urlencoded
+>
+> name=%EB%9D%BC%EB%96%BC&price=5000&categoryCode=2
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+
+<h1>메뉴 등록 성공!💯💯💯</h1>
+<h3>라떼을(를) 신규 메뉴 목록2번 카테고리에5000 원으로 등록했습니다!</h3>
+
+[서버 콘솔]
+(출력 없음)
+
+============================================================
+[2. @RequestParam — modify.html 폼 제출]
+============================================================
+
+--- 1) 메뉴 수정 폼 제출 ---
+> POST /request/modify
+> Content-Type: application/x-www-form-urlencoded
+>
+> modifyName=latte&modifyPrice=5000
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+
+<h1>메뉴 등록 성공!💯💯💯</h1>
+<h3></h3>
+
+[서버 콘솔]
+modifyName = latte
+modifyPrice = 5000
+
+--- 2) 파라미터 이름이 다름 (name, price) ---
+> POST /request/modify
+> Content-Type: application/x-www-form-urlencoded
+>
+> name=latte&price=5000
+
+< HTTP/1.1 400
+< Content-Type: text/html;charset=UTF-8
+
+(Spring Boot 기본 오류 페이지 Whitelabel Error Page HTML)
+There was an unexpected error (type=Bad Request, status=400).
+
+[서버 콘솔]
+WARN .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'modifyName' for method parameter type String is not present]
+
+--- 3) 가격이 숫자가 아님 ---
+> POST /request/modify
+> Content-Type: application/x-www-form-urlencoded
+>
+> modifyName=latte&modifyPrice=abc
+
+< HTTP/1.1 400
+< Content-Type: text/html;charset=UTF-8
+
+(Spring Boot 기본 오류 페이지 Whitelabel Error Page HTML)
+There was an unexpected error (type=Bad Request, status=400).
+
+[서버 콘솔]
+WARN .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'modifyPrice': Failed to convert value of type 'java.lang.String' to required type 'int'; For input string: "abc"]
+
+--- 4) 메뉴 수정 폼2 제출 (action="modifyAll") ---
+> POST /request/modifyAll
+> Content-Type: application/x-www-form-urlencoded
+>
+> modifyName2=latte&modifyPrice2=5000
+
+< HTTP/1.1 404
+< Content-Type: text/html;charset=UTF-8
+
+(Spring Boot 기본 오류 페이지 Whitelabel Error Page HTML)
+There was an unexpected error (type=Not Found, status=404).
+
+[서버 콘솔]
+(출력 없음)
+
+============================================================
+[3. @ModelAttribute — search.html 폼 제출]
+============================================================
+
+--- 검색 폼 제출 (글과 같은 값) ---
+> POST /request/search
+> Content-Type: application/x-www-form-urlencoded
+>
+> name=latte&price=5000&orderableStatus=Y
+
+< HTTP/1.1 500
+< Content-Type: text/html;charset=UTF-8
+
+(Spring Boot 기본 오류 페이지 Whitelabel Error Page HTML)
+There was an unexpected error (type=Internal Server Error, status=500).
+
+[서버 콘솔]
+menu = MenuDTO(name=latte, price=5000, categoryCode=0, orderableStatus=Y)
+ERROR org.thymeleaf.TemplateEngine : [THYMELEAF][http-nio-8080-exec-8] Exception processing template "request/searchResult": Exception evaluating SpringEL expression: "menuDTO.getName()" (template: "request/searchResult" - line 9, col 9)
+org.thymeleaf.exceptions.TemplateProcessingException: Exception evaluating SpringEL expression: "menuDTO.getName()" (template: "request/searchResult" - line 9, col 9)
+	at org.thymeleaf.spring6.expression.SPELVariableExpressionEvaluator.evaluate(SPELVariableExpressionEvaluator.java:302)
+		... (Spring·Tomcat 내부 호출 53줄 생략)
+Caused by: org.springframework.expression.spel.SpelEvaluationException: EL1011E: Method call: Attempted to call method getName() on null context object
+	at org.springframework.expression.spel.ast.MethodReference.nullTargetException(MethodReference.java:237)
+		... (Spring·Tomcat 내부 호출 7줄 생략)
+ERROR o.a.c.c.C.[.[.[/].[dispatcherServlet] : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.thymeleaf.exceptions.TemplateProcessingException: Exception evaluating SpringEL expression: "menuDTO.getName()" (template: "request/searchResult" - line 9, col 9)] with root cause
+org.springframework.expression.spel.SpelEvaluationException: EL1011E: Method call: Attempted to call method getName() on null context object
+	... (위와 같은 예외라 스택 60줄 생략)

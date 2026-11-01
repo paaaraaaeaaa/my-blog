@@ -1,0 +1,49 @@
+============================================================
+[index.html의 "@ExceptionHandler 어노테이션 활용!" 버튼 두 개]
+실행 환경: Spring Boot 4.1.2 내장 Tomcat, http://localhost:8080
+요청은 브라우저 대신 스크립트로 보냈다. > 는 보낸 요청, < 는 받은 응답이다.
+============================================================
+
+--- 1) NullPointer 발생 시 예외처리하기! ---
+> GET /nullpointer
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h3>많이 놀라셨죠?</h3>
+    <h4>죄송합니다.</h4>
+    <h4>Cannot invoke &quot;String.toLowerCase(java.util.Locale)&quot; because &quot;str&quot; is null</h4>
+</body>
+</html>
+
+[서버 콘솔]
+(출력 없음)
+
+--- 2) 사용자 정의의 예외 발생 시 예외처리하기! ---
+> GET /userexception
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h3>많이 놀라셨죠?</h3>
+    <h4>죄송합니다.</h4>
+    <h4>아프지 말자 우리</h4>
+</body>
+</html>
+
+[서버 콘솔]
+(출력 없음)

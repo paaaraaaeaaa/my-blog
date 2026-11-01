@@ -1,0 +1,84 @@
+============================================================
+[forward.html 로그인 폼 제출]
+실행 환경: Tomcat 11.0.27 (C:\env), 컨텍스트 경로 /, http://localhost:8080
+요청은 브라우저 대신 스크립트로 보냈다. > 는 보낸 요청, < 는 받은 응답이다.
+============================================================
+
+--- forward.html에서 아이디 user01, 비밀번호 pass01로 로그인 ---
+> POST /forward
+> Content-Type: application/x-www-form-urlencoded
+>
+> userId=user01&password=pass01
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+< Transfer-Encoding: chunked
+
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+<h3 align="center">user01님 환영합니다.</h3></body>
+</html>
+
+[서버 콘솔]
+사용자의 로그인 요청을 처리하는 서블릿 호출됨...
+id = user01
+pwd = pass01
+로그인 성공!!!
+/print 서블릿 호출됨...
+
+--- 같은 폼에 한글 아이디 홍길동 ---
+> POST /forward
+> Content-Type: application/x-www-form-urlencoded
+>
+> userId=%ED%99%8D%EA%B8%B8%EB%8F%99&password=1234
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+< Transfer-Encoding: chunked
+
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+<h3 align="center">홍길동님 환영합니다.</h3></body>
+</html>
+
+[서버 콘솔]
+사용자의 로그인 요청을 처리하는 서블릿 호출됨...
+id = 홍길동
+pwd = 1234
+로그인 성공!!!
+/print 서블릿 호출됨...
+
+============================================================
+[환영 화면에서 새로고침 (브라우저가 "양식 다시 제출"을 확인한 뒤 같은 POST를 다시 보낸다)]
+============================================================
+
+--- F5 — 주소창은 여전히 /forward ---
+> POST /forward
+> Content-Type: application/x-www-form-urlencoded
+>
+> userId=user01&password=pass01
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+< Transfer-Encoding: chunked
+
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+<h3 align="center">user01님 환영합니다.</h3></body>
+</html>
+
+[서버 콘솔]
+사용자의 로그인 요청을 처리하는 서블릿 호출됨...
+id = user01
+pwd = pass01
+로그인 성공!!!
+/print 서블릿 호출됨...

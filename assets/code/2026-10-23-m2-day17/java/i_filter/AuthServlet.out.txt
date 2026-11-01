@@ -1,0 +1,66 @@
+============================================================
+[로그인 전후로 /auth 요청]
+실행 환경: Tomcat 11.0.27 (C:\env), 컨텍스트 경로 /, http://localhost:8080
+요청은 브라우저 대신 스크립트로 보냈다. > 는 보낸 요청, < 는 받은 응답이다.
+============================================================
+
+--- 1) 로그인 전 /auth → LoginFilter가 막는다 ---
+> GET /auth
+
+< HTTP/1.1 302
+< Location: /h_cookie_session/cookie_session.html
+< Content-Type: text/html;charset=UTF-8
+< Content-Length: 0
+
+(응답 본문 없음)
+
+[서버 콘솔]
+(출력 없음)
+
+--- 2) user01 / 1234 로그인 ---
+> POST /session
+> Content-Type: application/x-www-form-urlencoded
+>
+> userId=user01&userPwd=1234
+
+< HTTP/1.1 200
+< Set-Cookie: JSESSIONID=60162D1F93C81F6744944F4D7199BCD8; Path=/; HttpOnly
+< Content-Type: text/html;charset=UTF-8
+< Content-Length: 258
+
+<html>
+  <head>
+    <title>Title</title>
+  </head>
+  <body>
+        <h1>세션 확인!</h1>
+        <p>로그인 된 사용자 ID : user01</p>
+        <p>PWD : 1234</p>
+        <a href = "/expire">세션 만료 시키기</a>
+  </body>
+</html>
+
+[서버 콘솔]
+[요청 된 URL] : /session
+[/session 의 최종 수행 시간] : 14(ms)
+
+--- 3) 로그인 후 /auth ---
+> GET /auth
+> Cookie: JSESSIONID=60162D1F93C81F6744944F4D7199BCD8
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+< Content-Length: 116
+
+<html>
+  <head>
+    <title>Title</title>
+  </head>
+  <body>
+    <h3>user01</h3>
+  </body>
+</html>
+
+[서버 콘솔]
+[요청 된 URL] : /auth
+[/auth 의 최종 수행 시간] : 189(ms)

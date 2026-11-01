@@ -1,0 +1,92 @@
+============================================================
+[web.xml error-page로 /showerrorpage가 불리는 경우]
+실행 환경: Tomcat 11.0.27 (C:\env), 컨텍스트 경로 /, http://localhost:8080
+요청은 브라우저 대신 스크립트로 보냈다. > 는 보낸 요청, < 는 받은 응답이다.
+============================================================
+
+--- 1) /show404 (sendError 404) ---
+> GET /show404
+
+< HTTP/1.1 404
+< Content-Type: text/html;charset=UTF-8
+< Transfer-Encoding: chunked
+
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+<h1>404 - 페이지가 없습니다!</h1></body>
+</html>
+
+[서버 콘솔]
+404 Servlet 호출됨...
+showerrorpage 서블릿 호출됨...
+forwardUrl = /show404
+
+--- 2) /show500 (sendError 500) ---
+> GET /show500
+
+< HTTP/1.1 500
+< Content-Type: text/html;charset=UTF-8
+< Transfer-Encoding: chunked
+
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+<h1>500 - 500번대 Error 는 순전히 개발자의 잘못.</h1></body>
+</html>
+
+[서버 콘솔]
+500 Servlet 호출됨...
+showerrorpage 서블릿 호출됨...
+forwardUrl = /show500
+
+--- 3) 매핑이 없는 주소 (컨테이너가 직접 404) ---
+> GET /no-such-page
+
+< HTTP/1.1 404
+< Content-Type: text/html;charset=UTF-8
+< Transfer-Encoding: chunked
+
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+<h1>404 - 요청된 리소스 [/no-such-page]은(는) 가용하지 않습니다.</h1></body>
+</html>
+
+[서버 콘솔]
+showerrorpage 서블릿 호출됨...
+forwardUrl = /no-such-page
+
+--- 4) /showerrorpage를 주소창에 직접 입력 ---
+> GET /showerrorpage
+
+< HTTP/1.1 500
+< Content-Type: text/html;charset=UTF-8
+< Transfer-Encoding: chunked
+
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+<h1>500 - </h1></body>
+</html>
+
+[서버 콘솔]
+showerrorpage 서블릿 호출됨...
+showerrorpage 서블릿 호출됨...
+forwardUrl = /showerrorpage
+
+[Tomcat Localhost Log]
+심각 [http-nio-8080-exec-7] org.apache.catalina.core.StandardWrapperValve.invoke 경로가 []인 컨텍스트의 서블릿 [com.wanted.servlet.e_exception.ExceptionServlet]을(를) 위한 Servlet.service() 호출이 예외를 발생시켰습니다.
+	java.lang.NullPointerException: Cannot invoke "Object.toString()" because the return value of "jakarta.servlet.http.HttpServletRequest.getAttribute(String)" is null
+		at com.wanted.servlet.e_exception.ExceptionServlet.doGet(ExceptionServlet.java:30)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:622)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:710)
+		... (Tomcat 내부 호출 20줄 생략)

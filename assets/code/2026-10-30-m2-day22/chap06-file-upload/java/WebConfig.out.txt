@@ -1,0 +1,43 @@
+============================================================
+[업로드 결과 화면의 <img src>를 브라우저가 다시 요청 (/uploads/** → ./uploads 폴더)]
+실행 환경: Spring Boot 4.1.2 내장 Tomcat, http://localhost:8080
+요청은 브라우저 대신 스크립트로 보냈다. > 는 보낸 요청, < 는 받은 응답이다. HTML 본문은 <body> 안쪽만(주석 제외) 옮겼다.
+============================================================
+
+--- 1) b.jpg 결과 화면의 <img> ---
+> GET /uploads/c4bb8ec5-5226-4e20-b28e-726af2f24ab3.jpg
+
+< HTTP/1.1 200
+< Last-Modified: Sun, 01 Nov 2026 12:21:58 GMT
+< Accept-Ranges: bytes
+< Content-Type: image/jpeg
+
+(이미지 바이너리 693 bytes)
+
+[서버 콘솔]
+(출력 없음)
+
+--- 2) a.PNG 결과 화면의 <img> ---
+> GET /uploads/261ff8d3-428b-4b45-ae73-f96345a6a106.png
+
+< HTTP/1.1 200
+< Last-Modified: Sun, 01 Nov 2026 12:21:57 GMT
+< Accept-Ranges: bytes
+< Content-Type: image/png
+
+(이미지 바이너리 185 bytes)
+
+[서버 콘솔]
+(출력 없음)
+
+--- 3) 없는 파일 이름 ---
+> GET /uploads/no-such-file.png
+
+< HTTP/1.1 404
+< Content-Type: text/html;charset=UTF-8
+
+(Spring Boot 기본 오류 페이지 Whitelabel Error Page HTML)
+There was an unexpected error (type=Not Found, status=404).
+
+[서버 콘솔]
+(출력 없음)

@@ -1,0 +1,124 @@
+============================================================
+[index.html의 "1. 메소드에 요청 매핑하기" 버튼 네 개]
+실행 환경: Spring Boot 4.1.2 내장 Tomcat, http://localhost:7777
+요청은 브라우저 대신 스크립트로 보냈다. > 는 보낸 요청, < 는 받은 응답이다.
+============================================================
+
+--- 1) GET 메뉴 등록 요청함!! (location.href) ---
+> GET /menu/regist
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!--
+        th 는 타임리프 라는 템플릿엔진의 문법이다.
+        해당 문법은 chap6 에서 진행한다!
+    -->
+    <h3>GET 방식의 메뉴 등록 핸들러 메서드 동작함...</h3>
+</body>
+</html>
+
+[서버 콘솔]
+동작하니?
+
+--- 2) POST 메뉴 등록 요청함!! (입력칸 없는 POST 폼) ---
+> POST /menu/regist
+> Content-Type: application/x-www-form-urlencoded
+>
+> (빈 본문 — 입력칸 없는 폼)
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!--
+        th 는 타임리프 라는 템플릿엔진의 문법이다.
+        해당 문법은 chap6 에서 진행한다!
+    -->
+    <h3>POST 방식의 메뉴 등록 핸들러 메서드 동작함...</h3>
+</body>
+</html>
+
+[서버 콘솔]
+동작하니?
+
+--- 3) GET 메뉴 수정 요청함!! (입력칸 없는 GET 폼이라 ? 만 붙는다) ---
+> GET /menu/modify?
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!--
+        th 는 타임리프 라는 템플릿엔진의 문법이다.
+        해당 문법은 chap6 에서 진행한다!
+    -->
+    <h3>GET 방식의 메뉴 수정 핸들러 메서드 동작함...</h3>
+</body>
+</html>
+
+[서버 콘솔]
+동작하니?
+
+--- 4) POST 메뉴 수정 요청함!! ---
+> POST /menu/modify
+> Content-Type: application/x-www-form-urlencoded
+>
+> (빈 본문 — 입력칸 없는 폼)
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!--
+        th 는 타임리프 라는 템플릿엔진의 문법이다.
+        해당 문법은 chap6 에서 진행한다!
+    -->
+    <h3>POST 방식의 메뉴 수정 핸들러 메서드 동작함...</h3>
+</body>
+</html>
+
+[서버 콘솔]
+동작하니?
+
+============================================================
+[버튼에 없는 방식: PUT /menu/modify]
+============================================================
+
+--- PUT /menu/modify ---
+> PUT /menu/modify
+
+< HTTP/1.1 405
+< Allow: POST, GET
+< Content-Type: text/html;charset=UTF-8
+
+(Spring Boot 기본 오류 페이지 Whitelabel Error Page HTML)
+There was an unexpected error (type=Method Not Allowed, status=405).
+
+[서버 콘솔]
+WARN .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'PUT' is not supported]

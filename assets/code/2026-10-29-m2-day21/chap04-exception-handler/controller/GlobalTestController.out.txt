@@ -1,0 +1,69 @@
+============================================================
+[index.html의 "@ControllerAdvice 어노테이션 활용" 버튼 세 개]
+실행 환경: Spring Boot 4.1.2 내장 Tomcat, http://localhost:8080
+요청은 브라우저 대신 스크립트로 보냈다. > 는 보낸 요청, < 는 받은 응답이다.
+============================================================
+
+--- 1) 전역 - NullPointer 발생 시 예외처리하기! ---
+> GET /global-nullpointer
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h3>많이 놀라셨죠?</h3>
+    <h4>죄송합니다.</h4>
+    <h4>Cannot invoke &quot;String.toLowerCase(java.util.Locale)&quot; because &quot;str&quot; is null</h4>
+</body>
+</html>
+
+[서버 콘솔]
+전역 예외처리 핸들러 동작!!
+
+--- 2) 전역 - 사용자 정의의 예외 발생 시 예외처리하기! (핸들러 없는 경로) ---
+> GET /global-userexception
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Default 예외 페이지!</h1>
+    <h3>class org.springframework.web.servlet.resource.NoResourceFoundException 에러 발생! 원인 : No static resource global-userexception for request &#39;/global-userexception&#39;.</h3>
+</body>
+</html>
+
+[서버 콘솔]
+(출력 없음)
+
+--- 3) 전역 Default 예외 처리! ---
+> GET /global-default
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Default 예외 페이지!</h1>
+    <h3>class java.lang.ArrayIndexOutOfBoundsException 에러 발생! 원인 : Index 1 out of bounds for length 0</h3>
+</body>
+</html>
+
+[서버 콘솔]
+(출력 없음)

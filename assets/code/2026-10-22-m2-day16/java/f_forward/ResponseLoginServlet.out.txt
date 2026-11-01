@@ -1,0 +1,49 @@
+============================================================
+[forward.html 로그인 폼 제출 (/forward → /print 위임)]
+실행 환경: Tomcat 11.0.27 (C:\env), 컨텍스트 경로 /, http://localhost:8080
+요청은 브라우저 대신 스크립트로 보냈다. > 는 보낸 요청, < 는 받은 응답이다.
+============================================================
+
+--- forward.html에서 아이디 user01, 비밀번호 pass01로 로그인 ---
+> POST /forward
+> Content-Type: application/x-www-form-urlencoded
+>
+> userId=user01&password=pass01
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+< Transfer-Encoding: chunked
+
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+<h3 align="center">user01님 환영합니다.</h3></body>
+</html>
+
+[서버 콘솔]
+사용자의 로그인 요청을 처리하는 서블릿 호출됨...
+id = user01
+pwd = pass01
+로그인 성공!!!
+/print 서블릿 호출됨...
+
+============================================================
+[/print를 주소창에 직접 입력 (GET)]
+============================================================
+
+--- GET /print ---
+> GET /print
+
+< HTTP/1.1 405
+< Content-Type: text/html;charset=utf-8
+< Content-Language: ko
+< Content-Length: 826
+
+(Tomcat 기본 오류 페이지 HTML)
+제목: HTTP 상태 405 – 허용되지 않는 메소드
+메시지: HTTP 메소드 GET은 이 URL에 의해 지원되지 않습니다.
+
+[서버 콘솔]
+(출력 없음)

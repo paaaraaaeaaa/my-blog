@@ -1,0 +1,191 @@
+============================================================
+[main.html의 single-file 폼 (uploads 폴더가 없는 상태에서 시작)]
+실행 환경: Spring Boot 4.1.2 내장 Tomcat, http://localhost:8080
+요청은 브라우저 대신 스크립트로 보냈다. > 는 보낸 요청, < 는 받은 응답이다. HTML 본문은 <body> 안쪽만(주석 제외) 옮겼다.
+============================================================
+
+--- 1) a.PNG 업로드 (uploads 폴더 파일 0 → 1개) ---
+> POST /single-file
+> Content-Type: multipart/form-data → description=첫 번째 이미지 | singleFile=a.PNG (image/png, 185 bytes)
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+
+<h3>파일 업로드 성공!!!</h3>
+<div>
+    <img src="/uploads/261ff8d3-428b-4b45-ae73-f96345a6a106.png" width="300" height="300">
+</div>
+
+[서버 콘솔]
+singleFile = org.springframework.web.multipart.support.StandardMultipartHttpServletRequest$StandardMultipartFile@3e3ebfdc
+description = 첫 번째 이미지
+originName = a.PNG
+
+--- 2) b.jpg 업로드 (uploads 폴더 파일 1 → 2개) ---
+> POST /single-file
+> Content-Type: multipart/form-data → description=두 번째 이미지 | singleFile=b.jpg (image/jpeg, 693 bytes)
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+
+<h3>파일 업로드 성공!!!</h3>
+<div>
+    <img src="/uploads/c4bb8ec5-5226-4e20-b28e-726af2f24ab3.jpg" width="300" height="300">
+</div>
+
+[서버 콘솔]
+singleFile = org.springframework.web.multipart.support.StandardMultipartHttpServletRequest$StandardMultipartFile@457a607b
+description = 두 번째 이미지
+originName = b.jpg
+
+============================================================
+[main.html의 multi-file 폼]
+============================================================
+
+--- 1) a.PNG, b.jpg 두 개 (uploads 폴더 파일 2 → 4개) ---
+> POST /multi-file
+> Content-Type: multipart/form-data → description=두 장 | multiFile=a.PNG (image/png, 185 bytes) | multiFile=b.jpg (image/jpeg, 693 bytes)
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+
+<h3>멀티 파일 업로드 성공!</h3>
+<div>
+    <img src="/uploads/943d8819-4f83-4c60-81c0-a64ed47c2c9b.png" width="300" height="300">
+</div>
+<div>
+    <img src="/uploads/ebb70983-5f18-4de6-b447-a4263dfc77ae.jpg" width="300" height="300">
+</div>
+
+[서버 콘솔]
+multipartFile = [org.springframework.web.multipart.support.StandardMultipartHttpServletRequest$StandardMultipartFile@3f286639, org.springframework.web.multipart.support.StandardMultipartHttpServletRequest$StandardMultipartFile@7a2aefb8]
+description = 두 장
+originName = a.PNG
+originName = b.jpg
+
+--- 2) a.PNG와 확장자 없는 noext (uploads 폴더 파일 4 → 4개) ---
+> POST /multi-file
+> Content-Type: multipart/form-data → description=하나는 실패 | multiFile=a.PNG (image/png, 185 bytes) | multiFile=noext (application/octet-stream, 5 bytes)
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+
+<h3>멀티 파일 업로드 실패!</h3>
+
+[서버 콘솔]
+multipartFile = [org.springframework.web.multipart.support.StandardMultipartHttpServletRequest$StandardMultipartFile@14f238d7, org.springframework.web.multipart.support.StandardMultipartHttpServletRequest$StandardMultipartFile@1a35c439]
+description = 하나는 실패
+originName = a.PNG
+originName = noext
+
+============================================================
+[single-file 폼이 실패하는 두 경우]
+============================================================
+
+--- 1) 확장자 없는 noext 업로드 (uploads 폴더 파일 4 → 4개) ---
+> POST /single-file
+> Content-Type: multipart/form-data → description=확장자 없음 | singleFile=noext (application/octet-stream, 5 bytes)
+
+< HTTP/1.1 500
+< Content-Type: text/html;charset=UTF-8
+
+(Spring Boot 기본 오류 페이지 Whitelabel Error Page HTML)
+There was an unexpected error (type=Internal Server Error, status=500).
+
+[서버 콘솔]
+singleFile = org.springframework.web.multipart.support.StandardMultipartHttpServletRequest$StandardMultipartFile@3554d4c7
+description = 확장자 없음
+originName = noext
+ERROR o.a.c.c.C.[.[.[/].[dispatcherServlet] : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.StringIndexOutOfBoundsException: Range [-1, 5) out of bounds for length 5] with root cause
+java.lang.StringIndexOutOfBoundsException: Range [-1, 5) out of bounds for length 5
+		... (JDK 내부 호출 9줄 생략)
+	at java.base/java.lang.String.substring(String.java:2796)
+	at com.wanted.fileupload.FileController.save(FileController.java:98)
+	at com.wanted.fileupload.FileController.single(FileController.java:41)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+		... (Spring·Tomcat 내부 호출 42줄 생략)
+
+--- 2) 파일을 고르지 않고 제출 (브라우저는 filename=""인 빈 조각을 보낸다) (uploads 폴더 파일 4 → 4개) ---
+> POST /single-file
+> Content-Type: multipart/form-data → description= | singleFile=""(파일 미선택) (application/octet-stream, 0 bytes)
+
+< HTTP/1.1 500
+< Content-Type: text/html;charset=UTF-8
+
+(Spring Boot 기본 오류 페이지 Whitelabel Error Page HTML)
+There was an unexpected error (type=Internal Server Error, status=500).
+
+[서버 콘솔]
+singleFile = org.springframework.web.multipart.support.StandardMultipartHttpServletRequest$StandardMultipartFile@5c43c54b
+description =
+originName =
+ERROR o.a.c.c.C.[.[.[/].[dispatcherServlet] : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.StringIndexOutOfBoundsException: Range [-1, 0) out of bounds for length 0] with root cause
+java.lang.StringIndexOutOfBoundsException: Range [-1, 0) out of bounds for length 0
+		... (JDK 내부 호출 9줄 생략)
+	at java.base/java.lang.String.substring(String.java:2796)
+	at com.wanted.fileupload.FileController.save(FileController.java:98)
+	at com.wanted.fileupload.FileController.single(FileController.java:41)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+		... (Spring·Tomcat 내부 호출 42줄 생략)
+
+============================================================
+[업로드 한도]
+============================================================
+
+--- 1) 수업 설정(max-file-size 200MB) 그대로 1.5MB 파일 (uploads 폴더 파일 4 → 5개) ---
+> POST /single-file
+> Content-Type: multipart/form-data → description=1.5MB | singleFile=size-1.5mb.png (image/png, 1,572,864 bytes)
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+
+<h3>파일 업로드 성공!!!</h3>
+<div>
+    <img src="/uploads/43eb0bef-6875-47ae-9cee-a48ae028b18a.png" width="300" height="300">
+</div>
+
+[서버 콘솔]
+singleFile = org.springframework.web.multipart.support.StandardMultipartHttpServletRequest$StandardMultipartFile@4bbd86a4
+description = 1.5MB
+originName = size-1.5mb.png
+
+--- 2) application.yaml에서 multipart 한도 두 줄을 지우고(기본값) 다시 띄운 뒤 0.9MB 파일 (uploads 폴더 파일 5 → 6개) ---
+> POST /single-file
+> Content-Type: multipart/form-data → description=0.9MB | singleFile=size-0.9mb.png (image/png, 921,600 bytes)
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+
+<h3>파일 업로드 성공!!!</h3>
+<div>
+    <img src="/uploads/681641b9-cf48-4ab7-ae72-3eccb1286a37.png" width="300" height="300">
+</div>
+
+[서버 콘솔]
+singleFile = org.springframework.web.multipart.support.StandardMultipartHttpServletRequest$StandardMultipartFile@f707a5d
+description = 0.9MB
+originName = size-0.9mb.png
+
+--- 3) (한도 기본값) 1.5MB 파일 (uploads 폴더 파일 6 → 6개) ---
+> POST /single-file
+> Content-Type: multipart/form-data → description=1.5MB | singleFile=size-1.5mb.png (image/png, 1,572,864 bytes)
+
+< HTTP/1.1 413
+
+(응답 본문 없음)
+
+[서버 콘솔]
+WARN .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.MaxUploadSizeExceededException: Maximum upload size exceeded]
+WARN .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.MaxUploadSizeExceededException: Maximum upload size exceeded]
+
+--- 4) (한도 기본값) 11MB 파일 (uploads 폴더 파일 6 → 6개) ---
+> POST /single-file
+> Content-Type: multipart/form-data → description=11MB | singleFile=size-11mb.png (image/png, 11,534,336 bytes)
+
+< HTTP/1.1 413
+
+(응답 본문 없음)
+
+[서버 콘솔]
+WARN .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.MaxUploadSizeExceededException: Maximum upload size exceeded]
+WARN .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.MaxUploadSizeExceededException: Maximum upload size exceeded]

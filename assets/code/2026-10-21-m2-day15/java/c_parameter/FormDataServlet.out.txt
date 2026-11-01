@@ -1,0 +1,20 @@
+============================================================
+[parameter.html의 POST 폼 제출]
+실행 환경: Tomcat 11.0.27 (C:\env), 컨텍스트 경로 /, http://localhost:8080
+요청은 브라우저 대신 스크립트로 보냈다. > 는 보낸 요청, < 는 받은 응답이다.
+============================================================
+
+--- 이름 홍길동, 나이 20, 취미 두 개 체크 ---
+> POST /formdata
+> Content-Type: application/x-www-form-urlencoded
+>
+> name=%ED%99%8D%EA%B8%B8%EB%8F%99&age=20&birthday=2021-01-08&gender=M&national=ko&hobbies=movie&hobbies=music
+
+< HTTP/1.1 200
+< Content-Length: 0
+
+(응답 본문 없음)
+
+[서버 콘솔]
+doPost() 호출됨...
+name = 홍길동

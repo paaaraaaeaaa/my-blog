@@ -1,0 +1,127 @@
+============================================================
+[index.html의 "2. 클래스에 요청 매핑하기" 버튼 여섯 개]
+실행 환경: Spring Boot 4.1.2 내장 Tomcat, http://localhost:7777
+요청은 브라우저 대신 스크립트로 보냈다. > 는 보낸 요청, < 는 받은 응답이다.
+============================================================
+
+--- 1) GET 주문 등록 요청함!! ---
+> GET /order/regist
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!--
+        th 는 타임리프 라는 템플릿엔진의 문법이다.
+        해당 문법은 chap6 에서 진행한다!
+    -->
+    <h3>GET 방식의 주문 등록 핸들러 메서드 동작.</h3>
+</body>
+</html>
+
+[서버 콘솔]
+(출력 없음)
+
+--- 2) POST 주문 등록 요청함!! ---
+> POST /order/regist
+> Content-Type: application/x-www-form-urlencoded
+>
+> (빈 본문 — 입력칸 없는 폼)
+
+< HTTP/1.1 405
+< Allow: GET
+< Content-Type: text/html;charset=UTF-8
+
+(Spring Boot 기본 오류 페이지 Whitelabel Error Page HTML)
+There was an unexpected error (type=Method Not Allowed, status=405).
+
+[서버 콘솔]
+WARN .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' is not supported]
+
+--- 3) GET 주문 수정 요청함!! ---
+> GET /order/modify?
+
+< HTTP/1.1 404
+< Content-Type: text/html;charset=UTF-8
+
+(Spring Boot 기본 오류 페이지 Whitelabel Error Page HTML)
+There was an unexpected error (type=Not Found, status=404).
+
+[서버 콘솔]
+(출력 없음)
+
+--- 4) POST 주문 수정 요청함!! ---
+> POST /order/modify
+> Content-Type: application/x-www-form-urlencoded
+>
+> (빈 본문 — 입력칸 없는 폼)
+
+< HTTP/1.1 404
+< Content-Type: text/html;charset=UTF-8
+
+(Spring Boot 기본 오류 페이지 Whitelabel Error Page HTML)
+There was an unexpected error (type=Not Found, status=404).
+
+[서버 콘솔]
+(출력 없음)
+
+--- 5) POST 주문 삭제 요청함!! ---
+> POST /order/delete
+> Content-Type: application/x-www-form-urlencoded
+>
+> (빈 본문 — 입력칸 없는 폼)
+
+< HTTP/1.1 404
+< Content-Type: text/html;charset=UTF-8
+
+(Spring Boot 기본 오류 페이지 Whitelabel Error Page HTML)
+There was an unexpected error (type=Not Found, status=404).
+
+[서버 콘솔]
+(출력 없음)
+
+--- 6) GET 방식의 3번 주문 상세 요청함!! ---
+> GET /order/detail/3?
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!--
+        th 는 타임리프 라는 템플릿엔진의 문법이다.
+        해당 문법은 chap6 에서 진행한다!
+    -->
+    <h3>3 번 주문 상세조회!!</h3>
+</body>
+</html>
+
+[서버 콘솔]
+(출력 없음)
+
+============================================================
+[주소창에서 orderNo를 숫자가 아닌 값으로]
+============================================================
+
+--- GET /order/detail/abc ---
+> GET /order/detail/abc
+
+< HTTP/1.1 400
+< Content-Type: text/html;charset=UTF-8
+
+(Spring Boot 기본 오류 페이지 Whitelabel Error Page HTML)
+There was an unexpected error (type=Bad Request, status=400).
+
+[서버 콘솔]
+WARN .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'orderNo': Failed to convert value of type 'java.lang.String' to required type 'int'; For input string: "abc"]

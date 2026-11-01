@@ -1,0 +1,25 @@
+============================================================
+[exception.html의 "500 Error" 링크]
+실행 환경: Tomcat 11.0.27 (C:\env), 컨텍스트 경로 /, http://localhost:8080
+요청은 브라우저 대신 스크립트로 보냈다. > 는 보낸 요청, < 는 받은 응답이다.
+============================================================
+
+--- GET /show500 ---
+> GET /show500
+
+< HTTP/1.1 500
+< Content-Type: text/html;charset=UTF-8
+< Transfer-Encoding: chunked
+
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+<h1>500 - 500번대 Error 는 순전히 개발자의 잘못.</h1></body>
+</html>
+
+[서버 콘솔]
+500 Servlet 호출됨...
+showerrorpage 서블릿 호출됨...
+forwardUrl = /show500

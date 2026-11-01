@@ -1,0 +1,53 @@
+============================================================
+[service.html의 버튼 세 개를 차례로 누름]
+실행 환경: Tomcat 11.0.27 (C:\env), 컨텍스트 경로 /, http://localhost:8080
+요청은 브라우저 대신 스크립트로 보냈다. > 는 보낸 요청, < 는 받은 응답이다.
+============================================================
+
+--- 1) a 태그 링크 "서비스 메소드 요청하기" ---
+> GET /request-service
+
+< HTTP/1.1 200
+< Content-Length: 0
+
+(응답 본문 없음)
+
+[서버 콘솔]
+req = org.apache.catalina.connector.RequestFacade@326de226
+httpMethod = GET
+
+--- 2) GET 폼 "GET 방식 요청!!" (입력칸이 없어 ? 만 붙는다) ---
+> GET /request-service?
+
+< HTTP/1.1 200
+< Content-Length: 0
+
+(응답 본문 없음)
+
+[서버 콘솔]
+req = org.apache.catalina.connector.RequestFacade@5fcfc7ed
+httpMethod = GET
+
+--- 3) method="host"(오타) 폼 "POST 방식 요청!!" — 브라우저는 GET으로 보낸다 ---
+> GET /request-service?
+
+< HTTP/1.1 200
+< Content-Length: 0
+
+(응답 본문 없음)
+
+[서버 콘솔]
+req = org.apache.catalina.connector.RequestFacade@c393c13
+httpMethod = GET
+
+--- 4) 비교용: 진짜 POST 요청 (method="post"로 고쳤을 때와 같다) ---
+> POST /request-service
+
+< HTTP/1.1 200
+< Content-Length: 0
+
+(응답 본문 없음)
+
+[서버 콘솔]
+req = org.apache.catalina.connector.RequestFacade@111e104a
+httpMethod = POST

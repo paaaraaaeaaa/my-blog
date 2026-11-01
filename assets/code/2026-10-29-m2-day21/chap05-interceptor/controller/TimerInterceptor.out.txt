@@ -1,0 +1,72 @@
+============================================================
+[index.html의 "/stopwatch 요청 수행 시간 확인하기!" 버튼]
+실행 환경: Spring Boot 4.1.2 내장 Tomcat, http://localhost:8080
+요청은 브라우저 대신 스크립트로 보냈다. > 는 보낸 요청, < 는 받은 응답이다.
+============================================================
+
+--- GET /stopwatch ---
+> GET /stopwatch
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <h3> 핸들러메서드 호출 수행 시간 : 2014</h3>
+</body>
+</html>
+
+[서버 콘솔]
+prehandle() 동작함...
+stopwatch 요청을 처리하는 핸들러 메서드 동작..
+postHandler() 호출됨..
+
+============================================================
+[메인 화면 열기 (정적 index.html)]
+============================================================
+
+--- GET / ---
+> GET /
+
+< HTTP/1.1 200
+< Last-Modified: Sun, 01 Nov 2026 11:46:09 GMT
+< Accept-Ranges: bytes
+< Content-Type: text/html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Interceptor 를 이용한 Controller 요청 가로채기</h1>
+    <h3>인터셉터를 이용한 요청 처리 시간 확인하기</h3>
+    <button onclick="location.href='stopwatch'">
+        /stopwatch 요청 수행 시간 확인하기!
+    </button>
+</body>
+</html>
+
+[서버 콘솔]
+prehandle() 동작함...
+postHandler() 호출됨..
+prehandle() 동작함...
+postHandler() 호출됨..
+ERROR o.a.c.c.C.[.[.[/].[dispatcherServlet] : Servlet.service() for servlet [dispatcherServlet] threw exception
+java.lang.NullPointerException: Cannot invoke "org.springframework.web.servlet.ModelAndView.addObject(String, Object)" because "modelAndView" is null
+	at com.wanted.interceptor.TimerInterceptor.postHandle(TimerInterceptor.java:37)
+	at org.springframework.web.servlet.HandlerExecutionChain.applyPostHandle(HandlerExecutionChain.java:162)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:970)
+		... (Spring·Tomcat 내부 호출 57줄 생략)
+ERROR o.a.c.c.C.[.[.[/].[dispatcherServlet] : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NullPointerException: Cannot invoke "org.springframework.web.servlet.ModelAndView.addObject(String, Object)" because "modelAndView" is null] with root cause
+java.lang.NullPointerException: Cannot invoke "org.springframework.web.servlet.ModelAndView.addObject(String, Object)" because "modelAndView" is null
+	... (위와 같은 예외라 스택 60줄 생략)
+prehandle() 동작함...
+postHandler() 호출됨..
+ERROR a.e.ErrorMvcAutoConfiguration$StaticView : Cannot render error page for request [/] as the response has already been committed. As a result, the response may have the wrong status code.

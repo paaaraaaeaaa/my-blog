@@ -1,0 +1,25 @@
+============================================================
+[exception.html의 "404 Error" 링크]
+실행 환경: Tomcat 11.0.27 (C:\env), 컨텍스트 경로 /, http://localhost:8080
+요청은 브라우저 대신 스크립트로 보냈다. > 는 보낸 요청, < 는 받은 응답이다.
+============================================================
+
+--- GET /show404 ---
+> GET /show404
+
+< HTTP/1.1 404
+< Content-Type: text/html;charset=UTF-8
+< Transfer-Encoding: chunked
+
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+<h1>404 - 페이지가 없습니다!</h1></body>
+</html>
+
+[서버 콘솔]
+404 Servlet 호출됨...
+showerrorpage 서블릿 호출됨...
+forwardUrl = /show404

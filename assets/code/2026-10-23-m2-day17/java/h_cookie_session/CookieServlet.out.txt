@@ -1,0 +1,153 @@
+============================================================
+[쿠키 테스트 폼에 hello 입력]
+실행 환경: Tomcat 11.0.27 (C:\env), 컨텍스트 경로 /, http://localhost:8080
+요청은 브라우저 대신 스크립트로 보냈다. > 는 보낸 요청, < 는 받은 응답이다.
+============================================================
+
+--- 1) 쿠키 넣기 전 /cookie ---
+> GET /cookie
+
+< HTTP/1.1 200
+< Set-Cookie: JSESSIONID=AC516C8EB03962051009D676A47B3362; Path=/; HttpOnly
+< Content-Type: text/html;charset=UTF-8
+< Content-Length: 188
+
+<html>
+  <head>
+    <title>Title</title>
+  </head>
+  <body>
+    <h1> 쿠키에 저장된 값 꺼내기! </h1>
+    <h3> 쿠키에 저장된 값 : 없음! </h3>
+  </body>
+</html>
+
+[서버 콘솔]
+[요청 된 URL] : /cookie
+[/cookie 의 최종 수행 시간] : 6(ms)
+
+--- 2) "쿠키에 값 넣기" (POST) ---
+> POST /cookie
+> Cookie: JSESSIONID=AC516C8EB03962051009D676A47B3362
+> Content-Type: application/x-www-form-urlencoded
+>
+> cookieValue=hello
+
+< HTTP/1.1 302
+< Set-Cookie: cookieValue=hello; Expires=Sun, 01 Nov 2026 12:36:51 GMT; Max-Age=3600
+< Location: /cookie
+< Content-Type: text/html;charset=UTF-8
+< Content-Length: 0
+
+(응답 본문 없음)
+
+[서버 콘솔]
+[요청 된 URL] : /cookie
+[/cookie 의 최종 수행 시간] : 5(ms)
+
+--- 3) 브라우저가 Location을 따라 다시 보낸 요청 (쿠키가 붙는다) ---
+> GET /cookie
+> Cookie: JSESSIONID=AC516C8EB03962051009D676A47B3362; cookieValue=hello
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+< Content-Length: 186
+
+<html>
+  <head>
+    <title>Title</title>
+  </head>
+  <body>
+    <h1> 쿠키에 저장된 값 꺼내기! </h1>
+    <h3> 쿠키에 저장된 값 : hello </h3>
+  </body>
+</html>
+
+[서버 콘솔]
+[요청 된 URL] : /cookie
+[/cookie 의 최종 수행 시간] : 2(ms)
+
+============================================================
+[쿠키 값으로 한글 입력 (새 브라우저)]
+============================================================
+
+--- 1) "쿠키에 값 넣기" — 쿠키값 ---
+> POST /cookie
+> Content-Type: application/x-www-form-urlencoded
+>
+> cookieValue=%EC%BF%A0%ED%82%A4%EA%B0%92
+
+< HTTP/1.1 302
+< Set-Cookie: cookieValue=쿠키값; Expires=Sun, 01 Nov 2026 12:36:54 GMT; Max-Age=3600
+< Location: /cookie
+< Content-Type: text/html;charset=UTF-8
+< Content-Length: 0
+
+(응답 본문 없음)
+
+[서버 콘솔]
+[요청 된 URL] : /cookie
+[/cookie 의 최종 수행 시간] : 1(ms)
+
+--- 2) 브라우저가 Location을 따라 다시 보낸 요청 ---
+> GET /cookie
+> Cookie: cookieValue=쿠키값
+
+< HTTP/1.1 200
+< Set-Cookie: JSESSIONID=9C1097837C36E80CD804D4DAC0CFB4FE; Path=/; HttpOnly
+< Content-Type: text/html;charset=UTF-8
+< Content-Length: 190
+
+<html>
+  <head>
+    <title>Title</title>
+  </head>
+  <body>
+    <h1> 쿠키에 저장된 값 꺼내기! </h1>
+    <h3> 쿠키에 저장된 값 : 쿠키값 </h3>
+  </body>
+</html>
+
+[서버 콘솔]
+[요청 된 URL] : /cookie
+[/cookie 의 최종 수행 시간] : 22(ms)
+
+============================================================
+[쿠키 값으로 공백이 들어간 값 입력 (새 브라우저)]
+============================================================
+
+--- "쿠키에 값 넣기" — hello world ---
+> POST /cookie
+> Content-Type: application/x-www-form-urlencoded
+>
+> cookieValue=hello+world
+
+< HTTP/1.1 500
+< Content-Type: text/html;charset=UTF-8
+< Transfer-Encoding: chunked
+
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+<h1>500 - </h1></body>
+</html>
+
+[서버 콘솔]
+[요청 된 URL] : /cookie
+showerrorpage 서블릿 호출됨...
+forwardUrl = /cookie
+
+[Tomcat Localhost Log]
+심각 [http-nio-8080-exec-8] org.apache.catalina.core.StandardWrapperValve.invoke 경로가 []인 컨텍스트의 서블릿 [com.wanted.servlet.h_cookie_session.CookieServlet]을(를) 위한 Servlet.service() 호출이 예외를 발생시켰습니다.
+	java.lang.IllegalArgumentException: 쿠키 값에 유효하지 않은 문자 [32]이(가) 있습니다.
+		at org.apache.tomcat.util.http.Rfc6265CookieProcessor.validateCookieValue(Rfc6265CookieProcessor.java:246)
+		at org.apache.tomcat.util.http.Rfc6265CookieProcessor.generateHeader(Rfc6265CookieProcessor.java:130)
+		at org.apache.catalina.connector.Response.generateCookieString(Response.java:960)
+		at org.apache.catalina.connector.Response.addCookie(Response.java:906)
+		at org.apache.catalina.connector.ResponseFacade.addCookie(ResponseFacade.java:230)
+		at com.wanted.servlet.h_cookie_session.CookieServlet.doPost(CookieServlet.java:26)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:649)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:710)
+		... (Tomcat 내부 호출 24줄 생략)

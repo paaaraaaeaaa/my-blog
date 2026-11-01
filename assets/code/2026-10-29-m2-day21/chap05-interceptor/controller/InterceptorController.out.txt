@@ -1,0 +1,75 @@
+============================================================
+[index.html의 "/stopwatch 요청 수행 시간 확인하기!" 버튼]
+실행 환경: Spring Boot 4.1.2 내장 Tomcat, http://localhost:8080
+요청은 브라우저 대신 스크립트로 보냈다. > 는 보낸 요청, < 는 받은 응답이다.
+============================================================
+
+--- GET /stopwatch ---
+> GET /stopwatch
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <h3> 핸들러메서드 호출 수행 시간 : 2014</h3>
+</body>
+</html>
+
+[서버 콘솔]
+prehandle() 동작함...
+stopwatch 요청을 처리하는 핸들러 메서드 동작..
+postHandler() 호출됨..
+
+============================================================
+[같은 버튼을 두 번 더 (interval 값 비교)]
+============================================================
+
+--- 2번째 GET /stopwatch ---
+> GET /stopwatch
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <h3> 핸들러메서드 호출 수행 시간 : 2002</h3>
+</body>
+</html>
+
+[서버 콘솔]
+prehandle() 동작함...
+stopwatch 요청을 처리하는 핸들러 메서드 동작..
+postHandler() 호출됨..
+
+--- 3번째 GET /stopwatch ---
+> GET /stopwatch
+
+< HTTP/1.1 200
+< Content-Type: text/html;charset=UTF-8
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <h3> 핸들러메서드 호출 수행 시간 : 2005</h3>
+</body>
+</html>
+
+[서버 콘솔]
+prehandle() 동작함...
+stopwatch 요청을 처리하는 핸들러 메서드 동작..
+postHandler() 호출됨..
