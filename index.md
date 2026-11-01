@@ -190,7 +190,7 @@ home_side: true
 <section class="panel gh-panel">
 <div class="gh-panel__item gh-panel__streak">
 <h3>streak</h3>
-<img src="https://streak-stats.demolab.com?user=paaaraaaeaaa&hide_border=true&background=00000000&stroke=30363D&ring=7EE787&fire=E3B341&currStreakNum=E6EDF3&sideNums=E6EDF3&currStreakLabel=7EE787&sideLabels=A9B4BF&dates=7D8590" data-src-light="https://streak-stats.demolab.com?user=paaaraaaeaaa&hide_border=true&background=00000000&stroke=D8DEE4&ring=1A7F37&fire=9A6700&currStreakNum=1F2328&sideNums=1F2328&currStreakLabel=1A7F37&sideLabels=464E57&dates=656D76" alt="GitHub 연속 기여 통계" loading="lazy" />
+<img src="https://streak-stats.demolab.com?user=paaaraaaeaaa&hide_border=true&background=00000000&stroke=30363D&ring=7EE787&fire=E3B341&currStreakNum=E6EDF3&sideNums=E6EDF3&currStreakLabel=7EE787&sideLabels=B4BEC8&dates=8B949E" data-src-light="https://streak-stats.demolab.com?user=paaaraaaeaaa&hide_border=true&background=00000000&stroke=D8DEE4&ring=1A7F37&fire=9A6700&currStreakNum=1F2328&sideNums=1F2328&currStreakLabel=1A7F37&sideLabels=3D444D&dates=57606A" alt="GitHub 연속 기여 통계" loading="lazy" />
 </div>
 <div class="gh-panel__item">
 <h3>contributions</h3>

@@ -1075,7 +1075,7 @@ nav.toc .toc__menu li.active > a {       /* 스크롤 추적: 지금 읽는 항�
 .mbar.is-done .mbar__fill { width: 100%; }
 .mbar.is-current .mbar__fill { box-shadow: var(--glow); }
 .mbar__fill--hatch { width: 100%; background: repeating-linear-gradient(135deg, var(--c-signal) 0 3px, transparent 3px 7px); opacity: .8; }
-.mbar__n { font-size: .75rem; font-weight: var(--fw-bold); color: var(--c-text-3); }
+.mbar__n { font-size: .8125rem; font-weight: var(--fw-bold); color: var(--c-text-3); }
 .mbar.is-done .mbar__n, .mbar.is-current .mbar__n { color: var(--c-text); }
 .mbars__note { display: block; margin-top: var(--s-2); font-size: var(--fs-xs); color: var(--c-text-3); }
 
@@ -1155,8 +1155,14 @@ nav.toc .toc__menu li.active > a {       /* 스크롤 추적: 지금 읽는 항�
 .src-links__title { font-family: var(--font-ui); font-size: var(--fs-base); font-weight: var(--fw-bold); color: var(--c-text); }
 .src-links__note { font-size: var(--fs-xs); color: var(--c-text-3); }
 .src-links .row__date { font-family: var(--font-ui); }
-.src-links .row.code-popup-trigger { grid-template-columns: 10rem minmax(0, 1fr) auto; align-items: center; }   /* 폴더 이름 | 제목 | 수업 기간 · 파일 수 */
+.src-links .row.code-popup-trigger { grid-template-columns: 11.5rem minmax(0, 1fr) auto; align-items: center; }   /* 폴더 이름 | 제목 | 수업 기간 · 파일 수 */
 .src-links .row.code-popup-trigger .row__aside { font-size: var(--fs-sm); color: var(--c-text-2); font-variant-numeric: tabular-nums; }
+@media (max-width: 640px) {   /* 좁은 화면: 윗줄 = 폴더 이름 | 수업 기간·파일 수, 아랫줄 = 제목 */
+  .src-links .row.code-popup-trigger { grid-template-columns: minmax(0, 1fr) auto; row-gap: var(--s-1); }
+  .src-links .row.code-popup-trigger .row__date { grid-column: 1; grid-row: 1; }
+  .src-links .row.code-popup-trigger .row__aside { grid-column: 2; grid-row: 1; }
+  .src-links .row.code-popup-trigger .row__main { grid-column: 1 / -1; grid-row: 2; }
+}
 .row.code-popup-trigger {
   display: grid;
   width: 100%;
@@ -1231,7 +1237,7 @@ nav.toc .toc__menu li.active > a {       /* 스크롤 추적: 지금 읽는 항�
 .week-grid { display: grid; gap: var(--s-3); }
 .week-grid__head, .week {
   display: grid;
-  grid-template-columns: 4.5rem repeat(5, minmax(0, 1fr));
+  grid-template-columns: 5.5rem repeat(5, minmax(0, 1fr));
   gap: var(--s-3);
 }
 .week-grid__head span { font-size: var(--fs-xs); color: var(--c-text-3); padding-left: var(--s-1); }
@@ -1281,7 +1287,7 @@ a.day:hover .day__n { color: var(--c-signal); }
 a.day:hover .day__summary { color: var(--c-text); }
 .day__top { margin-bottom: 2px; }
 .day__tags { display: flex; flex-wrap: wrap; gap: var(--s-1); margin-top: auto; padding-top: var(--s-1); }
-.day__tags .chip { font-size: .75rem; padding: 0 var(--s-1); max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+.day__tags .chip { font-size: .8125rem; padding: 0 var(--s-1); max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
 .day--empty, .day--off { background: transparent; border-style: dashed; border-color: var(--c-line); }
 .day--off .day__note { font-size: var(--fs-xs); color: var(--c-text-3); }
 
@@ -1448,7 +1454,7 @@ details.series > .row-list--series { margin-left: var(--s-4) !important; }
   border: 1px solid transparent;
   background: color-mix(in srgb, var(--c-database) 14%, transparent);
   border-radius: var(--r-pill);
-  font-size: .75rem;
+  font-size: .8125rem;
   font-weight: var(--fw-bold);
   color: var(--c-database);
   white-space: nowrap;
@@ -1563,7 +1569,7 @@ details.series > .row-list--series { margin-left: var(--s-4) !important; }
 }
 .chapter__body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .chapter__top { display: flex; align-items: center; gap: var(--s-2); }
-.chapter__tag { padding: 0 var(--s-2); border-radius: var(--r-pill); background: var(--c-surface-2); font-size: .75rem; color: var(--c-text-2); }
+.chapter__tag { padding: 0 var(--s-2); border-radius: var(--r-pill); background: var(--c-surface-2); font-size: .8125rem; color: var(--c-text-2); }
 .chapter__date { font-size: var(--fs-xs); color: var(--c-text-3); font-variant-numeric: tabular-nums; }
 .chapter__title { font-size: var(--fs-base); font-weight: var(--fw-bold); line-height: 1.45; transition: color var(--dur-fast) var(--ease); }
 .chapter__excerpt { font-size: var(--fs-xs); line-height: 1.55; color: var(--c-text-3); }
@@ -1723,7 +1729,7 @@ details.series > .row-list--series { margin-left: var(--s-4) !important; }
 
 .sr-item {
   display: grid;
-  grid-template-columns: 4.5rem minmax(0, 1fr);
+  grid-template-columns: 5rem minmax(0, 1fr);
   gap: var(--s-3);
   padding: var(--s-3) var(--s-3);
   border-radius: var(--r-md);
@@ -1741,7 +1747,7 @@ details.series > .row-list--series { margin-left: var(--s-4) !important; }
   border-radius: var(--r-pill);
   background: color-mix(in srgb, var(--cat) 14%, transparent);
   color: var(--cat);
-  font-size: .75rem;
+  font-size: .8125rem;
   font-weight: var(--fw-bold);
   white-space: nowrap;
 }
@@ -1822,7 +1828,7 @@ details.series > .row-list--series { margin-left: var(--s-4) !important; }
 .series-step.is-past a { border-top-color: color-mix(in srgb, var(--cat) 55%, transparent); }
 .series-step.is-here { border-top-color: var(--cat); background: color-mix(in srgb, var(--cat) 10%, transparent); color: var(--c-text) !important; }
 .series-step a:hover { background: var(--c-surface-2); color: var(--c-text) !important; }
-.series-step__dot { align-self: flex-start; font-size: .75rem; font-weight: var(--fw-heavy); color: var(--cat); white-space: nowrap; }
+.series-step__dot { align-self: flex-start; font-size: .8125rem; font-weight: var(--fw-heavy); color: var(--cat); white-space: nowrap; }
 .series-step__title { font-size: var(--fs-xs); line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .series-step.is-here .series-step__title { color: var(--c-text); font-weight: var(--fw-bold); }
 
@@ -1833,7 +1839,7 @@ div.highlighter-rouge { position: relative; }
   z-index: 5;
   padding: 2px var(--s-2);
   font-family: var(--font-sans);
-  font-size: .75rem;
+  font-size: .8125rem;
   font-weight: var(--fw-bold);
   line-height: 1.5;
   color: var(--c-code-ui-text);

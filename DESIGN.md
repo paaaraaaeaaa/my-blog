@@ -46,8 +46,8 @@
 | `--c-line` | `#21262D` | 기본 구분선 |
 | `--c-line-strong` | `#30363D` | 버튼·칩 테두리 |
 | `--c-text` | `#E6EDF3` | 본문, 제목 |
-| `--c-text-2` | `#A9B4BF` | 보조 설명, 요약 |
-| `--c-text-3` | `#7D8590` | 날짜, 캡션, 기호(`##`, `[ ]`) |
+| `--c-text-2` | `#B4BEC8` | 보조 설명, 요약 |
+| `--c-text-3` | `#8B949E` | 날짜, 캡션, 기호(`##`, `[ ]`) |
 | `--c-signal` | `#7EE787` | **메인 포인트(프롬프트 초록)**: `$`, 링크, 활성, 진행 막대, 포커스 |
 
 **카테고리 색** — 상단 탭 점, 섹션 머리, 홈 바로가기 카드 윗선에만 쓴다.
@@ -76,7 +76,7 @@
 | `--c-bg` | `#0D1117` | `#FFFFFF` |
 | `--c-surface` / `--c-surface-2` | `#10151C` / `#161B22` | `#F6F8FA` / `#EAEEF2` |
 | `--c-line` / `--c-line-strong` | `#21262D` / `#30363D` | `#D8DEE4` / `#C3CBD3` |
-| `--c-text` / `-2` / `-3` | `#E6EDF3` / `#A9B4BF` / `#7D8590` | `#1F2328` / `#464E57` / `#656D76` |
+| `--c-text` / `-2` / `-3` | `#E6EDF3` / `#B4BEC8` / `#8B949E` | `#1F2328` / `#3D444D` / `#57606A` |
 | `--c-signal` | `#7EE787` | `#1A7F37` |
 | `--c-cloud` / `--c-database` / `--c-projects` | `#79C0FF` / `#F778BA` / `#E3B341` | `#0969DA` / `#BF3989` / `#9A6700` |
 | `--c-danger` / `--c-success` / `--c-warning` | `#FF7B72` / `#7EE787` / `#E3B341` | `#CF222E` / `#1A7F37` / `#9A6700` |
@@ -112,8 +112,8 @@
 | `--fs-lg` | 22px | 본문 `###`, 섹션 머리 |
 | `--fs-md` | 19px | `####`, 카드 제목 |
 | `--fs-base` | 17~18px | 본문 |
-| `--fs-sm` | 15~16px | 요약, 메타, 버튼, 경로(breadcrumb) |
-| `--fs-xs` | 13~14px | 캡션 |
+| `--fs-sm` | 16~17px | 요약, 메타, 버튼, 경로(breadcrumb) |
+| `--fs-xs` | 14~15px | 캡션 |
 
 규칙: 제목에 한 단어만 색칠하기, 영어 대문자 라벨(ALL CAPS), 제목 위의 장식용 작은 라벨은 쓰지 않는다.
 
@@ -249,7 +249,7 @@
 | `.jump-nav` > `.jump[data-filter]` | Database 섹션 칩. 항상 하나가 `.is-active`이고(전체 보기 없음), 누르면 그 섹션(`[data-sec]`)만 보인다. `.jump-nav--sub` > `.jump[data-mod]`는 문제와 풀이 안의 모듈 칩(`M1`·`M2`, 하나만 선택, 같은 칩을 다시 누르면 해제, 숫자는 그 모듈의 문제 카드 수), `.jump[data-smod-chip]`는 아티팩트 안의 모듈 칩(같은 동작, 숫자는 자료 수). Cloud 모듈 통계 타일의 문제풀이 링크는 `#problems-m모듈번호`로 연결한다 |
 | `.mbars` > `.mbar.is-done/.is-current/.is-upcoming` | 모듈 진척 막대(홈 상태 창 안, 링크 → `/projects/`). 진행 중 막대는 `_data/module_schedule.yml` 날짜 비율, 없으면 빗금 |
 | `.section-head--band` | 홈에서 첫 구역(상태 창·방명록)과 아래 영역을 나누는 구분 머리("최근에 쓴 글") |
-| `.src-links` (+ `__head` `__title` `__note`) · `.row.code-popup-trigger` | Cloud 모듈 패널의 "원본 코드" 목록. `.row-list--compact`를 재사용하고, 행 전체가 코드 팝업을 여는 버튼이다(`code-popup.html`을 `trigger=false`로 불러 데이터만 내보내고, 버튼은 `class="row code-popup-trigger" data-dir="lecture/<폴더>"`로 직접 만든다). 새 컴포넌트를 만들지 않고 `.row`의 버튼 변형만 `site.css` "11. Cloud"에 둔다. 왼쪽 폴더 이름(`01_Git` 등, 10rem 칸) · 제목 · 오른쪽 `수업 기간 · N개 ▸`(예: `10.26 – 10.27 · 49개`). 설명은 행 위에 올리면 `title` 툴팁으로만 보인다. 수업 기간은 `scripts/sync-lecture.ps1`이 `_data/lecture_dates.yml`에 만든다(복사한 파일 수정일의 최소~최대, 손으로 고치지 않는다) |
+| `.src-links` (+ `__head` `__title` `__note`) · `.row.code-popup-trigger` | Cloud 모듈 패널의 "원본 코드" 목록. `.row-list--compact`를 재사용하고, 행 전체가 코드 팝업을 여는 버튼이다(`code-popup.html`을 `trigger=false`로 불러 데이터만 내보내고, 버튼은 `class="row code-popup-trigger" data-dir="lecture/<폴더>"`로 직접 만든다). 새 컴포넌트를 만들지 않고 `.row`의 버튼 변형만 `site.css` "11. Cloud"에 둔다. 왼쪽 폴더 이름(`01_Git` 등, 11.5rem 칸, 640px 이하에서는 윗줄에 폴더 이름·수업 기간, 아랫줄에 제목) · 제목 · 오른쪽 `수업 기간 · N개 ▸`(예: `10.26 – 10.27 · 49개`). 설명은 행 위에 올리면 `title` 툴팁으로만 보인다. 수업 기간은 `scripts/sync-lecture.ps1`이 `_data/lecture_dates.yml`에 만든다(복사한 파일 수정일의 최소~최대, 손으로 고치지 않는다) |
 | `.res-section` (+ `__head` `__title` `__desc` `__count`) | Database 자료 섹션 머리. `is-색이름`으로 톤 지정. 첫 섹션(`--first`)을 뺀 섹션은 위에 `--c-line` 구분선이 있어 섹션끼리 갈라 보인다(JS가 켜져 있으면 항상 한 섹션만 보여서 선은 쓰이지 않고, JS가 없어 섹션이 모두 펼쳐질 때 서로를 가르는 용도다). 다른 카테고리 탭의 색(Cloud 시안·Projects 앰버)은 톤으로 쓰지 않는다. 아티팩트는 `database` 톤 |
 | `.res-grid` > `.res-card` | 자료 카드: 파비콘 + 도메인, 제목(카드 전체 클릭), 설명, 첨부파일 버튼. `series`가 없는 자료 섹션(게임 등)에서 쓴다 |
 | `.series-list` > `.series` (+ `__head` `__name` `__mod` `__count`, `.series--loose`, `.series__head--static`) | 자료 시리즈 묶음. 자료에 `series`가 있는 섹션에서 쓴다(모듈 `.group` 없이 시리즈를 모듈 순서로 나열하고, 모듈은 머리의 `M2` 글자로만 표시). **폴더와 파일을 갈라 보이게 한다**: 2개 이상인 시리즈는 폴더로 보고 `<details class="series">`(`▸ 이름/ · M2 · N개`로 접힘, 이름 뒤에 `ls`처럼 `/`가 붙는다)로 먼저 나열한다. 머리(`__head`)는 `--c-surface` 면 색 띠 + `--fs-md` 굵게라서 행(`.row`)과 위계가 갈린다. 가장 최근 모듈의 시리즈만 `open`. 한 개짜리 자료는 모듈마다 맨 뒤에 **"단일 자료 M2 · N개" 한 묶음**(`.series--loose`, 접히지 않는 머리 `.series__head--static`, 화살표·`/` 없음)으로 모으고 행 오른쪽은 `open ↗`만 쓴다. 안에는 `.row-list.row-list--series` > `a.row`(번호 `.row__num` · 제목 + 설명 · `open ↗`)를 재사용한다. 번호는 원·상자 없이 글자로만 쓰고, 시리즈 안에 `num`이 하나라도 있으면 모든 행에 번호 칸을 둬서 제목 줄을 맞춘다(번호 없는 행은 흐린 `-`, `.row__num--none`). 폴더의 행 목록은 머리보다 `--s-4`(640px 이하 `--s-2`) 들여쓰고 단일 자료 묶음은 들여쓰지 않는다. Projects 타임라인·연동기와 겹치지 않도록 세로 색 선, 번호 원·상자, 앰버색을 쓰지 않는다. 카드를 쓰지 않는 이유: 20개 가까운 자료를 카드로 늘어놓으면 한 장씩 구분이 안 되고, `.row`는 제목과 설명을 한눈에 스캔하게 해 준다 |
@@ -343,7 +343,7 @@
 | 위젯 | 파일 | 색 파라미터 |
 |---|---|---|
 | 방문자·조회수 뱃지 | `index.md`, `_includes/footer/custom.html` | `left_color=161B22` `right_color=238636` |
-| GitHub Streak | `index.md` | `ring` `currStreakLabel` = signal, `fire` = projects 앰버, 숫자 = text |
+| GitHub Streak | `index.md` | `ring` `currStreakLabel` = signal, `fire` = projects 앰버, `currStreakNum` `sideNums` = text, `sideLabels` = text-2, `dates` = text-3 |
 | 기여 캘린더 (ghchart) | `index.md` | `1A7F37` — 라이트는 그대로, 다크는 CSS 필터로 반전 |
 | 댓글 (utterances) | `_config.yml` | `theme: "github-dark"` (라이트에서는 스크립트가 `github-light`로 전환) |
 | 방명록 (giscus) | `_config.yml` `giscus`, `_includes/guestbook.html` | `data-theme`: 다크 `assets/css/giscus-dark.css` / 라이트 `giscus-light.css`의 절대 주소(테마 전환 시 `themechange` 이벤트로 iframe에 전달). `/guestbook/`은 댓글 목록 스크롤 제한이 없는 `giscus-board-dark.css`·`giscus-board-light.css`를 쓴다. 두 파일은 색을 바꾸지 않고 giscus 기본 테마를 `@import`한 뒤 모양만 더한다. giscus는 https로 공개된 CSS만 불러오므로 로컬 미리보기(`jekyll serve`)에서는 이 모양이 적용되지 않을 수 있고, 배포된 주소에서 두 테마를 눈으로 확인한다. `category_id`가 비어 있으면 "준비 중" 안내만 보인다 |
