@@ -89,7 +89,7 @@ classes: section-page
 {%- assign srcs = site.data.lecture_sources | default: empty_array | where: "module", i -%}
 {%- if srcs.size > 0 -%}
 <div class="src-links">
-<p class="src-links__head"><span class="src-links__title">원본 코드</span><span class="src-links__note">수업 폴더별 수업 기간. 누르면 파일 목록이 열립니다.</span></p>
+<div class="section-head"><h2>원본 코드</h2><span class="section-head__aside">수업 폴더별 수업 기간 · 누르면 파일 목록</span></div>
 <ul class="row-list row-list--compact">
 {%- for s in srcs -%}
 {%- assign s_prefix = "/assets/code/lecture/" | append: s.dir | append: "/" -%}
@@ -108,9 +108,11 @@ classes: section-page
 {%- if mod_posts.size == 0 -%}
 <p class="empty-note">모듈 {{ i }}은 아직 시작 전입니다. 첫 학습노트를 쓰면 이곳에 주 단위 달력이 생깁니다.</p>
 {%- else -%}
+{%- assign weeks = mod_posts | group_by_exp: "p", "p.date | date: '%G-%V'" -%}
+{%- assign latest_url = mod_posts.last.url -%}
+<div class="section-head"><h2>학습 달력</h2><span class="section-head__aside">{{ weeks.size }}주 · {{ mod_posts.size }}편</span></div>
 <div class="week-grid" role="list">
 <div class="week-grid__head" aria-hidden="true"><span></span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span></div>
-{%- assign weeks = mod_posts | group_by_exp: "p", "p.date | date: '%G-%V'" -%}
 {%- for w in weeks -%}
 {%- assign first = w.items.first -%}
 {%- assign f_ts = first.date | date: "%s" | plus: 0 -%}
@@ -127,7 +129,7 @@ classes: section-page
 {%- assign hit = nil -%}
 {%- for p in w.items -%}{%- assign pu = p.date | date: "%u" | plus: 0 -%}{%- if pu == d -%}{%- assign hit = p -%}{%- endif -%}{%- endfor -%}
 {%- if hit -%}
-<a class="day" href="{{ hit.url | relative_url }}" title="{{ hit.excerpt | strip_html | strip_newlines | escape }}">
+<a class="day{% if hit.url == latest_url %} is-latest{% endif %}" href="{{ hit.url | relative_url }}" title="{{ hit.excerpt | strip_html | strip_newlines | escape }}">
 <span class="day__top"><span class="day__n">{{ hit.title }}</span><span class="day__date">{{ hit.date | date: "%-m.%-d" }}</span></span>
 {%- if hit.summary -%}<span class="day__summary">{{ hit.summary }}</span>{%- else -%}<span class="day__text">{{ hit.excerpt | strip_html | strip_newlines | truncate: 64 }}</span>{%- endif -%}
 {%- if hit.tags.size > 0 -%}<span class="day__tags">{% for t in hit.tags limit: 2 %}<span class="chip">{{ t }}</span>{% endfor %}</span>{%- endif -%}
