@@ -648,6 +648,42 @@ nav.toc .toc__menu li.active > a {       /* 스크롤 추적: 지금 읽는 항�
   background: var(--c-signal-soft) !important;
 }
 
+/* 1열(1023px 이하): 목차를 본문 맨 위에 펼치지 않고, 경로 줄 아래 오른쪽의 "목차 보기" 버튼으로 접어 둔다.
+   누르면 버튼 아래로 목차 패널이 열리고, 항목을 고르거나 바깥을 누르거나 Esc로 닫힌다 (JS: footer/custom.html "목차 접기") */
+.toc__toggle { display: none; }
+@media (max-width: 1023px) {
+  .layout--single .page__inner-wrap:has(> .page__content > .sidebar__right) { position: relative; padding-top: 2.75rem; }
+  .page__content > .sidebar__right.sticky {
+    position: absolute !important; top: 0 !important; right: 0; z-index: 20;
+    width: auto !important; max-width: 100%; max-height: none !important; margin: 0 !important; padding: 0 !important;
+    display: block;
+  }
+  .page__content > .sidebar__right nav.toc { position: relative; overflow: visible; border: 0 !important; background: transparent !important; }
+  .page__content > .sidebar__right nav.toc header { display: none; }
+  .toc__toggle {
+    display: inline-flex; align-items: center; gap: var(--s-2);
+    margin-left: auto; padding: var(--s-1) var(--s-3);
+    border: 1px solid var(--c-line-strong); border-radius: var(--r-sm);
+    background: var(--c-surface); color: var(--c-text-2);
+    font-family: var(--font-ui); font-size: var(--fs-xs); line-height: 1.6; cursor: pointer;
+    transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+  }
+  .toc__toggle::before { content: "["; color: var(--c-text-3); }
+  .toc__toggle::after { content: "]"; color: var(--c-text-3); }
+  .toc__toggle:hover, nav.toc.is-open .toc__toggle { color: var(--c-text); border-color: var(--c-signal); }
+  .toc__toggle:focus-visible { outline: 2px solid var(--c-signal); outline-offset: 2px; }
+  /* 접힌 상태에서는 목록을 숨긴다. JS가 꺼져 있으면 버튼이 없으므로 목록을 그대로 펼쳐 둔다 */
+  nav.toc.has-toggle .toc__menu { display: none; }
+  nav.toc.has-toggle.is-open .toc__menu {
+    display: block; position: absolute; top: calc(100% + var(--s-1)); right: 0;
+    width: min(22rem, calc(100vw - 2 * var(--s-4)));
+    max-height: 60vh;
+    border: 1px solid var(--c-line-strong); border-radius: var(--r-md);
+    background: var(--c-surface); box-shadow: var(--shadow-pop);
+  }
+  .page__content > .sidebar__right:not(:has(.has-toggle)) { position: static !important; width: 100% !important; }
+}
+
 /* ---------------------------------------------------------------------
    8. 글 하단: 이전/다음, 댓글, 태그
    --------------------------------------------------------------------- */

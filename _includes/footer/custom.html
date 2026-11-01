@@ -712,6 +712,26 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  // 목차 접기: 1열(1023px 이하)에서는 "목차 보기" 버튼으로 열고 닫는다. 넓은 화면에서는 버튼이 CSS로 숨는다
+  var tocNav = document.querySelector('.page__content > .sidebar__right nav.toc');
+  if (tocNav && tocNav.querySelector('.toc__menu')) {
+    var tocBtn = document.createElement('button');
+    tocBtn.type = 'button';
+    tocBtn.className = 'toc__toggle';
+    tocBtn.textContent = '목차 보기';
+    tocBtn.setAttribute('aria-expanded', 'false');
+    tocNav.insertBefore(tocBtn, tocNav.firstChild);
+    tocNav.classList.add('has-toggle');
+    var setToc = function (open) {
+      tocNav.classList.toggle('is-open', open);
+      tocBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+    tocBtn.addEventListener('click', function () { setToc(!tocNav.classList.contains('is-open')); });
+    tocNav.addEventListener('click', function (e) { if (e.target.closest('.toc__menu a')) setToc(false); });
+    document.addEventListener('click', function (e) { if (!tocNav.contains(e.target)) setToc(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setToc(false); });
+  }
+
   // 목차 표시선: 지금 읽는 항목(스크롤 추적이 .active를 붙임) 옆으로 이동
   var toc = document.querySelector('nav.toc'), menu = toc && toc.querySelector('.toc__menu');
   if (menu && window.MutationObserver) {
