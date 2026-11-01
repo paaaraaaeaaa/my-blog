@@ -103,7 +103,6 @@ classes: section-page
 <div class="next-stop">
 <span class="next-stop__num">모듈 {{ i }}</span>
 <span class="next-stop__name">{{ site.data.modules[key] | default: "미정" }}</span>
-<span class="next-stop__note">queued</span>
 </div>
 {%- endunless -%}
 {%- endfor -%}
