@@ -97,7 +97,11 @@ home_side: true
 {%- comment -%} 보는 사람의 오늘 날짜로 JS가 이번 주 점을 다시 그리기 위한 데이터(글 날짜→주소, 휴일) {%- endcomment -%}
 {%- capture week_posts_json -%}[{%- for p in cloud_daily_all -%}["{{ p.date | date: '%Y-%m-%d' }}","{{ p.url | relative_url }}"]{% unless forloop.last %},{% endunless %}{%- endfor -%}]{%- endcapture -%}
 {%- capture week_off_json -%}[{%- for h in site.data.holidays -%}"{{ h }}"{% unless forloop.last %},{% endunless %}{%- endfor -%}]{%- endcapture -%}
-<h1 class="visually-hidden">김예린의 학습 노트</h1>
+<header class="page-intro is-signal">
+<p class="term__cmd">cat ~/README.md</p>
+<h1 class="page-intro__title">김예린의 학습 노트</h1>
+<p class="page-intro__desc">174일 부트캠프를 하루 단위로 기록합니다. 배운 것과 막혔던 곳, 다시 정리한 내용을 모았습니다.</p>
+</header>
 <div class="home-top">
 <section class="term mission" aria-label="학습 진행 상황">
 <div class="term__bar"><span class="term__path">yerin@learning-log: ~</span><span class="term__now">{{ site.data.now.status | default: "공부 기록 중" }}</span></div>
