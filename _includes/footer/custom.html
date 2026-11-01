@@ -398,11 +398,101 @@ document.addEventListener('DOMContentLoaded', function () {
       if (firstRow) firstRow.focus();
     };
 
+    // 문법 색: 게시글 코드(Rouge)와 같은 클래스 이름(k s c1 mi nf …)을 써서 테마가 정한 색을 그대로 받는다.
+    //   .highlight 안에 있어야 색이 입혀지므로 <pre>에 class="highlight"를 준다.
+    var esc = function (s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
+    var KW = {
+      java: 'abstract assert break case catch class continue default do else enum extends final finally for if implements import instanceof interface native new package private protected public return static super switch synchronized this throw throws try volatile while var record true false null',
+      types: 'boolean byte char double float int long short void String Integer Long Double Boolean Object List Map Set',
+      sql: 'select from where and or not in is null as join left right inner outer on group by order having limit insert into values update set delete create table drop alter add primary key foreign references default auto_increment unique index database use distinct union all like between exists case when then else end desc asc count sum avg min max if constraint',
+      gradle: 'plugins id version group sourceCompatibility repositories mavenCentral dependencies implementation compileOnly runtimeOnly annotationProcessor testImplementation testRuntimeOnly tasks test useJUnitPlatform java toolchain languageVersion JavaLanguageVersion def apply from project rootProject include true false null',
+      css: 'important'
+    };
+    var kwSet = function (str) { var o = {}; str.split(' ').forEach(function (w) { o[w] = 1; }); return o; };
+    var KWS = { java: kwSet(KW.java), types: kwSet(KW.types), sql: kwSet(KW.sql), gradle: kwSet(KW.gradle) };
+
+    // 줄 주석 / 블록 주석 / 문자열 / 숫자 / 단어를 순서대로 잘라 클래스를 붙이는 간단한 색칠기(코드 읽기용, 완전한 파서 아님)
+    var codeTokens = function (text, o) {
+      var out = '', i = 0, n = text.length, m;
+      var wrap = function (cls, s) { return '<span class="' + cls + '">' + esc(s) + '</span>'; };
+      var re = {
+        word: /^[A-Za-z_$][\w$-]*/, num: /^\d+(\.\d+)?[LlFfDd]?/,
+        str: /^"(?:[^"\\\n]|\\.)*"?|^'(?:[^'\\\n]|\\.)*'?/, ws: /^\s+/
+      };
+      while (i < n) {
+        var rest = text.slice(i), c = rest.charAt(0);
+        if (o.line && text.startsWith(o.line, i)) { m = /^[^\n]*/.exec(rest)[0]; out += wrap('c1', m); i += m.length; continue; }
+        if (o.block && text.startsWith('/*', i)) { var e = rest.indexOf('*/'); m = e < 0 ? rest : rest.slice(0, e + 2); out += wrap('cm', m); i += m.length; continue; }
+        if (o.pre && c === '@' && (m = /^@[A-Za-z_]\w*/.exec(rest))) { out += wrap('nd', m[0]); i += m[0].length; continue; }
+        if (c === '"' || (c === "'" && o.sq !== false)) { m = re.str.exec(rest); if (m) { out += wrap('s', m[0]); i += m[0].length; continue; } }
+        if ((m = re.num.exec(rest)) && !/[\w$]/.test(text.charAt(i - 1) || ' ')) { out += wrap('mi', m[0]); i += m[0].length; continue; }
+        if ((m = re.word.exec(rest))) {
+          var w = m[0], key = o.ci ? w.toLowerCase() : w, after = text.charAt(i + w.length);
+          var cls = '';
+          if (o.kw && o.kw[key]) cls = 'k';
+          else if (o.types && o.types[w]) cls = 'kt';
+          else if (after === '(' && o.fn !== false) cls = 'nf';
+          else if (o.cls && /^[A-Z][A-Za-z0-9]*$/.test(w)) cls = 'nc';
+          out += cls ? wrap(cls, w) : esc(w); i += w.length; continue;
+        }
+        out += esc(c); i++;
+      }
+      return out;
+    };
+
+    var markupTokens = function (text) {
+      // <!-- 주석 -->, <태그 속성="값">, JSP 지시어·EL(<% %>, ${ })
+      return esc(text)
+        .replace(/(&lt;!--[\s\S]*?--&gt;)/g, '<span class="c">$1</span>')
+        .replace(/(&lt;%[\s\S]*?%&gt;)/g, '<span class="cp">$1</span>')
+        .replace(/(\$\{[^}]*\})/g, '<span class="nv">$1</span>')
+        .replace(/(&lt;\/?)([A-Za-z][\w:.-]*)((?:[^&]|&(?!gt;))*?)(\/?&gt;)/g, function (all, open, tag, attrs, close) {
+          attrs = attrs.replace(/([\w:@.-]+)(=)(&quot;[^&]*&quot;|"[^"]*"|'[^']*')?/g, function (a, name, eq, val) {
+            return '<span class="na">' + name + '</span>' + eq + (val ? '<span class="s">' + val + '</span>' : '');
+          });
+          return open + '<span class="nt">' + tag + '</span>' + attrs + close;
+        });
+    };
+
+    var keyValueTokens = function (text, sep) {
+      return text.split('\n').map(function (line) {
+        var t = line.replace(/^\s+/, '');
+        if (t.charAt(0) === '#' || t.charAt(0) === '!') return '<span class="c1">' + esc(line) + '</span>';
+        var m = new RegExp('^(\\s*(?:- )?)([^=:#\\s][^=:]*?)(\\s*[' + sep + '])(.*)$').exec(line);
+        if (!m) return esc(line);
+        return esc(m[1]) + '<span class="na">' + esc(m[2]) + '</span>' + esc(m[3]) + codeTokens(m[4], { line: ' #', sq: true });
+      }).join('\n');
+    };
+
+    var highlightCode = function (text, url) {
+      var name = url.split('?')[0].toLowerCase();
+      if (name.slice(-OUT_SUFFIX.length) === OUT_SUFFIX) return esc(text);
+      var ext = name.slice(name.lastIndexOf('.') + 1);
+      if (text.length > 200000) return esc(text);   // 아주 큰 파일은 색칠을 건너뛴다
+      switch (ext) {
+        case 'java': return codeTokens(text, { line: '//', block: true, pre: true, kw: KWS.java, types: KWS.types, cls: true });
+        case 'gradle': return codeTokens(text, { line: '//', block: true, kw: KWS.gradle, cls: false });
+        case 'sql': return codeTokens(text, { line: '--', block: true, kw: KWS.sql, ci: true, fn: true, sq: true });
+        case 'css': return codeTokens(text, { block: true, fn: true }).replace(/(^|[;{\n]\s*)([a-z-]+)(\s*:)/g, '$1<span class="na">$2</span>$3');
+        case 'html': case 'jsp': case 'xml': return markupTokens(text);
+        case 'properties': return keyValueTokens(text, '=:');
+        case 'yaml': case 'yml': return keyValueTokens(text, ':');
+        case 'md': return text.split('\n').map(function (l) { return /^#{1,6}\s/.test(l) ? '<span class="gh">' + esc(l) + '</span>' : esc(l); }).join('\n');
+        default: return esc(text);
+      }
+    };
+    codePre.classList.add('highlight');
+    var showCode = function (text, url) {
+      var html;
+      try { html = highlightCode(text, url); } catch (e) { html = esc(text); }
+      codeBody.innerHTML = html;
+    };
+
     var codeLoadSeq = 0;
     var loadCodeText = function (url, failMsg) {
       var seq = ++codeLoadSeq;                    // 빨리 파일/탭을 바꿨을 때 늦게 온 응답이 덮어쓰지 않게
       if (codeTextCache[url] !== undefined) {
-        codeBody.textContent = codeTextCache[url];
+        showCode(codeTextCache[url], url);
         return;
       }
       codeBody.textContent = '불러오는 중...';
@@ -411,7 +501,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return res.text();
       }).then(function (text) {
         codeTextCache[url] = text;
-        if (seq === codeLoadSeq) codeBody.textContent = text;
+        if (seq === codeLoadSeq) showCode(text, url);
       }).catch(function () {
         if (seq === codeLoadSeq) codeBody.textContent = failMsg + url;
       });
@@ -722,6 +812,11 @@ document.addEventListener('DOMContentLoaded', function () {
     tocBtn.setAttribute('aria-expanded', 'false');
     tocNav.insertBefore(tocBtn, tocNav.firstChild);
     tocNav.classList.add('has-toggle');
+    var tocMenu = tocNav.querySelector('.toc__menu');
+    tocMenu.id = tocMenu.id || 'toc-menu';
+    tocBtn.setAttribute('aria-controls', tocMenu.id);
+    var tocWrap = tocNav.closest('.page__inner-wrap');
+    if (tocWrap) tocWrap.classList.add('has-toc-toggle');
     var setToc = function (open) {
       tocNav.classList.toggle('is-open', open);
       tocBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
@@ -729,7 +824,35 @@ document.addEventListener('DOMContentLoaded', function () {
     tocBtn.addEventListener('click', function () { setToc(!tocNav.classList.contains('is-open')); });
     tocNav.addEventListener('click', function (e) { if (e.target.closest('.toc__menu a')) setToc(false); });
     document.addEventListener('click', function (e) { if (!tocNav.contains(e.target)) setToc(false); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setToc(false); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape' || !tocNav.classList.contains('is-open')) return;
+      var inMenu = tocMenu.contains(document.activeElement);
+      setToc(false);
+      if (inMenu) tocBtn.focus();   // 메뉴 안에 있던 포커스가 사라지지 않게 버튼으로 돌려 보낸다
+    });
+    // 따라다니기: 원래 자리가 경로 줄 밑으로 올라가면 버튼(aside)을 그 아래에 고정하고, 돌아오면 원래 자리로 놓는다
+    var tocAside = tocNav.closest('.sidebar__right'), tocBc = document.querySelector('.breadcrumbs'), tocTick = false;
+    var tocFollow = function () {
+      tocTick = false;
+      if (!tocWrap || !tocAside) return;
+      var narrow = window.matchMedia('(max-width: 1023px)').matches;
+      var w = tocWrap.getBoundingClientRect();
+      var top = (tocBc ? tocBc.getBoundingClientRect().bottom : 0) + 8;
+      if (narrow && w.top < top && w.bottom > top + 48) {
+        tocAside.classList.add('is-stuck');
+        tocAside.style.setProperty('--toc-top', top + 'px');
+        tocAside.style.setProperty('--toc-right', Math.max(0, window.innerWidth - w.right) + 'px');
+      } else {
+        tocAside.classList.remove('is-stuck');
+        tocAside.style.removeProperty('--toc-top');
+        tocAside.style.removeProperty('--toc-right');
+      }
+    };
+    var tocQueue = function () { if (!tocTick) { tocTick = true; requestAnimationFrame(tocFollow); } };
+    window.addEventListener('scroll', tocQueue, { passive: true });
+    window.addEventListener('resize', tocQueue);
+    tocFollow();
+    tocNav.addEventListener('focusout', function (e) { if (e.relatedTarget && !tocNav.contains(e.relatedTarget)) setToc(false); });
   }
 
   // 목차 표시선: 지금 읽는 항목(스크롤 추적이 .active를 붙임) 옆으로 이동
