@@ -1,0 +1,39 @@
+# 키보드 입력: 1(메뉴 2), 2(메뉴 2), 3(메뉴 2), 9
+
+========== section02. JPA 를 사용한 해결 ==========
+1. 메뉴 코드로 메뉴 조회 (SQL 작성과 매핑을 JPA 가 대신한다)
+2. 메뉴와 해당 메뉴의 카테고리 조회 (객체 그래프 탐색)
+3. 같은 메뉴를 두 번 조회해서 비교 (동일성 보장)
+9. 프로그램 종료
+메뉴 번호를 입력하세요 : 메뉴 코드를 입력하세요 : Hibernate: select m1_0.menu_code,cc1_0.category_code,cc1_0.category_name,cc1_0.ref_category_code,m1_0.menu_name,m1_0.menu_price,m1_0.orderable_status from tbl_menu m1_0 left join tbl_category cc1_0 on cc1_0.category_code=m1_0.category_code where m1_0.menu_code=?
+Menu(menuCode=2, menuName=광어스무디, menuPrice=5000, categoryCode=Category(categoryCode=10, categoryName=기타, refCategoryCode=2), orderableStatus=Y)
+
+========== section02. JPA 를 사용한 해결 ==========
+1. 메뉴 코드로 메뉴 조회 (SQL 작성과 매핑을 JPA 가 대신한다)
+2. 메뉴와 해당 메뉴의 카테고리 조회 (객체 그래프 탐색)
+3. 같은 메뉴를 두 번 조회해서 비교 (동일성 보장)
+9. 프로그램 종료
+메뉴 번호를 입력하세요 : 메뉴 코드를 입력하세요 : Hibernate: select m1_0.menu_code,cc1_0.category_code,cc1_0.category_name,cc1_0.ref_category_code,m1_0.menu_name,m1_0.menu_price,m1_0.orderable_status from tbl_menu m1_0 left join tbl_category cc1_0 on cc1_0.category_code=m1_0.category_code where m1_0.menu_code=?
+Menu(menuCode=2, menuName=광어스무디, menuPrice=5000, categoryCode=Category(categoryCode=10, categoryName=기타, refCategoryCode=2), orderableStatus=Y)
+
+========== section02. JPA 를 사용한 해결 ==========
+1. 메뉴 코드로 메뉴 조회 (SQL 작성과 매핑을 JPA 가 대신한다)
+2. 메뉴와 해당 메뉴의 카테고리 조회 (객체 그래프 탐색)
+3. 같은 메뉴를 두 번 조회해서 비교 (동일성 보장)
+9. 프로그램 종료
+메뉴 번호를 입력하세요 : 메뉴 코드를 입력하세요 : ===========1번째 조회===========
+Hibernate: select m1_0.menu_code,cc1_0.category_code,cc1_0.category_name,cc1_0.ref_category_code,m1_0.menu_name,m1_0.menu_price,m1_0.orderable_status from tbl_menu m1_0 left join tbl_category cc1_0 on cc1_0.category_code=m1_0.category_code where m1_0.menu_code=?
+===========2번째 조회===========
+menu1 = 745471715
+menu2 = 745471715
+menu1 == menu2 : true
+menu1 의 이름 변경 후!
+menu1 = 테스트!
+menu2 = 테스트!
+
+========== section02. JPA 를 사용한 해결 ==========
+1. 메뉴 코드로 메뉴 조회 (SQL 작성과 매핑을 JPA 가 대신한다)
+2. 메뉴와 해당 메뉴의 카테고리 조회 (객체 그래프 탐색)
+3. 같은 메뉴를 두 번 조회해서 비교 (동일성 보장)
+9. 프로그램 종료
+메뉴 번호를 입력하세요 : 프로그램을 종료합니다.

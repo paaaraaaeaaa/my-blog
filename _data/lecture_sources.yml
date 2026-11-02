@@ -51,3 +51,8 @@
   module: 2
   title: "Spring Web MVC"
   desc: "chap01 요청 매핑(@RequestMapping·@GetMapping·@PostMapping·@PathVariable), chap02 핸들러 메서드 파라미터(WebRequest·@RequestParam·@ModelAttribute), chap03 뷰 반환(String·ModelAndView·redirect), chap04 예외 처리(@ExceptionHandler·@ControllerAdvice), chap05 인터셉터(HandlerInterceptor), chap06 파일 업로드(MultipartFile·리소스 핸들러), chap07 타임리프(표현식·제어문·fragment)"
+
+- dir: "09_JPA"
+  module: 2
+  title: "JPA"
+  desc: "chap01 JPA 소개(JDBC의 문제점과 JPA의 해결, @Entity·@ManyToOne), chap02 영속성 컨텍스트(EntityManager CRUD, 엔티티 생명주기·flush·merge)"

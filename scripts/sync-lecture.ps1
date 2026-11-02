@@ -6,7 +6,7 @@
 #
 # - 복사하는 것: 아래 $ext 확장자의 파일. 이미지·jar·바이너리는 복사하지 않는다.
 # - 건너뛰는 폴더: .git .idea .gradle .claude .github out build node_modules target (경로 어디에 있든)
-# - .properties 의 password/secret/token 줄은 값을 ******** 로 가려서 복사한다. 공개 저장소이므로.
+# - .properties·.yaml·.yml 의 password/secret/token 줄은 값을 ******** 로 가려서 복사한다. 공개 저장소이므로.
 #   (.java 안에 적힌 수업용 로컬 DB 계정은 가리지 않는다. 8일차 글에도 이미 공개된 값이다.)
 # - 안전장치: 원본 폴더가 하나도 없으면 아무것도 지우지 않고 멈춘다. 먼저 임시 폴더에 복사하고,
 #   성공하면 assets/code/lecture/ 를 통째로 교체한다. 그래서 이 폴더 안에 손으로 넣은 파일은 사라진다.
@@ -16,8 +16,8 @@ param(
 )
 $ErrorActionPreference = 'Stop'
 
-$courses  = '01_Git', '01_HTML', '02_CSS', '03_JAVA', '04_MySQL', '05_JDBC', '06_Servlet', '07_Spring-Core', '08_Spring-Web-MVC'
-$ext      = '.java', '.html', '.css', '.sql', '.md', '.xml', '.gradle', '.jsp', '.js', '.txt', '.properties'
+$courses  = '01_Git', '01_HTML', '02_CSS', '03_JAVA', '04_MySQL', '05_JDBC', '06_Servlet', '07_Spring-Core', '08_Spring-Web-MVC', '09_JPA'
+$ext      = '.java', '.html', '.css', '.sql', '.md', '.xml', '.gradle', '.jsp', '.js', '.txt', '.properties', '.yaml', '.yml'
 $skipDirs = '.git', '.idea', '.gradle', '.claude', '.github', 'out', 'build', 'node_modules', 'target'
 $maxBytes = 300KB
 $utf8 = New-Object System.Text.UTF8Encoding($false)
@@ -52,7 +52,7 @@ try {
       if ($_.Length -gt $maxBytes) { Write-Host "  too large, skipped: $c\$rel"; return }
       $to = Join-Path (Join-Path $tmp $c) $rel
       New-Item -ItemType Directory -Path (Split-Path $to) -Force | Out-Null
-      if ($_.Extension -ieq '.properties') {
+      if (@('.properties', '.yaml', '.yml') -contains $_.Extension.ToLower()) {
         $text = [System.IO.File]::ReadAllText($_.FullName, $utf8)
         $new = [regex]::Replace($text, '(?im)^(\s*[\w.\-]*(?:password|passwd|pwd|secret|token)[\w.\-]*\s*[=:]\s*)[^\r\n]*', '${1}********')
         if ($new -ne $text) { $masked++ }
@@ -69,8 +69,8 @@ try {
     Write-Host ("{0,-11} {1,4} files copied (passwords masked in {2})" -f $c, $count, $masked)
   }
 
-  # 4) 사후 점검: .properties 에 가려지지 않은 비밀번호 줄이 남았으면 교체하지 않고 실패한다
-  $leak = Get-ChildItem -LiteralPath $tmp -Recurse -File -Filter *.properties | Select-String -Pattern '(?i)^\s*[\w.\-]*(password|passwd|pwd|secret|token)[\w.\-]*\s*[=:]\s*(?!\*{8}\s*$)\S'
+  # 4) 사후 점검: .properties·.yaml·.yml 에 가려지지 않은 비밀번호 줄이 남았으면 교체하지 않고 실패한다
+  $leak = Get-ChildItem -LiteralPath $tmp -Recurse -File | Where-Object { @('.properties', '.yaml', '.yml') -contains $_.Extension.ToLower() } | Select-String -Pattern '(?i)^\s*[\w.\-]*(password|passwd|pwd|secret|token)[\w.\-]*\s*[=:]\s*(?!\*{8}\s*$)\S'
   if ($leak) { $leak | ForEach-Object { Write-Host "  not masked: $($_.Path):$($_.LineNumber)" }; throw 'Unmasked secret found. Dest was not changed.' }
   if ($total -eq 0) { throw 'Copied 0 files. Dest was not changed.' }
 

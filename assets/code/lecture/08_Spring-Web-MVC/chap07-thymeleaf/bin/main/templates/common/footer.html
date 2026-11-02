@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <!-- th:fragment로 이름을 붙인 footer 영역만 다른 페이지에서 불러간다. (head, body 등 나머지는 사용되지 않는다.) -->
+  <footer th:fragment="footerFragment" class="footer">
+    <h1> footer Fragment</h1>
+  </footer>
+</body>
+</html>

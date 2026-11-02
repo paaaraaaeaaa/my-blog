@@ -1,0 +1,125 @@
+# 키보드 입력: 1, 2, 3(메뉴 2), 4(메뉴 2), 9
+
+========== section01. JDBC 를 직접 사용할 때의 문제점 ==========
+1. 메뉴 전체 조회 (반복되는 JDBC 코드와 수작업 매핑)
+2. 요구사항 변경 : 메뉴 조회 시 카테고리명도 함께 조회 (SQL 에 의존적인 개발)
+3. 메뉴와 해당 메뉴의 카테고리 조회 (패러다임 불일치)
+4. 같은 메뉴를 두 번 조회해서 비교 (동일성 보장 문제)
+9. 프로그램 종료
+메뉴 번호를 입력하세요 : 실행 SQL : SELECT menu_code, menu_name, menu_price, category_code, orderable_status FROM tbl_menu
+Menu(menuCode=1, menuName=열무김치라떼, menuPrice=4500, categoryCode=8, orderableStatus=Y)
+Menu(menuCode=2, menuName=광어스무디, menuPrice=5000, categoryCode=10, orderableStatus=Y)
+Menu(menuCode=3, menuName=생갈치쉐이크, menuPrice=6000, categoryCode=10, orderableStatus=Y)
+Menu(menuCode=4, menuName=갈릭미역파르페, menuPrice=7000, categoryCode=10, orderableStatus=Y)
+Menu(menuCode=5, menuName=앙버터김치찜, menuPrice=13000, categoryCode=4, orderableStatus=N)
+Menu(menuCode=6, menuName=생마늘샐러드, menuPrice=12000, categoryCode=4, orderableStatus=Y)
+Menu(menuCode=7, menuName=민트미역국, menuPrice=15000, categoryCode=4, orderableStatus=Y)
+Menu(menuCode=8, menuName=한우딸기국밥, menuPrice=20000, categoryCode=4, orderableStatus=Y)
+Menu(menuCode=9, menuName=홍어마카롱, menuPrice=9000, categoryCode=12, orderableStatus=Y)
+Menu(menuCode=10, menuName=코다리마늘빵, menuPrice=7000, categoryCode=12, orderableStatus=N)
+Menu(menuCode=11, menuName=정어리빙수, menuPrice=10000, categoryCode=10, orderableStatus=Y)
+Menu(menuCode=12, menuName=날치알스크류바, menuPrice=5000, categoryCode=10, orderableStatus=Y)
+Menu(menuCode=13, menuName=직화구이젤라또, menuPrice=8000, categoryCode=12, orderableStatus=Y)
+Menu(menuCode=14, menuName=과메기커틀릿, menuPrice=13000, categoryCode=6, orderableStatus=Y)
+Menu(menuCode=15, menuName=죽방멸치튀김우동, menuPrice=11000, categoryCode=6, orderableStatus=N)
+Menu(menuCode=16, menuName=흑마늘아메리카노, menuPrice=9000, categoryCode=8, orderableStatus=Y)
+Menu(menuCode=17, menuName=아이스가리비관자육수, menuPrice=6000, categoryCode=10, orderableStatus=Y)
+Menu(menuCode=18, menuName=붕어빵초밥, menuPrice=35000, categoryCode=6, orderableStatus=Y)
+Menu(menuCode=19, menuName=까나리코코넛쥬스, menuPrice=9000, categoryCode=9, orderableStatus=Y)
+Menu(menuCode=20, menuName=마라깐쇼한라봉, menuPrice=22000, categoryCode=5, orderableStatus=N)
+Menu(menuCode=21, menuName=돌미나리백설기, menuPrice=5000, categoryCode=11, orderableStatus=Y)
+Menu(menuCode=22, menuName=우주정복 마카롱, menuPrice=5000, categoryCode=12, orderableStatus=Y)
+Menu(menuCode=23, menuName=초콜릿 피자, menuPrice=8000, categoryCode=7, orderableStatus=Y)
+Menu(menuCode=24, menuName=모험가의 미트볼, menuPrice=15000, categoryCode=4, orderableStatus=Y)
+Menu(menuCode=25, menuName=바다의 속삭임 스무디, menuPrice=6500, categoryCode=10, orderableStatus=Y)
+Menu(menuCode=26, menuName=달빛 요정 케이크, menuPrice=7500, categoryCode=12, orderableStatus=Y)
+Menu(menuCode=27, menuName=해적왕의 보물 상자, menuPrice=12000, categoryCode=11, orderableStatus=Y)
+Menu(menuCode=28, menuName=신비로운 유니콘 아이스크림, menuPrice=5500, categoryCode=10, orderableStatus=Y)
+Menu(menuCode=29, menuName=드래곤 숨결 핫소스, menuPrice=3000, categoryCode=1, orderableStatus=Y)
+Menu(menuCode=30, menuName=불타는 치킨, menuPrice=9900, categoryCode=1, orderableStatus=N)
+Menu(menuCode=31, menuName=펭귄의 꿈 파르페, menuPrice=8500, categoryCode=10, orderableStatus=Y)
+Menu(menuCode=32, menuName=외계인의 초록 젤리, menuPrice=4200, categoryCode=11, orderableStatus=Y)
+Menu(menuCode=33, menuName=마법사의 램버거, menuPrice=11000, categoryCode=1, orderableStatus=Y)
+Menu(menuCode=34, menuName=귀신이 곡한 누룽지, menuPrice=7000, categoryCode=5, orderableStatus=Y)
+Menu(menuCode=35, menuName=백년초 스무디, menuPrice=5600, categoryCode=10, orderableStatus=Y)
+Menu(menuCode=36, menuName=초능력자의 에너지볼, menuPrice=9500, categoryCode=2, orderableStatus=Y)
+Menu(menuCode=37, menuName=쿠리만쥬라멘, menuPrice=15000, categoryCode=6, orderableStatus=Y)
+
+========== section01. JDBC 를 직접 사용할 때의 문제점 ==========
+1. 메뉴 전체 조회 (반복되는 JDBC 코드와 수작업 매핑)
+2. 요구사항 변경 : 메뉴 조회 시 카테고리명도 함께 조회 (SQL 에 의존적인 개발)
+3. 메뉴와 해당 메뉴의 카테고리 조회 (패러다임 불일치)
+4. 같은 메뉴를 두 번 조회해서 비교 (동일성 보장 문제)
+9. 프로그램 종료
+메뉴 번호를 입력하세요 : 실행 SQL : SELECT m.menu_code, m.menu_name, m.menu_price, c.category_name, m.orderable_status FROM tbl_menu m JOIN tbl_category c ON m.category_code = c.category_code ORDER BY m.menu_code
+MenuCategoryDTO(menuCode=1, menuName=열무김치라떼, menuPrice=4500, categoryName=커피, orderableStatus=Y)
+MenuCategoryDTO(menuCode=2, menuName=광어스무디, menuPrice=5000, categoryName=기타, orderableStatus=Y)
+MenuCategoryDTO(menuCode=3, menuName=생갈치쉐이크, menuPrice=6000, categoryName=기타, orderableStatus=Y)
+MenuCategoryDTO(menuCode=4, menuName=갈릭미역파르페, menuPrice=7000, categoryName=기타, orderableStatus=Y)
+MenuCategoryDTO(menuCode=5, menuName=앙버터김치찜, menuPrice=13000, categoryName=한식, orderableStatus=N)
+MenuCategoryDTO(menuCode=6, menuName=생마늘샐러드, menuPrice=12000, categoryName=한식, orderableStatus=Y)
+MenuCategoryDTO(menuCode=7, menuName=민트미역국, menuPrice=15000, categoryName=한식, orderableStatus=Y)
+MenuCategoryDTO(menuCode=8, menuName=한우딸기국밥, menuPrice=20000, categoryName=한식, orderableStatus=Y)
+MenuCategoryDTO(menuCode=9, menuName=홍어마카롱, menuPrice=9000, categoryName=서양, orderableStatus=Y)
+MenuCategoryDTO(menuCode=10, menuName=코다리마늘빵, menuPrice=7000, categoryName=서양, orderableStatus=N)
+MenuCategoryDTO(menuCode=11, menuName=정어리빙수, menuPrice=10000, categoryName=기타, orderableStatus=Y)
+MenuCategoryDTO(menuCode=12, menuName=날치알스크류바, menuPrice=5000, categoryName=기타, orderableStatus=Y)
+MenuCategoryDTO(menuCode=13, menuName=직화구이젤라또, menuPrice=8000, categoryName=서양, orderableStatus=Y)
+MenuCategoryDTO(menuCode=14, menuName=과메기커틀릿, menuPrice=13000, categoryName=일식, orderableStatus=Y)
+MenuCategoryDTO(menuCode=15, menuName=죽방멸치튀김우동, menuPrice=11000, categoryName=일식, orderableStatus=N)
+MenuCategoryDTO(menuCode=16, menuName=흑마늘아메리카노, menuPrice=9000, categoryName=커피, orderableStatus=Y)
+MenuCategoryDTO(menuCode=17, menuName=아이스가리비관자육수, menuPrice=6000, categoryName=기타, orderableStatus=Y)
+MenuCategoryDTO(menuCode=18, menuName=붕어빵초밥, menuPrice=35000, categoryName=일식, orderableStatus=Y)
+MenuCategoryDTO(menuCode=19, menuName=까나리코코넛쥬스, menuPrice=9000, categoryName=쥬스, orderableStatus=Y)
+MenuCategoryDTO(menuCode=20, menuName=마라깐쇼한라봉, menuPrice=22000, categoryName=중식, orderableStatus=N)
+MenuCategoryDTO(menuCode=21, menuName=돌미나리백설기, menuPrice=5000, categoryName=동양, orderableStatus=Y)
+MenuCategoryDTO(menuCode=22, menuName=우주정복 마카롱, menuPrice=5000, categoryName=서양, orderableStatus=Y)
+MenuCategoryDTO(menuCode=23, menuName=초콜릿 피자, menuPrice=8000, categoryName=퓨전, orderableStatus=Y)
+MenuCategoryDTO(menuCode=24, menuName=모험가의 미트볼, menuPrice=15000, categoryName=한식, orderableStatus=Y)
+MenuCategoryDTO(menuCode=25, menuName=바다의 속삭임 스무디, menuPrice=6500, categoryName=기타, orderableStatus=Y)
+MenuCategoryDTO(menuCode=26, menuName=달빛 요정 케이크, menuPrice=7500, categoryName=서양, orderableStatus=Y)
+MenuCategoryDTO(menuCode=27, menuName=해적왕의 보물 상자, menuPrice=12000, categoryName=동양, orderableStatus=Y)
+MenuCategoryDTO(menuCode=28, menuName=신비로운 유니콘 아이스크림, menuPrice=5500, categoryName=기타, orderableStatus=Y)
+MenuCategoryDTO(menuCode=29, menuName=드래곤 숨결 핫소스, menuPrice=3000, categoryName=식사, orderableStatus=Y)
+MenuCategoryDTO(menuCode=30, menuName=불타는 치킨, menuPrice=9900, categoryName=식사, orderableStatus=N)
+MenuCategoryDTO(menuCode=31, menuName=펭귄의 꿈 파르페, menuPrice=8500, categoryName=기타, orderableStatus=Y)
+MenuCategoryDTO(menuCode=32, menuName=외계인의 초록 젤리, menuPrice=4200, categoryName=동양, orderableStatus=Y)
+MenuCategoryDTO(menuCode=33, menuName=마법사의 램버거, menuPrice=11000, categoryName=식사, orderableStatus=Y)
+MenuCategoryDTO(menuCode=34, menuName=귀신이 곡한 누룽지, menuPrice=7000, categoryName=중식, orderableStatus=Y)
+MenuCategoryDTO(menuCode=35, menuName=백년초 스무디, menuPrice=5600, categoryName=기타, orderableStatus=Y)
+MenuCategoryDTO(menuCode=36, menuName=초능력자의 에너지볼, menuPrice=9500, categoryName=음료, orderableStatus=Y)
+MenuCategoryDTO(menuCode=37, menuName=쿠리만쥬라멘, menuPrice=15000, categoryName=일식, orderableStatus=Y)
+
+========== section01. JDBC 를 직접 사용할 때의 문제점 ==========
+1. 메뉴 전체 조회 (반복되는 JDBC 코드와 수작업 매핑)
+2. 요구사항 변경 : 메뉴 조회 시 카테고리명도 함께 조회 (SQL 에 의존적인 개발)
+3. 메뉴와 해당 메뉴의 카테고리 조회 (패러다임 불일치)
+4. 같은 메뉴를 두 번 조회해서 비교 (동일성 보장 문제)
+9. 프로그램 종료
+메뉴 번호를 입력하세요 : 메뉴 코드를 입력하세요 : 실행 SQL : SELECT menu_code, menu_name, menu_price, category_code, orderable_status FROM tbl_menu WHERE menu_code = ?
+조회한 메뉴 = Menu(menuCode=2, menuName=광어스무디, menuPrice=5000, categoryCode=10, orderableStatus=Y)
+실행 SQL : SELECT category_code, category_name, ref_category_code FROM tbl_category WHERE category_code = ?
+메뉴의 카테고리 = Category(categoryCode=10, categoryName=기타, refCategoryCode=2)
+
+========== section01. JDBC 를 직접 사용할 때의 문제점 ==========
+1. 메뉴 전체 조회 (반복되는 JDBC 코드와 수작업 매핑)
+2. 요구사항 변경 : 메뉴 조회 시 카테고리명도 함께 조회 (SQL 에 의존적인 개발)
+3. 메뉴와 해당 메뉴의 카테고리 조회 (패러다임 불일치)
+4. 같은 메뉴를 두 번 조회해서 비교 (동일성 보장 문제)
+9. 프로그램 종료
+메뉴 번호를 입력하세요 : 메뉴 코드를 입력하세요 : 실행 SQL : SELECT menu_code, menu_name, menu_price, category_code, orderable_status FROM tbl_menu WHERE menu_code = ?
+실행 SQL : SELECT menu_code, menu_name, menu_price, category_code, orderable_status FROM tbl_menu WHERE menu_code = ?
+menu1 = 1028135144
+menu2 = 650520717
+menu1 == menu2 : false
+menu1 의 메뉴 이름만 변경한 후
+menu1.getMenuName() = 이름 변경 테스트
+menu2.getMenuName() = 광어스무디
+
+========== section01. JDBC 를 직접 사용할 때의 문제점 ==========
+1. 메뉴 전체 조회 (반복되는 JDBC 코드와 수작업 매핑)
+2. 요구사항 변경 : 메뉴 조회 시 카테고리명도 함께 조회 (SQL 에 의존적인 개발)
+3. 메뉴와 해당 메뉴의 카테고리 조회 (패러다임 불일치)
+4. 같은 메뉴를 두 번 조회해서 비교 (동일성 보장 문제)
+9. 프로그램 종료
+메뉴 번호를 입력하세요 : 프로그램을 종료합니다.

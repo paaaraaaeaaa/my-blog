@@ -82,7 +82,6 @@ public class Car {
     public void turnOff() {
 
         if (isOn) {
-
             // 달리고 있을 때, 멈춰 있을 때
             if (speed > 0) {
                 System.out.println("달리는 상태에서는 시동을 끌 수 없습니다...! 차를 먼저 멈춰주세요!");
@@ -90,7 +89,6 @@ public class Car {
                 this.isOn = false;
                 System.out.println("시동이 꺼집니다. 다시 운행하고 싶으면 시동을 켜주세요");
             }
-
 
         } else {
             System.out.println("이미 시동이 꺼져있습니다.");

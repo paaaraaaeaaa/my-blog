@@ -11,7 +11,7 @@ public class Application01 {
 
         int num3 = 3;
         int num4 = 4;
-        System.out.println("1번째 연산 결과 : " + (num3 + num4));
+        System.out.println("2번째 연산 결과 : " + (num3 + num4));
 
         // 위 프로그램의 문제는 2개의 수를 더하고 싶을 때마다 변수 코드 2줄, 연산 및 출력 코드 1줄이 무한 반복이 된다.
 
@@ -34,11 +34,11 @@ public class Application01 {
 
                                                             // (5,6)
         System.out.println("3번째 연산 : " + app.sumTwoNumber(5,6));
-        System.out.println("3번째 연산 : " + app.sumTwoNumber(7,8));
-        System.out.println("3번째 연산 : " + app.sumTwoNumber(9,10));
+        System.out.println("4번째 연산 : " + app.sumTwoNumber(7,8));
+        System.out.println("5번째 연산 : " + app.sumTwoNumber(9,10));
     }
 
-    /* =============main 영역 외부==================== */
+    /* ================ main 영역 외부 ==================== */
     /* comment.
     *   메소드란?
     *   특정 작업을 수행하는 코드 블록이다.

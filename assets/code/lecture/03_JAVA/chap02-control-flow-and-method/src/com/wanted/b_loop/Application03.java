@@ -1,7 +1,7 @@
 package com.wanted.b_loop;
 
 public class Application03 {
-    static void main(String[] args) {
+    public static void main(String[] args) {
 
         /*comment.
            - for, while, do-while
@@ -18,7 +18,7 @@ public class Application03 {
             //증감식
             num++;
             //조건식
-        }while (num>3);
+        }while (num < 3);
 
 
     }

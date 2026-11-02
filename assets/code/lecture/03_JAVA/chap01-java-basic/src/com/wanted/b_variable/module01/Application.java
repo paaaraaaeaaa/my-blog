@@ -9,7 +9,7 @@ public class Application {
         * */
 
         //숫자형(정수, 실수)
-        /*word. b,s */
+        /* word. b,s */
 
         // 숫자형 - 정수를 담는 자료형
         // 변수는? 값을 저장하는 공간!

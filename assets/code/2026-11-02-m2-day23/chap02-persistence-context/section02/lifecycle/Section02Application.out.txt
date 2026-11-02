@@ -1,0 +1,86 @@
+# 키보드 입력: 1(2), 2(2), 3(4, 5), 4(2), 5(2, 테스트이름), 9
+# 실행은 tbl_menu 복사본으로 했고, 로그의 테이블 이름만 tbl_menu로 적었다. (원본 데이터는 바꾸지 않았다)
+
+========== section03. 엔티티의 생명주기 ==========
+1. 비영속 상태 확인
+2. 영속 상태 확인 (1차 캐시와 동일성 보장)
+3. 준영속 상태 확인 (detach)
+4. 삭제 상태 확인 (remove)
+5. 병합 확인 (merge)
+9. 프로그램 종료
+메뉴 번호를 입력하세요 : 메뉴 코드 : Hibernate: select m1_0.menu_code,m1_0.category_code,m1_0.menu_name,m1_0.menu_price,m1_0.orderable_status from tbl_menu m1_0 where m1_0.menu_code=?
+foundMenu = Menu(menuCode=2, menuName=광어스무디, menuPrice=5000, categoryCode=10, orderableStatus=Y)
+newMenu   = Menu(menuCode=2, menuName=광어스무디, menuPrice=5000, categoryCode=10, orderableStatus=Y)
+foundMenu == newMenu : false
+foundMenu 는 영속 상태인가? true
+newMenu 는 영속 상태인가? false
+
+========== section03. 엔티티의 생명주기 ==========
+1. 비영속 상태 확인
+2. 영속 상태 확인 (1차 캐시와 동일성 보장)
+3. 준영속 상태 확인 (detach)
+4. 삭제 상태 확인 (remove)
+5. 병합 확인 (merge)
+9. 프로그램 종료
+메뉴 번호를 입력하세요 : 메뉴 코드 : ===== 첫 번째 조회 =====
+Hibernate: select m1_0.menu_code,m1_0.category_code,m1_0.menu_name,m1_0.menu_price,m1_0.orderable_status from tbl_menu m1_0 where m1_0.menu_code=?
+===== 두 번째 조회 =====
+foundMenu.hashCode() = 553937658
+newMenu.hashCode()   = 553937658
+foundMenu == newMenu : true
+
+========== section03. 엔티티의 생명주기 ==========
+1. 비영속 상태 확인
+2. 영속 상태 확인 (1차 캐시와 동일성 보장)
+3. 준영속 상태 확인 (detach)
+4. 삭제 상태 확인 (remove)
+5. 병합 확인 (merge)
+9. 프로그램 종료
+메뉴 번호를 입력하세요 : 영속 상태로 둘 메뉴 코드 : 준영속 상태로 만들 메뉴 코드 : Hibernate: select m1_0.menu_code,m1_0.category_code,m1_0.menu_name,m1_0.menu_price,m1_0.orderable_status from tbl_menu m1_0 where m1_0.menu_code=?
+Hibernate: select m1_0.menu_code,m1_0.category_code,m1_0.menu_name,m1_0.menu_price,m1_0.orderable_status from tbl_menu m1_0 where m1_0.menu_code=?
+4번 메뉴는 영속 상태인가? true
+5번 메뉴는 영속 상태인가? false
+===== flush =====
+Hibernate: update tbl_menu set category_code=?,menu_name=?,menu_price=?,orderable_status=? where menu_code=?
+
+========== section03. 엔티티의 생명주기 ==========
+1. 비영속 상태 확인
+2. 영속 상태 확인 (1차 캐시와 동일성 보장)
+3. 준영속 상태 확인 (detach)
+4. 삭제 상태 확인 (remove)
+5. 병합 확인 (merge)
+9. 프로그램 종료
+메뉴 번호를 입력하세요 : 삭제할 메뉴 코드 : Hibernate: select m1_0.menu_code,m1_0.category_code,m1_0.menu_name,m1_0.menu_price,m1_0.orderable_status from tbl_menu m1_0 where m1_0.menu_code=?
+삭제한 엔티티 객체 = Menu(menuCode=2, menuName=광어스무디, menuPrice=5000, categoryCode=10, orderableStatus=Y)
+다시 조회한 결과 = null
+삭제한 엔티티는 영속 상태인가? false
+===== flush =====
+Hibernate: delete from tbl_menu where menu_code=?
+
+========== section03. 엔티티의 생명주기 ==========
+1. 비영속 상태 확인
+2. 영속 상태 확인 (1차 캐시와 동일성 보장)
+3. 준영속 상태 확인 (detach)
+4. 삭제 상태 확인 (remove)
+5. 병합 확인 (merge)
+9. 프로그램 종료
+메뉴 번호를 입력하세요 : 메뉴 코드 : 변경할 메뉴 이름 : Hibernate: select m1_0.menu_code,m1_0.category_code,m1_0.menu_name,m1_0.menu_price,m1_0.orderable_status from tbl_menu m1_0 where m1_0.menu_code=?
+===== merge =====
+Hibernate: select m1_0.menu_code,m1_0.category_code,m1_0.menu_name,m1_0.menu_price,m1_0.orderable_status from tbl_menu m1_0 where m1_0.menu_code=?
+detachMenu.hashCode() = 2086415127
+mergedMenu.hashCode() = 786808973
+detachMenu == mergedMenu : false
+detachMenu 는 영속 상태인가? false
+mergedMenu 는 영속 상태인가? true
+mergedMenu.getMenuName() = 테스트이름
+===== flush =====
+Hibernate: update tbl_menu set category_code=?,menu_name=?,menu_price=?,orderable_status=? where menu_code=?
+
+========== section03. 엔티티의 생명주기 ==========
+1. 비영속 상태 확인
+2. 영속 상태 확인 (1차 캐시와 동일성 보장)
+3. 준영속 상태 확인 (detach)
+4. 삭제 상태 확인 (remove)
+5. 병합 확인 (merge)
+9. 프로그램 종료
+메뉴 번호를 입력하세요 : 프로그램을 종료합니다.

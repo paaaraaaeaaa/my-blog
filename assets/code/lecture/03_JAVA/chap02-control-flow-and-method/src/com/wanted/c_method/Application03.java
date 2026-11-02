@@ -23,7 +23,7 @@ public class Application03 {
     *   접근제어자
     *   - public : 모든 클래스에서 접근 가능
     *   - private : 같은 클래스 내부에서만 접근 가능
-    *   - protected : 같은 패키지 | 자식 클래스에서 접근 가능
+    *   - protected : 같은 패키지 || 자식 클래스에서 접근 가능
     *   - default (작성하지 않을 때)
     * */
 

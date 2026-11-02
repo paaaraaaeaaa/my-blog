@@ -13,7 +13,7 @@ public class QueryStringServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // http://localhost:8080/querystring?name=홍길동&age=20&birthday=2026-06-21&gender=M&national=ko&hobbies=movie&hobbies=music&hobbies=sleep
+        // http://localhost:8080/querystring?name=조평훈&age=20&birthday=2026-06-21&gender=M&national=ko&hobbies=movie&hobbies=music&hobbies=sleep
 
         System.out.println("doGet() 호출됨...");
 

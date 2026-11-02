@@ -24,7 +24,6 @@ public class CarRacer {
 
     // Application 에서 호출한 시동 걸어 메서드
     public void startUp() {
-
         // 자동차에게 시동 걸어!!
         car.startUp();
 

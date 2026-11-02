@@ -1,4 +1,6 @@
-package com.wanted.oop.b_oop.a_uesr_type;
+package com.wanted.oop.b_oop.a_user_type;
+
+import java.util.Arrays;
 
 public class Application01 {
     public static void main(String[] args) {
@@ -38,6 +40,7 @@ public class Application01 {
         *   사용자 정의의 가료형이란 기존 자료형의 한계를 극복하여 서로 다른 자료형들을 하나의 변수르 묶을 수 있다.
         * */
         System.out.println("member.id = " + member.id);
+        System.out.println("member.hobby = " + Arrays.toString(member.hobby));
 
 
     }

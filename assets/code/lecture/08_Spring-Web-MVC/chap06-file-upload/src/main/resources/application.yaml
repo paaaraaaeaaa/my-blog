@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: chap06-file-upload
+  servlet:
+    multipart:
+      # 파일 1개의 최대 크기 지정
+      max-file-size: 200MB
+      # 1개의 요청 시 여러 파일의 최대 합계 크기 지정
+      max-request-size: 1000MB
+
+# 프로젝트에서 파일을 어디 저장할 건지에 대한 경로 지정
+file:
+  upload-dir: ./uploads

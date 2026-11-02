@@ -1,4 +1,4 @@
-package com.wanted.oop.b_oop.a_uesr_type;
+package com.wanted.oop.b_oop.a_user_type;
 
 public class Member {
 

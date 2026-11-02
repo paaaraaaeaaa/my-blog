@@ -21,6 +21,8 @@ public class Application {
         // 암시적(묵시적) 형변환
         int num2 = 100;         // 4byte
         double dnum2 = num2;    // 8byte
+        System.out.println("num2 = " + num2);
+        System.out.println("dnum2 = " + dnum2);
 
         /* comment.
         *   명시적 형변환은 데이터 손실 가능성이 존재하기 때문에 컴파일러가 번역 시에 Error를 발생시킨다.

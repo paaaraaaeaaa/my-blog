@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .header{
+            color: red;
+        }
+        .footer{
+            color: aqua;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!--
+        th:replace는 해당 영역에 있는 코드를 대체하고자 하는 Fragment를 호출하여 치환하는 문법으로
+        th:replace를 작성한 태그 자체(내부 내용 포함)를 지우고 불러온 Fragment로 바꾼다.
+
+        작성 방법: ~{ 템플릿 경로 :: Fragment 이름 }
+        - 템플릿 경로는 templates 폴더 기준이며 .html은 생략한다. (common/header -> templates/common/header.html)
+        - 경로 앞에 '/'를 붙이면 jar 배포 시 템플릿을 못 찾을 수 있으므로 붙이지 않는다.
+
+        결과: <header class="header"><h1> header Fragment</h1></header>
+              ('나는 header'는 사라지고 header.html의 header 태그로 바뀐다.)
+    -->
+    <header th:replace="~{common/header :: headerFragment}">
+        <h1>나는 header</h1>
+    </header>
+
+    <!--
+        fragment에 매개변수를 전달하여 동적으로 ui를 꾸미는 것도 가능하다.
+        컨트롤러에서 전달한 test1, test2 값이 aside.html의 parameter, parameter1로 전달된다.
+    -->
+    <aside th:replace="~{common/aside :: asideFragment(${test1}, ${test2})}"></aside>
+    <main class="main">
+        <article>
+            <section>
+                <h1> 메인 </h1>
+            </section>
+        </article>
+    </main>
+
+    <!--
+        th:insert는 해당 영역에 삽입하고자 하는 Fragment를 삽입하는 문법으로
+        th:insert를 작성한 태그는 그대로 남고, 그 태그의 내부 내용만 불러온 Fragment(태그 포함)로 바뀐다.
+
+        결과: <footer><footer class="footer"><h1> footer Fragment</h1></footer></footer>
+              ('나는 footer'는 사라지고 바깥 footer 안에 footer.html의 footer 태그가 들어간다.)
+
+        정리) th:replace -> 태그까지 통째로 교체 / th:insert -> 태그는 유지, 안쪽에 삽입
+    -->
+    <footer th:insert="~{common/footer :: footerFragment}">
+        <h2>나는 footer</h2>
+    </footer>
+</body>
+</html>
