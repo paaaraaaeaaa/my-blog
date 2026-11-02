@@ -57,6 +57,12 @@ try {
         $new = [regex]::Replace($text, '(?im)^(\s*[\w.\-]*(?:password|passwd|pwd|secret|token)[\w.\-]*\s*[=:]\s*)[^\r\n]*', '${1}********')
         if ($new -ne $text) { $masked++ }
         [System.IO.File]::WriteAllText($to, $new, $utf8)
+      } elseif ($_.Extension.ToLower() -eq '.java') {
+        # 수업 주석에 들어 있는 실명은 공개하지 않도록 예시 이름으로 바꾼다 (실명은 코드 포인트로 표기)
+        $text = [System.IO.File]::ReadAllText($_.FullName, $utf8)
+        $realName = [string]::Concat([char]0xC870, [char]0xD3C9, [char]0xD6C8)
+        $new = $text.Replace($realName, ([string]::Concat([char]0xD64D, [char]0xAE38, [char]0xB3D9)))
+        [System.IO.File]::WriteAllText($to, $new, $utf8)
       } else {
         Copy-Item -LiteralPath $_.FullName -Destination $to
       }

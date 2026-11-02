@@ -37,7 +37,7 @@ public class RequestInfoServlet extends HttpServlet {
         System.out.println("로그인 성공!!!");
 
         // 로그인 성공 후 해야 하는 것.
-        // 사용자에게 "조평훈" 님 환영합니다! 라는 HTML 응답.
+        // 사용자에게 "홍길동" 님 환영합니다! 라는 HTML 응답.
 
         /* comment.
         *   해당 서블릿은 사용자의 요청이 들어오면
