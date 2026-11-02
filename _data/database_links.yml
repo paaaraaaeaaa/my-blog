@@ -296,3 +296,11 @@
   module: 2
   url: "https://claude.ai/artifact/Ly2g4QiMa7SnnkdUANrXR3?sk=_vEUCyQzobo9uqFFsMQIGg"
   description: "Aspect·Advice·Pointcut·JoinPoint·Weaving·Proxy를 회원 관리 예제와 Pointcut 실험실로 한눈에 정리한 AOP 용어 지도입니다."
+
+- category: "아티팩트"
+  title: "영속성 컨텍스트 시뮬레이터 (JPA)"
+  series: "JPA"
+  short: "영속성 컨텍스트 시뮬레이터"
+  module: 2
+  url: "https://claude.ai/artifact/4bHo1E4zyceY7RRHHiPj8M"
+  description: "persist·find·merge·remove·flush·detach·clear를 한 줄씩 실행하며 1차 캐시·스냅샷·쓰기 지연 SQL 저장소와 엔티티 생명주기가 어떻게 바뀌는지 보여 주는 시뮬레이터입니다."
