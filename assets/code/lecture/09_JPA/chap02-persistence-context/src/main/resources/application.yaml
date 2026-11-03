@@ -20,4 +20,4 @@ spring:
     properties:
       hibernate:
         # sql 구문을 보기 좋게 포멧팅
-        format_sql:
+        format_sql: true

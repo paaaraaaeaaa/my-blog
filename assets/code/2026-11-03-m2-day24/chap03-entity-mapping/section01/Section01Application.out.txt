@@ -1,0 +1,98 @@
+# 키보드 입력: 1(user01, 일반회원), 1(admin01, 관리자), 2(1번 조회), 2(2번 조회), 9
+# 실행은 tbl_member 대신 임시 테이블로 했고, 로그의 테이블 이름만 tbl_member로 적었다. (원본 데이터는 바꾸지 않았다)
+# unique 제약 이름의 해시 부분은 UK…로 줄였다. (실행마다 달라진다)
+# ddl-auto: create 라서 실행할 때마다 테이블을 지우고 다시 만든다.
+
+Hibernate: 
+    drop table if exists tbl_member
+Hibernate: 
+    create table tbl_member (
+        member_no integer not null auto_increment,
+        enroll_date datetime(6),
+        address varchar(900),
+        member_id varchar(10) not null,
+        member_name varchar(255),
+        member_pwd varchar(255) not null,
+        phone varchar(255),
+        status char(1) default 'Y',
+        member_role enum ('ROLE_ADMIN','ROLE_MEMBER'),
+        primary key (member_no)
+    ) engine=InnoDB
+Hibernate: 
+    alter table tbl_member 
+       add constraint UK… unique (member_id)
+Hibernate: 
+    alter table tbl_member 
+       add constraint UK… unique (phone)
+
+========== section01. 엔티티 매핑 ==========
+1. 회원 등록
+2. 회원 번호로 회원 조회
+9. 프로그램 종료
+메뉴 번호를 입력하세요 : 아이디(10자 이내) : 비밀번호 : 이름 : 전화번호 : 주소 : 권한 (1. 일반회원 2. 관리자) : Hibernate: 
+    insert 
+    into
+        tbl_member
+        (address, enroll_date, member_id, member_name, member_pwd, member_role, phone, status) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?)
+
+========== section01. 엔티티 매핑 ==========
+1. 회원 등록
+2. 회원 번호로 회원 조회
+9. 프로그램 종료
+메뉴 번호를 입력하세요 : 아이디(10자 이내) : 비밀번호 : 이름 : 전화번호 : 주소 : 권한 (1. 일반회원 2. 관리자) : Hibernate: 
+    insert 
+    into
+        tbl_member
+        (address, enroll_date, member_id, member_name, member_pwd, member_role, phone, status) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?)
+
+========== section01. 엔티티 매핑 ==========
+1. 회원 등록
+2. 회원 번호로 회원 조회
+9. 프로그램 종료
+메뉴 번호를 입력하세요 : 조회할 회원 번호 : Hibernate: 
+    select
+        m1_0.member_no,
+        m1_0.address,
+        m1_0.enroll_date,
+        m1_0.member_id,
+        m1_0.member_name,
+        m1_0.member_pwd,
+        m1_0.member_role,
+        m1_0.phone,
+        m1_0.status 
+    from
+        tbl_member m1_0 
+    where
+        m1_0.member_no=?
+foundMember = MemberRegistDTO(memberId=user01, memberPwd=pass01, memberName=홍길동, phone=010-1111-2222, address=null, enrollDate=null, memberRole=null, status=null)
+
+========== section01. 엔티티 매핑 ==========
+1. 회원 등록
+2. 회원 번호로 회원 조회
+9. 프로그램 종료
+메뉴 번호를 입력하세요 : 조회할 회원 번호 : Hibernate: 
+    select
+        m1_0.member_no,
+        m1_0.address,
+        m1_0.enroll_date,
+        m1_0.member_id,
+        m1_0.member_name,
+        m1_0.member_pwd,
+        m1_0.member_role,
+        m1_0.phone,
+        m1_0.status 
+    from
+        tbl_member m1_0 
+    where
+        m1_0.member_no=?
+foundMember = MemberRegistDTO(memberId=admin01, memberPwd=admin01pw, memberName=관리자, phone=010-3333-4444, address=null, enrollDate=null, memberRole=null, status=null)
+
+========== section01. 엔티티 매핑 ==========
+1. 회원 등록
+2. 회원 번호로 회원 조회
+9. 프로그램 종료
+메뉴 번호를 입력하세요 : 프로그램을 종료합니다.

@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: chap03-entity-mapping
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/menudb
+    username: wanted
+    password: ********
+  jpa:
+    # jpa 가 알아서 생성해주는 sql 구문 보는 설정
+    show-sql: true
+    # jpa 구현체
+    hibernate:
+      # create - App 실행 시 테이블 새로 생성한다.
+      # create-drop - App 실행 시 테이블 생성, 종료 시 삭제
+      # update - 개발 중 변경 된 테이블 구조 반영
+      # none - 미리 읽혀둔 ddl-script 로만 진행
+      ddl-auto: create
+
+    properties:
+      hibernate:
+        # sql 구문을 보기 좋게 포멧팅
+        format_sql: true
