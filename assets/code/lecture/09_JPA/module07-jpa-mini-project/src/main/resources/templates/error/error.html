@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>오류 발생</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 100px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        .status {
+            font-size: 64px;
+            font-weight: bold;
+            color: #ff7043;
+            margin: 0;
+        }
+
+        .message {
+            font-size: 18px;
+            color: #5d4037;
+            margin: 20px 0 30px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: #8d6e63;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #5d4037;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <p class="status" th:text="${status}">500</p>
+    <p class="message" th:text="|😥 ${message}|">오류가 발생했습니다.</p>
+
+    <div class="btn-group">
+        <button class="btn" onclick="history.back()">⬅ 뒤로가기</button>
+        <button class="btn" onclick="location.href='/'">🏠 홈으로</button>
+    </div>
+</div>
+
+</body>
+</html>

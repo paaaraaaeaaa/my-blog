@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>메뉴 검색</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #e1bee7);
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 100px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        h1 {
+            color: #37474f;
+            margin-bottom: 10px;
+        }
+
+        h3 {
+            color: #607d8b;
+            font-weight: normal;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input[type="number"] {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input[type="number"]:focus {
+            border-color: #7e57c2;
+            box-shadow: 0 0 5px rgba(126, 87, 194, 0.4);
+        }
+
+        .unit {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: #7e57c2;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #5e35b1;
+            transform: translateY(-2px);
+        }
+
+        .description {
+            margin-bottom: 15px;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🔍 메뉴 가격 검색</h1>
+    <h3>입력한 가격보다 높은 메뉴를 조회합니다</h3>
+
+    <form action="/menu/search" method="get">
+
+        <div class="description">💰 기준 가격을 입력하세요</div>
+
+        <div class="input-group">
+            <input type="number" name="menuPrice" placeholder="예: 10000">
+            <span class="unit">원 초과</span>
+        </div>
+
+        <button class="submit-btn" type="submit">검색하기</button>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>메뉴 등록</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #ffe0b2, #ffccbc);
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 80px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        h1 {
+            text-align: center;
+            color: #5d4037;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: #ff7043;
+            box-shadow: 0 0 5px rgba(255, 112, 67, 0.5);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: #ff7043;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #d84315;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            margin-top: 10px;
+            background: #8d6e63;
+        }
+
+        .btn-secondary:hover {
+            background: #5d4037;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🍽 신규 메뉴 등록</h1>
+
+    <form action="/menu/regist" method="post">
+
+        <div class="form-group">
+            <label>메뉴 이름</label>
+            <input type="text" name="menuName" placeholder="메뉴 이름 입력">
+        </div>
+
+        <div class="form-group">
+            <label>메뉴 가격</label>
+            <input type="number" name="menuPrice" placeholder="가격 입력 (예: 10000)">
+        </div>
+
+        <div class="form-group">
+            <label>카테고리</label>
+            <select name="categoryCode" id="categoryCode">
+
+            </select>
+        </div>
+
+        <button class="btn" type="submit">✅ 등록하기</button>
+        <button class="btn btn-secondary" type="button" onclick="history.back()">⬅ 취소</button>
+    </form>
+</div>
+
+<script>
+    // fetch 는 해당 페이지가 켜질 때 비동기 방식으로
+    // 호출이 된다. == fetch('/menu/category') -> Controller 의 return 값
+    // (비동기란? 우리가 특정 물리적인 행위를 하지 않더라도 백그라운드에서 실행)
+    fetch('/menu/category')
+        // 문자열 형태의 데이터를 javaScript 객체로 변환
+        // .then(List<CategoryDTO> => List<CategoryDTO>.json())
+        .then(res => res.json())
+        // data == json 로 변환 된 카테고리 리스트
+        .then(data => {
+            // select 태그 추출
+            const $categoryCode = document.getElementById("categoryCode");
+
+            // 카테고리 리스트를 순회하며
+            // option 태그를 만들어서 대입
+            for (let index in data) {
+                const $option = document.createElement("option");
+                $option.value = data[index].categoryCode;
+                $option.textContent = data[index].categoryName;
+
+                $categoryCode.appendChild($option);
+            }
+        });
+
+</script>
+
+</body>
+</html>

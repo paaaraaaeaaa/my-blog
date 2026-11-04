@@ -55,4 +55,4 @@
 - dir: "09_JPA"
   module: 2
   title: "JPA"
-  desc: "chap01 JPA 소개(JDBC의 문제점과 JPA의 해결, @Entity·@ManyToOne), chap02 영속성 컨텍스트(EntityManager CRUD, 엔티티 생명주기·flush·merge), chap03 엔티티 매핑(@Entity·@Column·@GeneratedValue·@Enumerated, Controller-Service-Repository 계층과 @Transactional)"
+  desc: "chap01 JPA 소개(JDBC의 문제점과 JPA의 해결, @Entity·@ManyToOne), chap02 영속성 컨텍스트(EntityManager CRUD, 엔티티 생명주기·flush·merge), chap03 엔티티 매핑(@Entity·@Column·@GeneratedValue·@Enumerated, Controller-Service-Repository 계층과 @Transactional), module07 메뉴 관리 미니 프로젝트(PRD 기반 Entity·Repository·DTO·Service·Controller·예외 처리)"

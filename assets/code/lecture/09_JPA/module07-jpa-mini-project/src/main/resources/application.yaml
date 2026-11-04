@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: module07-jpa-mini-project
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/menudb
+    username: wanted
+    password: ********
+  jpa:
+    show-sql: true
+    database: mysql
+    hibernate:
+      # 기존의 읽혀둔 DB Script 를 사용하며
+      # 새롭게 Entity 를 추가하거나, 변경하는 것은 불가능하다.
+      # 개발 시 데이터베이스 테이블이 수정 될 가능성이 있다면
+      # ddl-auto 설정을 update 로 두면 된다.
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true

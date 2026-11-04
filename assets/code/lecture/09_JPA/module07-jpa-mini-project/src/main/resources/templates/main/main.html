@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>원티드 메뉴 레스토랑</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 80px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        h1 {
+            color: #6d4c41;
+            margin-bottom: 30px;
+        }
+
+        .menu-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #ff7043;
+            color: white;
+        }
+
+        .menu-btn:hover {
+            background: #d84315;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .menu-btn.secondary {
+            background: #8d6e63;
+        }
+
+        .menu-btn.secondary:hover {
+            background: #5d4037;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h1>😈 원티드 메뉴 레스토랑 😈</h1>
+
+    <button class="menu-btn" onclick="location.href='/menu/13'">🍽 특정 메뉴 조회</button>
+    <button class="menu-btn" onclick="location.href='/menu/list'">📋 전체 메뉴 조회</button>
+    <button class="menu-btn" onclick="location.href='/menu/querymethod'">🔍 쿼리 메소드</button>
+
+    <button class="menu-btn secondary" onclick="location.href='/menu/regist'">➕ 메뉴 등록</button>
+    <button class="menu-btn secondary" onclick="location.href='/menu/modify'">✏ 메뉴 수정</button>
+    <button class="menu-btn secondary" onclick="location.href='/menu/delete'">🗑 메뉴 삭제</button>
+</div>
+</body>
+</html>

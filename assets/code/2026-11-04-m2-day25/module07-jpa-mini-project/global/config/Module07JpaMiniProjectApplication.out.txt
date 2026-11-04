@@ -1,0 +1,80 @@
+# 서버를 띄우고(포트만 18088로 바꿈, DB는 menudb) curl로 호출한 결과다.
+# 화면(HTML)은 표의 값만 줄여 적었고, SQL은 서버 콘솔에 찍힌 그대로다. (show-sql, format_sql)
+# DB 확인(JDBC로 count): tbl_menu 37행, tbl_category 12행
+# 서버 기동 때 WARN: spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. ...
+# 한글이 깨져 보이던 System.out.println("menu = ...") 줄은 지웠다.
+
+$ curl localhost:18088/menu/13          -> 200
+13 | 직화구이젤라또 | 8000원 | 12 | 판매중
+Hibernate:
+    select
+        m1_0.menu_code,
+        m1_0.category_code,
+        m1_0.menu_name,
+        m1_0.menu_price,
+        m1_0.orderable_status
+    from
+        tbl_menu m1_0
+    where
+        m1_0.menu_code=?
+
+$ curl localhost:18088/menu/9999        -> 404
+😥 메뉴를 찾을 수 없습니다.
+Hibernate:
+    select
+        m1_0.menu_code,
+        m1_0.category_code,
+        m1_0.menu_name,
+        m1_0.menu_price,
+        m1_0.orderable_status
+    from
+        tbl_menu m1_0
+    where
+        m1_0.menu_code=?
+WARN ... ExceptionHandlerExceptionResolver : Resolved [com.wanted.project.global.exception.BusinessException: 메뉴를 찾을 수 없습니다.]
+
+$ curl localhost:18088/menu/category    -> 200
+[{"categoryCode":4,"categoryName":"한식","refCategoryCode":1},{"categoryCode":5,"categoryName":"중식","refCategoryCode":1},{"categoryCode":6,"categoryName":"일식","refCategoryCode":1},{"categoryCode":7,"categoryName":"퓨전","refCategoryCode":1},{"categoryCode":8,"categoryName":"커피","refCategoryCode":2},{"categoryCode":9,"categoryName":"쥬스","refCategoryCode":2},{"categoryCode":10,"categoryName":"기타","refCategoryCode":2},{"categoryCode":11,"categoryName":"동양","refCategoryCode":3},{"categoryCode":12,"categoryName":"서양","refCategoryCode":3}]
+Hibernate:
+    select
+        *
+    from
+        tbl_category m
+    where
+        ref_category_code is not null
+    order by
+        category_code
+
+$ curl "localhost:18088/menu/search?menuPrice=20000"   -> 200
+20 | 마라깐쇼한라봉 | 22000원 | 5 | 판매중지
+18 | 붕어빵초밥 | 35000원 | 6 | 판매중
+Hibernate:
+    select
+        m1_0.menu_code,
+        m1_0.category_code,
+        m1_0.menu_name,
+        m1_0.menu_price,
+        m1_0.orderable_status
+    from
+        tbl_menu m1_0
+    where
+        m1_0.menu_price>?
+    order by
+        m1_0.menu_price
+
+$ curl "localhost:18088/menu/search?menuPrice=-1"     -> 400
+😥 400 BAD_REQUEST "Validation failure"
+
+$ curl localhost:18088/menu/abc         -> 200 (본문 0바이트)
+WARN ... ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'menuCode': Failed to convert value of type 'java.lang.String' to required type 'int'; For input string: "abc"]
+
+$ curl localhost:18088/menu/search      -> 200 (본문 0바이트)
+$ curl localhost:18088/nothing          -> 200 (본문 0바이트)
+$ curl localhost:18088/menu/list        -> 200 (표에 행 0개)
+
+# --- 아래는 수업 원본이 아니라 복사본에서만 한 실험이다 ---
+# GlobalExceptionHandler.handleMethodValidation()의 message 한 줄을 아래로 바꾸고 서버를 다시 띄웠다.
+#   String message = e.getParameterValidationResults().get(0).getResolvableErrors().get(0).getDefaultMessage();
+
+$ curl "localhost:18088/menu/search?menuPrice=-1"     -> 400
+😥 가격은 0원 이상 입력!
