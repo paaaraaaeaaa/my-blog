@@ -21,8 +21,13 @@ import org.springframework.stereotype.Component;
 public class MenuDeletionPolicy {
 
     // TODO 0
+    private final MenuOrderHistoryChecker menuOrderHistoryChecker;
 
     public void validateDeletable(int menuCode) {
-        // TODO 1
+        // TODO 1 : 1,2,3 메뉴는 주문된 적이 있는 메뉴이고, 주문된 적이 있으면 true 를 반환한다.
+        if (menuOrderHistoryChecker.hasOrdered(menuCode)) {
+            throw new BusinessException(ErrorCode.ORDERED_MENU_CANNOT_DELETE);
+
+        }
     }
 }

@@ -26,8 +26,16 @@ import org.springframework.stereotype.Component;
 public class MenuCategoryPolicy {
 
     // TODO 0
+    private final CategoryRepository categoryRepository;
 
     public void validateRegistrable(int categoryCode) {
-        // TODO 1
+        // TODO 1 : 카테고리 DB 를 조회해서 하위 카테고리인지 판단
+        Category category = categoryRepository.findById(categoryCode)
+                .orElseThrow(() -> new BusinessException(ErrorCode.CATEGORY_NOT_FOUND));
+
+        // 조회한 카테고리 엔티티가 상위카테고리 / 하위카테고리 인지 판단
+        if (!category.isSubCategory()) {
+            throw new BusinessException(ErrorCode.NOT_SUB_CATEGORY);
+        }
     }
 }

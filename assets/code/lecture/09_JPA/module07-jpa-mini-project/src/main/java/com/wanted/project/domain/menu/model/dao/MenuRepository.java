@@ -41,5 +41,7 @@ public interface MenuRepository extends JpaRepository<Menu, Integer> {
     *   정확한 메서드를 구현하기 힘들어진다.
     * */
     List<Menu> findByMenuPriceGreaterThanOrderByMenuPrice(int menuPrice);
-    // TODO 3
+
+    // TODO 3 : JPA 가 제공하는 쿼리 메서드
+    boolean existsByMenuName(String menuName);
 }

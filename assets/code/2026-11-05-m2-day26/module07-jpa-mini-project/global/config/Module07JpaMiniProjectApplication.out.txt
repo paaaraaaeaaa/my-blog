@@ -1,0 +1,79 @@
+# 서버를 띄우고(포트만 18088로 바꿈) 요청을 보낸 결과다. 요청은 파이썬 스크립트로 보냈고, 리다이렉트는 따라가지 않고 상태 코드와 Location 만 적었다.
+# menudb 의 원본 tbl_menu 가 바뀌지 않게, 실행은 tbl_menu 를 복사한 임시 테이블로 했다. (Menu 의 @Table 이름만 임시 이름으로 바꾼 복사본)
+#   아래 SQL 의 테이블 이름은 읽기 쉽게 tbl_menu 로 고쳐 적었고, SQL 은 줄바꿈과 공백만 한 줄로 줄였다.
+# 에러 화면은 message 한 줄만 적었다. 임시 테이블은 확인 뒤 지웠다.
+
+===== 등록 (F-04)
+
+POST /menu/regist  menuName=숙제테스트메뉴 menuPrice=5000 categoryCode=4   -> 302 Location /menu/39
+  SQL: select m1_0.menu_code from tbl_menu m1_0 where m1_0.menu_name=? limit ?
+  SQL: select c1_0.category_code, c1_0.category_name, c1_0.ref_category_code from tbl_category c1_0 where c1_0.category_code=?
+  SQL: insert into tbl_menu (category_code, menu_name, menu_price, orderable_status) values (?, ?, ?, ?)
+GET /menu/39   -> 200 (이름 숙제테스트메뉴, 판매중)
+
+----- 입력 검증 실패: SQL 이 하나도 나가지 않고 400
+POST /regist  menuName=''                          -> 400 메뉴 이름은 필수입니다!
+POST /regist  menuName=가 x 31자                   -> 400 메뉴 이름은 30자 이하입니다!!
+POST /regist  menuPrice=-1                         -> 400 메뉴 가격은 0원 이상 입력!
+POST /regist  categoryCode=0                       -> 400 카테고리를 선택해주세요!
+POST /regist  menuPrice=abc                        -> 400 menuPrice의 형식이 올바르지 않습니다.
+POST /regist  menuPrice=''                         -> 400 menuPrice의 형식이 올바르지 않습니다.
+POST /regist  menuName='' menuPrice=-5 categoryCode=0 (세 개 모두 틀림) -> 400 메뉴 이름은 필수입니다!
+
+----- 비즈니스 정책 (Policy)
+POST /regist  menuName=숙제테스트메뉴 (이미 등록한 이름) categoryCode=4   -> 409 이미 존재하는 메뉴 이름입니다.
+  SQL: select m1_0.menu_code from tbl_menu m1_0 where m1_0.menu_name=? limit ?
+POST /regist  menuName=상위카테고리메뉴 categoryCode=1   -> 400 메뉴는 하위 카테고리에만 등록할 수 있습니다.
+  SQL: select m1_0.menu_code from tbl_menu m1_0 where m1_0.menu_name=? limit ?
+  SQL: select c1_0.category_code, c1_0.category_name, c1_0.ref_category_code from tbl_category c1_0 where c1_0.category_code=?
+POST /regist  menuName=없는카테고리메뉴 categoryCode=99  -> 404 카테고리를 찾을 수 없습니다.
+  SQL: (위와 같은 SQL 두 개)
+POST /regist  menuName=숙제테스트메뉴 (중복) categoryCode=1 (상위) -> 409 이미 존재하는 메뉴 이름입니다.
+  SQL: select m1_0.menu_code from tbl_menu m1_0 where m1_0.menu_name=? limit ?     <- 이름 검사에서 먼저 끝난다
+
+GET /menu/list  -> 200, 표의 행 38개 (등록 전 37개)
+
+===== 수정 (F-05)
+
+POST /menu/modify  menuCode=39 menuName=숙제수정메뉴   -> 302 Location /menu/39
+  SQL: select m1_0.menu_code, m1_0.category_code, m1_0.menu_name, m1_0.menu_price, m1_0.orderable_status from tbl_menu m1_0 where m1_0.menu_code=?
+  SQL: update tbl_menu set category_code=?, menu_name=?, menu_price=?, orderable_status=? where menu_code=?
+GET /menu/39   -> 200 (이름 숙제수정메뉴, 판매중)
+
+----- 같은 이름으로 한 번 더 수정: 값이 그대로라서 UPDATE 가 나가지 않는다
+POST /menu/modify  menuCode=39 menuName=숙제수정메뉴   -> 302 Location /menu/39
+  SQL: select m1_0.menu_code, m1_0.category_code, m1_0.menu_name, m1_0.menu_price, m1_0.orderable_status from tbl_menu m1_0 where m1_0.menu_code=?
+
+POST /menu/modify  menuCode=9999 menuName=아무이름     -> 404 메뉴를 찾을 수 없습니다.
+  SQL: select (조회 한 번)
+
+----- 아직 검사가 없는 경우
+POST /menu/modify  menuCode=39 menuName=직화구이젤라또 (13번 메뉴와 같은 이름)  -> 302 Location /menu/39   (select + update 가 나감)
+POST /menu/modify  menuCode=39 menuName=''                                      -> 302 Location /menu/39   (select + update 가 나감)
+POST /menu/modify  menuCode=39 menuName=가 x 31자   -> 200 (본문 0바이트)
+  SQL: select + update
+  WARN ... Resolved [org.springframework.dao.DataIntegrityViolationException: could not execute statement [Data truncation: Data too long for column 'menu_name' at row 1 ...
+POST /menu/modify  menuCode=39 (menuName 없음)      -> 200 (본문 0바이트)
+  WARN ... Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'menuName' for method parameter type String is not present]
+
+===== 삭제 (F-07)   (임시 테이블에서 2번 메뉴만 판매중지(N)로 바꿔 두고 시작. 시작 전 확인: 1번 Y, 2번 N(바꿈), 3번 Y, 5번 N, 13번 Y, 39번 Y)
+
+POST /menu/delete  menuCode=13 (판매중 Y)   -> 409 판매중인 메뉴는 삭제할 수 없습니다. 먼저 판매중지해주세요.
+  SQL: select (조회 한 번)
+POST /menu/delete  menuCode=39 (방금 등록, 판매중 Y) -> 409 판매중인 메뉴는 삭제할 수 없습니다. 먼저 판매중지해주세요.
+  SQL: select (조회 한 번)
+POST /menu/delete  menuCode=9999            -> 404 메뉴를 찾을 수 없습니다.
+  SQL: select (조회 한 번)
+POST /menu/delete  menuCode=2 (N, Fake 가 주문 이력 있다고 답하는 번호) -> 409 주문 이력이 있는 메뉴는 삭제할 수 없습니다.
+  SQL: select (조회 한 번)          <- 판매 상태 검사를 통과한 뒤 Policy 에서 막힌다
+POST /menu/delete  menuCode=5 (N, 주문 이력 없음) -> 302 Location /menu/list
+  SQL: select m1_0.menu_code, m1_0.category_code, m1_0.menu_name, m1_0.menu_price, m1_0.orderable_status from tbl_menu m1_0 where m1_0.menu_code=?
+  SQL: delete from tbl_menu where menu_code=?
+POST /menu/delete  menuCode=5 (다시)        -> 404 메뉴를 찾을 수 없습니다.
+  SQL: select (조회 한 번)
+GET /menu/list  -> 200, 표의 행 37개 (삭제 전 38개)
+
+===== 판매중지 / 판매재개 (F-06, 아직 TODO)
+
+POST /menu/stop    menuCode=13  -> 200 (본문 0바이트)
+POST /menu/resume  menuCode=13  -> 200 (본문 0바이트)

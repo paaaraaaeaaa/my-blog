@@ -38,7 +38,7 @@ public class Category {
     private Integer refCategoryCode;    // 최상위 카테고리는 NULL 이므로 int 가 아닌 Integer
 
     public boolean isSubCategory() {
-        // TODO 3
-        return false;
+        // TODO 3 : 도메인의 상태를 물어보는 메서드
+        return refCategoryCode != null;
     }
 }

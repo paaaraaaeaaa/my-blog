@@ -46,8 +46,15 @@ public class GlobalExceptionHandler {
     /* MethodArgumentNotValidException(@Valid @ModelAttribute 검증 실패) 는 BindException 의 자식이다. */
     @ExceptionHandler(BindException.class)
     public ModelAndView handleBindException(BindException e) {
-        // TODO 2
-        return null;
+        // TODO 2 : @Vaild 유효성 검사 불통과시 동작하는 핸들러
+        // 유효성검사 실패 관련 에러 객체
+        FieldError fieldError = e.getFieldError();
+
+        String message = fieldError.isBindingFailure() ?
+                fieldError.getField() + "의 형식이 올바르지 않습니다."
+                :
+                fieldError.getDefaultMessage();
+        return errorPage(HttpStatus.BAD_REQUEST, message);
     }
 
     @ExceptionHandler(HandlerMethodValidationException.class)

@@ -19,6 +19,10 @@ public class FakeMenuOrderHistoryChecker implements MenuOrderHistoryChecker {
 
     private static final Set<Integer> ORDERED_MENU_CODES = Set.of(1, 2, 3);
 
+    /* comment.
+    *   Menu 개발 팀은 Order 팀의 정보가 필요하다.
+    *   따라서 메뉴 팀은 Interface 로 주문하고 주문 팀은 해당 Interface 를 구현하여 필요한 값을 전달한다.
+    * */
     @Override
     public boolean hasOrdered(int menuCode) {
         return ORDERED_MENU_CODES.contains(menuCode);
