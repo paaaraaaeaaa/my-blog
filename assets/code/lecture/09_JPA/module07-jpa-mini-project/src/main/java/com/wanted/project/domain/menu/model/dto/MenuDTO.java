@@ -35,16 +35,12 @@ public class MenuDTO {
     private int menuCode;
 
     // TODO 2
-    @NotBlank(message = "메뉴 이름은 필수입니다!")
-    @Size(max = 30, message = "메뉴 이름은 30자 이하입니다!!")
     private String menuName;
 
     // TODO 2
-    @Min(value = 0, message = "메뉴 가격은 0원 이상 입력!")
     private int menuPrice;
 
     // TODO 2
-    @Positive(message = "카테고리를 선택해주세요!")
     private int categoryCode;
 
     private String orderableStatus;

@@ -124,8 +124,8 @@ public class MenuController {
     }
 
     @PostMapping("/regist")
-    public ModelAndView registMenu(@Valid @ModelAttribute MenuDTO registMenu, ModelAndView mv) {
-        // TODO 5 : DTO 내부에 유효성 검사를 해두고 적용하기 위해서는 
+    public ModelAndView registMenu(@ModelAttribute MenuDTO registMenu, ModelAndView mv) {
+        // TODO 5
         return null;
     }
 
