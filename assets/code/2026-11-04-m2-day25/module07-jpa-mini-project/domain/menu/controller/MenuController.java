@@ -62,7 +62,12 @@ public class MenuController {
     @GetMapping("/list")
     public ModelAndView findMenuList(ModelAndView mv) {
         // TODO 2 숙제!
-        return null;
+        List<MenuDTO> menuList = menuService.findMenuList();
+
+        mv.addObject("menuList", menuList);
+        mv.setViewName("menu/list");
+
+        return mv;
     }
 
     @GetMapping("/querymethod")

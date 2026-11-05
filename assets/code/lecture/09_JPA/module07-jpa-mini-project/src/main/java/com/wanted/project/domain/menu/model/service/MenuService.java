@@ -76,7 +76,12 @@ public class MenuService {
 
     public List<MenuDTO> findMenuList() {
         // TODO 2
-        return null;
+        // findAll(Sort) 는 JpaRepository 가 기본으로 제공한다. menuCode 오름차순으로 정렬한다.
+        List<Menu> menuList = menuRepository.findAll(Sort.by("menuCode"));
+
+        return menuList.stream()
+                .map(MenuDTO::from)
+                .toList();
     }
 
     public List<MenuDTO> findMenuByPrice(int menuPrice) {

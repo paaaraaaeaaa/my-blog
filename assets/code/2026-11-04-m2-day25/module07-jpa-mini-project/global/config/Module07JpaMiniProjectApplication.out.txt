@@ -78,3 +78,18 @@ $ curl localhost:18088/menu/list        -> 200 (표에 행 0개)
 
 $ curl "localhost:18088/menu/search?menuPrice=-1"     -> 400
 😥 가격은 0원 이상 입력!
+
+# --- 11월 5일, 숙제(전체 메뉴 조회)를 채운 뒤 다시 호출 ---
+$ curl localhost:18088/menu/list        -> 200
+표의 행 37개, 메뉴번호 1~37 오름차순 (첫 행 4500원, 마지막 행 15000원), 판매중지 표시 5개
+Hibernate:
+    select
+        m1_0.menu_code,
+        m1_0.category_code,
+        m1_0.menu_name,
+        m1_0.menu_price,
+        m1_0.orderable_status
+    from
+        tbl_menu m1_0
+    order by
+        m1_0.menu_code

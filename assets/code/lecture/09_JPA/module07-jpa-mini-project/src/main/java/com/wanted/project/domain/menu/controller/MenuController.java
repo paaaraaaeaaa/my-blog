@@ -62,7 +62,12 @@ public class MenuController {
     @GetMapping("/list")
     public ModelAndView findMenuList(ModelAndView mv) {
         // TODO 2 숙제!
-        return null;
+        List<MenuDTO> menuList = menuService.findMenuList();
+
+        mv.addObject("menuList", menuList);
+        mv.setViewName("menu/list");
+
+        return mv;
     }
 
     @GetMapping("/querymethod")
@@ -119,8 +124,8 @@ public class MenuController {
     }
 
     @PostMapping("/regist")
-    public ModelAndView registMenu(@ModelAttribute MenuDTO registMenu, ModelAndView mv) {
-        // TODO 5
+    public ModelAndView registMenu(@Valid @ModelAttribute MenuDTO registMenu, ModelAndView mv) {
+        // TODO 5 : DTO 내부에 유효성 검사를 해두고 적용하기 위해서는 
         return null;
     }
 
