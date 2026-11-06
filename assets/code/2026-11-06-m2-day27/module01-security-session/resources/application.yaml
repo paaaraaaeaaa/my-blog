@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: module01-security-session
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/login
+    username: wanted
+    password: ********
+  jpa:
+    show-sql: true
+    database: mysql
+    hibernate:
+      ddl-auto: none
+      # create : 실행 시 테이블 drop 후 새로 생성한다. (기존 데이터 삭제됨.)
+      # create-drop : 시작 시 생성, 종료 시 삭제 -> 테스트 환경에서 활용
+      # update : 변경 된 엔티티만 반영 -> 개발환경에서 사용
+      # none : 아무 작업도 하지 않는다. -> resources/sql 의 스크립트로 테이블을 직접 생성한 후 실행한다.
+    properties:
+      hibernate:
+        format_sql: true

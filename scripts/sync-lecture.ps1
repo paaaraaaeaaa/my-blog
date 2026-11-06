@@ -16,7 +16,7 @@ param(
 )
 $ErrorActionPreference = 'Stop'
 
-$courses  = '01_Git', '01_HTML', '02_CSS', '03_JAVA', '04_MySQL', '05_JDBC', '06_Servlet', '07_Spring-Core', '08_Spring-Web-MVC', '09_JPA'
+$courses  = '01_Git', '01_HTML', '02_CSS', '03_JAVA', '04_MySQL', '05_JDBC', '06_Servlet', '07_Spring-Core', '08_Spring-Web-MVC', '09_JPA', '10_Spring-Security'
 $ext      = '.java', '.html', '.css', '.sql', '.md', '.xml', '.gradle', '.jsp', '.js', '.txt', '.properties', '.yaml', '.yml'
 $skipDirs = '.git', '.idea', '.gradle', '.claude', '.github', 'out', 'build', 'node_modules', 'target'
 $maxBytes = 300KB

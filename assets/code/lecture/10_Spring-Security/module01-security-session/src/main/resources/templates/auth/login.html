@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>로그인</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #e1bee7);
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        h1 {
+            text-align: center;
+            color: #37474f;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+        }
+
+        .remember {
+            font-weight: normal;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: #7e57c2;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #5e35b1;
+        }
+
+        .link {
+            display: block;
+            margin-top: 15px;
+            text-align: center;
+            color: #7e57c2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🔐 로그인</h1>
+
+    <!-- 회원가입 완료 시 UserController 가 전달한 message 표시 -->
+    <p th:if="${message}" th:text="${message}" style="text-align:center; color:#2e7d32;"></p>
+
+    <!-- [로그인 ②] POST /auth/login 은 컨트롤러가 아닌 Security 필터가 처리한다. -->
+    <form th:action="@{/auth/login}" method="post">
+
+        <!-- name 은 SecurityConfig 의 usernameParameter("user") 와 일치해야 한다. -->
+        <label for="user">아이디</label>
+        <input type="text" id="user" name="user" placeholder="아이디 입력">
+
+        <!-- name 은 SecurityConfig 의 passwordParameter("pass") 와 일치해야 한다. -->
+        <label for="pass">비밀번호</label>
+        <input type="password" id="pass" name="pass" placeholder="비밀번호 입력">
+
+        <!-- name 은 SecurityConfig 의 rememberMeParameter("remember-me") 와 일치해야 한다. -->
+        <label class="remember">
+            <input type="checkbox" name="remember-me"> 이 컴퓨터에서 로그인 유지하기
+        </label>
+
+        <button class="btn" type="submit">로그인</button>
+    </form>
+
+    <a class="link" th:href="@{/user/signup}">회원가입</a>
+</div>
+
+</body>
+</html>
