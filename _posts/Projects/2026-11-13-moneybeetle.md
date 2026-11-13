@@ -219,4 +219,5 @@ PR 리뷰에서 필수로 지적받은 것이 있었다. 취소된 요청이 이
 - [Spring 공식 문서 - WebUtils.getSessionMutex](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/util/WebUtils.html)
 - [Jakarta Servlet - HttpSession](https://jakarta.ee/specifications/servlet/6.0/apidocs/jakarta.servlet/jakarta/servlet/http/httpsession)
 - [MySQL 공식 문서 - InnoDB 잠금 읽기](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking-reads.html)
+- [MoneyBeetle 코드 검증 리포트](https://claude.ai/artifact/Acka2q6jE1scprzP8ZQh8Y)
 - [MoneyBeetle 저장소](https://github.com/bukkeu/my-home-finish)

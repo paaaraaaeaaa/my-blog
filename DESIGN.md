@@ -242,7 +242,7 @@
 | `.btn-line` / `.btn-solid` | 보조 버튼 / 주요 버튼 (화면당 주요 버튼 1개) |
 | `.stages` > `.stage.is-done/.is-current/.is-upcoming` | Cloud 모듈 스테이지 (윗선이 진행 상태) |
 | `.module-panel` (+ `__head` `__facts`) | 선택한 모듈의 요약 |
-| `.week-grid` > `.week` > `.day` / `.day--off` / `.day--empty` | 주 단위 달력 칸. 머리는 `.section-head`(`## 학습 달력` + `N주 · N편`). 그 모듈에서 가장 최근에 쓴 글의 칸에는 `.is-latest`가 붙어 테두리가 `--c-signal-line`이 되고 날짜 앞에 `latest · `가 보인다 |
+| `.week-grid` > `.week` > `.day` / `.day--off` / `.day--project` / `.day--empty` | 주 단위 달력 칸. `.day--project`는 `_data/project_periods.yml`의 기간에 든, 글 없는 평일 칸(초록 점선 + "프로젝트 기간"). 머리는 `.section-head`(`## 학습 달력` + `N주 · N편`). 그 모듈에서 가장 최근에 쓴 글의 칸에는 `.is-latest`가 붙어 테두리가 `--c-signal-line`이 되고 날짜 앞에 `latest · `가 보인다 |
 | `.problem-list` > `.problem` (+ `.problem--unlinked`) | 문제 카드 |
 | `.steps` > `.step` (+ `__lv` `__title`) | 풀이 단계 목록 |
 | `.module-stats` > `.stat` / `.stat--link` / `.stat--muted` | 모듈 통계 타일. 링크 타일은 `is-섹션`색 |

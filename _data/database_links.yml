@@ -304,3 +304,11 @@
   module: 2
   url: "https://claude.ai/artifact/4bHo1E4zyceY7RRHHiPj8M"
   description: "persist·find·merge·remove·flush·detach·clear를 한 줄씩 실행하며 1차 캐시·스냅샷·쓰기 지연 SQL 저장소와 엔티티 생명주기가 어떻게 바뀌는지 보여 주는 시뮬레이터입니다."
+
+- category: "아티팩트"
+  title: "MoneyBeetle 코드 검증 리포트"
+  series: "프로젝트 회고"
+  short: "MoneyBeetle 코드 검증 리포트"
+  module: 2
+  url: "https://claude.ai/artifact/Acka2q6jE1scprzP8ZQh8Y"
+  description: "팀 프로젝트 코드를 권한·동시성·성능·명세 일치 관점에서 검증한 리포트. 권한 검사와 돈 흐름은 서버에서 지켜졌고, 로그인 전 진입점과 도메인 경계에서 개선점 62건을 짚었다."

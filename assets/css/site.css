@@ -1289,6 +1289,8 @@ a.day:hover .day__summary { color: var(--c-text); }
 .day__tags .chip { font-size: .8125rem; padding: 0 var(--s-1); max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
 .day--empty, .day--off { background: transparent; border-style: dashed; border-color: var(--c-line); }
 .day--off .day__note { font-size: var(--fs-xs); color: var(--c-text-3); }
+.day--project { background: var(--c-signal-soft); border-style: dashed; border-color: var(--c-signal-line); }   /* 팀 프로젝트 기간 (_data/project_periods.yml) */
+.day--project .day__note { font-size: var(--fs-xs); color: var(--c-text-2); }   /* 초록 면 위 초록 글자는 라이트에서 대비가 빠듯해 글자는 보조 글자색 */
 
 /* ---------------------------------------------------------------------
    12. Database
@@ -2187,7 +2189,7 @@ a.wdot:focus-visible { outline: 2px solid var(--c-signal); outline-offset: 2px; 
   .week__label { flex-direction: row; gap: var(--s-2); padding-top: var(--s-3); }
   .day--empty { display: none; }
   .day { min-height: 0; }
-  .day--off { flex-direction: row; gap: var(--s-2); padding: var(--s-2) var(--s-3); }
+  .day--off, .day--project { flex-direction: row; gap: var(--s-2); padding: var(--s-2) var(--s-3); }
 }
 @media (max-width: 640px) {
   :root { --fs-2xl: 1.75rem; --fs-3xl: 2.5rem; --fs-xl: 1.5rem; }

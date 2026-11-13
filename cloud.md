@@ -137,7 +137,13 @@ classes: section-page
 {%- elsif site.data.holidays contains cell_date -%}
 <span class="day day--off"><span class="day__date">{{ cell_ts | date: "%-m.%-d" }}</span><span class="day__note">휴일</span></span>
 {%- else -%}
+{%- assign proj_hit = nil -%}
+{%- for pp in site.data.project_periods -%}{%- if pp.module == i and cell_date >= pp.start and cell_date <= pp.end -%}{%- assign proj_hit = pp -%}{%- endif -%}{%- endfor -%}
+{%- if proj_hit -%}
+<span class="day day--project" title="{{ proj_hit.label | escape }}"><span class="day__date">{{ cell_ts | date: "%-m.%-d" }}</span><span class="day__note">프로젝트 기간</span></span>
+{%- else -%}
 <span class="day day--empty" aria-hidden="true"><span class="day__date">{{ cell_ts | date: "%-m.%-d" }}</span></span>
+{%- endif -%}
 {%- endif -%}
 {%- endfor -%}
 </div>
