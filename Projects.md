@@ -8,7 +8,8 @@ classes: section-page
 {%- comment -%}
   Projects = 모듈마다 하나씩 나오는 결과물(총 6개) + 결과물별 연동기 시리즈.
   - 결과물 글: categories [Projects], type 없음, module: N
-    (선택) project_name, banner_emoji, live_url, tags
+    (선택) project_name, banner_emoji, live_url, repo_url, tags
+    (live_url이 없으면 repo_url의 GitHub 버튼이 강조 버튼이 된다)
   - 연동기 글: categories [Projects], type: practice, module: N, topic, level_order
   스타일: assets/css/site.css "13. Projects"
 {%- endcomment -%}
@@ -57,6 +58,7 @@ classes: section-page
 <div class="proj-card__links">
 <a class="btn-line" href="{{ project.url | relative_url }}">회고 읽기</a>
 {% if project.live_url %}<a class="btn-solid" href="{{ project.live_url }}" target="_blank" rel="noopener">라이브 사이트</a>{% endif %}
+{% if project.repo_url %}<a class="{% if project.live_url %}btn-line{% else %}btn-solid{% endif %}" href="{{ project.repo_url }}" target="_blank" rel="noopener">GitHub</a>{% endif %}
 </div>
 </div>
 {%- if mod_series.size > 0 -%}

@@ -214,7 +214,7 @@
 |---|---|---|
 | Cloud 학습노트 | `categories: [Cloud]`, `type: daily`, `module: N`, `summary`, `excerpt` | `tags` (달력 칸에 앞 2개 표시). `summary`는 달력 칸 한 줄, `excerpt`는 목록·검색 요약 |
 | Cloud 문제풀이 | `type: practice`, `module: N`, `topic`, `level_order` | 제목을 `Lv1 · 제목` 형식으로 쓰면 단계 라벨이 자동 분리됨 |
-| Projects 결과물 | `categories: [Projects]`, `module: N` (type 없음) | `project_name`, `banner_emoji`, `live_url`, `tags` |
+| Projects 결과물 | `categories: [Projects]`, `module: N` (type 없음) | `project_name`, `banner_emoji`, `live_url`, `repo_url`, `tags` |
 | Projects 연동기 | `type: practice`, `module: N`, `topic`, `level_order` | `tags` (첫 번째가 칩으로 표시) |
 | Cloud 원본 코드 (yml) | `dir`, `module`, `title`, `desc` (`_data/lecture_sources.yml`) | `dir`은 `C:\Lecture` 아래 폴더 이름이자 `assets/code/lecture/` 아래 폴더 이름. 파일은 `scripts/sync-lecture.ps1`로 텍스트 파일만 복사(이미지·jar 제외, 비밀번호 줄은 가림) |
 | Database 문제 (yml) | `category: "문제"`, `title`, `url` | `module`, `topics: ["풀이 글의 topic"]` |
@@ -332,7 +332,7 @@
 - **게시글 `.md`에 `<style>`을 넣지 않는다.** 글자 크기 조절(`.page__content { font-size: ... }`)도 금지 — 모든 글이 같은 크기로 읽혀야 한다.
 - 인라인 `style="color: ..."` 금지. 필요한 표현이 있으면 `site.css`에 컴포넌트를 추가하고 이 문서 4장에 한 줄 기록한다.
 - 제목(`##`, `###`)에 이모지를 넣지 않는다. 이모지는 콜아웃 표시용으로만 쓴다.
-- Projects 글 front matter: `banner_emoji`(카드 아이콘), `live_url`(라이브 버튼), `tags`(칩)를 쓴다. `banner_gradient`는 더 이상 쓰지 않는다.
+- Projects 글 front matter: `banner_emoji`(카드 아이콘), `live_url`(라이브 버튼), `repo_url`(GitHub 버튼, 라이브 주소가 없으면 강조 버튼), `tags`(칩)를 쓴다. `banner_gradient`는 더 이상 쓰지 않는다.
 
 ---
 

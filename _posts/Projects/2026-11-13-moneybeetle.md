@@ -6,6 +6,7 @@ categories: [Projects]
 module: 2
 project_name: "MoneyBeetle"
 banner_emoji: "🪲"
+repo_url: "https://github.com/bukkeu/my-home-finish"
 date: 2026-11-13
 tags: [spring, java, mysql, 동시성, session]
 comments: true
