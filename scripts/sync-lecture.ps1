@@ -16,7 +16,7 @@ param(
 )
 $ErrorActionPreference = 'Stop'
 
-$courses  = '01_Git', '01_HTML', '02_CSS', '03_JAVA', '04_MySQL', '05_JDBC', '06_Servlet', '07_Spring-Core', '08_Spring-Web-MVC', '09_JPA', '10_Spring-Security'
+$courses  = '01_Git', '01_HTML', '02_CSS', '03_JAVA', '04_MySQL', '05_JDBC', '06_Servlet', '07_Spring-Core', '08_Spring-Web-MVC', '09_JPA', '10_Spring-Security', '11_JavaScript'
 $ext      = '.java', '.html', '.css', '.sql', '.md', '.xml', '.gradle', '.jsp', '.js', '.txt', '.properties', '.yaml', '.yml'
 $skipDirs = '.git', '.idea', '.gradle', '.claude', '.github', 'out', 'build', 'node_modules', 'target'
 $maxBytes = 300KB
@@ -62,6 +62,11 @@ try {
         $text = [System.IO.File]::ReadAllText($_.FullName, $utf8)
         $realName = [string]::Concat([char]0xC870, [char]0xD3C9, [char]0xD6C8)
         $new = $text.Replace($realName, ([string]::Concat([char]0xD64D, [char]0xAE38, [char]0xB3D9)))
+        [System.IO.File]::WriteAllText($to, $new, $utf8)
+      } elseif ($_.Extension.ToLower() -eq '.txt') {
+        # 에디터 실행 결과(.txt)에 들어 있는 로컬 절대경로의 C:\Lecture\ 접두어는 지운다
+        $text = [System.IO.File]::ReadAllText($_.FullName, $utf8)
+        $new = [regex]::Replace($text, '(?i)[a-z]:\\Lecture\\', '')
         [System.IO.File]::WriteAllText($to, $new, $utf8)
       } else {
         Copy-Item -LiteralPath $_.FullName -Destination $to

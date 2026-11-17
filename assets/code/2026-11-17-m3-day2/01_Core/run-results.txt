@@ -1,0 +1,222 @@
+# 각 파일을 새 폴더에서 `node 파일이름.js` 로 따로 실행한 결과다. (Node.js v24.20.0, 콘솔 출력 그대로)
+# 에디터(Code Runner)로 여러 번 실행한 출력이 쌓인 result.txt 와 달리, 파일마다 한 번씩 실행했다.
+# 파일 경로는 읽기 쉽게 줄였다.
+
+===== node 01_variable.js
+문자열
+undefined
+number
+string
+boolean
+object
+object
+object
+function
+(종료 코드 0)
+
+===== node 02_object.js
+{ name: '원티드 식당', category: '분식', getInfo: [Function: getInfo] }
+원티드 식당 은 분식 전문점입니다!
+{ menuName: '치킨' }
+{ menuName: '치킨', sauce: '뿌링클 시즈닝' }
+{ menuName: '치킨', sauce: '맛초킹 시즈닝' }
+(종료 코드 0)
+
+===== node 03_function.js
+김예린 님, 반갑습니다~~!!
+김예린 님, 반갑습니다~~!!
+김예린 님, 반갑습니다~~!!
+김예린 님, 반갑습니다~~!!
+떡볶이 조리 시~~작~~!!
+03_function.js:50
+console.log(test1("떡볶이"));
+            ^
+
+ReferenceError: Cannot access 'test1' before initialization
+    at Object.<anonymous> (03_function.js:50:13)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+
+Node.js v24.20.0
+(종료 코드 1)
+
+===== node 04_arrow-function.js
+주문 접수 OK! 👌
+주문 접수 OK! 👌
+신전떡볶이 !!
+[ 3600, 4500, 126000 ]
+[ 3600, 4500, 126000 ]
+(종료 코드 0)
+
+===== node 05_array.js
+제육
+떡볶이
+순대
+1
+{ name: 'hi' }
+[Function (anonymous)]
+(종료 코드 0)
+
+===== node 06_higher-order-method.js
+=======================forEach==========================
+{ name: '치즈떡볶이', category: '분식', price: 14000 }
+{ name: '짜장면', category: '중식', price: 9000 }
+{ name: '김치찌개', category: '한식', price: 12000 }
+{ name: '마라탕', category: '중식', price: 13000 }
+{ name: '라멘', category: '일식', price: 13000 }
+=======================map==========================
+[ '치즈떡볶이', '짜장면', '김치찌개', '마라탕', '라멘' ]
+=======================filter==========================
+ 1 == '1' : true
+ 1 === '1' : false
+[
+  { name: '짜장면', category: '중식', price: 9000 },
+  { name: '마라탕', category: '중식', price: 13000 }
+]
+[ { name: '짜장면', category: '중식', price: 9000 } ]
+[ '짜장면' ]
+(종료 코드 0)
+
+# ---------------------------------------------------------------------------
+# 아래는 수업 코드가 아니라, 글에서 설명한 동작을 확인하려고 따로 만든 짧은 예시 코드의 결과다.
+# ---------------------------------------------------------------------------
+
+----- 선언 없이 대입 (기본 모드)
+str = 1;
+console.log(typeof str, typeof globalThis.str);
+>>> 결과
+number number
+(종료 코드 0)
+
+----- 선언 없이 대입 ('use strict' 를 켠 파일)
+'use strict';
+str = 1;
+console.log('여기까지 오면 안 됨');
+>>> 결과
+예시.js:2
+str = 1;
+    ^
+
+ReferenceError: str is not defined
+(종료 코드 1)
+
+----- const 재대입
+const shop = '원티드 식당';
+try { shop = 1; } catch (e) { console.log(e.name + ': ' + e.message); }
+console.log(shop);
+>>> 결과
+TypeError: Assignment to constant variable.
+원티드 식당
+(종료 코드 0)
+
+----- var 호이스팅
+console.log(a);
+var a = 1;
+console.log(a);
+>>> 결과
+undefined
+1
+(종료 코드 0)
+
+----- let 호이스팅 (TDZ)
+console.log(b);
+let b = 1;
+>>> 결과
+예시.js:1
+console.log(b);
+            ^
+
+ReferenceError: Cannot access 'b' before initialization
+(종료 코드 1)
+
+----- var 로 만든 함수 표현식을 선언 전에 호출
+console.log(typeof f);
+try { f(); } catch (e) { console.log(e.name + ': ' + e.message); }
+var f = function () { return 1; };
+console.log(f());
+>>> 결과
+undefined
+TypeError: f is not a function
+1
+(종료 코드 0)
+
+----- 기명 함수 표현식의 이름
+const w = function hello(n) { return n; };
+console.log(w.name);
+try { hello('x'); } catch (e) { console.log(e.name + ': ' + e.message); }
+>>> 결과
+hello
+ReferenceError: hello is not defined
+(종료 코드 0)
+
+----- == 와 ===
+console.log(null == undefined, null === undefined);
+console.log(0 == false, 0 === false);
+console.log('' == 0, '' === 0);
+console.log(typeof null, Array.isArray([]), Array.isArray({}));
+>>> 결과
+true false
+true false
+true false
+object true false
+(종료 코드 0)
+
+----- 화살표 함수로 만든 메서드의 this
+const a = { name: '원티드 식당', normal: function () { return this.name; }, arrow: () => String(this.name) };
+console.log(a.normal());
+console.log(a.arrow());
+>>> 결과
+원티드 식당
+undefined
+(종료 코드 0)
+
+----- forEach, map, filter 의 반환값과 원본 배열
+const m = [{n:'a',p:1},{n:'b',p:2}];
+const r1 = m.forEach(x => x.n);
+const r2 = m.map(x => x.n);
+const r3 = m.filter(x => x.p > 1);
+console.log(r1, r2, r3, m.length);
+console.log(r2 === m, r3 === m);
+>>> 결과
+undefined [ 'a', 'b' ] [ { n: 'b', p: 2 } ] 2
+false false
+(종료 코드 0)
+
+----- '분식'으로 필터한 체인 (06번의 '중식'을 바꿈)
+const menus = [
+  { name: '치즈떡볶이', category: '분식', price: 14000 },
+  { name: '짜장면', category: '중식', price: 9000 },
+  { name: '김치찌개', category: '한식', price: 12000 },
+  { name: '마라탕', category: '중식', price: 13000 },
+  { name: '라멘', category: '일식', price: 13000 }
+];
+console.log(menus.filter(m => m.category === '분식').filter(m => m.price < 10000).map(m => m.name));
+console.log(menus.filter(m => m.category === '분식').map(m => m.name));
+>>> 결과
+[]
+[ '치즈떡볶이' ]
+(종료 코드 0)
+
+----- 화살표 함수가 객체를 반환할 때
+const a = () => { name: 'x' };
+const b = () => ({ name: 'x' });
+console.log(a(), b());
+>>> 결과
+undefined { name: 'x' }
+(종료 코드 0)
+
+----- 화살표 함수 생략 규칙
+const f1 = () => '주문 접수';
+const f2 = menuName => `${menuName}!!`;
+const f3 = (n, p) => `${n}:${p}`;
+console.log(f1(), f2('떡볶이'), f3('김밥', 3000));
+console.log(typeof f1, f1.name);
+>>> 결과
+주문 접수 떡볶이!! 김밥:3000
+function f1
+(종료 코드 0)

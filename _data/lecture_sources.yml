@@ -61,3 +61,8 @@
   module: 2
   title: "Spring Security"
   desc: "module01 세션 기반 인증/인가(formLogin·UserDetailsService·UserDetails, BCrypt 암호화, 로그인 성공/실패 핸들러와 계정 잠금, Remember Me, 동시 접속 제한, URL·메서드 단위 권한 검사)"
+
+- dir: "11_JavaScript"
+  module: 3
+  title: "JavaScript"
+  desc: "01_Core 핵심 문법(변수와 동적 타입·typeof, 객체 리터럴, 함수 선언문·표현식과 호이스팅, 화살표 함수, 배열, 고차 함수 forEach·map·filter)"

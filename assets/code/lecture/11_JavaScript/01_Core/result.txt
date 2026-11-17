@@ -1,0 +1,384 @@
+[Running] node "11_JavaScript\01_Core\01_variable.js"
+문자열
+undefined
+number
+string
+boolean
+object
+object
+object
+function
+
+[Done] exited with code=0 in 0.135 seconds
+
+[Running] node "11_JavaScript\01_Core\02_object.js"
+{ name: '원티드 식당', category: '분식', getInfo: [Function: getInfo] }
+
+[Done] exited with code=0 in 0.132 seconds
+
+[Running] node "11_JavaScript\01_Core\02_object.js"
+{ name: '원티드 식당', category: '분식', getInfo: [Function: getInfo] }
+원티드 식당 은 분식 전문점입니다!
+
+[Done] exited with code=0 in 0.131 seconds
+
+[Running] node "11_JavaScript\01_Core\02_object.js"
+{ name: '원티드 식당', category: '분식', getInfo: [Function: getInfo] }
+원티드 식당 은 분식 전문점입니다!
+{ menuName: '치킨' }
+
+[Done] exited with code=0 in 0.132 seconds
+
+[Running] node "11_JavaScript\01_Core\02_object.js"
+{ name: '원티드 식당', category: '분식', getInfo: [Function: getInfo] }
+원티드 식당 은 분식 전문점입니다!
+{ menuName: '치킨' }
+{ menuName: '치킨', sauce: '뿌링클 시즈닝' }
+
+[Done] exited with code=0 in 0.123 seconds
+
+[Running] node "11_JavaScript\01_Core\02_object.js"
+{ name: '원티드 식당', category: '분식', getInfo: [Function: getInfo] }
+원티드 식당 은 분식 전문점입니다!
+{ menuName: '치킨' }
+{ menuName: '치킨', sauce: '뿌링클 시즈닝' }
+{ menuName: '치킨', sauce: '맛초킹 시즈닝' }
+
+[Done] exited with code=0 in 0.13 seconds
+
+[Running] node "11_JavaScript\01_Core\03_function.js"
+김예린 님, 반갑습니다~~!!
+
+[Done] exited with code=0 in 0.131 seconds
+
+[Running] node "11_JavaScript\01_Core\03_function.js"
+김예린 님, 반갑습니다~~!!
+김예린 님, 반갑습니다~~!!
+김예린 님, 반갑습니다~~!!
+김예린 님, 반갑습니다~~!!
+
+[Done] exited with code=0 in 0.125 seconds
+
+[Running] node "11_JavaScript\01_Core\03_function.js"
+김예린 님, 반갑습니다~~!!
+김예린 님, 반갑습니다~~!!
+김예린 님, 반갑습니다~~!!
+11_JavaScript\01_Core\03_function.js:28
+console.log(hello("김예린"));
+        ^
+
+ReferenceError: hello is not defined
+    at Object.<anonymous> (11_JavaScript\01_Core\03_function.js:28:9)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+
+Node.js v24.20.0
+
+[Done] exited with code=1 in 0.139 seconds
+
+[Running] node "11_JavaScript\01_Core\03_function.js"
+김예린 님, 반갑습니다~~!!
+김예린 님, 반갑습니다~~!!
+김예린 님, 반갑습니다~~!!
+11_JavaScript\01_Core\03_function.js:28
+console.log(hello("김예린"));
+        ^
+
+ReferenceError: hello is not defined
+    at Object.<anonymous> (11_JavaScript\01_Core\03_function.js:28:9)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+
+Node.js v24.20.0
+
+[Done] exited with code=1 in 0.127 seconds
+
+[Running] node "11_JavaScript\01_Core\03_function.js"
+김예린 님, 반갑습니다~~!!
+김예린 님, 반갑습니다~~!!
+김예린 님, 반갑습니다~~!!
+김예린 님, 반갑습니다~~!!
+떡볶이 조리 시~~작~~!!
+
+[Done] exited with code=0 in 0.124 seconds
+
+[Running] node "11_JavaScript\01_Core\03_function.js"
+김예린 님, 반갑습니다~~!!
+김예린 님, 반갑습니다~~!!
+김예린 님, 반갑습니다~~!!
+김예린 님, 반갑습니다~~!!
+떡볶이 조리 시~~작~~!!
+11_JavaScript\01_Core\03_function.js:50
+console.log(test1("떡볶이"));
+            ^
+
+ReferenceError: Cannot access 'test1' before initialization
+    at Object.<anonymous> (11_JavaScript\01_Core\03_function.js:50:13)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+
+Node.js v24.20.0
+
+[Done] exited with code=1 in 0.132 seconds
+
+[Running] node "11_JavaScript\01_Core\04_arrow-function.js"
+주문 접수 OK! 👌
+
+[Done] exited with code=0 in 0.134 seconds
+
+[Running] node "11_JavaScript\01_Core\04_arrow-function.js"
+주문 접수 OK! 👌
+주문 접수 OK! 👌
+
+[Done] exited with code=0 in 0.122 seconds
+
+[Running] node "11_JavaScript\01_Core\04_arrow-function.js"
+주문 접수 OK! 👌
+주문 접수 OK! 👌
+주문 접수 OK! 👌
+
+[Done] exited with code=0 in 0.125 seconds
+
+[Running] node "11_JavaScript\01_Core\04_arrow-function.js"
+주문 접수 OK! 👌
+주문 접수 OK! 👌
+신전떡볶이 !!
+
+[Done] exited with code=0 in 0.13 seconds
+
+[Running] node "11_JavaScript\01_Core\04_arrow-function.js"
+주문 접수 OK! 👌
+주문 접수 OK! 👌
+신전떡볶이 !!
+[ 3600, 4500, 126000 ]
+
+[Done] exited with code=0 in 0.126 seconds
+
+[Running] node "11_JavaScript\01_Core\tempCodeRunnerFile.js"
+[ 3600, 4500, 126000 ]
+[ 3600, 4500, 126000 ]
+
+[Done] exited with code=0 in 0.135 seconds
+
+[Running] node "11_JavaScript\01_Core\05_array.js"
+제육
+떡볶이
+순대
+1
+
+[Done] exited with code=0 in 0.132 seconds
+
+[Running] node "11_JavaScript\01_Core\05_array.js"
+제육
+떡볶이
+순대
+1
+{ name: 'hi' }
+[Function (anonymous)]
+
+[Done] exited with code=0 in 0.127 seconds
+
+[Running] node "11_JavaScript\01_Core\06_higher-order-method.js"
+=======================forEach==========================
+{ name: '치즈떡볶이', category: '분식', price: 14000 }
+{ name: '짜장면', category: '중식', price: 9000 }
+{ name: '김치찌개', category: '한식', price: 12000 }
+{ name: '마라탕', category: '중식', price: 13000 }
+{ name: '라멘', category: '일식', price: 13000 }
+
+[Done] exited with code=0 in 0.137 seconds
+
+[Running] node "11_JavaScript\01_Core\06_higher-order-method.js"
+=======================forEach==========================
+{ name: '치즈떡볶이', category: '분식', price: 14000 }
+{ name: '짜장면', category: '중식', price: 9000 }
+{ name: '김치찌개', category: '한식', price: 12000 }
+{ name: '마라탕', category: '중식', price: 13000 }
+{ name: '라멘', category: '일식', price: 13000 }
+=======================map==========================
+[ '치즈떡볶이', '짜장면', '김치찌개', '마라탕', '라멘' ]
+
+[Done] exited with code=0 in 0.126 seconds
+
+[Running] node "11_JavaScript\01_Core\06_higher-order-method.js"
+=======================forEach==========================
+{ name: '치즈떡볶이', category: '분식', price: 14000 }
+{ name: '짜장면', category: '중식', price: 9000 }
+{ name: '김치찌개', category: '한식', price: 12000 }
+{ name: '마라탕', category: '중식', price: 13000 }
+{ name: '라멘', category: '일식', price: 13000 }
+=======================map==========================
+[ '치즈떡볶이', '짜장면', '김치찌개', '마라탕', '라멘' ]
+=======================filter==========================
+[ { name: '치즈떡볶이', category: '분식', price: 14000 } ]
+
+[Done] exited with code=0 in 0.125 seconds
+
+[Running] node "11_JavaScript\01_Core\06_higher-order-method.js"
+=======================forEach==========================
+{ name: '치즈떡볶이', category: '분식', price: 14000 }
+{ name: '짜장면', category: '중식', price: 9000 }
+{ name: '김치찌개', category: '한식', price: 12000 }
+{ name: '마라탕', category: '중식', price: 13000 }
+{ name: '라멘', category: '일식', price: 13000 }
+=======================map==========================
+[ '치즈떡볶이', '짜장면', '김치찌개', '마라탕', '라멘' ]
+=======================filter==========================
+[
+  { name: '짜장면', category: '중식', price: 9000 },
+  { name: '마라탕', category: '중식', price: 13000 }
+]
+
+[Done] exited with code=0 in 0.13 seconds
+
+[Running] node "11_JavaScript\01_Core\06_higher-order-method.js"
+=======================forEach==========================
+{ name: '치즈떡볶이', category: '분식', price: 14000 }
+{ name: '짜장면', category: '중식', price: 9000 }
+{ name: '김치찌개', category: '한식', price: 12000 }
+{ name: '마라탕', category: '중식', price: 13000 }
+{ name: '라멘', category: '일식', price: 13000 }
+=======================map==========================
+[ '치즈떡볶이', '짜장면', '김치찌개', '마라탕', '라멘' ]
+=======================filter==========================
+[
+  { name: '짜장면', category: '중식', price: 9000 },
+  { name: '마라탕', category: '중식', price: 13000 }
+]
+
+[Done] exited with code=0 in 0.133 seconds
+
+[Running] node "11_JavaScript\01_Core\06_higher-order-method.js"
+=======================forEach==========================
+{ name: '치즈떡볶이', category: '분식', price: 14000 }
+{ name: '짜장면', category: '중식', price: 9000 }
+{ name: '김치찌개', category: '한식', price: 12000 }
+{ name: '마라탕', category: '중식', price: 13000 }
+{ name: '라멘', category: '일식', price: 13000 }
+=======================map==========================
+[ '치즈떡볶이', '짜장면', '김치찌개', '마라탕', '라멘' ]
+=======================filter==========================
+ 1 == '1' : true
+ 1 === '1' : false
+[
+  { name: '짜장면', category: '중식', price: 9000 },
+  { name: '마라탕', category: '중식', price: 13000 }
+]
+
+[Done] exited with code=0 in 0.13 seconds
+
+[Running] node "11_JavaScript\01_Core\06_higher-order-method.js"
+=======================forEach==========================
+{ name: '치즈떡볶이', category: '분식', price: 14000 }
+{ name: '짜장면', category: '중식', price: 9000 }
+{ name: '김치찌개', category: '한식', price: 12000 }
+{ name: '마라탕', category: '중식', price: 13000 }
+{ name: '라멘', category: '일식', price: 13000 }
+=======================map==========================
+[ '치즈떡볶이', '짜장면', '김치찌개', '마라탕', '라멘' ]
+=======================filter==========================
+ 1 == '1' : true
+ 1 === '1' : false
+[
+  { name: '짜장면', category: '중식', price: 9000 },
+  { name: '마라탕', category: '중식', price: 13000 }
+]
+
+[Done] exited with code=0 in 0.124 seconds
+
+[Running] node "11_JavaScript\01_Core\06_higher-order-method.js"
+=======================forEach==========================
+{ name: '치즈떡볶이', category: '분식', price: 14000 }
+{ name: '짜장면', category: '중식', price: 9000 }
+{ name: '김치찌개', category: '한식', price: 12000 }
+{ name: '마라탕', category: '중식', price: 13000 }
+{ name: '라멘', category: '일식', price: 13000 }
+=======================map==========================
+[ '치즈떡볶이', '짜장면', '김치찌개', '마라탕', '라멘' ]
+=======================filter==========================
+ 1 == '1' : true
+ 1 === '1' : false
+[
+  { name: '짜장면', category: '중식', price: 9000 },
+  { name: '마라탕', category: '중식', price: 13000 }
+]
+
+[Done] exited with code=0 in 0.125 seconds
+
+[Running] node "11_JavaScript\01_Core\06_higher-order-method.js"
+=======================forEach==========================
+{ name: '치즈떡볶이', category: '분식', price: 14000 }
+{ name: '짜장면', category: '중식', price: 9000 }
+{ name: '김치찌개', category: '한식', price: 12000 }
+{ name: '마라탕', category: '중식', price: 13000 }
+{ name: '라멘', category: '일식', price: 13000 }
+=======================map==========================
+[ '치즈떡볶이', '짜장면', '김치찌개', '마라탕', '라멘' ]
+=======================filter==========================
+ 1 == '1' : true
+ 1 === '1' : false
+[
+  { name: '짜장면', category: '중식', price: 9000 },
+  { name: '마라탕', category: '중식', price: 13000 }
+]
+[ { name: '짜장면', category: '중식', price: 9000 } ]
+
+[Done] exited with code=0 in 0.131 seconds
+
+[Running] node "11_JavaScript\01_Core\06_higher-order-method.js"
+=======================forEach==========================
+{ name: '치즈떡볶이', category: '분식', price: 14000 }
+{ name: '짜장면', category: '중식', price: 9000 }
+{ name: '김치찌개', category: '한식', price: 12000 }
+{ name: '마라탕', category: '중식', price: 13000 }
+{ name: '라멘', category: '일식', price: 13000 }
+=======================map==========================
+[ '치즈떡볶이', '짜장면', '김치찌개', '마라탕', '라멘' ]
+=======================filter==========================
+ 1 == '1' : true
+ 1 === '1' : false
+[
+  { name: '짜장면', category: '중식', price: 9000 },
+  { name: '마라탕', category: '중식', price: 13000 }
+]
+[ { name: '짜장면', category: '중식', price: 9000 } ]
+[]
+
+[Done] exited with code=0 in 0.128 seconds
+
+[Running] node "11_JavaScript\01_Core\06_higher-order-method.js"
+=======================forEach==========================
+{ name: '치즈떡볶이', category: '분식', price: 14000 }
+{ name: '짜장면', category: '중식', price: 9000 }
+{ name: '김치찌개', category: '한식', price: 12000 }
+{ name: '마라탕', category: '중식', price: 13000 }
+{ name: '라멘', category: '일식', price: 13000 }
+=======================map==========================
+[ '치즈떡볶이', '짜장면', '김치찌개', '마라탕', '라멘' ]
+=======================filter==========================
+ 1 == '1' : true
+ 1 === '1' : false
+[
+  { name: '짜장면', category: '중식', price: 9000 },
+  { name: '마라탕', category: '중식', price: 13000 }
+]
+[ { name: '짜장면', category: '중식', price: 9000 } ]
+[ '짜장면' ]
+
+[Done] exited with code=0 in 0.128 seconds
+
