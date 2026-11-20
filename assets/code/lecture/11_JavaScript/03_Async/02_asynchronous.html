@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>02. 비동기</h1>
+
+    <h3>동기</h3>
+    <pre>
+        떡볶이 조리(3초)가 끝날 때까지 다음 손님 주문을 받을 수 없게 된다.
+    </pre>
+
+    
+    <h3>비동기</h3>
+    <pre>
+        떡볶이 조리(3초)하는 동안 다음 손님의 주문을 먼저 받는다.
+    </pre>
+
+    <h3>동기/비동기 동작 방식 관련 CS 지식</h3>
+    <pre>
+        테스크 큐(Task Queue)
+        - 비동기 함수의 콜백 함수 or 이벤트 핸들러가 일시적으로 보관되는 영역
+
+        이벤트 루프(Event Loop)
+        - 콜 스택에 현재 실행 중인 실행 컨텍스트가 있는지, 테스크 큐에 대기중인 함수가 있는 지를 반복 확인한다.
+        - 콜 스택이 비어있고, 테스크 큐에 대기중인 함수가 있다면 FIFO(First In First Out, 선입선출) 방식으로 콜 스택으로 이동시킨다.
+
+        // ----------------------------------------------------------------
+        프론트 서버는 사용자의 화면을 구성하는 용도
+        백엔드 서버는 사용자 화면에 표출될 데이터를 리턴하는 용도이다.
+
+        따라서 프론트 서버에서는 백엔드 서버에게 데이터를 달라고 요청을 보내게 되는데,
+        만약 백엔드 서버에서 응답이 느리게 된다면 사용자는 영문도 모른 채 화면이 멈추는 경험을 하게 된다.
+
+        따라서 JS 기반의 프론트 서버는 API 호출은 모두 비동기 방식으로 진행을 하게 된다.
+    </pre>
+
+    <script>
+       
+       function sleep(func, delay) {
+            const delayUntill = Date.now() + delay;
+            while(Date.now() < delayUntill) {
+                // 전달 받은 함수 실행
+                func();
+            }
+       }
+
+       function cook() {
+            console.log('떡볶이 조리 완료!!(3초)');
+       }
+
+       function takeOrder() {
+            console.log('다음 손님 주문 하세요~');
+       }
+
+       // 위 -> 아래
+       // sleep 코드가 3초 동안 시간을 점유하는 코드이기 때문에 주문은 무조건 3초 뒤에만 받을 수 있게 된다.
+       // 동기 처리의 한계
+    //    sleep(cook, 3000);
+    //    takeOrder();
+
+       // 비동기 처리
+        setTimeout(cook, 3000);
+        takeOrder();
+        takeOrder();
+        takeOrder();
+        takeOrder();
+        takeOrder();
+        takeOrder();
+        takeOrder();
+        takeOrder();
+
+    </script>
+
+</body>
+</html>

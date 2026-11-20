@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>04. fetch</h1>
+    <pre>
+        가장 대표적인 비동기처리는 외부 서버의 API 호출하는 것이다. fetch / ajax / axios
+    </pre>
+
+    <button id="btn-get">리뷰 목록 불러오기</button>
+    <script>
+
+        document.getElementById('btn-get')
+                .addEventListener('click', getReviews);
+        
+        /*
+            프로그램 요구사항
+            1. 리뷰 목록 버튼을 누르면 리뷰 관련 데이터를 노출한다.
+        */
+
+        // 2번 실행하기 위해서 async 키워드를 붙여서 비동기 함수로 만들어야 한다.
+       async function getReviews() {
+
+            // 외부 API 를 호출
+            const data = fetch('https://jsonplaceholder.typicode.com/posts?_limit=5')
+            console.log(data); // Promise { <pending> }
+
+            // 현재 data 라는 변수에는 promise 객체
+            // promise 객체는 읽기 전용으로 사용할 수 없다. [[]] 이렇게 대괄호 2개로 되어있으면 불가능?함..
+
+            // 1. promise - then() 
+            // data
+            //     .then(res => {
+            //         console.log(res);
+            //         // res 에는 api의 호출 결과가 문자열 json 로 되어있다. json -> 자바스크립트 객체 표기법
+            //         // 문자열 json 을 실제 자바스크립트 객체로 바꾸기 위해서 res.json() 을 호출하면 된다.
+            //         return res.json(); // json() 함수는 promise 객체를 리턴한다.
+            //     })
+            //     .then(json => console.log(json));
+
+            // 2. async - await
+            const res = await data; // 문자열 json
+            const reviews = await res.json();  // js 객체 변환
+
+            console.log(reviews);
+            console.log(reviews[0].title);
+            
+
+        }
+    </script>
+</body>
+</html>

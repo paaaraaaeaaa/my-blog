@@ -65,4 +65,4 @@
 - dir: "11_JavaScript"
   module: 3
   title: "JavaScript"
-  desc: "01_Core 핵심 문법(변수와 동적 타입·typeof, 객체 리터럴, 함수 선언문·표현식과 호이스팅, 화살표 함수, 배열, 고차 함수 forEach·map·filter, 스프레드 문법, 구조 분해 할당), 02_Web(DOM 요소 취득, 이벤트 핸들러·이벤트 객체와 this, 폼 이벤트)"
+  desc: "01_Core 핵심 문법(변수와 동적 타입·typeof, 객체 리터럴, 함수 선언문·표현식과 호이스팅, 화살표 함수, 배열, 고차 함수 forEach·map·filter, 스프레드 문법, 구조 분해 할당), 02_Web(DOM 요소 취득, 이벤트 핸들러·이벤트 객체와 this, 폼 이벤트), 03_Async(타이머, 동기·비동기와 이벤트 루프, Promise·async/await, fetch)"
