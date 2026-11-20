@@ -312,3 +312,11 @@
   module: 2
   url: "https://claude.ai/artifact/Acka2q6jE1scprzP8ZQh8Y"
   description: "팀 프로젝트 코드를 권한·동시성·성능·명세 일치 관점에서 검증한 리포트. 권한 검사와 돈 흐름은 서버에서 지켜졌고, 로그인 전 진입점과 도메인 경계에서 개선점 62건을 짚었다."
+
+- category: "아티팩트"
+  title: "JavaScript 이벤트 루프 시각화"
+  series: "JavaScript"
+  short: "이벤트 루프 시각화"
+  module: 3
+  url: "https://claude.ai/artifact/DTn5GvRGDqbexpattvvTPT"
+  description: "한 번에 하나만 실행하는 JavaScript가 멈추지 않는 이유를 실행·위임·순환·검증 네 단계로 보여 주는 이벤트 루프 시각화 자료입니다."
