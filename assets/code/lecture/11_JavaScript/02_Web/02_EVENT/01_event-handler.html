@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01_event-handler</title>
+</head>
+<body>
+    <h1>01. 이벤트 핸들러 등록과 제거</h1>
+    <pre>
+    이벤트 핸들러: 이벤트가 발생했을 때 브라우저에 호출을 위임한 함수
+    - 이벤트가 발생했을 때 브라우저에게 이벤트 핸들러의 호출을 위임하는 것을
+        이벤트 핸들러 등록이라고 하며, 등록 방법은 3가지가 있다.
+    </pre>
+
+    <h2>(1) 이벤트 핸들러 어트리뷰트 방식</h2>
+    <pre>
+    - 어트리뷰트 값으로 함수 호출문을 할당하여 이벤트 핸들러 등록 (on + 이벤트 타입)
+    - (주의) 함수 참조가 아닌 함수 호출문 할당
+    </pre>
+    <button onclick="alert('주문 완료!'); console.log('주문 완료!');">주문하기</button>
+    <!--
+        html 속성 중 접두사 on 이 붙은 속성들은 브라우저 상에서의
+        Event 를 의미한다.
+    -->
+    <button onmouseover="recommend('김자바');">오늘의 추천 메뉴 (마우스를 올려보세요!)</button>
+
+    <h2>(2) 이벤트 핸들러 프로퍼티 방식</h2>
+    <button id="btn-prop">주문하기</button>
+
+    <h2>(3) addEventListener 메서드 방식 (권장)</h2>
+    <button id="btn-listener">결제하기</button>
+
+    <h2>(4) 이벤트 핸들러 제거</h2>
+    <button id="btn-remove">쿠폰 받기</button>
+
+    <script>
+
+        // 1) 어트리뷰트(속성) 방식으로 이벤트 핸들링 하기
+        function recommend(name) {
+            alert(`${name} 님 , 오늘은 제육을 먹어봐요!`);
+        }
+
+        // 2) 프로퍼티 방식으로 이벤트 핸들링
+        const $btnProp = document.getElementById('btn-prop');
+        
+        $btnProp.onclick = function() {
+            alert("프로퍼티 방식으로 이벤트 핸들러 등록!!");
+        }
+
+        // 프로퍼티 방식은 하나의 이벤트에 1개의 이벤트 핸들러만 등록 가능
+        // 덮여씌어지게 된다.
+        $btnProp.onclick = () => alert("두번째 이벤트 핸들러 등록!!");
+        
+        // 3. addEventListener 방식 (권장되는 방식)
+        const $btnListener = document.getElementById('btn-listener');
+        // 1번째 인자 : 이벤트 종류 (클릭, 더블클릭, 호버)
+        // 2번째 인자 : 이벤트 발생 시 동작시킬 함수
+        $btnListener.addEventListener('click', function() {
+            alert('결제 완료!')
+        });
+
+        $btnListener.addEventListener('click', function() {
+            alert('2번째 addEvent 동작!')
+        });
+
+        // 4. 이벤트 핸들러 제거
+        const $btnRemove = document.getElementById('btn-remove');
+
+        const handleMouseOver = () => alert('결제 버튼에 마우스 호버!');
+
+        // 외부에 정의한 함수를 참조
+        $btnRemove.addEventListener('mouseover' , handleMouseOver);
+        // 조건에 따라서 이벤트를 제거해야 할 때 사용이 된다.
+        // if 문과 같이 사용됨.
+        $btnRemove.removeEventListener('mouseover' , handleMouseOver);
+
+    </script>
+   
+</body>
+</html>

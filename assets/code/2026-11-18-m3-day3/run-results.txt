@@ -1,0 +1,381 @@
+3일차 실행 결과 (수업 2026-11-18)
+
+이 파일의 구성
+  1) 수업 파일 01_Core/07, 08 을 node 로 한 번씩 실행한 결과
+  2) 수업 파일 02_Web 의 html 4개를 헤드리스 Chrome 에서 열어 본 결과
+     - 페이지가 열릴 때 찍는 콘솔 출력과, 이벤트를 코드로 일으킨 뒤의 상태를 기록했다.
+     - alert 는 창이 뜨지 않도록 콘솔 출력("[alert] ...")으로 바꿔서 기록했다.
+     - 클릭은 click(), 마우스·포커스 이벤트는 dispatchEvent() 로 일으켰다. 실제 마우스와 키보드 입력은 아니다.
+     - 페이지에 포커스가 있는 것처럼 두고 실행했다(focus 이벤트가 나려면 필요하다).
+       (포커스 설정 없이 처음 실행했을 때는 focus() 를 불러도 focus·focusin 이벤트가 하나도 나지 않았고, 설정한 뒤 다시 실행한 결과만 아래에 담았다.)
+     - 네이버 검색 주소로 실제 제출하는 경우는 실행하지 않았다(검색어가 빈 경우만 확인).
+  3) "수업 코드가 아니라" 로 시작하는 뒷부분: 본문 설명을 확인하려고 만든 짧은 예시 코드와 결과
+실행 환경: Node v24.20.0, Chrome(headless)
+
+==================== 1) 수업 파일 (node) ====================
+----- node 07_spread-syntax.js
+[ '치킨', '피자', '파스타' ] [ '치킨', '피자', '파스타' ]
+[ '치킨', '피자', '파스타' ] [ '치킨', '피자', '빠네파스타' ]
+true
+false
+(종료 코드 0)
+
+----- node 08_destructuring.js
+치킨
+피자
+치킨
+피자
+{ name: '치즈알밥', price: 7500, category: '퓨전한식' }
+치즈알밥 7500 퓨전한식
+(종료 코드 0)
+
+==================== 2) 수업 파일 (Chrome, 02_Web) ====================
+----- 01_get-element.html 을 열었을 때 콘솔
+div#store.area
+HTMLCollection(16)
+ul#snack
+HTMLCollection(3)
+HTMLCollection(6)
+div.box
+
+----- 01_get-element.html 열린 뒤 상태
+id="store" 요소 수(문서 전체): 2
+getElementById("store") 가 돌려준 요소의 글: 냠냠분식 본점
+첫 번째 #store 배경색: rgb(255, 255, 0)
+두 번째 #store 배경색: rgba(0, 0, 0, 0)
+li 전체 개수(getElementsByTagName): 16
+snack 아래 li 글자색: ["rgb(255, 0, 0)","rgb(255, 0, 0)","rgb(255, 0, 0)"]
+drink 아래 li 글자색(바꾸지 않음): ["rgb(0, 0, 0)","rgb(0, 0, 0)","rgb(0, 0, 0)"]
+class="menu" 개수: 6
+첫 번째 .box 배경색: rgb(0, 128, 0)
+두 번째 .box 배경색: rgba(0, 0, 0, 0)
+
+----- 예시 코드: HTMLCollection 과 NodeList, 살아 있는 컬렉션
+getElementsByTagName("li") 의 타입: [object HTMLCollection]
+HTMLCollection.forEach: undefined
+HTMLCollection.map: undefined
+Array.from(HTMLCollection).map: function
+querySelectorAll 의 타입: [object NodeList]
+NodeList.forEach: function
+NodeList.map: undefined
+querySelectorAll(".menu") 개수: 6
+querySelectorAll("#list .drink") 개수: 2
+querySelector("#list .food") 글: 김밥
+컬렉션이 만들어진 뒤 li 를 하나 추가하면 (live HTMLCollection): {"before":[16,16],"after":[17,16]}
+document.getElementById("nothing"): null
+document.querySelector(".nothing"): null
+document.querySelectorAll(".nothing").length: 0
+
+----- 01_event-handler.html 을 열었을 때 콘솔
+
+----- 01_event-handler.html 버튼을 눌러 본 결과
+어트리뷰트 방식 "주문하기" 클릭: ["[alert] 주문 완료!","주문 완료!"]
+어트리뷰트 방식 mouseover: ["[alert] 김자바 님 , 오늘은 제육을 먹어봐요!"]
+프로퍼티 방식 클릭(onclick 을 두 번 대입함): ["[alert] 두번째 이벤트 핸들러 등록!!"]
+addEventListener 방식 클릭(두 번 등록함): ["[alert] 결제 완료!","[alert] 2번째 addEvent 동작!"]
+"쿠폰 받기" mouseover(등록 직후 remove 함): []
+
+----- 예시 코드: removeEventListener 가 하는 일
+같은 함수로 add 한 뒤 remove 하지 않으면 mouseover 가 부른 횟수: 1
+add 한 뒤 remove 하면: 0
+익명 함수를 따로 만들어 remove 하면(다른 함수라 제거되지 않음): 1
+같은 함수를 addEventListener 로 두 번 등록하면: 1
+onclick 프로퍼티 현재 값: () => alert("두번째 이벤트 핸들러 등록!!")
+
+----- 02_event-object.html 을 열었을 때 콘솔
+
+----- 02_event-object.html 이벤트를 일으켜 본 결과
+지도 영역 mouseover 뒤 지도 영역 글: 지도 : 120 , 80
+이때 콘솔: ["MouseEvent"]
+문서에 click(33, 44) 뒤 안내 문구: 배달 위치 : 33 , 44
+이때 콘솔: ["MouseEvent"]
+"떡볶이" 버튼(handleClick1(), this 를 넘기지 않음): ["click1 Window","PointerEvent"]
+"순대" 버튼(handleClick2(this)): ["click2 button","PointerEvent"]
+btn1~btn4 에 붙은 핸들러(onclick): [null,null,null,null]
+
+----- 예시 코드: 이벤트 객체의 프로퍼티를 바꿔 보면
+MouseEvent 에 pointerType 을 대입하면(mouseover 핸들러가 하는 일): {"대입전에있던속성":false,"대입후":"pen"}
+PointerEvent 의 pointerType(읽기 전용) 에 대입하면, 일반 모드: mouse
+PointerEvent 의 pointerType 에 대입하면, strict 모드: TypeError: Cannot set property pointerType of #<PointerEvent> which has only a getter
+실제 버튼 click() 이 만드는 이벤트의 종류: PointerEvent
+addEventListener 안의 일반 함수 this: {"일반":true,"화살표":false,"화살표this":"[object Window]"}
+
+----- 03_form-event.html 을 열었을 때 콘솔
+HTMLCollection(2)
+form
+form
+HTMLFormControlsCollection(6)
+input#username
+$form.username.value : 김자바
+$form.payment[1].checked : false
+HTMLOptionsCollection(6)
+맵지 않게 해주세요!
+
+----- 03_form-event.html 열린 뒤 폼 상태
+username.value: 김코틀린
+payment 선택값: cash
+menu.value / selectedIndex: ["ramen",4]
+request.value: 단무지 많이 주세요!
+글자 수 칸(span) 처음 값: 0
+
+----- 03_form-event.html 이벤트를 일으켜 본 결과
+focus 뒤 username 클래스: lightgray
+blur 뒤 username 클래스: 
+실제 focus() 뒤 username 클래스(onfocus 와 focusin 이 함께): lightgray focused
+blur() 뒤 username 클래스: 
+request 에 "  abc  " 를 넣고 input 이벤트 뒤 span: 3
+menu change 이벤트: ["[alert] 메뉴 변경!"]
+request change 이벤트: ["[alert] 요청사항 변경!"]
+
+----- 예시 코드: 값을 코드로 바꾸면 change 이벤트가 나는가
+select.value 를 코드로 바꿀 때 change 호출 횟수: 0
+이때 콘솔(위 핸들러가 alert 하지 않았는지): []
+
+----- 폼 제출(submit) 이벤트: 검색어가 비어 있을 때
+requestSubmit() 뒤 콘솔: ["[alert] 검색할 메뉴를 입력하지 않았습니다!"]
+주소가 바뀌었나: 바뀌지 않음(전송 취소)
+
+----- 예시 코드: onsubmit 의 return false 와 addEventListener 의 preventDefault
+addEventListener 에서 return false 만 하면(제출이 막히는가): {"기본동작이취소됨":false}
+addEventListener 에서 e.preventDefault() 를 하면: {"기본동작이취소됨":true}
+onsubmit 프로퍼티에서 return false 를 하면: {"기본동작이취소됨":true}
+
+==================== 수업 코드가 아니라 본문 설명을 확인하려고 만든 예시 코드 (node) ====================
+
+----- 매개변수 개수가 맞지 않아도 에러가 나지 않는다
+function merge(msg1, msg2) { return msg1 + msg2; }
+console.log(merge('안녕'));
+console.log(merge('안녕', '반가워', '초과 인수'));
+>>> 결과
+안녕undefined
+안녕반가워
+(종료 코드 0)
+
+----- rest 파라미터는 진짜 배열이고, 함수의 length 에 들어가지 않는다
+function mergeAll(...args) { console.log(Array.isArray(args)); return args.join(''); }
+console.log(mergeAll('가', '나', '다'));
+const sum = (...numbers) => numbers.reduce((acc, n) => acc + n, 0);
+console.log(sum(1, 2, 3, 4, 5), sum());
+function introduce(name, ...hobbies) {}
+console.log(introduce.length);
+try { eval('function f(a, ...b, c) {}'); } catch (e) { console.log(e.name + ': ' + e.message); }
+>>> 결과
+true
+가나다
+15 0
+1
+SyntaxError: Rest parameter must be last formal parameter
+(종료 코드 0)
+
+----- 배열을 Math.max 에 그대로 넘기면, 스프레드로 펼치면
+const arr = [10, 30, 20];
+console.log(Math.max(arr), Math.max(...arr));
+console.log(Math.min(1, ...arr, 2, ...[100, 300], 3));
+>>> 결과
+NaN 30
+1
+(종료 코드 0)
+
+----- 스프레드: 배열 이어 붙이기, 문자열 펼치기, 이터러블이 아닌 유사 배열
+const a = [10, 30, 20], b = [100, 300, 200];
+console.log([...a, ...b]);
+console.log([0, ...a, 99], a);
+console.log([...'React'], Array.from('JavaScript').length);
+const arrayLike = { 0: 'a', 1: 'b', length: 2 };
+console.log(Array.from(arrayLike), Array.from({ length: 3 }, (_, i) => i));
+try { console.log([...arrayLike]); } catch (e) { console.log(e.name + ': ' + e.message); }
+try { console.log([...{ x: 1 }]); } catch (e) { console.log(e.name + ': ' + e.message); }
+>>> 결과
+[ 10, 30, 20, 100, 300, 200 ]
+[ 0, 10, 30, 20, 99 ] [ 10, 30, 20 ]
+[ 'R', 'e', 'a', 'c', 't' ] 10
+[ 'a', 'b' ] [ 0, 1, 2 ]
+TypeError: arrayLike is not iterable
+TypeError: {(intermediate value)} is not iterable
+(종료 코드 0)
+
+----- 객체 스프레드: 같은 키는 뒤에 적은 값이 남는다
+const user = { name: '홍길동', age: 20 };
+console.log({ ...user, age: 21 });
+console.log({ age: 21, ...user });
+console.log({ ...{ size: 'md', color: 'gray' }, ...{ color: 'blue' } });
+>>> 결과
+{ name: '홍길동', age: 21 }
+{ age: 20, name: '홍길동' }
+{ size: 'md', color: 'blue' }
+(종료 코드 0)
+
+----- 대입은 복사가 아니다, 스프레드는 한 겹만 복사한다 (수업 파일 07 의 주석과 비교)
+const cart = ['치킨', '피자'];
+const same = cart;
+const copy = [...cart];
+same.push('파스타');
+console.log(cart, cart === same, cart === copy);
+const origin = { name: '홍길동', address: { city: '서울' } };
+const shallow = { ...origin };
+shallow.name = '유관순';
+shallow.address.city = '부산';
+console.log(origin.name, origin.address.city, origin.address === shallow.address);
+const nested = { ...origin, address: { ...origin.address } };
+nested.address.city = '대전';
+console.log(origin.address.city);
+const deep = structuredClone(origin);
+deep.address.city = '광주';
+console.log(origin.address.city, deep.address.city);
+>>> 결과
+[ '치킨', '피자', '파스타' ] true false
+홍길동 부산 true
+부산
+부산 광주
+(종료 코드 0)
+
+----- 배열 복사의 다른 방법
+const arr = [10, 30, 20];
+console.log(arr.slice(), Array.from(arr), Object.assign([], arr), arr === arr.slice());
+const obj = { name: '홍길동', age: 20 };
+console.log(Object.assign({}, obj), Object.assign({}, obj) === obj);
+>>> 결과
+[ 10, 30, 20 ] [ 10, 30, 20 ] [ 10, 30, 20 ] false
+{ name: '홍길동', age: 20 } false
+(종료 코드 0)
+
+----- 배열 구조 분해: 건너뛰기, 개수가 맞지 않을 때, 교환, rest
+const [first, , third] = ['a', 'b', 'c'];
+console.log(first, third);
+const [a, b, c] = [1, 2];
+console.log(a, b, c);
+const [d] = [1, 2, 3];
+console.log(d);
+let student = '유관순', teacher = '홍길동';
+[student, teacher] = [teacher, student];
+console.log(student, teacher);
+const [s1, s2, ...rest] = ['양', '황소', '쌍둥이', '게', '사자'];
+console.log(s1, s2, rest, Array.isArray(rest));
+const [only, ...nothing] = ['하나'];
+console.log(nothing);
+const [char1, char2] = 'JS';
+console.log(char1, char2);
+>>> 결과
+a c
+1 2 undefined
+1
+홍길동 유관순
+양 황소 [ '쌍둥이', '게', '사자' ] true
+[]
+J S
+(종료 코드 0)
+
+----- 구조 분해의 기본값은 undefined 일 때만 쓰인다
+const [v1 = '기본', v2 = '기본', v3 = '기본'] = [undefined, null, 0];
+console.log(v1, v2, v3);
+const { nickname = '이름없음', point = 100 } = { nickname: null, point: 0 };
+console.log(nickname, point);
+console.log({ nickname: null }.nickname ?? '이름없음');
+>>> 결과
+기본 null 0
+null 0
+이름없음
+(종료 코드 0)
+
+----- 객체 구조 분해: 이름 바꾸기, 없는 프로퍼티, 나머지 모으기
+const pants = { productName: '배기팬츠', color: '검정색', price: 30000, stock: 12 };
+const { price: p1, productName: n1 } = pants;
+console.log(n1, p1);
+const { size } = pants;
+console.log(size);
+const { productName: pn, ...rest } = pants;
+console.log(pn, rest);
+try { console.log(productName2); } catch (e) { console.log(e.name + ': ' + e.message); }
+const user = { id: 1, name: '유관순', password: 'secret' };
+const { password, ...safeUser } = user;
+console.log(safeUser, user);
+>>> 결과
+배기팬츠 30000
+undefined
+배기팬츠 { color: '검정색', price: 30000, stock: 12 }
+ReferenceError: productName2 is not defined
+{ id: 1, name: '유관순' } { id: 1, name: '유관순', password: 'secret' }
+(종료 코드 0)
+
+----- 선언 없이 기존 변수에 분해하려면 소괄호가 필요하다
+let a, b;
+const o = { a: 1, b: 2 };
+try { eval('{ a, b } = o;'); } catch (e) { console.log(e.name + ': ' + e.message); }
+({ a, b } = o);
+console.log(a, b);
+>>> 결과
+SyntaxError: Unexpected token '='
+1 2
+(종료 코드 0)
+
+----- 중첩 구조 분해와 중간 단계가 없을 때
+const product = { size: { width: 10, height: 30 }, items: ['doll', 'robot'] };
+const { size: { width, height }, items: [item1, item2], producer = '홍길동' } = product;
+console.log(width, height, item1, item2, producer);
+try { console.log(size); } catch (e) { console.log(e.name + ': ' + e.message); }
+const empty = {};
+try { const { size: { width: w } } = empty; } catch (e) { console.log(e.name + ': ' + e.message); }
+const { size: { width: w2 } = {} } = empty;
+console.log(w2);
+>>> 결과
+10 30 doll robot 홍길동
+ReferenceError: size is not defined
+TypeError: Cannot read properties of undefined (reading 'width')
+undefined
+(종료 코드 0)
+
+----- 함수 매개변수에서 구조 분해: 인수를 안 넘기면
+function displayProduct({ producer = '아무개', width = 10 }) { console.log(producer, width); }
+displayProduct({ width: 100 });
+try { displayProduct(); } catch (e) { console.log(e.name + ': ' + e.message); }
+function displaySafe({ producer = '아무개', width = 10 } = {}) { console.log(producer, width); }
+displaySafe();
+>>> 결과
+아무개 100
+TypeError: Cannot read properties of undefined (reading 'producer')
+아무개 10
+(종료 코드 0)
+
+----- 수업 파일 08 과 같은 이름으로 분해: name1 은 만든 적이 없는 이름이다
+const menu = { name: '치즈알밥', price: 7500 };
+const { name, price } = menu;
+console.log(name, price);
+try { console.log(name1); } catch (e) { console.log(e.name + ': ' + e.message); }
+>>> 결과
+치즈알밥 7500
+ReferenceError: name1 is not defined
+(종료 코드 0)
+
+----- 키 이름과 다른 이름으로 분해하면 undefined 가 된다 (프로퍼티 name1 은 menu 에 없다)
+const menu = { name: '치즈알밥', price: 7500 };
+const { name1, price1 } = menu;
+console.log(name1, price1);
+>>> 결과
+undefined undefined
+(종료 코드 0)
+
+==================== 수업 코드가 아니라 본문 설명을 확인하려고 만든 예시 코드 (Chrome) ====================
+----- 폼 요소: 체크박스는 value 가 아니라 checked 로 읽는다
+체크 전 value / checked: ["on",false]
+click() 뒤 value / checked: ["on",true]
+
+----- 폼 안 버튼의 type 기본값과 제출
+type 을 안 쓴 버튼의 type: submit
+type="button" 버튼의 type: button
+type 없는 버튼을 한 번 눌렀을 때 submit 이벤트 횟수: 1
+type="button" 버튼을 한 번 눌렀을 때 submit 이벤트 횟수(횟수를 0 으로 되돌린 뒤): 0
+
+----- focus 는 버블링되지 않고 focusin 은 버블링된다
+입력 칸에 focus() 했을 때 form 에 등록한 핸들러가 호출된 횟수: {"focus":0,"focusin":1}
+
+----- target 과 currentTarget
+안쪽 버튼을 눌렀을 때, 바깥 div 를 눌렀을 때 (target / currentTarget): ["BUTTON / DIV","DIV / DIV"]
+일반 함수와 화살표 함수로 등록해도 e.currentTarget 은 등록한 요소인가: {"일반함수":true,"화살표함수":true}
+
+----- once 옵션과 프로퍼티 핸들러 제거
+once: true 로 등록하고 두 번 누르면 실행된 횟수: 1
+onclick 프로퍼티로 등록한 핸들러: 단계마다 클릭하고 실행된 횟수: {"등록 뒤 클릭 1번":1,"removeEventListener 뒤 클릭 1번 더":2,"onclick = null 뒤 클릭 1번 더":2}
+onclick 프로퍼티와 addEventListener 를 섞으면(둘 다 실행): ["listener 1","property","listener 2"]
+
+----- keydown 의 key 와 code
+Shift + A 를 눌렀을 때를 흉내 낸 이벤트: {"key":"A","code":"KeyA","shift":true}

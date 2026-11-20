@@ -23,7 +23,7 @@
 - id: tailwind
   aliases: [tailwind]
 - id: js
-  aliases: [javascript, js, arrow-function, higher-order-function, hoisting]
+  aliases: [javascript, js, arrow-function, higher-order-function, hoisting, dom, event, spread-syntax, destructuring]
 - id: ts
   aliases: [typescript]
 - id: react
