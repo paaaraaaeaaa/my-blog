@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/@babel/standalone@8.1.3/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        function Header() {
+            return (
+                <>
+                    <h1>헤더입니다!</h1>
+                    <h3>사이트 이름은? ~~~~</h3>
+                </>
+            )
+        }
+
+        function NavBar() {
+            return (
+                <>
+                    <h3>네비게이션 바 입니다!!!</h3>
+                </>
+            );
+        }
+
+        function Footer() {
+            return (
+                <>
+                    <h3>푸터 입니다!!!</h3>
+                </>
+            );
+        }
+
+        const user = {
+            name : '김예린',
+            phone : '010-1234-5467',
+            age : 23,
+            gender : '여'
+        };
+
+        function Main() {
+            return (
+                <>
+                    <h3>이름: {user.name}</h3>
+                    <h3>전화번호: {user.phone}</h3>
+                    <h3>나이: {user.age}</h3>
+                    <h3>성별: {user.gender}</h3>
+                </>
+            );
+        }
+
+        function MainLayout() {
+            return(
+                <div style={{border : '1px solid black', backgroundColor : 'red'}}>
+                    <Header/>
+                    <NavBar/>
+                    <Main/>
+                    <Footer/>
+                </div>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById('root'))
+                .render(<MainLayout/>);
+
+    </script>
+</body>
+</html>

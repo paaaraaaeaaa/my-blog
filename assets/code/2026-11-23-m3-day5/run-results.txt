@@ -1,0 +1,82 @@
+5일차 실행 결과 (수업 2026-11-23, 12_React)
+
+이 파일의 구성
+  1) 수업 파일 html 6개를 헤드리스 Chrome 에서 열고 3.5초 기다린 뒤 기록한 것
+     - "#root 의 HTML" 은 React 가 화면에 만든 결과(document.getElementById('root').innerHTML)다.
+     - "콘솔 출력" 은 페이지가 열릴 때 생긴 콘솔 메시지다. [info]·[warning]·[error] 는 콘솔의 단계 표시다.
+     - 수업 파일은 unpkg CDN 에서 React 18.3.1 개발용 빌드와 @babel/standalone 8.1.3 을 불러온다. 실제로 인터넷에서 받아 실행했다.
+     - %c 같은 글자 서식 기호는 지우고 한 줄로 줄여 적었다.
+  2) "예시 코드(수업 코드 아님)": 본문 설명을 확인하려고 같은 버전의 React·Babel 을 불러온 빈 페이지에서 따로 실행한 결과
+     - 변환 결과를 눈으로 보려고 Babel 을 runtime: 'classic' 으로 설정했다(수업 파일의 기본 설정과 다르다. 기본 설정에서는 React.createElement 대신 react/jsx-runtime 의 _jsx 로 바뀐다).
+실행 환경: Chrome(headless), React 18.3.1, @babel/standalone 8.1.3
+
+----- 01_intro/01_createElement.html 을 열었을 때
+  #root 의 HTML: <h1 class="hi">helloworld!!</h1>
+  #root 의 자식 요소 수: 1
+  화면에 보이는 글자: "helloworld!!"
+  콘솔 출력:
+  [info] Download the React DevTools for a better development experience: ... (React 개발용 빌드가 열릴 때마다 찍는 안내. file:// 로 열면 로컬 서버를 쓰라는 문장이 함께 붙는다)
+
+----- 01_intro/02_component.html 을 열었을 때
+  #root 의 HTML: <h1 class="hi">helloworld!!</h1>
+  #root 의 자식 요소 수: 1
+  화면에 보이는 글자: "helloworld!!"
+  콘솔 출력:
+  [info] Download the React DevTools for a better development experience: ... (React 개발용 빌드가 열릴 때마다 찍는 안내. file:// 로 열면 로컬 서버를 쓰라는 문장이 함께 붙는다)
+
+----- 02_component/01_JSX/01_jsx-intro.html 을 열었을 때
+  #root 의 HTML: <h1 class="test">안녕!! 김 예린</h1>
+  #root 의 자식 요소 수: 1
+  화면에 보이는 글자: "안녕!! 김 예린"
+  콘솔 출력:
+  [info] Download the React DevTools for a better development experience: ... (React 개발용 빌드가 열릴 때마다 찍는 안내. file:// 로 열면 로컬 서버를 쓰라는 문장이 함께 붙는다)
+  [warning] You are using the in-browser Babel transformer. Be sure to precompile your scripts for production - https://babeljs.io/docs/setup/
+  [error] Warning: Invalid DOM property `class`. Did you mean `className`? (at h1)
+
+----- 02_component/01_JSX/02_fragment.html 을 열었을 때
+  #root 의 HTML: <h1>예린</h1><h3>010-1234-5678</h3>
+  #root 의 자식 요소 수: 2
+  화면에 보이는 글자: "예린\n010-1234-5678"
+  콘솔 출력:
+  [info] Download the React DevTools for a better development experience: ... (React 개발용 빌드가 열릴 때마다 찍는 안내. file:// 로 열면 로컬 서버를 쓰라는 문장이 함께 붙는다)
+  [warning] You are using the in-browser Babel transformer. Be sure to precompile your scripts for production - https://babeljs.io/docs/setup/
+
+----- 02_component/02_component/01_function-component.html 을 열었을 때
+  #root 의 HTML: <h1>헤더입니다!</h1><h3>사이트 이름은? ~~~~</h3>
+  #root 의 자식 요소 수: 2
+  화면에 보이는 글자: "헤더입니다!\n사이트 이름은? ~~~~"
+  콘솔 출력:
+  [info] Download the React DevTools for a better development experience: ... (React 개발용 빌드가 열릴 때마다 찍는 안내. file:// 로 열면 로컬 서버를 쓰라는 문장이 함께 붙는다)
+  [warning] You are using the in-browser Babel transformer. Be sure to precompile your scripts for production - https://babeljs.io/docs/setup/
+
+----- 02_component/02_component/02_composition.html 을 열었을 때
+  #root 의 HTML: <div style="border: 1px solid black; background-color: red;"><h1>헤더입니다!</h1><h3>사이트 이름은? ~~~~</h3><h3>네비게이션 바 입니다!!!</h3><h3>이름: 김예린</h3><h3>전화번호: 010-1234-5467</h3><h3>나이: 23</h3><h3>성별: 여</h3><h3>푸터 입니다!!!</h3></div>
+  #root 의 자식 요소 수: 1
+  화면에 보이는 글자: "헤더입니다!\n사이트 이름은? ~~~~\n네비게이션 바 입니다!!!\n이름: 김예린\n전화번호: 010-1234-5467\n나이: 23\n성별: 여\n푸터 입니다!!!"
+  최상위 div 의 border / 배경색: 1px solid rgb(0, 0, 0) / rgb(255, 0, 0)
+  콘솔 출력:
+  [info] Download the React DevTools for a better development experience: ... (React 개발용 빌드가 열릴 때마다 찍는 안내. file:// 로 열면 로컬 서버를 쓰라는 문장이 함께 붙는다)
+  [warning] You are using the in-browser Babel transformer. Be sure to precompile your scripts for production - https://babeljs.io/docs/setup/
+
+----- 예시 코드(수업 코드 아님)
+React.createElement 가 돌려주는 값(엘리먼트): {"typeof":"object","type":"h1","props":{"className":"hi","children":"helloworld!!"},"$$typeof":"Symbol(react.element)"}
+컴포넌트 함수를 그냥 부르면 vs createElement 로 감싸면: {"함수호출":{"type":"h1"},"createElement":{"type":"function","이름":"Hello"}}
+JSX 를 Babel 로 바꾼 결과(<h1 className="test">안녕</h1>): const e = /*#__PURE__*/React.createElement("h1", {
+  className: "test"
+}, "안녕");
+JSX 에서 <Header/> 와 <header/> 의 변환 결과: /*#__PURE__*/React.createElement(Header, null);
+/*#__PURE__*/React.createElement("header", null);
+Fragment 변환 결과: const e = /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "a"), /*#__PURE__*/React.createElement("h3", null, "b"));
+최상위 엘리먼트가 2개일 때 Babel 의 오류: unknown: Adjacent JSX elements must be wrapped in an enclosing tag. Did you want a JSX fragment <>...</>? (1:21)
+Fragment 를 쓸 때와 div 로 감쌀 때 #root 의 자식: {"Fragment":"<h1>a</h1><h3>b</h3>","div로감쌈":"<div><h1>a</h1><h3>b</h3></div>"}
+소문자 컴포넌트 <header/> 는 html 요소로 만들어진다: {"innerHTML":"<header></header>"}
+JSX 에 class="test" 를 쓰면 (수업 01_jsx-intro 코드와 같은 방식) — 렌더된 HTML: <h1 class="test">안녕</h1>
+  이때 콘솔:
+  [error] Warning: Invalid DOM property `class`. Did you mean `className`? (at h1)
+style={{...}} 의 바깥 중괄호는 JS 표현식, 안쪽은 객체: /*#__PURE__*/React.createElement("div", {
+  style: {
+    border: "1px solid black",
+    backgroundColor: "red"
+  }
+});
+React 개발용 빌드 버전: 18.3.1

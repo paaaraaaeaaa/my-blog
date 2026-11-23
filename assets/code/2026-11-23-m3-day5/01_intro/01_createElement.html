@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- 리액트 공식 사이트의 시작하기 들어가서 문서에 있는 CDN을 복사해서 넣어준다. -->
+     <!--
+        React 를 사용하는 방법은 크게 2가지가 있다.
+        1. React 앱 생성 (대부분 이거 사용)
+        2. 아래 script 태그처럼 사용할 라이브러리 임포트
+     -->
+    <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script>
+        
+        /*
+            React 는 가상 돔(Virtual DOM) 이라는 개념을 가지고 있다.
+            메모리 상에 존재하는 DOM (코드 상으로 구현)
+        */
+
+        /*
+            1번째 인자 : 만드려는 요소의 타입 (ex. h1, div, pre)
+            2번째 인자 : 요소의 프로퍼티를 표현
+            3번째 인자 : 자식 요소 표현
+        */
+        const hiElement = React.createElement('h1', {className: 'hi'}, 'helloworld!!');
+
+        ReactDOM.createRoot(document.getElementById('root')).render(hiElement);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    
+    <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script>
+        
+        /*
+            React 에서 중요한 키워드
+            1. 엘리먼트 
+            - 요소 노드, 어트리뷰트 노드, 텍스트 노드 로 구성된다.
+            - <h1 class = 'test'>안녕!!</h1>
+            
+            2. 컴포넌트
+            - 엘리먼트를 반환하는 개념을 가진 화면의 구성 조각 단위
+        */
+
+        // 함수형 컴포넌트 
+        // -> 함수 이름 앞글자 대문자!! (암묵적 규칙)
+        // JS 에서 함수는 Java 의 메소드처럼 특별한 기능을 하는 코드의 집합이라고 생각하면 된다.
+        // 다만 컴포넌트 함수의 경우 엘리먼트를 반환하는 함수이기 때문에 일반적인 함수와 구분하기 위해 앞글자를 대문자로 쓰는 것을 규칙처럼 활용하게 된다.
+        function Helloworld() {
+            // 엘리먼트 리턴
+
+            /*
+                요소를 만들 때마다 createElement 로 만들게 되면 굉장히 복잡하고 힘들다.
+                JSX 문법()
+            */
+            return React.createElement('h1', {className: 'hi'}, 'helloworld!!');
+        }
+
+        // render(엘리먼트); Helloworld 는 컴포넌트라 결과 ㄴㄴ.
+        ReactDOM.createRoot(document.getElementById('root'))
+                // 컴포넌트를 엘리먼트화 시킴        
+                .render(React.createElement(Helloworld));
+    </script>
+</body>
+</html>
