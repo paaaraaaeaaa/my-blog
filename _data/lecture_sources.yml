@@ -70,4 +70,4 @@
 - dir: "12_React"
   module: 3
   title: "React"
-  desc: "01_intro(createElement로 엘리먼트 만들기, 엘리먼트와 컴포넌트), 02_component(JSX와 Babel, Fragment, 함수형 컴포넌트, 컴포넌트 조립)"
+  desc: "01_intro(createElement로 엘리먼트 만들기, 엘리먼트와 컴포넌트), 02_component(JSX와 Babel, Fragment, 함수형 컴포넌트, 컴포넌트 조립, Vite 프로젝트·React Router·Layout)"

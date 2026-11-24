@@ -1,0 +1,74 @@
+# component-app 실행 결과 (vite dev 서버 + 헤드리스 Chrome, 2026-11-24)
+# 이름·메일은 공개용 예시 값으로 바꿨습니다.
+
+$ curl http://localhost:5199/vite/module   (서버가 보내는 응답 본문, vite가 끼워 넣는 개발용 스크립트 줄은 생략)
+<body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+</body>
+
+===== 1. http://localhost:5199/ 첫 접속
+document 요청: /
+#root HTML: <div class="_layout_1tt32_1"><nav class="_nav_masue_1"><h2><a aria-current="page" class="active" href="/" data-discover="true">React 챕터</a></h2><h4>01. Vite</h4><a class="" href="/vite/intro" data-discover="true">프로젝트 생성</a><a class="" href="/vite/module" data-discover="true">모듈</a></nav><main class="_content_1tt32_11"><h1>React!!</h1><p>왼쪽 메뉴바에서 챕터를 선택해주세요</p></main></div>
+document.title: component-app
+location.pathname: /
+<script> 로 불러온 JS 요청 수: 21
+
+===== 2. 메뉴 클릭(NavLink)
+--- "프로젝트 생성" 클릭
+location.pathname: /vite/intro
+main 영역 텍스트: "Hello World !!!!!!"
+window.__marker 유지: alive
+nav 요소가 그대로인가(===): true
+새로 보낸 document 요청 수: 0
+이 사이에 나간 요청: (없음)
+활성 링크 배경색: rgb(255, 69, 0)
+비활성 링크 배경색("모듈"): rgba(0, 0, 0, 0)
+--- "모듈" 클릭
+location.pathname: /vite/module
+main 영역 텍스트: "홍길동\n23\nhong@example.com"
+window.__marker 유지: alive
+nav 요소가 그대로인가(===): true
+새로 보낸 document 요청 수: 0
+이 사이에 나간 요청: (없음)
+모듈 화면 색(이름/나이/메일): H1:rgb(255, 0, 0) H2:rgb(255, 165, 0) H3:rgb(0, 0, 255)
+Navbar 의 CSS Module 클래스명: _nav_masue_1
+Layout 의 CSS Module 클래스명: _layout_1tt32_1 / _content_1tt32_11
+--- "React 챕터" 클릭(홈)
+location.pathname: /
+main 영역 텍스트: "React!!\n\n왼쪽 메뉴바에서 챕터를 선택해주세요"
+window.__marker 유지: alive
+nav 요소가 그대로인가(===): true
+새로 보낸 document 요청 수: 0
+이 사이에 나간 요청: (없음)
+--- 뒤로 가기(history.back)
+location.pathname: /vite/module
+main 영역 텍스트: "홍길동\n23\nhong@example.com"
+window.__marker 유지: alive
+nav 요소가 그대로인가(===): true
+새로 보낸 document 요청 수: 0
+이 사이에 나간 요청: (없음)
+
+===== 3. 일반 <a href> 와 비교(예시 확인)
+location.pathname: /vite/intro
+window.__marker (새로고침되면 undefined): undefined
+새로 보낸 document 요청: /vite/intro
+
+===== 4. 주소창에 /vite/module 직접 입력
+document 요청: /vite/module
+main 영역 텍스트: "홍길동\n23\nhong@example.com"
+
+===== 5. 없는 주소 /nothing
+body 텍스트: ""
+콘솔: (경고는 별도 수집 안 함)
+
+===== 6. 프로젝트 생성·의존성 설치 로그(수업 로그에서 발췌)
+$ npm create vite@latest component-app  /  npm install react-router-dom
+$ npm install react-router-dom
+
+added 4 packages, and audited 29 packages in 2s
+
+10 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities

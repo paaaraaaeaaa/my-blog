@@ -1,0 +1,57 @@
+PS 12_React> cd .\02_component\
+PS 12_React\02_component> npm create vite@latest component-app
+Need to install the following packages:
+create-vite@9.3.4
+Ok to proceed? (y) y
+
+> npx
+> cva component-app
+
+
+create-vite v9.3.4
+
+│
+◇  Select a framework:
+│  React
+│
+◇  Select a variant:
+│  JavaScript
+│
+◇  Which linter to use?
+│  Oxlint
+│
+◇  Install with npm and start now?
+│  Yes
+│
+◇  Scaffolding project in 12_React\02_component\component-app...
+│
+◇  Installing dependencies with npm...
+
+added 24 packages, and audited 25 packages in 38s
+
+9 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+│
+◇  Starting dev server...
+
+> component-app@0.0.0 dev
+> vite
+
+
+  VITE v8.3.8  ready in 416 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
+  
+PS 12_React> cd .\02_component\component-app\
+PS 12_React\02_component\component-app> npm install react-router-dom
+
+added 4 packages, and audited 29 packages in 2s
+
+10 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
