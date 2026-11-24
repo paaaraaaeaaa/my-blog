@@ -320,3 +320,11 @@
   module: 3
   url: "https://claude.ai/artifact/DTn5GvRGDqbexpattvvTPT"
   description: "한 번에 하나만 실행하는 JavaScript가 멈추지 않는 이유를 실행·위임·순환·검증 네 단계로 보여 주는 이벤트 루프 시각화 자료입니다."
+
+- category: "아티팩트"
+  title: "React를 쓰는 이유 (DOM으로 이해하는 React·Next.js)"
+  series: "React"
+  short: "React를 쓰는 이유"
+  module: 3
+  url: "https://claude.ai/artifact/RcZaSz1fSqNem8xi2XDKjw"
+  description: "DOM 관점에서 React와 Next.js를 쓰는 이유를, 필요한 화면 반영과 낭비·오류가 생기는 렌더링을 대비하는 실시간 예시(개념 예시, 실측값 아님)로 보여 주는 자료입니다."
