@@ -6,3 +6,4 @@
 # 한계: 달력의 주(week)는 학습노트가 한 편이라도 있는 주만 만들어진다. 글이 없는 주는 기간이어도 칸이 나오지 않는다.
 # 형식: - { module: 모듈번호, start: "YYYY-MM-DD", end: "YYYY-MM-DD", label: "프로젝트 이름" }
 - { module: 2, start: "2026-11-06", end: "2026-11-12", label: "MoneyBeetle 팀 프로젝트" }
+- { module: 3, start: "2026-12-07", end: "2026-12-11", label: "프론트엔드 팀 프로젝트" }
