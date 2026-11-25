@@ -27,7 +27,7 @@
 - id: ts
   aliases: [typescript]
 - id: react
-  aliases: [react, react state, jsx, virtual-dom, component, spa, csr, ssr, react-router]
+  aliases: [react, react state, jsx, virtual-dom, component, spa, csr, ssr, react-router, props, state, usestate, iteration]
 - id: vite
   aliases: [vite, npm]
 - id: nextjs
