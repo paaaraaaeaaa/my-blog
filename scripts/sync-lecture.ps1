@@ -8,6 +8,8 @@
 # - 건너뛰는 폴더: .git .idea .gradle .claude .github out build node_modules target (경로 어디에 있든)
 # - .properties·.yaml·.yml 의 password/secret/token 줄은 값을 ******** 로 가려서 복사한다. 공개 저장소이므로.
 #   (.java 안에 적힌 수업용 로컬 DB 계정은 가리지 않는다. 8일차 글에도 이미 공개된 값이다.)
+# - 복사하지 않는 파일: $skipFiles 에 적은 파일(수업 파일 안에 "블로그에 넣지 않을 것"이라고 적힌 것).
+# - 개인정보: 복사한 텍스트 파일 안의 본인 이메일은 예시 주소로 바꾸고, user.js 의 본인 이름도 예시 이름으로 바꾼다.
 # - 안전장치: 원본 폴더가 하나도 없으면 아무것도 지우지 않고 멈춘다. 먼저 임시 폴더에 복사하고,
 #   성공하면 assets/code/lecture/ 를 통째로 교체한다. 그래서 이 폴더 안에 손으로 넣은 파일은 사라진다.
 param(
@@ -19,6 +21,7 @@ $ErrorActionPreference = 'Stop'
 $courses  = '01_Git', '01_HTML', '02_CSS', '03_JAVA', '04_MySQL', '05_JDBC', '06_Servlet', '07_Spring-Core', '08_Spring-Web-MVC', '09_JPA', '10_Spring-Security', '11_JavaScript', '12_React'
 $ext      = '.java', '.html', '.css', '.sql', '.md', '.xml', '.gradle', '.jsp', '.js', '.txt', '.properties', '.yaml', '.yml'
 $skipDirs = '.git', '.idea', '.gradle', '.claude', '.github', 'out', 'build', 'node_modules', 'target'
+$skipFiles = '12_React\data-fetch-app-skeleton\result.txt'
 $maxBytes = 300KB
 $utf8 = New-Object System.Text.UTF8Encoding($false)
 
@@ -49,6 +52,7 @@ try {
       $dirs = if ($parts.Length -gt 1) { $parts[0..($parts.Length - 2)] } else { @() }
       if ($dirs | Where-Object { $skipDirs -contains $_ }) { return }
       if ($ext -notcontains $_.Extension.ToLower()) { return }
+      if ($skipFiles -contains "$c\$rel") { Write-Host "  excluded: $c\$rel"; return }
       if ($_.Length -gt $maxBytes) { Write-Host "  too large, skipped: $c\$rel"; return }
       $to = Join-Path (Join-Path $tmp $c) $rel
       New-Item -ItemType Directory -Path (Split-Path $to) -Force | Out-Null
@@ -70,6 +74,16 @@ try {
         [System.IO.File]::WriteAllText($to, $new, $utf8)
       } else {
         Copy-Item -LiteralPath $_.FullName -Destination $to
+      }
+      # 개인정보: 본인 이메일은 예시 주소로, user.js 의 본인 이름은 예시 이름으로 바꾼다 (이름은 코드 포인트로 표기)
+      if ($_.Extension.ToLower() -ne '.jar') {
+        $text = [System.IO.File]::ReadAllText($to, $utf8)
+        $new = [regex]::Replace($text, '[\w.+\-]+@g\.eulji\.ac\.kr', 'hong@example.com')
+        if ($_.Name -eq 'user.js') {
+          $myName = [string]::Concat([char]0xAE40, [char]0xC608, [char]0xB9B0)
+          $new = $new.Replace($myName, ([string]::Concat([char]0xD64D, [char]0xAE38, [char]0xB3D9)))
+        }
+        if ($new -ne $text) { [System.IO.File]::WriteAllText($to, $new, $utf8) }
       }
       $count++
       if ($null -eq $first -or $_.LastWriteTime -lt $first) { $first = $_.LastWriteTime }
